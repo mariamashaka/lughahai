@@ -5,90 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lugha Hai — Living Languages</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: var(--cream-dark);
+      border-radius: var(--radius-xl);
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-switcher__btn {
+      padding: 4px 12px;
+      border-radius: var(--radius-xl);
+      border: none;
+      background: transparent;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background: var(--white);
+      color: var(--green-deep);
+      box-shadow: 0 1px 4px var(--shadow-warm);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ===================== NAVIGATION ===================== -->
+  <!-- NAV -->
   <nav class="nav">
     <div class="container">
       <div class="nav__inner">
-        <a href="index.html" class="nav__logo">
-          Lugha <span>Hai</span>
-        </a>
+        <a href="index.html" class="nav__logo">Lugha <span>Hai</span></a>
         <div class="nav__links">
-          <a href="#languages" class="nav__link">Languages</a>
-          <a href="#about" class="nav__link">About</a>
+          <a href="#languages" class="nav__link" data-i18n="nav_languages">Lugha</a>
+          <a href="#about" class="nav__link" data-i18n="nav_about">Kuhusu</a>
         </div>
         <div class="nav__actions">
-          <a href="auth/login.html" class="btn btn--ghost">Sign in</a>
-          <a href="auth/register.html" class="btn btn--primary">Join</a>
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="auth/login.html" class="btn btn--ghost" data-i18n="nav_signin">Ingia</a>
+          <a href="auth/register.html" class="btn btn--primary" data-i18n="nav_join">Jiunge</a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ===================== HERO ===================== -->
+  <!-- HERO -->
   <section class="hero section">
     <div class="container">
-      <span class="hero__eyebrow">Preserving heritage languages</span>
+      <span class="hero__eyebrow" data-i18n="hero_eyebrow">Kuhifadhi lugha za urithi</span>
       <h1 class="hero__title">
-        Every language is a<br><em>living world</em>
+        <span data-i18n="hero_title_1">Kila lugha ni</span><br>
+        <em style="font-family:var(--font-body); font-style:italic;" data-i18n="hero_title_em">ulimwengu hai</em>
       </h1>
-      <p class="hero__subtitle">
-        Lugha Hai is an open platform to document, preserve and teach
-        endangered heritage languages — built by communities, for communities.
+      <p class="hero__subtitle" data-i18n="hero_subtitle">
+        Lugha Hai ni jukwaa wazi la kuandika, kuhifadhi na kufundisha lugha za urithi — lililojengwa na jamii, kwa jamii.
       </p>
       <div class="hero__actions">
-        <a href="#languages" class="btn btn--primary btn--lg">Explore languages</a>
-        <a href="#about" class="btn btn--secondary btn--lg">How it works</a>
+        <a href="#languages" class="btn btn--primary btn--lg" data-i18n="hero_btn1">Gundua lugha</a>
+        <a href="#about" class="btn btn--secondary btn--lg" data-i18n="hero_btn2">Jinsi inavyofanya kazi</a>
       </div>
     </div>
   </section>
 
-  <!-- ===================== STATS STRIP ===================== -->
-  <div style="background: var(--green-deep); padding: var(--space-lg) 0;">
+  <!-- STATS -->
+  <div style="background:var(--green-deep); padding:var(--space-lg) 0;">
     <div class="container">
       <div class="grid grid--4" style="text-align:center;">
         <div>
-          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">1</div>
-          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Language in progress</div>
+          <div style="font-family:var(--font-body); font-size:2rem; color:var(--cream); font-weight:600;">1</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;" data-i18n="stat1">Lugha inayoendelea</div>
         </div>
         <div>
-          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">41</div>
-          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Topics planned (A1)</div>
+          <div style="font-family:var(--font-body); font-size:2rem; color:var(--cream); font-weight:600;">41</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;" data-i18n="stat2">Mada zilizopangwa (A1)</div>
         </div>
         <div>
-          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">3</div>
-          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Contributors</div>
+          <div style="font-family:var(--font-body); font-size:2rem; color:var(--cream); font-weight:600;">3</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;" data-i18n="stat3">Wachangiaji</div>
         </div>
         <div>
-          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">∞</div>
-          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Languages to preserve</div>
+          <div style="font-family:var(--font-body); font-size:2rem; color:var(--cream); font-weight:600;">∞</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;" data-i18n="stat4">Lugha za kuhifadhi</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ===================== LANGUAGES ===================== -->
+  <!-- LANGUAGES -->
   <section class="section" id="languages">
     <div class="container">
-
       <div class="flex-between flex-wrap flex-gap-md mb-xl">
         <div class="section-header" style="margin-bottom:0;">
-          <div class="section-header__label">Heritage languages</div>
-          <h2 class="section-header__title">Explore languages</h2>
+          <div class="section-header__label" data-i18n="langs_label">Lugha za urithi</div>
+          <h2 class="section-header__title" data-i18n="langs_title">Gundua lugha</h2>
         </div>
-        <!-- Search / filter (visual only for now) -->
         <div style="display:flex; gap:var(--space-sm); align-items:center; flex-wrap:wrap;">
-          <input
-            type="text"
-            class="form-input"
-            placeholder="Search languages..."
-            style="width:220px;"
-            id="searchInput"
-          />
+          <input type="text" class="form-input" id="searchInput" style="width:220px;" data-i18n-placeholder="search_placeholder" placeholder="Tafuta lugha..." />
           <select class="form-select" style="width:160px;" id="regionFilter">
-            <option value="">All regions</option>
+            <option value="" data-i18n="filter_all">Mikoa yote</option>
             <option value="East Africa">East Africa</option>
             <option value="West Africa">West Africa</option>
             <option value="Southern Africa">Southern Africa</option>
@@ -96,106 +116,138 @@
           </select>
         </div>
       </div>
-
-      <!-- Language cards grid -->
-      <div class="grid grid--langs" id="languagesGrid">
-        <!-- Cards injected by JS -->
-      </div>
-
-      <div id="noResults" style="display:none; text-align:center; padding:var(--space-2xl) 0; color:var(--text-muted);">
-        No languages found matching your search.
-      </div>
-
+      <div class="grid grid--langs" id="languagesGrid"></div>
+      <div id="noResults" style="display:none; text-align:center; padding:var(--space-2xl) 0; color:var(--text-muted);"></div>
     </div>
   </section>
 
-  <!-- ===================== HOW IT WORKS ===================== -->
+  <!-- HOW IT WORKS -->
   <section class="section" id="about" style="background:var(--white);">
     <div class="container">
       <div class="section-header text-center">
-        <div class="section-header__label">How it works</div>
-        <h2 class="section-header__title">Built by communities</h2>
-        <p class="section-header__subtitle">
-          Native speakers, educated moderators and learners working together.
-        </p>
+        <div class="section-header__label" data-i18n="how_label">Jinsi inavyofanya kazi</div>
+        <h2 class="section-header__title" data-i18n="how_title">Imejengwa na jamii</h2>
+        <p class="section-header__subtitle" data-i18n="how_subtitle">Wazungumzaji asili, wasimamizi na wanafunzi wakifanya kazi pamoja.</p>
       </div>
-
-      <div class="grid grid--3" style="gap: var(--space-xl);">
-
+      <div class="grid grid--3" style="gap:var(--space-xl);">
         <div style="text-align:center;">
-          <div style="
-            width:64px; height:64px; border-radius:50%;
-            background:var(--green-mist);
-            display:flex; align-items:center; justify-content:center;
-            margin:0 auto var(--space-md);
-            font-size:1.6rem;
-          ">🗣️</div>
-          <h3 style="margin-bottom:var(--space-sm);">Contributors</h3>
-          <p>Native speakers record words, phrases and audio — filling in structured templates for each topic.</p>
+          <div style="width:64px;height:64px;border-radius:50%;background:var(--green-mist);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-md);font-size:1.6rem;">🗣️</div>
+          <h3 style="margin-bottom:var(--space-sm);" data-i18n="role_contributor">Wachangiaji</h3>
+          <p data-i18n="role_contributor_desc">Wazungumzaji asili wanarekodi maneno, misemo na sauti — wakijaza violezo vilivyoandaliwa kwa kila mada.</p>
         </div>
-
         <div style="text-align:center;">
-          <div style="
-            width:64px; height:64px; border-radius:50%;
-            background:var(--gold-light);
-            display:flex; align-items:center; justify-content:center;
-            margin:0 auto var(--space-md);
-            font-size:1.6rem;
-          ">✅</div>
-          <h3 style="margin-bottom:var(--space-sm);">Moderators</h3>
-          <p>Educated native speakers review contributions, select the best audio and compile grammar references.</p>
+          <div style="width:64px;height:64px;border-radius:50%;background:var(--gold-light);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-md);font-size:1.6rem;">✅</div>
+          <h3 style="margin-bottom:var(--space-sm);" data-i18n="role_moderator">Wasimamizi</h3>
+          <p data-i18n="role_moderator_desc">Wazungumzaji asili wenye elimu ya juu wanakagua michango, wanachagua sauti bora na wanakusanya marejeo ya sarufi.</p>
         </div>
-
         <div style="text-align:center;">
-          <div style="
-            width:64px; height:64px; border-radius:50%;
-            background:var(--cream-dark);
-            display:flex; align-items:center; justify-content:center;
-            margin:0 auto var(--space-md);
-            font-size:1.6rem;
-          ">📖</div>
-          <h3 style="margin-bottom:var(--space-sm);">Learners</h3>
-          <p>Anyone can learn any language for free — with structured lessons, audio and grammar references.</p>
+          <div style="width:64px;height:64px;border-radius:50%;background:var(--cream-dark);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-md);font-size:1.6rem;">📖</div>
+          <h3 style="margin-bottom:var(--space-sm);" data-i18n="role_learner">Wanafunzi</h3>
+          <p data-i18n="role_learner_desc">Mtu yeyote anaweza kujifunza lugha yoyote bila malipo — na masomo yenye mpangilio, sauti na marejeo ya sarufi.</p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ===================== CTA ===================== -->
+  <!-- CTA -->
   <section class="section" style="text-align:center;">
     <div class="container--narrow">
-      <h2 style="margin-bottom:var(--space-md);">
-        Is your language missing?
-      </h2>
-      <p style="margin-bottom:var(--space-xl);">
-        If you are a native speaker of a heritage language and want to
-        contribute — we would love to have you.
-      </p>
-      <a href="auth/register.html" class="btn btn--terracotta btn--lg">
-        Become a contributor
-      </a>
+      <h2 style="margin-bottom:var(--space-md);" data-i18n="cta_title">Je, lugha yako haipo?</h2>
+      <p style="margin-bottom:var(--space-xl);" data-i18n="cta_desc">Ikiwa wewe ni mzungumzaji asili wa lugha ya urithi na unataka kuchangia — tungependa sana kukuwa nawe.</p>
+      <a href="auth/register.html" class="btn btn--terracotta btn--lg" data-i18n="cta_btn">Kuwa mchangiaji</a>
     </div>
   </section>
 
-  <!-- ===================== FOOTER ===================== -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer__logo">Lugha Hai</div>
-      <p class="footer__tagline">Living languages, preserved for generations.</p>
+      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
       <div class="footer__bottom">
-        <span>© 2026 Lugha Hai. Open platform.</span>
-        <span style="color:var(--green-pale); font-size:0.8rem;">
-          Built with ♥ in Tanzania
-        </span>
+        <span>© 2026 Lugha Hai.</span>
+        <span style="color:var(--green-pale); font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
       </div>
     </div>
   </footer>
 
-  <!-- ===================== JAVASCRIPT ===================== -->
   <script>
+    // ── TRANSLATIONS ──────────────────────────────────────
+    const i18n = {
+      sw: {
+        nav_languages: "Lugha", nav_about: "Kuhusu", nav_signin: "Ingia", nav_join: "Jiunge",
+        hero_eyebrow: "Kuhifadhi lugha za urithi",
+        hero_title_1: "Kila lugha ni", hero_title_em: "ulimwengu hai",
+        hero_subtitle: "Lugha Hai ni jukwaa wazi la kuandika, kuhifadhi na kufundisha lugha za urithi — lililojengwa na jamii, kwa jamii.",
+        hero_btn1: "Gundua lugha", hero_btn2: "Jinsi inavyofanya kazi",
+        stat1: "Lugha inayoendelea", stat2: "Mada zilizopangwa (A1)", stat3: "Wachangiaji", stat4: "Lugha za kuhifadhi",
+        langs_label: "Lugha za urithi", langs_title: "Gundua lugha",
+        search_placeholder: "Tafuta lugha...", filter_all: "Mikoa yote",
+        how_label: "Jinsi inavyofanya kazi", how_title: "Imejengwa na jamii",
+        how_subtitle: "Wazungumzaji asili, wasimamizi na wanafunzi wakifanya kazi pamoja.",
+        role_contributor: "Wachangiaji",
+        role_contributor_desc: "Wazungumzaji asili wanarekodi maneno, misemo na sauti — wakijaza violezo vilivyoandaliwa kwa kila mada.",
+        role_moderator: "Wasimamizi",
+        role_moderator_desc: "Wazungumzaji asili wenye elimu ya juu wanakagua michango, wanachagua sauti bora na wanakusanya marejeo ya sarufi.",
+        role_learner: "Wanafunzi",
+        role_learner_desc: "Mtu yeyote anaweza kujifunza lugha yoyote bila malipo — na masomo yenye mpangilio, sauti na marejeo ya sarufi.",
+        cta_title: "Je, lugha yako haipo?",
+        cta_desc: "Ikiwa wewe ni mzungumzaji asili wa lugha ya urithi na unataka kuchangia — tungependa sana kukuwa nawe.",
+        cta_btn: "Kuwa mchangiaji",
+        footer_tagline: "Lugha hai, zilizohifadhiwa kwa vizazi.",
+        card_contributors: "Wachangiaji", card_topics: "Mada zilizokamilika",
+        card_speakers: "Wazungumzaji asili", card_content: "Maudhui ya A1",
+        card_active: "Inafanya kazi", no_results: "Hakuna lugha zilizopatikana."
+      },
+      en: {
+        nav_languages: "Languages", nav_about: "About", nav_signin: "Sign in", nav_join: "Join",
+        hero_eyebrow: "Preserving heritage languages",
+        hero_title_1: "Every language is a", hero_title_em: "living world",
+        hero_subtitle: "Lugha Hai is an open platform to document, preserve and teach heritage languages — built by communities, for communities.",
+        hero_btn1: "Explore languages", hero_btn2: "How it works",
+        stat1: "Language in progress", stat2: "Topics planned (A1)", stat3: "Contributors", stat4: "Languages to preserve",
+        langs_label: "Heritage languages", langs_title: "Explore languages",
+        search_placeholder: "Search languages...", filter_all: "All regions",
+        how_label: "How it works", how_title: "Built by communities",
+        how_subtitle: "Native speakers, educated moderators and learners working together.",
+        role_contributor: "Contributors",
+        role_contributor_desc: "Native speakers record words, phrases and audio — filling in structured templates for each topic.",
+        role_moderator: "Moderators",
+        role_moderator_desc: "Educated native speakers review contributions, select the best audio and compile grammar references.",
+        role_learner: "Learners",
+        role_learner_desc: "Anyone can learn any language for free — with structured lessons, audio and grammar references.",
+        cta_title: "Is your language missing?",
+        cta_desc: "If you are a native speaker of a heritage language and want to contribute — we would love to have you.",
+        cta_btn: "Become a contributor",
+        footer_tagline: "Living languages, preserved for generations.",
+        card_contributors: "Contributors", card_topics: "Topics done",
+        card_speakers: "Native speakers", card_content: "A1 content",
+        card_active: "Active", no_results: "No languages found matching your search."
+      }
+    };
+
+    let currentLang = 'sw';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = i18n[lang];
+
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      filterLanguages();
+    }
+
     // ── DATA ──────────────────────────────────────────────
-    // This is where languages live for now (JSON file later)
     const languages = [
       {
         id: "kikurya",
@@ -203,116 +255,74 @@
         country: "Tanzania",
         region: "East Africa",
         subregion: "Mara Region",
-        speakers: "approx. 600,000",
+        speakers: "~600,000",
         contributors: 2,
         topics_done: 1,
         topics_total: 41,
         levels: ["A1"],
-        status: "active",
-        color: "#3D6B5A"
+        status: "active"
       }
-      // More languages will be added here
     ];
 
-    // ── RENDER CARDS ──────────────────────────────────────
+    // ── RENDER ────────────────────────────────────────────
     function renderCards(data) {
+      const t = i18n[currentLang];
       const grid = document.getElementById('languagesGrid');
       const noResults = document.getElementById('noResults');
 
       if (data.length === 0) {
         grid.innerHTML = '';
+        noResults.textContent = t.no_results;
         noResults.style.display = 'block';
         return;
       }
 
       noResults.style.display = 'none';
-
       grid.innerHTML = data.map(lang => {
         const progress = Math.round((lang.topics_done / lang.topics_total) * 100);
-        const levelBadges = lang.levels.map(l =>
+        const badges = lang.levels.map(l =>
           `<span class="badge badge--approved" style="font-size:0.7rem;">${l}</span>`
         ).join('');
 
         return `
           <a href="language.html?id=${lang.id}" class="lang-card">
-
-            <!-- Map area (placeholder with gradient) -->
-            <div class="lang-card__map" style="
-              background: linear-gradient(135deg, var(--green-mist), var(--green-pale));
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            ">
-              <div style="
-                font-size: 0.75rem;
-                color: var(--green-deep);
-                opacity: 0.5;
-                letter-spacing: 0.05em;
-              ">${lang.country} · ${lang.subregion}</div>
+            <div class="lang-card__map" style="background:linear-gradient(135deg,var(--green-mist),var(--green-pale));display:flex;align-items:center;justify-content:center;">
+              <div style="font-size:0.75rem;color:var(--green-deep);opacity:0.5;letter-spacing:0.05em;">${lang.country} · ${lang.subregion}</div>
             </div>
-
             <div class="lang-card__body">
               <div class="flex-between flex-gap-sm">
                 <div class="lang-card__name">${lang.name}</div>
-                ${lang.status === 'active'
-                  ? '<span class="badge badge--approved" style="font-size:0.7rem;">Active</span>'
-                  : ''}
+                ${lang.status === 'active' ? `<span class="badge badge--approved" style="font-size:0.7rem;">${t.card_active}</span>` : ''}
               </div>
-
-              <div class="lang-card__region">
-                📍 ${lang.region} · ${lang.country}
-              </div>
-
-              <div style="margin-top: var(--space-sm);">
-                ${levelBadges}
-              </div>
-
-              <!-- Progress bar -->
+              <div class="lang-card__region">📍 ${lang.region} · ${lang.country}</div>
+              <div style="margin-top:var(--space-sm);">${badges}</div>
               <div style="margin-top:var(--space-md);">
                 <div class="flex-between" style="margin-bottom:6px;">
-                  <span style="font-size:0.75rem; color:var(--text-soft);">A1 content</span>
-                  <span style="font-size:0.75rem; color:var(--text-soft);">${progress}%</span>
+                  <span style="font-size:0.75rem;color:var(--text-soft);">${t.card_content}</span>
+                  <span style="font-size:0.75rem;color:var(--text-soft);">${progress}%</span>
                 </div>
-                <div class="progress">
-                  <div class="progress__fill" style="width:${progress}%;"></div>
-                </div>
+                <div class="progress"><div class="progress__fill" style="width:${progress}%;"></div></div>
               </div>
-
               <div class="lang-card__stats">
-                <div class="lang-stat">
-                  <span class="lang-stat__value">${lang.contributors}</span>
-                  <span class="lang-stat__label">Contributors</span>
-                </div>
-                <div class="lang-stat">
-                  <span class="lang-stat__value">${lang.topics_done}/${lang.topics_total}</span>
-                  <span class="lang-stat__label">Topics done</span>
-                </div>
-                <div class="lang-stat">
-                  <span class="lang-stat__value">${lang.speakers}</span>
-                  <span class="lang-stat__label">Native speakers</span>
-                </div>
+                <div class="lang-stat"><span class="lang-stat__value">${lang.contributors}</span><span class="lang-stat__label">${t.card_contributors}</span></div>
+                <div class="lang-stat"><span class="lang-stat__value">${lang.topics_done}/${lang.topics_total}</span><span class="lang-stat__label">${t.card_topics}</span></div>
+                <div class="lang-stat"><span class="lang-stat__value">${lang.speakers}</span><span class="lang-stat__label">${t.card_speakers}</span></div>
               </div>
             </div>
-
-          </a>
-        `;
+          </a>`;
       }).join('');
     }
 
-    // ── SEARCH & FILTER ───────────────────────────────────
+    // ── FILTER ────────────────────────────────────────────
     function filterLanguages() {
       const search = document.getElementById('searchInput').value.toLowerCase();
       const region = document.getElementById('regionFilter').value;
-
       const filtered = languages.filter(lang => {
-        const matchSearch =
-          lang.name.toLowerCase().includes(search) ||
+        const matchSearch = lang.name.toLowerCase().includes(search) ||
           lang.country.toLowerCase().includes(search) ||
           lang.region.toLowerCase().includes(search);
-        const matchRegion = region === '' || lang.region === region;
-        return matchSearch && matchRegion;
+        return matchSearch && (region === '' || lang.region === region);
       });
-
       renderCards(filtered);
     }
 
@@ -320,7 +330,7 @@
     document.getElementById('regionFilter').addEventListener('change', filterLanguages);
 
     // ── INIT ──────────────────────────────────────────────
-    renderCards(languages);
+    setLang('sw');
   </script>
 
 </body>
