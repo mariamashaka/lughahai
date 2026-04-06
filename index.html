@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Living Languages</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">
+          Lugha <span>Hai</span>
+        </a>
+        <div class="nav__links">
+          <a href="#languages" class="nav__link">Languages</a>
+          <a href="#about" class="nav__link">About</a>
+        </div>
+        <div class="nav__actions">
+          <a href="auth/login.html" class="btn btn--ghost">Sign in</a>
+          <a href="auth/register.html" class="btn btn--primary">Join</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero section">
+    <div class="container">
+      <span class="hero__eyebrow">Preserving heritage languages</span>
+      <h1 class="hero__title">
+        Every language is a<br><em>living world</em>
+      </h1>
+      <p class="hero__subtitle">
+        Lugha Hai is an open platform to document, preserve and teach
+        endangered heritage languages — built by communities, for communities.
+      </p>
+      <div class="hero__actions">
+        <a href="#languages" class="btn btn--primary btn--lg">Explore languages</a>
+        <a href="#about" class="btn btn--secondary btn--lg">How it works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS STRIP ===================== -->
+  <div style="background: var(--green-deep); padding: var(--space-lg) 0;">
+    <div class="container">
+      <div class="grid grid--4" style="text-align:center;">
+        <div>
+          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">1</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Language in progress</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">41</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Topics planned (A1)</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">3</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Contributors</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-display); font-size:2rem; color:var(--cream); font-weight:600;">∞</div>
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-top:4px;">Languages to preserve</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== LANGUAGES ===================== -->
+  <section class="section" id="languages">
+    <div class="container">
+
+      <div class="flex-between flex-wrap flex-gap-md mb-xl">
+        <div class="section-header" style="margin-bottom:0;">
+          <div class="section-header__label">Heritage languages</div>
+          <h2 class="section-header__title">Explore languages</h2>
+        </div>
+        <!-- Search / filter (visual only for now) -->
+        <div style="display:flex; gap:var(--space-sm); align-items:center; flex-wrap:wrap;">
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Search languages..."
+            style="width:220px;"
+            id="searchInput"
+          />
+          <select class="form-select" style="width:160px;" id="regionFilter">
+            <option value="">All regions</option>
+            <option value="East Africa">East Africa</option>
+            <option value="West Africa">West Africa</option>
+            <option value="Southern Africa">Southern Africa</option>
+            <option value="Central Africa">Central Africa</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Language cards grid -->
+      <div class="grid grid--langs" id="languagesGrid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <div id="noResults" style="display:none; text-align:center; padding:var(--space-2xl) 0; color:var(--text-muted);">
+        No languages found matching your search.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section" id="about" style="background:var(--white);">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-header__label">How it works</div>
+        <h2 class="section-header__title">Built by communities</h2>
+        <p class="section-header__subtitle">
+          Native speakers, educated moderators and learners working together.
+        </p>
+      </div>
+
+      <div class="grid grid--3" style="gap: var(--space-xl);">
+
+        <div style="text-align:center;">
+          <div style="
+            width:64px; height:64px; border-radius:50%;
+            background:var(--green-mist);
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto var(--space-md);
+            font-size:1.6rem;
+          ">🗣️</div>
+          <h3 style="margin-bottom:var(--space-sm);">Contributors</h3>
+          <p>Native speakers record words, phrases and audio — filling in structured templates for each topic.</p>
+        </div>
+
+        <div style="text-align:center;">
+          <div style="
+            width:64px; height:64px; border-radius:50%;
+            background:var(--gold-light);
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto var(--space-md);
+            font-size:1.6rem;
+          ">✅</div>
+          <h3 style="margin-bottom:var(--space-sm);">Moderators</h3>
+          <p>Educated native speakers review contributions, select the best audio and compile grammar references.</p>
+        </div>
+
+        <div style="text-align:center;">
+          <div style="
+            width:64px; height:64px; border-radius:50%;
+            background:var(--cream-dark);
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto var(--space-md);
+            font-size:1.6rem;
+          ">📖</div>
+          <h3 style="margin-bottom:var(--space-sm);">Learners</h3>
+          <p>Anyone can learn any language for free — with structured lessons, audio and grammar references.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="section" style="text-align:center;">
+    <div class="container--narrow">
+      <h2 style="margin-bottom:var(--space-md);">
+        Is your language missing?
+      </h2>
+      <p style="margin-bottom:var(--space-xl);">
+        If you are a native speaker of a heritage language and want to
+        contribute — we would love to have you.
+      </p>
+      <a href="auth/register.html" class="btn btn--terracotta btn--lg">
+        Become a contributor
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Lugha Hai</div>
+      <p class="footer__tagline">Living languages, preserved for generations.</p>
+      <div class="footer__bottom">
+        <span>© 2026 Lugha Hai. Open platform.</span>
+        <span style="color:var(--green-pale); font-size:0.8rem;">
+          Built with ♥ in Tanzania
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    // ── DATA ──────────────────────────────────────────────
+    // This is where languages live for now (JSON file later)
+    const languages = [
+      {
+        id: "kikurya",
+        name: "Kikurya",
+        country: "Tanzania",
+        region: "East Africa",
+        subregion: "Mara Region",
+        speakers: "approx. 600,000",
+        contributors: 2,
+        topics_done: 1,
+        topics_total: 41,
+        levels: ["A1"],
+        status: "active",
+        color: "#3D6B5A"
+      }
+      // More languages will be added here
+    ];
+
+    // ── RENDER CARDS ──────────────────────────────────────
+    function renderCards(data) {
+      const grid = document.getElementById('languagesGrid');
+      const noResults = document.getElementById('noResults');
+
+      if (data.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+
+      noResults.style.display = 'none';
+
+      grid.innerHTML = data.map(lang => {
+        const progress = Math.round((lang.topics_done / lang.topics_total) * 100);
+        const levelBadges = lang.levels.map(l =>
+          `<span class="badge badge--approved" style="font-size:0.7rem;">${l}</span>`
+        ).join('');
+
+        return `
+          <a href="language.html?id=${lang.id}" class="lang-card">
+
+            <!-- Map area (placeholder with gradient) -->
+            <div class="lang-card__map" style="
+              background: linear-gradient(135deg, var(--green-mist), var(--green-pale));
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <div style="
+                font-size: 0.75rem;
+                color: var(--green-deep);
+                opacity: 0.5;
+                letter-spacing: 0.05em;
+              ">${lang.country} · ${lang.subregion}</div>
+            </div>
+
+            <div class="lang-card__body">
+              <div class="flex-between flex-gap-sm">
+                <div class="lang-card__name">${lang.name}</div>
+                ${lang.status === 'active'
+                  ? '<span class="badge badge--approved" style="font-size:0.7rem;">Active</span>'
+                  : ''}
+              </div>
+
+              <div class="lang-card__region">
+                📍 ${lang.region} · ${lang.country}
+              </div>
+
+              <div style="margin-top: var(--space-sm);">
+                ${levelBadges}
+              </div>
+
+              <!-- Progress bar -->
+              <div style="margin-top:var(--space-md);">
+                <div class="flex-between" style="margin-bottom:6px;">
+                  <span style="font-size:0.75rem; color:var(--text-soft);">A1 content</span>
+                  <span style="font-size:0.75rem; color:var(--text-soft);">${progress}%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__fill" style="width:${progress}%;"></div>
+                </div>
+              </div>
+
+              <div class="lang-card__stats">
+                <div class="lang-stat">
+                  <span class="lang-stat__value">${lang.contributors}</span>
+                  <span class="lang-stat__label">Contributors</span>
+                </div>
+                <div class="lang-stat">
+                  <span class="lang-stat__value">${lang.topics_done}/${lang.topics_total}</span>
+                  <span class="lang-stat__label">Topics done</span>
+                </div>
+                <div class="lang-stat">
+                  <span class="lang-stat__value">${lang.speakers}</span>
+                  <span class="lang-stat__label">Native speakers</span>
+                </div>
+              </div>
+            </div>
+
+          </a>
+        `;
+      }).join('');
+    }
+
+    // ── SEARCH & FILTER ───────────────────────────────────
+    function filterLanguages() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const region = document.getElementById('regionFilter').value;
+
+      const filtered = languages.filter(lang => {
+        const matchSearch =
+          lang.name.toLowerCase().includes(search) ||
+          lang.country.toLowerCase().includes(search) ||
+          lang.region.toLowerCase().includes(search);
+        const matchRegion = region === '' || lang.region === region;
+        return matchSearch && matchRegion;
+      });
+
+      renderCards(filtered);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', filterLanguages);
+    document.getElementById('regionFilter').addEventListener('change', filterLanguages);
+
+    // ── INIT ──────────────────────────────────────────────
+    renderCards(languages);
+  </script>
+
+</body>
+</html>
