@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Language</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .lang-switcher {
+      display: flex; align-items: center;
+      background: var(--cream-dark); border-radius: var(--radius-xl);
+      padding: 3px; gap: 2px;
+    }
+    .lang-switcher__btn {
+      padding: 4px 12px; border-radius: var(--radius-xl); border: none;
+      background: transparent; font-size: 0.8rem; font-weight: 500;
+      color: var(--text-soft); cursor: pointer; transition: all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background: var(--white); color: var(--green-deep);
+      box-shadow: 0 1px 4px var(--shadow-warm);
+    }
+
+    /* Language hero banner */
+    .lang-hero {
+      background: var(--green-deep);
+      color: var(--cream);
+      padding: var(--space-xl) 0;
+    }
+    .lang-hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .lang-hero__name {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: var(--space-sm);
+    }
+    .lang-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .lang-hero__meta-item {
+      font-size: 0.85rem;
+      color: var(--green-pale);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lang-hero__stats {
+      display: flex;
+      gap: var(--space-xl);
+    }
+    .lang-hero__stat-value {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .lang-hero__stat-label {
+      font-size: 0.75rem;
+      color: var(--green-pale);
+      margin-top: 2px;
+    }
+
+    /* Map placeholder */
+    .lang-hero__map {
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .lang-hero__map-label {
+      font-size: 0.75rem;
+      color: var(--green-pale);
+      letter-spacing: 0.05em;
+    }
+
+    /* Level tabs */
+    .level-tabs {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+      flex-wrap: wrap;
+    }
+    .level-tab {
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-xl);
+      border: 1.5px solid var(--cream-border);
+      background: var(--white);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .level-tab:hover { border-color: var(--green-soft); color: var(--green-deep); }
+    .level-tab.active {
+      background: var(--green-deep);
+      border-color: var(--green-deep);
+      color: var(--cream);
+    }
+    .level-tab.locked {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Topic cards grid */
+    .topics-section { margin-bottom: var(--space-xl); }
+    .topics-section__title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--cream-border);
+    }
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-md);
+    }
+    .topic-card {
+      background: var(--white);
+      border: 1px solid var(--cream-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: all var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .topic-card:hover {
+      border-color: var(--green-pale);
+      box-shadow: 0 4px 16px var(--shadow-warm);
+      transform: translateY(-2px);
+    }
+    .topic-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .topic-card__name {
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      line-height: 1.3;
+    }
+    .topic-card__sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .topic-card__progress {
+      margin-top: var(--space-xs);
+    }
+
+    /* Info panel */
+    .info-panel {
+      background: var(--white);
+      border: 1px solid var(--cream-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 2px 12px var(--shadow-warm);
+    }
+    .info-panel__title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--cream-border);
+      font-size: 0.875rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row__label { color: var(--text-soft); }
+    .info-row__value { color: var(--text-dark); font-weight: 500; }
+
+    @media (max-width: 800px) {
+      .lang-hero__inner { grid-template-columns: 1fr; }
+      .lang-hero__map { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div class="nav__links">
+          <a href="index.html" class="nav__link" data-i18n="nav_home">Nyumbani</a>
+          <a href="#about" class="nav__link" data-i18n="nav_about">Kuhusu</a>
+        </div>
+        <div class="nav__actions">
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="auth/login.html" class="btn btn--ghost" data-i18n="nav_signin">Ingia</a>
+          <a href="auth/register.html" class="btn btn--primary" data-i18n="nav_join">Jiunge</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- LANGUAGE HERO -->
+  <div class="lang-hero">
+    <div class="container">
+      <div class="lang-hero__inner">
+        <div>
+          <!-- breadcrumb -->
+          <div style="font-size:0.8rem; color:var(--green-pale); margin-bottom:var(--space-md);">
+            <a href="index.html" style="color:var(--green-pale); opacity:0.7;" data-i18n="nav_home">Nyumbani</a>
+            <span style="margin:0 6px;">›</span>
+            <span id="hero-lang-name">Kikurya</span>
+          </div>
+
+          <h1 class="lang-hero__name" id="hero-title">Kikurya</h1>
+
+          <div class="lang-hero__meta">
+            <span class="lang-hero__meta-item">🌍 <span id="hero-country">Tanzania</span></span>
+            <span class="lang-hero__meta-item">📍 <span id="hero-region">Mara Region</span></span>
+            <span class="lang-hero__meta-item">👥 <span id="hero-speakers">~600,000</span> <span data-i18n="speakers_label">wazungumzaji</span></span>
+            <span class="lang-hero__meta-item">🗂 <span data-i18n="family_label">Familia:</span> <span id="hero-family">Bantu</span></span>
+          </div>
+
+          <div class="lang-hero__stats">
+            <div>
+              <div class="lang-hero__stat-value" id="hero-topics-done">1</div>
+              <div class="lang-hero__stat-label" data-i18n="topics_done_label">Mada zilizokamilika</div>
+            </div>
+            <div>
+              <div class="lang-hero__stat-value" id="hero-topics-total">41</div>
+              <div class="lang-hero__stat-label" data-i18n="topics_total_label">Mada zote (A1)</div>
+            </div>
+            <div>
+              <div class="lang-hero__stat-value" id="hero-contributors">2</div>
+              <div class="lang-hero__stat-label" data-i18n="contributors_label">Wachangiaji</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map placeholder -->
+        <div class="lang-hero__map">
+          <div style="font-size:2.5rem;">🗺️</div>
+          <div class="lang-hero__map-label" id="hero-map-label">Tanzania · Mara Region</div>
+          <div style="font-size:0.7rem; color:var(--green-pale); opacity:0.5;" data-i18n="map_coming">Ramani inakuja hivi karibuni</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="section">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 280px; gap:var(--space-xl); align-items:start;">
+
+        <!-- LEFT: topics -->
+        <div>
+          <!-- Level selector -->
+          <div style="margin-bottom:var(--space-xl);">
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:var(--space-md);" data-i18n="level_select">Chagua kiwango:</div>
+            <div class="level-tabs" id="levelTabs"></div>
+          </div>
+
+          <!-- Grammar topics -->
+          <div class="topics-section" id="grammarSection">
+            <div class="topics-section__title" data-i18n="grammar_label">Sarufi</div>
+            <div class="topics-grid" id="grammarGrid"></div>
+          </div>
+
+          <!-- Vocabulary topics -->
+          <div class="topics-section" id="vocabSection">
+            <div class="topics-section__title" data-i18n="vocab_label">Msamiati</div>
+            <div class="topics-grid" id="vocabGrid"></div>
+          </div>
+
+          <!-- Phonetics topics -->
+          <div class="topics-section" id="phoneticSection">
+            <div class="topics-section__title" data-i18n="phonetic_label">Fonetiki</div>
+            <div class="topics-grid" id="phoneticGrid"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: info panel -->
+        <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:var(--space-md);">
+
+          <!-- Overall progress -->
+          <div class="info-panel">
+            <div class="info-panel__title" data-i18n="progress_title">Maendeleo ya A1</div>
+            <div style="margin-bottom:var(--space-md);">
+              <div class="flex-between" style="margin-bottom:6px;">
+                <span style="font-size:0.85rem; color:var(--text-soft);" id="progress-label">1 / 41</span>
+                <span style="font-size:0.85rem; font-weight:500; color:var(--green-deep);" id="progress-pct">2%</span>
+              </div>
+              <div class="progress"><div class="progress__fill" id="progressBar" style="width:2%;"></div></div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div class="flex-between" style="font-size:0.8rem;">
+                <span style="color:var(--text-muted);" data-i18n="status_approved">✅ Imekamilika</span>
+                <span style="font-weight:500;" id="count-approved">1</span>
+              </div>
+              <div class="flex-between" style="font-size:0.8rem;">
+                <span style="color:var(--text-muted);" data-i18n="status_review">🔵 Inapitiwa</span>
+                <span style="font-weight:500;" id="count-review">0</span>
+              </div>
+              <div class="flex-between" style="font-size:0.8rem;">
+                <span style="color:var(--text-muted);" data-i18n="status_pending">🔘 Bado</span>
+                <span style="font-weight:500;" id="count-pending">40</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Language info -->
+          <div class="info-panel">
+            <div class="info-panel__title" data-i18n="lang_info_title">Habari za lugha</div>
+            <div class="info-row">
+              <span class="info-row__label" data-i18n="info_family">Familia</span>
+              <span class="info-row__value">Bantu</span>
+            </div>
+            <div class="info-row">
+              <span class="info-row__label" data-i18n="info_country">Nchi</span>
+              <span class="info-row__value">Tanzania</span>
+            </div>
+            <div class="info-row">
+              <span class="info-row__label" data-i18n="info_region">Mkoa</span>
+              <span class="info-row__value">Mara</span>
+            </div>
+            <div class="info-row">
+              <span class="info-row__label" data-i18n="info_tonal">Lugha ya toni?</span>
+              <span class="info-row__value" data-i18n="info_tonal_yes">Ndiyo</span>
+            </div>
+          </div>
+
+          <!-- Contribute CTA -->
+          <div class="info-panel" style="background:var(--green-mist); border-color:var(--green-pale);">
+            <div style="font-size:0.9rem; font-weight:500; color:var(--green-deep); margin-bottom:var(--space-sm);" data-i18n="cta_contribute_title">Una uwezo?</div>
+            <p style="font-size:0.8rem; color:var(--text-mid); margin-bottom:var(--space-md);" data-i18n="cta_contribute_desc">Ikiwa unazungua Kikurya, tungehitaji msaada wako.</p>
+            <a href="auth/register.html" class="btn btn--primary w-full" style="justify-content:center;" data-i18n="cta_contribute_btn">Jiunge kama mchangiaji</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Lugha Hai</div>
+      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
+      <div class="footer__bottom">
+        <span>© 2026 Lugha Hai.</span>
+        <span style="color:var(--green-pale); font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── TRANSLATIONS ──────────────────────────────────────
+    const i18n = {
+      sw: {
+        nav_home: "Nyumbani", nav_about: "Kuhusu", nav_signin: "Ingia", nav_join: "Jiunge",
+        speakers_label: "wazungumzaji", family_label: "Familia:",
+        topics_done_label: "Mada zilizokamilika", topics_total_label: "Mada zote (A1)",
+        contributors_label: "Wachangiaji", map_coming: "Ramani inakuja hivi karibuni",
+        level_select: "Chagua kiwango:",
+        grammar_label: "Sarufi", vocab_label: "Msamiati", phonetic_label: "Fonetiki",
+        progress_title: "Maendeleo ya A1",
+        status_approved: "✅ Imekamilika", status_review: "🔵 Inapitiwa", status_pending: "🔘 Bado",
+        lang_info_title: "Habari za lugha",
+        info_family: "Familia", info_country: "Nchi", info_region: "Mkoa",
+        info_tonal: "Lugha ya toni?", info_tonal_yes: "Ndiyo",
+        cta_contribute_title: "Una uwezo?",
+        cta_contribute_desc: "Ikiwa unazungua Kikurya, tungehitaji msaada wako.",
+        cta_contribute_btn: "Jiunge kama mchangiaji",
+        footer_tagline: "Lugha hai, zilizohifadhiwa kwa vizazi.",
+        badge_approved: "Imekamilika", badge_review: "Inapitiwa",
+        badge_progress: "Inaendelea", badge_pending: "Bado",
+        topics_locked: "Inakuja — A2 bado haijaanza",
+        learn_btn: "Jifunze"
+      },
+      en: {
+        nav_home: "Home", nav_about: "About", nav_signin: "Sign in", nav_join: "Join",
+        speakers_label: "speakers", family_label: "Family:",
+        topics_done_label: "Topics completed", topics_total_label: "Total topics (A1)",
+        contributors_label: "Contributors", map_coming: "Map coming soon",
+        level_select: "Select level:",
+        grammar_label: "Grammar", vocab_label: "Vocabulary", phonetic_label: "Phonetics",
+        progress_title: "A1 Progress",
+        status_approved: "✅ Completed", status_review: "🔵 In review", status_pending: "🔘 Pending",
+        lang_info_title: "Language info",
+        info_family: "Family", info_country: "Country", info_region: "Region",
+        info_tonal: "Tonal language?", info_tonal_yes: "Yes",
+        cta_contribute_title: "Can you help?",
+        cta_contribute_desc: "If you speak Kikurya, we need your contribution.",
+        cta_contribute_btn: "Join as contributor",
+        footer_tagline: "Living languages, preserved for generations.",
+        badge_approved: "Completed", badge_review: "In review",
+        badge_progress: "In progress", badge_pending: "Pending",
+        topics_locked: "Coming — A2 not started yet",
+        learn_btn: "Learn"
+      }
+    };
+
+    let currentLang = 'sw';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key] !== undefined) el.textContent = i18n[lang][key];
+      });
+      renderTopics(currentLevel);
+    }
+
+    // ── LANGUAGE DATA ─────────────────────────────────────
+    const langData = {
+      kikurya: {
+        name: "Kikurya",
+        country: "Tanzania",
+        region: "Mara Region",
+        speakers: "~600,000",
+        family: "Bantu",
+        contributors: 2,
+        levels: ["A1", "A2", "B1", "B2", "C1"],
+        activeLevel: "A1",
+        topics: {
+          A1: {
+            grammar: [
+              { id: "personal-pronouns", name_sw: "Viwakilishi vya nafsi", name_en: "Personal pronouns", status: "approved" },
+              { id: "verb-to-be", name_sw: "Kitenzi 'kuwa' (sasa)", name_en: "Verb 'to be' (present)", status: "pending" },
+              { id: "question-words", name_sw: "Maneno ya kuuliza", name_en: "Question words", status: "pending" },
+              { id: "negation", name_sw: "Kukanusha", name_en: "Negation", status: "pending" },
+              { id: "present-tense", name_sw: "Wakati wa sasa", name_en: "Present simple tense", status: "pending" },
+              { id: "past-tense", name_sw: "Wakati wa kale", name_en: "Past simple tense", status: "pending" },
+              { id: "future-tense", name_sw: "Wakati wa kesho", name_en: "Future tense", status: "pending" },
+              { id: "numbers", name_sw: "Namba 1–20", name_en: "Numbers 1–20", status: "pending" },
+              { id: "possessives", name_sw: "Viwakilishi vya umiliki", name_en: "Possessive pronouns", status: "pending" },
+              { id: "prepositions", name_sw: "Kivumishi cha nafasi", name_en: "Prepositions of place", status: "pending" },
+              { id: "noun-classes", name_sw: "Darasa za nomino", name_en: "Noun classes (Bantu)", status: "pending" },
+            ],
+            vocabulary: [
+              { id: "greetings", name_sw: "Salamu", name_en: "Greetings", status: "pending" },
+              { id: "family", name_sw: "Familia", name_en: "Family", status: "pending" },
+              { id: "food", name_sw: "Chakula na vinywaji", name_en: "Food and drinks", status: "pending" },
+              { id: "body", name_sw: "Sehemu za mwili", name_en: "Body parts", status: "pending" },
+              { id: "clothing", name_sw: "Nguo", name_en: "Clothing", status: "pending" },
+              { id: "household", name_sw: "Vitu vya nyumbani", name_en: "Household items", status: "pending" },
+              { id: "animals", name_sw: "Wanyama", name_en: "Animals", status: "pending" },
+              { id: "nature", name_sw: "Asili", name_en: "Nature", status: "pending" },
+              { id: "basic-verbs", name_sw: "Vitenzi vya msingi", name_en: "Basic verbs", status: "pending" },
+              { id: "time", name_sw: "Wakati (saa, siku)", name_en: "Time (hours, days)", status: "pending" },
+            ],
+            phonetics: [
+              { id: "alphabet", name_sw: "Alfabeti na matamshi", name_en: "Alphabet & pronunciation", status: "pending" },
+              { id: "tones", name_sw: "Toni za lugha", name_en: "Language tones", status: "pending" },
+              { id: "vowels", name_sw: "Irabu ndefu na fupi", name_en: "Long and short vowels", status: "pending" },
+            ]
+          }
+        }
+      }
+    };
+
+    // ── STATE ─────────────────────────────────────────────
+    let currentLevel = 'A1';
+    let lang = langData.kikurya; // later: read from URL param
+
+    // ── STATUS BADGE ──────────────────────────────────────
+    function statusBadge(status, t) {
+      const map = {
+        approved:   { cls: 'badge--approved',    label: t.badge_approved },
+        review:     { cls: 'badge--review',      label: t.badge_review },
+        in_progress:{ cls: 'badge--in-progress', label: t.badge_progress },
+        pending:    { cls: 'badge--not-started', label: t.badge_pending },
+      };
+      const s = map[status] || map.pending;
+      return `<span class="badge ${s.cls}" style="font-size:0.7rem;">${s.label}</span>`;
+    }
+
+    // ── RENDER TOPICS ─────────────────────────────────────
+    function renderTopics(level) {
+      const t = i18n[currentLang];
+      const data = lang.topics[level];
+
+      if (!data) {
+        // locked level
+        document.getElementById('grammarGrid').innerHTML =
+          `<p style="color:var(--text-muted); font-size:0.9rem; grid-column:1/-1;">${t.topics_locked}</p>`;
+        document.getElementById('vocabGrid').innerHTML = '';
+        document.getElementById('phoneticGrid').innerHTML = '';
+        return;
+      }
+
+      const nameKey = currentLang === 'sw' ? 'name_sw' : 'name_en';
+
+      function makeCards(topics) {
+        return topics.map(topic => {
+          const isDone = topic.status === 'approved';
+          return `
+            <a href="#" class="topic-card" style="${isDone ? 'border-color:var(--green-pale);' : ''}">
+              <div class="topic-card__header">
+                <div class="topic-card__name">${topic[nameKey]}</div>
+                ${statusBadge(topic.status, t)}
+              </div>
+              ${isDone ? `
+                <div class="topic-card__progress">
+                  <div class="progress"><div class="progress__fill" style="width:100%;"></div></div>
+                </div>` : ''}
+            </a>`;
+        }).join('');
+      }
+
+      document.getElementById('grammarGrid').innerHTML    = makeCards(data.grammar);
+      document.getElementById('vocabGrid').innerHTML      = makeCards(data.vocabulary);
+      document.getElementById('phoneticGrid').innerHTML   = makeCards(data.phonetics);
+    }
+
+    // ── RENDER LEVEL TABS ─────────────────────────────────
+    function renderLevelTabs() {
+      const tabs = document.getElementById('levelTabs');
+      tabs.innerHTML = lang.levels.map(lvl => {
+        const isActive = lvl === currentLevel;
+        const isLocked = !lang.topics[lvl];
+        return `
+          <button
+            class="level-tab ${isActive ? 'active' : ''} ${isLocked ? 'locked' : ''}"
+            onclick="${isLocked ? '' : `selectLevel('${lvl}')`}"
+          >${lvl}</button>`;
+      }).join('');
+    }
+
+    function selectLevel(lvl) {
+      currentLevel = lvl;
+      renderLevelTabs();
+      renderTopics(lvl);
+      updateProgress(lvl);
+    }
+
+    // ── PROGRESS ──────────────────────────────────────────
+    function updateProgress(level) {
+      const data = lang.topics[level];
+      if (!data) return;
+
+      const all = [...data.grammar, ...data.vocabulary, ...data.phonetics];
+      const total = all.length;
+      const approved = all.filter(t => t.status === 'approved').length;
+      const review   = all.filter(t => t.status === 'review').length;
+      const pct = Math.round((approved / total) * 100);
+
+      document.getElementById('progressBar').style.width = pct + '%';
+      document.getElementById('progress-pct').textContent = pct + '%';
+      document.getElementById('progress-label').textContent = `${approved} / ${total}`;
+      document.getElementById('count-approved').textContent = approved;
+      document.getElementById('count-review').textContent = review;
+      document.getElementById('count-pending').textContent = total - approved - review;
+    }
+
+    // ── INIT ──────────────────────────────────────────────
+    // Populate hero
+    document.getElementById('hero-title').textContent    = lang.name;
+    document.getElementById('hero-lang-name').textContent = lang.name;
+    document.getElementById('hero-country').textContent  = lang.country;
+    document.getElementById('hero-region').textContent   = lang.region;
+    document.getElementById('hero-speakers').textContent = lang.speakers;
+    document.getElementById('hero-family').textContent   = lang.family;
+    document.getElementById('hero-contributors').textContent = lang.contributors;
+    document.getElementById('hero-map-label').textContent = `${lang.country} · ${lang.region}`;
+
+    const allA1 = [
+      ...(lang.topics.A1?.grammar || []),
+      ...(lang.topics.A1?.vocabulary || []),
+      ...(lang.topics.A1?.phonetics || [])
+    ];
+    document.getElementById('hero-topics-done').textContent  = allA1.filter(t => t.status === 'approved').length;
+    document.getElementById('hero-topics-total').textContent = allA1.length;
+
+    renderLevelTabs();
+    setLang('sw');
+    updateProgress('A1');
+  </script>
+
+</body>
+</html>
