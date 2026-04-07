@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Ingia / Sign in</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher {
+      display: flex; align-items: center;
+      background: var(--cream-dark); border-radius: var(--radius-xl);
+      padding: 3px; gap: 2px;
+    }
+    .lang-switcher__btn {
+      padding: 4px 12px; border-radius: var(--radius-xl); border: none;
+      background: transparent; font-size: 0.8rem; font-weight: 500;
+      color: var(--text-soft); cursor: pointer; transition: all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background: var(--white); color: var(--green-deep);
+      box-shadow: 0 1px 4px var(--shadow-warm);
+    }
+
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Left decorative panel */
+    .auth-panel {
+      background: var(--green-deep);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-panel::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .auth-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(196,113,74,0.12);
+    }
+    .auth-panel__logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .auth-panel__logo span { color: var(--terracotta-light); font-style: italic; }
+    .auth-panel__quote {
+      position: relative; z-index: 1;
+    }
+    .auth-panel__quote-text {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--cream);
+      line-height: 1.4;
+      margin-bottom: var(--space-md);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .auth-panel__quote-sub {
+      font-size: 0.85rem;
+      color: var(--green-pale);
+    }
+    .auth-panel__langs {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .auth-panel__lang-chip {
+      padding: 4px 12px;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,0.08);
+      font-size: 0.75rem;
+      color: var(--green-pale);
+    }
+
+    /* Right form panel */
+    .auth-form-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-2xl) var(--space-xl);
+      background: var(--cream);
+    }
+    .auth-form-box {
+      width: 100%;
+      max-width: 400px;
+    }
+    .auth-form-box h2 {
+      margin-bottom: var(--space-sm);
+    }
+    .auth-form-box > p {
+      margin-bottom: var(--space-xl);
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--cream-border);
+    }
+    .auth-divider span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .auth-footer-link {
+      text-align: center;
+      margin-top: var(--space-lg);
+      font-size: 0.875rem;
+      color: var(--text-soft);
+    }
+    .auth-footer-link a {
+      color: var(--green-mid);
+      font-weight: 500;
+      text-decoration: underline;
+    }
+
+    /* Lang switcher top-right on mobile */
+    .auth-nav {
+      position: absolute;
+      top: var(--space-lg);
+      right: var(--space-lg);
+    }
+
+    @media (max-width: 700px) {
+      .auth-page { grid-template-columns: 1fr; }
+      .auth-panel { display: none; }
+      .auth-form-wrap { padding: var(--space-xl) var(--space-lg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lang switcher (desktop: inside form panel) -->
+  <div class="auth-nav">
+    <div class="lang-switcher">
+      <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+      <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+    </div>
+  </div>
+
+  <div class="auth-page">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-panel">
+      <a href="../index.html" class="auth-panel__logo">Lugha <span>Hai</span></a>
+
+      <div class="auth-panel__quote">
+        <div class="auth-panel__quote-text" data-i18n="panel_quote">
+          "Lugha ni moyo wa utamaduni."
+        </div>
+        <div class="auth-panel__quote-sub" data-i18n="panel_quote_sub">
+          Language is the heart of culture.
+        </div>
+      </div>
+
+      <div class="auth-panel__langs">
+        <span class="auth-panel__lang-chip">Kikurya</span>
+        <span class="auth-panel__lang-chip">Jerua</span>
+        <span class="auth-panel__lang-chip">Jita</span>
+        <span class="auth-panel__lang-chip">+ more</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="auth-form-wrap">
+      <div class="auth-form-box">
+
+        <h2 data-i18n="title">Karibu tena</h2>
+        <p data-i18n="subtitle">Ingia ili kuendelea na kazi yako.</p>
+
+        <div class="auth-form">
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="email_label">Barua pepe</label>
+            <input type="email" class="form-input" data-i18n-placeholder="email_placeholder" placeholder="wewe@mfano.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="password_label">Nywila</label>
+            <input type="password" class="form-input" data-i18n-placeholder="password_placeholder" placeholder="••••••••" />
+            <div style="text-align:right; margin-top:4px;">
+              <a href="#" style="font-size:0.78rem; color:var(--green-mid);" data-i18n="forgot">Umesahau nywila?</a>
+            </div>
+          </div>
+
+          <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" data-i18n="submit">
+            Ingia
+          </button>
+
+        </div>
+
+        <div class="auth-divider"><span data-i18n="or">au</span></div>
+
+        <div class="auth-footer-link">
+          <span data-i18n="no_account">Huna akaunti?</span>
+          <a href="register.html" data-i18n="register_link">Jiunge hapa</a>
+        </div>
+
+        <div class="auth-footer-link" style="margin-top:var(--space-sm);">
+          <a href="../index.html" style="color:var(--text-muted);" data-i18n="back_home">← Rudi nyumbani</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const i18n = {
+      sw: {
+        panel_quote: '"Lugha ni moyo wa utamaduni."',
+        panel_quote_sub: "Lugha ni roho ya utamaduni.",
+        title: "Karibu tena",
+        subtitle: "Ingia ili kuendelea na kazi yako.",
+        email_label: "Barua pepe", email_placeholder: "wewe@mfano.com",
+        password_label: "Nywila", password_placeholder: "••••••••",
+        forgot: "Umesahau nywila?",
+        submit: "Ingia",
+        or: "au",
+        no_account: "Huna akaunti?", register_link: "Jiunge hapa",
+        back_home: "← Rudi nyumbani"
+      },
+      en: {
+        panel_quote: '"Language is the heart of culture."',
+        panel_quote_sub: "Every word carries a world.",
+        title: "Welcome back",
+        subtitle: "Sign in to continue your work.",
+        email_label: "Email", email_placeholder: "you@example.com",
+        password_label: "Password", password_placeholder: "••••••••",
+        forgot: "Forgot password?",
+        submit: "Sign in",
+        or: "or",
+        no_account: "Don't have an account?", register_link: "Join here",
+        back_home: "← Back to home"
+      }
+    };
+
+    let currentLang = 'sw';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+    }
+
+    setLang('sw');
+  </script>
+
+</body>
+</html>
