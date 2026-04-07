@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Dashibodi ya Mchangiaji</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher {
+      display:flex; align-items:center;
+      background:var(--cream-dark); border-radius:var(--radius-xl);
+      padding:3px; gap:2px;
+    }
+    .lang-switcher__btn {
+      padding:4px 12px; border-radius:var(--radius-xl); border:none;
+      background:transparent; font-size:0.8rem; font-weight:500;
+      color:var(--text-soft); cursor:pointer; transition:all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background:var(--white); color:var(--green-deep);
+      box-shadow:0 1px 4px var(--shadow-warm);
+    }
+
+    /* Summary bar */
+    .summary-bar {
+      background:var(--green-deep);
+      padding:var(--space-lg) 0;
+      margin-bottom:var(--space-xl);
+    }
+    .summary-bar__inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:var(--space-lg);
+    }
+    .summary-bar__greeting {
+      color:var(--cream);
+    }
+    .summary-bar__greeting h2 {
+      color:var(--cream);
+      font-size:1.3rem;
+      margin-bottom:4px;
+    }
+    .summary-bar__greeting p {
+      color:var(--green-pale);
+      font-size:0.85rem;
+    }
+    .summary-bar__stats {
+      display:flex;
+      gap:var(--space-xl);
+    }
+    .summary-stat { text-align:center; }
+    .summary-stat__value {
+      font-size:1.6rem; font-weight:600;
+      color:var(--cream); display:block;
+    }
+    .summary-stat__label {
+      font-size:0.72rem; color:var(--green-pale);
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display:flex;
+      align-items:center;
+      gap:var(--space-md);
+      margin-bottom:var(--space-lg);
+      flex-wrap:wrap;
+    }
+    .filter-btn {
+      padding:6px 16px;
+      border-radius:var(--radius-xl);
+      border:1.5px solid var(--cream-border);
+      background:var(--white);
+      font-size:0.82rem;
+      font-weight:500;
+      color:var(--text-soft);
+      cursor:pointer;
+      transition:all var(--transition);
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .filter-btn:hover { border-color:var(--green-soft); color:var(--green-deep); }
+    .filter-btn.active {
+      background:var(--green-deep);
+      border-color:var(--green-deep);
+      color:var(--cream);
+    }
+    .filter-count {
+      background:rgba(255,255,255,0.25);
+      border-radius:99px;
+      padding:1px 7px;
+      font-size:0.72rem;
+    }
+    .filter-btn:not(.active) .filter-count {
+      background:var(--cream-dark);
+      color:var(--text-muted);
+    }
+
+    /* Topic row */
+    .topic-row {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-md);
+      padding:var(--space-md) var(--space-lg);
+      display:flex;
+      align-items:center;
+      gap:var(--space-lg);
+      transition:all var(--transition);
+      cursor:pointer;
+      text-decoration:none;
+      margin-bottom:var(--space-sm);
+    }
+    .topic-row:hover {
+      border-color:var(--green-pale);
+      box-shadow:0 4px 16px var(--shadow-warm);
+      transform:translateX(3px);
+    }
+    .topic-row--approved { border-left:3px solid var(--green-soft); }
+    .topic-row--review   { border-left:3px solid #4A90D9; }
+    .topic-row--in_progress { border-left:3px solid var(--gold); }
+    .topic-row--pending  { border-left:3px solid var(--cream-border); }
+    .topic-row--revision { border-left:3px solid var(--terracotta); }
+
+    .topic-row__type {
+      font-size:0.7rem;
+      font-weight:500;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+      width:80px;
+      flex-shrink:0;
+    }
+    .topic-row__name {
+      flex:1;
+      font-weight:500;
+      color:var(--text-dark);
+      font-size:0.95rem;
+    }
+    .topic-row__sub {
+      font-size:0.78rem;
+      color:var(--text-muted);
+      margin-top:2px;
+    }
+    .topic-row__meta {
+      display:flex;
+      align-items:center;
+      gap:var(--space-md);
+      flex-shrink:0;
+    }
+    .topic-row__arrow {
+      color:var(--text-muted);
+      font-size:1rem;
+      transition:transform var(--transition);
+    }
+    .topic-row:hover .topic-row__arrow {
+      transform:translateX(4px);
+      color:var(--green-mid);
+    }
+
+    /* Section header */
+    .topics-section-header {
+      font-size:0.72rem;
+      font-weight:500;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+      margin:var(--space-xl) 0 var(--space-md);
+      padding-bottom:var(--space-sm);
+      border-bottom:1px solid var(--cream-border);
+    }
+
+    /* Earnings panel */
+    .earnings-card {
+      background:var(--green-deep);
+      border-radius:var(--radius-lg);
+      padding:var(--space-lg);
+      color:var(--cream);
+    }
+    .earnings-card__title {
+      font-size:0.72rem;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--green-pale);
+      margin-bottom:var(--space-md);
+    }
+    .earnings-card__amount {
+      font-size:2rem;
+      font-weight:600;
+      color:var(--cream);
+      margin-bottom:4px;
+    }
+    .earnings-card__sub { font-size:0.8rem; color:var(--green-pale); }
+    .earnings-row {
+      display:flex;
+      justify-content:space-between;
+      font-size:0.82rem;
+      padding:var(--space-sm) 0;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      color:var(--green-pale);
+    }
+    .earnings-row:last-child { border-bottom:none; }
+    .earnings-row span:last-child { color:var(--cream); font-weight:500; }
+
+    /* Info card */
+    .info-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      padding:var(--space-lg);
+      box-shadow:0 2px 12px var(--shadow-warm);
+    }
+    .info-card__title {
+      font-size:0.72rem;
+      font-weight:500;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+      margin-bottom:var(--space-md);
+      padding-bottom:var(--space-sm);
+      border-bottom:1px solid var(--cream-border);
+    }
+
+    @media (max-width:900px) {
+      .main-grid { grid-template-columns:1fr !important; }
+      .summary-bar__stats { gap:var(--space-lg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div class="nav__links">
+          <a href="../index.html" class="nav__link" data-i18n="nav_home">Nyumbani</a>
+          <a href="../profile/index.html" class="nav__link" data-i18n="nav_profile">Wasifu</a>
+        </div>
+        <div class="nav__actions">
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SUMMARY BAR -->
+  <div class="summary-bar">
+    <div class="container">
+      <div class="summary-bar__inner">
+        <div class="summary-bar__greeting">
+          <h2 data-i18n="greeting">Habari, Mariia 👋</h2>
+          <p><span data-i18n="working_on">Unafanya kazi kwenye:</span> <strong style="color:var(--cream);">Kikurya — A1</strong></p>
+        </div>
+        <div class="summary-bar__stats">
+          <div class="summary-stat">
+            <span class="summary-stat__value" id="statDone">1</span>
+            <span class="summary-stat__label" data-i18n="stat_done">Zilizokamilika</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat__value" id="statProgress">0</span>
+            <span class="summary-stat__label" data-i18n="stat_progress">Zinaendelea</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat__value" id="statPending">40</span>
+            <span class="summary-stat__label" data-i18n="stat_pending">Bado</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat__value">2%</span>
+            <span class="summary-stat__label" data-i18n="stat_pct">Maendeleo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="section">
+    <div class="container">
+      <div class="main-grid" style="display:grid; grid-template-columns:1fr 300px; gap:var(--space-xl); align-items:start;">
+
+        <!-- LEFT: topic list -->
+        <div>
+          <!-- Filter bar -->
+          <div class="filter-bar" id="filterBar">
+            <!-- injected by JS -->
+          </div>
+
+          <!-- Topic list -->
+          <div id="topicList">
+            <!-- injected by JS -->
+          </div>
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:var(--space-md);">
+
+          <!-- Earnings -->
+          <div class="earnings-card">
+            <div class="earnings-card__title" data-i18n="earnings_title">Mapato</div>
+            <div class="earnings-card__amount">5,000 TZS</div>
+            <div class="earnings-card__sub" data-i18n="earnings_sub">mada 1 iliyokamilika</div>
+            <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:var(--space-md) 0;">
+            <div class="earnings-row">
+              <span data-i18n="earn_per_topic">Kwa kila mada</span>
+              <span>5,000 – 7,500 TZS</span>
+            </div>
+            <div class="earnings-row">
+              <span data-i18n="earn_pending">Inasubiri</span>
+              <span>0 TZS</span>
+            </div>
+            <div class="earnings-row">
+              <span data-i18n="earn_total">Jumla</span>
+              <span>5,000 TZS</span>
+            </div>
+          </div>
+
+          <!-- Progress -->
+          <div class="info-card">
+            <div class="info-card__title" data-i18n="progress_title">Maendeleo ya A1</div>
+            <div style="margin-bottom:var(--space-md);">
+              <div class="flex-between" style="margin-bottom:6px;">
+                <span style="font-size:0.82rem; color:var(--text-soft);">1 / 41</span>
+                <span style="font-size:0.82rem; font-weight:500; color:var(--green-deep);">2%</span>
+              </div>
+              <div class="progress"><div class="progress__fill" style="width:2%;"></div></div>
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.6;" data-i18n="progress_note">
+              Unahitaji angalau mada 2 zilizopita ukaguzi ili kuanza mkusanyiko wa kamusi.
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div class="info-card" style="background:var(--gold-light); border-color:var(--gold);">
+            <div class="info-card__title" style="color:#7a5c00;" data-i18n="tips_title">Vidokezo</div>
+            <ul style="font-size:0.82rem; color:#5a4000; line-height:1.8; padding-left:var(--space-md);">
+              <li data-i18n="tip1">Rekodi sauti polepole na wazi</li>
+              <li data-i18n="tip2">Tumia mazingira ya kimya</li>
+              <li data-i18n="tip3">Unaweza kusimama na kurudi baadaye</li>
+              <li data-i18n="tip4">Makosa chini ya 20% — hakuna faini</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Lugha Hai</div>
+      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
+      <div class="footer__bottom">
+        <span>© 2026 Lugha Hai.</span>
+        <span style="color:var(--green-pale); font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── TRANSLATIONS ──────────────────────────────────────
+    const i18n = {
+      sw: {
+        nav_home:"Nyumbani", nav_profile:"Wasifu", nav_signout:"Toka",
+        greeting:"Habari, Mariia 👋",
+        working_on:"Unafanya kazi kwenye:",
+        stat_done:"Zilizokamilika", stat_progress:"Zinaendelea",
+        stat_pending:"Bado", stat_pct:"Maendeleo",
+        filter_all:"Zote", filter_pending:"Bado", filter_progress:"Zinaendelea",
+        filter_review:"Ukaguzi", filter_approved:"Zilizokubaliwa", filter_revision:"Marekebisho",
+        section_grammar:"Sarufi", section_vocab:"Msamiati", section_phonetics:"Fonetiki",
+        badge_approved:"✅ Imekubaliwa", badge_review:"🔵 Ukaguzi",
+        badge_progress:"🟡 Inaendelea", badge_pending:"🔘 Bado", badge_revision:"❌ Marekebisho",
+        btn_continue:"Endelea", btn_start:"Anza", btn_view:"Angalia",
+        earnings_title:"Mapato", earnings_sub:"mada 1 iliyokamilika",
+        earn_per_topic:"Kwa kila mada", earn_pending:"Inasubiri", earn_total:"Jumla",
+        progress_title:"Maendeleo ya A1",
+        progress_note:"Unahitaji angalau mada 2 zilizopita ukaguzi ili kuanza mkusanyiko wa kamusi.",
+        tips_title:"Vidokezo",
+        tip1:"Rekodi sauti polepole na wazi",
+        tip2:"Tumia mazingira ya kimya",
+        tip3:"Unaweza kusimama na kurudi baadaye",
+        tip4:"Makosa chini ya 20% — hakuna faini",
+        footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi."
+      },
+      en: {
+        nav_home:"Home", nav_profile:"Profile", nav_signout:"Sign out",
+        greeting:"Hello, Mariia 👋",
+        working_on:"Working on:",
+        stat_done:"Completed", stat_progress:"In progress",
+        stat_pending:"Pending", stat_pct:"Progress",
+        filter_all:"All", filter_pending:"Pending", filter_progress:"In progress",
+        filter_review:"In review", filter_approved:"Approved", filter_revision:"Needs revision",
+        section_grammar:"Grammar", section_vocab:"Vocabulary", section_phonetics:"Phonetics",
+        badge_approved:"✅ Approved", badge_review:"🔵 In review",
+        badge_progress:"🟡 In progress", badge_pending:"🔘 Pending", badge_revision:"❌ Needs revision",
+        btn_continue:"Continue", btn_start:"Start", btn_view:"View",
+        earnings_title:"Earnings", earnings_sub:"1 topic completed",
+        earn_per_topic:"Per topic", earn_pending:"Pending", earn_total:"Total",
+        progress_title:"A1 Progress",
+        progress_note:"You need at least 2 moderated topics before the dictionary compilation begins.",
+        tips_title:"Tips",
+        tip1:"Record audio slowly and clearly",
+        tip2:"Use a quiet environment",
+        tip3:"You can pause and come back later",
+        tip4:"Under 20% errors — no penalty",
+        footer_tagline:"Living languages, preserved for generations."
+      }
+    };
+
+    let currentLang = 'sw';
+    let currentFilter = 'all';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      renderFilters();
+      renderTopics();
+    }
+
+    // ── TOPIC DATA ────────────────────────────────────────
+    const topics = {
+      grammar: [
+        { id:"personal-pronouns",  sw:"Viwakilishi vya nafsi",    en:"Personal pronouns",     status:"approved" },
+        { id:"verb-to-be",         sw:"Kitenzi 'kuwa' (sasa)",    en:"Verb 'to be' (present)",status:"pending" },
+        { id:"question-words",     sw:"Maneno ya kuuliza",         en:"Question words",         status:"pending" },
+        { id:"negation",           sw:"Kukanusha",                 en:"Negation",               status:"pending" },
+        { id:"present-tense",      sw:"Wakati wa sasa",            en:"Present simple",         status:"pending" },
+        { id:"past-tense",         sw:"Wakati wa kale",            en:"Past simple",            status:"pending" },
+        { id:"future-tense",       sw:"Wakati wa kesho",           en:"Future tense",           status:"pending" },
+        { id:"numbers",            sw:"Namba 1–20",                en:"Numbers 1–20",           status:"pending" },
+        { id:"possessives",        sw:"Viwakilishi vya umiliki",   en:"Possessive pronouns",    status:"pending" },
+        { id:"prepositions",       sw:"Kivumishi cha nafasi",      en:"Prepositions of place",  status:"pending" },
+        { id:"noun-classes",       sw:"Darasa za nomino",          en:"Noun classes (Bantu)",   status:"pending" },
+      ],
+      vocab: [
+        { id:"greetings",  sw:"Salamu",               en:"Greetings",        status:"pending" },
+        { id:"family",     sw:"Familia",              en:"Family",           status:"pending" },
+        { id:"food",       sw:"Chakula na vinywaji",  en:"Food and drinks",  status:"pending" },
+        { id:"body",       sw:"Sehemu za mwili",      en:"Body parts",       status:"pending" },
+        { id:"clothing",   sw:"Nguo",                 en:"Clothing",         status:"pending" },
+        { id:"household",  sw:"Vitu vya nyumbani",   en:"Household items",  status:"pending" },
+        { id:"animals",    sw:"Wanyama",              en:"Animals",          status:"pending" },
+        { id:"nature",     sw:"Asili",                en:"Nature",           status:"pending" },
+        { id:"verbs",      sw:"Vitenzi vya msingi",   en:"Basic verbs",      status:"pending" },
+        { id:"time",       sw:"Wakati (saa, siku)",   en:"Time (hours,days)",status:"pending" },
+      ],
+      phonetics: [
+        { id:"alphabet",  sw:"Alfabeti na matamshi", en:"Alphabet & pronunciation", status:"pending" },
+        { id:"tones",     sw:"Toni za lugha",         en:"Language tones",           status:"pending" },
+        { id:"vowels",    sw:"Irabu ndefu na fupi",   en:"Long and short vowels",    status:"pending" },
+      ]
+    };
+
+    // ── STATUS CONFIG ─────────────────────────────────────
+    function statusConfig(status, t) {
+      return {
+        approved:    { badge: t.badge_approved,  btn: t.btn_view,     cls:"badge--approved" },
+        review:      { badge: t.badge_review,    btn: t.btn_view,     cls:"badge--review" },
+        in_progress: { badge: t.badge_progress,  btn: t.btn_continue, cls:"badge--in-progress" },
+        pending:     { badge: t.badge_pending,   btn: t.btn_start,    cls:"badge--not-started" },
+        revision:    { badge: t.badge_revision,  btn: t.btn_continue, cls:"badge--revision" },
+      }[status] || { badge: status, btn: t.btn_start, cls:"badge--not-started" };
+    }
+
+    // ── RENDER FILTERS ────────────────────────────────────
+    function renderFilters() {
+      const t = i18n[currentLang];
+      const all = [...topics.grammar, ...topics.vocab, ...topics.phonetics];
+      const counts = {
+        all: all.length,
+        pending: all.filter(x => x.status === 'pending').length,
+        in_progress: all.filter(x => x.status === 'in_progress').length,
+        review: all.filter(x => x.status === 'review').length,
+        approved: all.filter(x => x.status === 'approved').length,
+        revision: all.filter(x => x.status === 'revision').length,
+      };
+
+      const filters = [
+        { key:'all',         label:t.filter_all },
+        { key:'pending',     label:t.filter_pending },
+        { key:'in_progress', label:t.filter_progress },
+        { key:'review',      label:t.filter_review },
+        { key:'approved',    label:t.filter_approved },
+        { key:'revision',    label:t.filter_revision },
+      ].filter(f => counts[f.key] > 0 || f.key === 'all');
+
+      document.getElementById('filterBar').innerHTML = filters.map(f => `
+        <button class="filter-btn ${currentFilter === f.key ? 'active' : ''}"
+          onclick="setFilter('${f.key}')">
+          ${f.label}
+          <span class="filter-count">${counts[f.key]}</span>
+        </button>`
+      ).join('');
+    }
+
+    function setFilter(f) {
+      currentFilter = f;
+      renderFilters();
+      renderTopics();
+    }
+
+    // ── RENDER TOPICS ─────────────────────────────────────
+    function renderTopics() {
+      const t = i18n[currentLang];
+      const nameKey = currentLang === 'sw' ? 'sw' : 'en';
+      const container = document.getElementById('topicList');
+
+      function filterTopics(list) {
+        return currentFilter === 'all' ? list : list.filter(x => x.status === currentFilter);
+      }
+
+      function renderSection(list, sectionKey) {
+        const filtered = filterTopics(list);
+        if (filtered.length === 0) return '';
+
+        const sectionLabel = { grammar:'section_grammar', vocab:'section_vocab', phonetics:'section_phonetics' }[sectionKey];
+        const typeLabel    = { grammar:'sarufi', vocab:'msamiati', phonetics:'fonetiki' }[sectionKey];
+
+        const rows = filtered.map(topic => {
+          const sc = statusConfig(topic.status, t);
+          return `
+            <a href="topic.html?id=${topic.id}&type=${sectionKey}" class="topic-row topic-row--${topic.status}">
+              <div class="topic-row__type">${typeLabel}</div>
+              <div style="flex:1;">
+                <div class="topic-row__name">${topic[nameKey]}</div>
+              </div>
+              <div class="topic-row__meta">
+                <span class="badge ${sc.cls}" style="font-size:0.72rem;">${sc.badge}</span>
+                <span class="btn btn--sm btn--${topic.status === 'approved' || topic.status === 'review' ? 'secondary' : 'primary'}"
+                  style="font-size:0.78rem; padding:4px 14px;">
+                  ${sc.btn}
+                </span>
+              </div>
+              <div class="topic-row__arrow">›</div>
+            </a>`;
+        }).join('');
+
+        return `<div class="topics-section-header" data-i18n="${sectionLabel}">${t[sectionLabel]}</div>${rows}`;
+      }
+
+      container.innerHTML =
+        renderSection(topics.grammar,   'grammar') +
+        renderSection(topics.vocab,     'vocab') +
+        renderSection(topics.phonetics, 'phonetics');
+
+      if (!container.innerHTML.trim()) {
+        container.innerHTML = `<div style="text-align:center; padding:var(--space-2xl) 0; color:var(--text-muted); font-size:0.9rem;">
+          ${currentLang === 'sw' ? 'Hakuna mada katika kichujio hiki.' : 'No topics in this filter.'}
+        </div>`;
+      }
+    }
+
+    // ── INIT ──────────────────────────────────────────────
+    setLang('sw');
+  </script>
+
+</body>
+</html>
