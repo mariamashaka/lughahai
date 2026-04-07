@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Mada</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher {
+      display:flex; align-items:center;
+      background:var(--cream-dark); border-radius:var(--radius-xl);
+      padding:3px; gap:2px;
+    }
+    .lang-switcher__btn {
+      padding:4px 12px; border-radius:var(--radius-xl); border:none;
+      background:transparent; font-size:0.8rem; font-weight:500;
+      color:var(--text-soft); cursor:pointer; transition:all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background:var(--white); color:var(--green-deep);
+      box-shadow:0 1px 4px var(--shadow-warm);
+    }
+
+    /* Topic header */
+    .topic-header {
+      background:var(--white);
+      border-bottom:1px solid var(--cream-border);
+      padding:var(--space-lg) 0;
+      margin-bottom:var(--space-xl);
+    }
+    .topic-header__inner {
+      display:flex; align-items:center;
+      justify-content:space-between; gap:var(--space-lg);
+      flex-wrap:wrap;
+    }
+    .topic-header__breadcrumb {
+      font-size:0.78rem; color:var(--text-muted);
+      margin-bottom:var(--space-xs);
+    }
+    .topic-header__breadcrumb a { color:var(--text-muted); }
+    .topic-header__breadcrumb a:hover { color:var(--green-mid); }
+    .topic-header__title {
+      font-size:1.3rem; font-weight:600; color:var(--green-deep);
+    }
+    .topic-header__actions {
+      display:flex; gap:var(--space-md); align-items:center; flex-wrap:wrap;
+    }
+
+    /* Progress steps */
+    .steps-bar {
+      display:flex; gap:0; margin-bottom:var(--space-xl);
+      border-radius:var(--radius-md); overflow:hidden;
+      border:1px solid var(--cream-border);
+    }
+    .step {
+      flex:1; padding:var(--space-sm) var(--space-md);
+      background:var(--white); text-align:center;
+      font-size:0.78rem; color:var(--text-muted);
+      border-right:1px solid var(--cream-border);
+      cursor:pointer; transition:all var(--transition);
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .step:last-child { border-right:none; }
+    .step:hover { background:var(--cream); }
+    .step.active {
+      background:var(--green-deep); color:var(--cream);
+    }
+    .step.done {
+      background:var(--green-mist); color:var(--green-deep);
+    }
+    .step__num { font-weight:600; font-size:1rem; }
+    .step__label { font-size:0.7rem; }
+
+    /* Phrase block */
+    .phrase-block {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+      margin-bottom:var(--space-md);
+      box-shadow:0 2px 8px var(--shadow-warm);
+    }
+    .phrase-block.done {
+      border-color:var(--green-pale);
+    }
+    .phrase-header {
+      display:flex; align-items:center;
+      justify-content:space-between;
+      padding:var(--space-md) var(--space-lg);
+      background:var(--cream);
+      border-bottom:1px solid var(--cream-border);
+      cursor:pointer;
+      gap:var(--space-md);
+    }
+    .phrase-header:hover { background:var(--cream-dark); }
+    .phrase-num {
+      width:28px; height:28px; border-radius:50%;
+      background:var(--green-deep); color:var(--cream);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.75rem; font-weight:600; flex-shrink:0;
+    }
+    .phrase-num.done {
+      background:var(--green-soft);
+    }
+    .phrase-source {
+      flex:1;
+      font-size:0.9rem; color:var(--text-dark); font-weight:500;
+    }
+    .phrase-source span {
+      display:block; font-size:0.75rem;
+      color:var(--text-muted); font-weight:400; margin-top:2px;
+    }
+    .phrase-chevron {
+      color:var(--text-muted); transition:transform var(--transition);
+      font-size:1rem;
+    }
+    .phrase-chevron.open { transform:rotate(90deg); }
+
+    .phrase-body {
+      padding:var(--space-lg);
+      display:none;
+      flex-direction:column;
+      gap:var(--space-lg);
+    }
+    .phrase-body.open { display:flex; }
+
+    /* Translation input */
+    .translation-row {
+      display:flex; flex-direction:column; gap:var(--space-sm);
+    }
+    .translation-label {
+      font-size:0.78rem; font-weight:500;
+      color:var(--text-soft); text-transform:uppercase;
+      letter-spacing:0.06em;
+    }
+    .translation-input {
+      width:100%;
+      padding:0.75rem 1rem;
+      border:1.5px solid var(--cream-border);
+      border-radius:var(--radius-md);
+      background:var(--white);
+      color:var(--text-dark);
+      font-size:1rem;
+      transition:border-color var(--transition), box-shadow var(--transition);
+      outline:none;
+      font-family:var(--font-body);
+    }
+    .translation-input:focus {
+      border-color:var(--green-soft);
+      box-shadow:0 0 0 3px rgba(92,140,117,0.15);
+    }
+    .translation-input.filled {
+      border-color:var(--green-pale);
+      background:var(--green-mist);
+    }
+
+    /* Audio recorder */
+    .audio-section {
+      display:flex; flex-direction:column; gap:var(--space-sm);
+    }
+    .audio-section-label {
+      font-size:0.78rem; font-weight:500;
+      color:var(--text-soft); text-transform:uppercase;
+      letter-spacing:0.06em;
+    }
+    .audio-controls {
+      display:flex; align-items:center;
+      gap:var(--space-md);
+      padding:var(--space-md) var(--space-lg);
+      background:var(--cream);
+      border-radius:var(--radius-md);
+      border:1px solid var(--cream-border);
+    }
+    .rec-btn {
+      width:44px; height:44px; border-radius:50%;
+      border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; transition:all var(--transition); flex-shrink:0;
+    }
+    .rec-btn--record { background:var(--terracotta); color:var(--white); }
+    .rec-btn--record:hover { background:#b05e38; transform:scale(1.05); }
+    .rec-btn--record.recording {
+      background:#922b21;
+      animation:pulse 1.2s infinite;
+    }
+    .rec-btn--play { background:var(--green-mid); color:var(--white); }
+    .rec-btn--play:hover { background:var(--green-deep); transform:scale(1.05); }
+    .rec-btn--play:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+    .rec-btn--delete { background:var(--cream-dark); color:var(--text-soft); }
+    .rec-btn--delete:hover { background:#fdecea; color:#922b21; }
+    .rec-btn--delete:disabled { opacity:0.3; cursor:not-allowed; }
+    .audio-status {
+      flex:1; font-size:0.82rem; color:var(--text-soft);
+    }
+    .audio-status.has-recording { color:var(--green-mid); font-weight:500; }
+    .audio-waveform {
+      display:flex; align-items:center; gap:2px; height:24px;
+    }
+    .audio-waveform .bar {
+      width:3px; border-radius:2px;
+      background:var(--green-soft); opacity:0.6;
+      animation:wave 1s ease-in-out infinite;
+    }
+    @keyframes wave {
+      0%,100% { transform:scaleY(0.4); }
+      50%      { transform:scaleY(1); }
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow:0 0 0 0 rgba(146,43,33,0.4); }
+      50%      { box-shadow:0 0 0 8px rgba(146,43,33,0); }
+    }
+
+    /* Done button per phrase */
+    .phrase-done-btn {
+      align-self:flex-end;
+      display:flex; align-items:center; gap:var(--space-sm);
+    }
+
+    /* Conjugation table */
+    .conj-table-wrap {
+      overflow-x:auto;
+      border-radius:var(--radius-md);
+      border:1px solid var(--cream-border);
+    }
+    .conj-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+    .conj-table th {
+      background:var(--green-deep); color:var(--cream);
+      padding:8px 12px; text-align:left; font-weight:500;
+    }
+    .conj-table td { padding:6px 8px; border-bottom:1px solid var(--cream-border); }
+    .conj-table tr:last-child td { border-bottom:none; }
+    .conj-table tr:hover td { background:var(--cream); }
+    .conj-table input {
+      width:100%; border:none; background:transparent;
+      font-size:0.88rem; font-family:var(--font-body);
+      color:var(--text-dark); outline:none; padding:2px 4px;
+    }
+    .conj-table input:focus {
+      background:var(--green-mist);
+      border-radius:4px;
+    }
+    .conj-table .source-cell {
+      color:var(--text-soft); font-size:0.82rem;
+    }
+
+    /* Sidebar */
+    .topic-sidebar {
+      position:sticky; top:80px;
+      display:flex; flex-direction:column; gap:var(--space-md);
+    }
+    .sidebar-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      padding:var(--space-lg);
+      box-shadow:0 2px 8px var(--shadow-warm);
+    }
+    .sidebar-card__title {
+      font-size:0.72rem; font-weight:500;
+      letter-spacing:0.08em; text-transform:uppercase;
+      color:var(--text-muted); margin-bottom:var(--space-md);
+      padding-bottom:var(--space-sm);
+      border-bottom:1px solid var(--cream-border);
+    }
+
+    /* Mini progress */
+    .mini-progress-item {
+      display:flex; align-items:center;
+      gap:var(--space-sm); margin-bottom:var(--space-sm);
+      font-size:0.82rem;
+    }
+    .mini-check {
+      width:18px; height:18px; border-radius:50%;
+      border:1.5px solid var(--cream-border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.65rem; flex-shrink:0; color:transparent;
+    }
+    .mini-check.done {
+      background:var(--green-soft); border-color:var(--green-soft);
+      color:var(--white);
+    }
+
+    @media(max-width:900px) {
+      .topic-grid { grid-template-columns:1fr !important; }
+      .topic-sidebar { position:static; }
+      .steps-bar { overflow-x:auto; }
+      .step { min-width:80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div class="nav__links">
+          <a href="index.html" class="nav__link" data-i18n="nav_dashboard">Dashibodi</a>
+        </div>
+        <div class="nav__actions">
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TOPIC HEADER -->
+  <div class="topic-header">
+    <div class="container">
+      <div class="topic-header__inner">
+        <div>
+          <div class="topic-header__breadcrumb">
+            <a href="index.html" data-i18n="nav_dashboard">Dashibodi</a> ›
+            Kikurya A1 ›
+            <span data-i18n="topic_type_label">Sarufi</span>
+          </div>
+          <div class="topic-header__title" data-i18n="topic_title">Viwakilishi vya nafsi</div>
+        </div>
+        <div class="topic-header__actions">
+          <button class="btn btn--ghost btn--sm" onclick="saveDraft()" data-i18n="btn_save_draft">Hifadhi rasimu</button>
+          <button class="btn btn--primary" onclick="submitForReview()" id="submitBtn" data-i18n="btn_submit">Tuma kwa ukaguzi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- PROGRESS STEPS -->
+    <div class="steps-bar" id="stepsBar">
+      <!-- injected by JS -->
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="topic-grid" style="display:grid; grid-template-columns:1fr 280px; gap:var(--space-xl); align-items:start;">
+
+      <!-- LEFT: phrase list -->
+      <div id="phraseContainer">
+        <!-- injected by JS -->
+      </div>
+
+      <!-- RIGHT: sidebar -->
+      <div class="topic-sidebar">
+
+        <!-- Completion checker -->
+        <div class="sidebar-card">
+          <div class="sidebar-card__title" data-i18n="checklist_title">Orodha ya ukaguzi</div>
+          <div id="checklistItems">
+            <!-- injected by JS -->
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="sidebar-card">
+          <div class="sidebar-card__title" data-i18n="instructions_title">Maelekezo</div>
+          <div style="font-size:0.82rem; color:var(--text-mid); line-height:1.7;" id="instructionsText">
+            <!-- injected by JS -->
+          </div>
+        </div>
+
+        <!-- Save/Submit -->
+        <div style="display:flex; flex-direction:column; gap:var(--space-sm);">
+          <button class="btn btn--primary w-full" style="justify-content:center;" onclick="submitForReview()" data-i18n="btn_submit">
+            Tuma kwa ukaguzi
+          </button>
+          <button class="btn btn--ghost w-full" style="justify-content:center;" onclick="saveDraft()" data-i18n="btn_save_draft">
+            Hifadhi rasimu
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="height:var(--space-2xl);"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Lugha Hai</div>
+      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
+      <div class="footer__bottom">
+        <span>© 2026 Lugha Hai.</span>
+        <span style="color:var(--green-pale); font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── TRANSLATIONS ──────────────────────────────────────
+    const i18n = {
+      sw: {
+        nav_dashboard:"Dashibodi", nav_signout:"Toka",
+        topic_type_label:"Sarufi", topic_title:"Viwakilishi vya nafsi",
+        btn_save_draft:"Hifadhi rasimu", btn_submit:"Tuma kwa ukaguzi",
+        btn_mark_done:"Imekamilika ✓",
+        translation_label:"Tafsiri (Kikurya)",
+        translation_placeholder:"Andika tafsiri hapa...",
+        audio_label:"Sauti",
+        audio_record:"Bonyeza kurekodi",
+        audio_recording:"Inarekodi... bonyeza kusimama",
+        audio_done:"Sauti imehifadhiwa ✓",
+        audio_tip:"Zungumza polepole na wazi",
+        conj_label:"Jedwali la mnyambuliko",
+        checklist_title:"Orodha ya ukaguzi",
+        instructions_title:"Maelekezo",
+        instructions_text:"Kwa kila sentensi: (1) Andika tafsiri yake kwa Kikurya. (2) Rekodi sauti yako ukizungumza sentensi hiyo polepole na wazi. Unaweza kuhifadhi na kurudi baadaye — kazi yako itahifadhiwa.",
+        step_subject:"Mimi/Wewe/Yeye",
+        step_object:"Kitu (menya/wewe...)",
+        step_possess:"Mali (yangu/yako...)",
+        step_formal:"Heshima",
+        phrase_done_label:"Imekamilika",
+        footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi.",
+        save_msg:"Rasimu imehifadhiwa!",
+        submit_msg:"Imetumwa kwa ukaguzi! Asante.",
+        alert_incomplete:"Tafadhali kamilisha tafsiri zote kabla ya kutuma."
+      },
+      en: {
+        nav_dashboard:"Dashboard", nav_signout:"Sign out",
+        topic_type_label:"Grammar", topic_title:"Personal pronouns",
+        btn_save_draft:"Save draft", btn_submit:"Submit for review",
+        btn_mark_done:"Mark done ✓",
+        translation_label:"Translation (Kikurya)",
+        translation_placeholder:"Type the translation here...",
+        audio_label:"Audio",
+        audio_record:"Click to record",
+        audio_recording:"Recording... click to stop",
+        audio_done:"Audio saved ✓",
+        audio_tip:"Speak slowly and clearly",
+        conj_label:"Conjugation table",
+        checklist_title:"Completion checklist",
+        instructions_title:"Instructions",
+        instructions_text:"For each sentence: (1) Write its translation in Kikurya. (2) Record yourself saying the sentence slowly and clearly. You can save and come back later — your work is saved.",
+        step_subject:"I/You/He/She",
+        step_object:"Object (me/you...)",
+        step_possess:"Possessive (my/your...)",
+        step_formal:"Formal/Honorific",
+        phrase_done_label:"Done",
+        footer_tagline:"Living languages, preserved for generations.",
+        save_msg:"Draft saved!",
+        submit_msg:"Submitted for review! Thank you.",
+        alert_incomplete:"Please complete all translations before submitting."
+      }
+    };
+
+    let currentLang = 'sw';
+
+    // ── TOPIC DATA ────────────────────────────────────────
+    // This is the "Personal Pronouns" grammar topic
+    // Phrases come from our methodology document (личные_местоимения)
+    const topicData = {
+      id: "personal-pronouns",
+      type: "grammar",
+      steps: ["step_subject", "step_object", "step_possess", "step_formal"],
+      phrases: [
+        // BLOCK A — Subject pronouns
+        {
+          id:"a1", block:"step_subject",
+          sw:"Ninaenda nyumbani", en:"I go home",
+          context_sw:"(mzungumzaji ni mimi)", context_en:"(speaker is me)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a2", block:"step_subject",
+          sw:"Unaenda nyumbani", en:"You go home",
+          context_sw:"(unazungumza na mtu mmoja)", context_en:"(speaking to one person)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a3", block:"step_subject",
+          sw:"Chaha anaenda nyumbani", en:"Chaha goes home",
+          context_sw:"(Chaha ni mvulana)", context_en:"(Chaha is a boy)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a4", block:"step_subject",
+          sw:"Priska anaenda nyumbani", en:"Priska goes home",
+          context_sw:"(Priska ni msichana)", context_en:"(Priska is a girl)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a5", block:"step_subject",
+          sw:"Tunaenda nyumbani", en:"We go home",
+          context_sw:"(kundi kubwa, mchanganyiko)", context_en:"(large mixed group)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a6", block:"step_subject",
+          sw:"Mimi na Priska tunaenda nyumbani", en:"Priska and I go home",
+          context_sw:"(wote wasichana wawili)", context_en:"(both girls)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a7", block:"step_subject",
+          sw:"Mimi na Chaha tunaenda nyumbani", en:"Chaha and I go home",
+          context_sw:"(jinsia tofauti)", context_en:"(mixed gender)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a8", block:"step_subject",
+          sw:"Chaha na Gesase wanaenda nyumbani", en:"Chaha and Gesase go home",
+          context_sw:"(wavulana wote wawili)", context_en:"(both boys)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"a9", block:"step_subject",
+          sw:"Mimi na Priska (sisi wawili tu) tunaenda nyumbani",
+          en:"Priska and I (just the two of us) go home",
+          context_sw:"(nasi wawili tu — wasichana)", context_en:"(dual — both girls)",
+          hasAudio:true, hasConj:false
+        },
+        // BLOCK B — Object pronouns
+        {
+          id:"b1", block:"step_object",
+          sw:"Chaha ananiona", en:"Chaha sees me",
+          context_sw:"", context_en:"",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"b2", block:"step_object",
+          sw:"Chaha anakuona", en:"Chaha sees you",
+          context_sw:"", context_en:"",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"b3", block:"step_object",
+          sw:"Maria anamwona Chaha / Maria anamwona yeye",
+          en:"Maria sees Chaha / Maria sees him",
+          context_sw:"(Chaha ni mvulana)", context_en:"(Chaha is a boy)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"b4", block:"step_object",
+          sw:"Maria anamwona Priska / Maria anamwona yeye",
+          en:"Maria sees Priska / Maria sees her",
+          context_sw:"(Priska ni msichana)", context_en:"(Priska is a girl)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"b5", block:"step_object",
+          sw:"Chaha anatuona", en:"Chaha sees us",
+          context_sw:"(kundi kubwa, mchanganyiko)", context_en:"(large mixed group)",
+          hasAudio:true, hasConj:false
+        },
+        // BLOCK C — Possessive pronouns
+        {
+          id:"c1", block:"step_possess",
+          sw:"Hii ni kitabu changu", en:"This is my book",
+          context_sw:"(mmiliki ni mimi)", context_en:"(owner is me)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"c2", block:"step_possess",
+          sw:"Hii ni kitabu chako", en:"This is your book",
+          context_sw:"(mmiliki ni wewe)", context_en:"(owner is you)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"c3", block:"step_possess",
+          sw:"Hii ni kitabu cha Chaha / kitabu chake",
+          en:"This is Chaha's book / his book",
+          context_sw:"(mmiliki ni mvulana)", context_en:"(owner is a boy)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"c4", block:"step_possess",
+          sw:"Hii ni kitabu cha Priska / kitabu chake",
+          en:"This is Priska's book / her book",
+          context_sw:"(mmiliki ni msichana)", context_en:"(owner is a girl)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"c5", block:"step_possess",
+          sw:"Hii ni kitabu chetu", en:"This is our book",
+          context_sw:"(kundi kubwa)", context_en:"(large group)",
+          hasAudio:true, hasConj:false
+        },
+        // BLOCK D — Formal/honorific
+        {
+          id:"d1", block:"step_formal",
+          sw:"Chaha anasema kwa mzee: Je, mmefika?",
+          en:"Chaha says to the elder: Have you arrived?",
+          context_sw:"(heshima/rasmi)", context_en:"(formal/honorific)",
+          hasAudio:true, hasConj:false
+        },
+        {
+          id:"d2", block:"step_formal",
+          sw:"Mzee anasema kwa Chaha: Ninakuona",
+          en:"The elder says to Chaha: I see you",
+          context_sw:"(mzee anazungumza)", context_en:"(elder speaking)",
+          hasAudio:true, hasConj:false
+        },
+      ]
+    };
+
+    // ── STATE ─────────────────────────────────────────────
+    // phraseState[id] = { translation:'', hasAudio:false, done:false }
+    const phraseState = {};
+    topicData.phrases.forEach(p => {
+      phraseState[p.id] = { translation:'', hasAudio:false, done:false };
+    });
+
+    // Fake recording state per phrase
+    const recordingState = {};
+
+    // ── RENDER ────────────────────────────────────────────
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      render();
+    }
+
+    function render() {
+      renderSteps();
+      renderPhrases();
+      renderChecklist();
+      renderInstructions();
+    }
+
+    // ── STEPS BAR ─────────────────────────────────────────
+    function renderSteps() {
+      const t = i18n[currentLang];
+      const bar = document.getElementById('stepsBar');
+      bar.innerHTML = topicData.steps.map((step, i) => {
+        const phrasesInStep = topicData.phrases.filter(p => p.block === step);
+        const doneInStep    = phrasesInStep.filter(p => phraseState[p.id].done).length;
+        const allDone       = doneInStep === phrasesInStep.length;
+        return `
+          <div class="step ${allDone ? 'done' : ''}">
+            <div class="step__num">${allDone ? '✓' : i+1}</div>
+            <div class="step__label">${t[step] || step}</div>
+          </div>`;
+      }).join('');
+    }
+
+    // ── PHRASES ───────────────────────────────────────────
+    function renderPhrases() {
+      const t = i18n[currentLang];
+      const container = document.getElementById('phraseContainer');
+      const nameKey   = currentLang === 'sw' ? 'sw' : 'en';
+      const ctxKey    = currentLang === 'sw' ? 'context_sw' : 'context_en';
+
+      // Group by block
+      const blocks = {};
+      topicData.phrases.forEach(p => {
+        if (!blocks[p.block]) blocks[p.block] = [];
+        blocks[p.block].push(p);
+      });
+
+      let html = '';
+      let globalIdx = 1;
+
+      topicData.steps.forEach(step => {
+        const phrases = blocks[step] || [];
+        if (!phrases.length) return;
+
+        html += `<div style="margin-bottom:var(--space-xl);">
+          <div style="font-size:0.72rem; font-weight:500; letter-spacing:0.08em;
+            text-transform:uppercase; color:var(--text-muted);
+            margin-bottom:var(--space-md); padding-bottom:var(--space-sm);
+            border-bottom:1px solid var(--cream-border);">
+            ${t[step] || step}
+          </div>`;
+
+        phrases.forEach(phrase => {
+          const state   = phraseState[phrase.id];
+          const isOpen  = !state.done; // auto-open undone phrases
+          const isDone  = state.done;
+          const ctx     = phrase[ctxKey];
+          const isRec   = recordingState[phrase.id];
+
+          html += `
+            <div class="phrase-block ${isDone ? 'done' : ''}" id="block-${phrase.id}">
+              <div class="phrase-header" onclick="togglePhrase('${phrase.id}')">
+                <div class="phrase-num ${isDone ? 'done' : ''}">${isDone ? '✓' : globalIdx}</div>
+                <div class="phrase-source">
+                  ${phrase[nameKey]}
+                  ${ctx ? `<span>${ctx}</span>` : ''}
+                </div>
+                <div class="phrase-chevron ${isOpen ? 'open' : ''}" id="chev-${phrase.id}">›</div>
+              </div>
+
+              <div class="phrase-body ${isOpen ? 'open' : ''}" id="body-${phrase.id}">
+
+                <!-- Translation -->
+                <div class="translation-row">
+                  <div class="translation-label">${t.translation_label}</div>
+                  <input
+                    type="text"
+                    class="translation-input ${state.translation ? 'filled' : ''}"
+                    placeholder="${t.translation_placeholder}"
+                    value="${state.translation}"
+                    oninput="onTranslationInput('${phrase.id}', this.value)"
+                    id="input-${phrase.id}"
+                  />
+                </div>
+
+                <!-- Audio -->
+                <div class="audio-section">
+                  <div class="audio-section-label">${t.audio_label}</div>
+                  <div class="audio-controls">
+                    <button
+                      class="rec-btn rec-btn--record ${isRec ? 'recording' : ''}"
+                      onclick="toggleRecord('${phrase.id}')"
+                      title="${isRec ? t.audio_recording : t.audio_record}"
+                    >${isRec ? '⏹' : '🎙'}</button>
+
+                    <button
+                      class="rec-btn rec-btn--play"
+                      onclick="playAudio('${phrase.id}')"
+                      ${!state.hasAudio ? 'disabled' : ''}
+                    >▶</button>
+
+                    <button
+                      class="rec-btn rec-btn--delete"
+                      onclick="deleteAudio('${phrase.id}')"
+                      ${!state.hasAudio ? 'disabled' : ''}
+                      title="Delete"
+                    >🗑</button>
+
+                    <div class="audio-status ${state.hasAudio ? 'has-recording' : ''}">
+                      ${isRec
+                        ? `<div class="audio-waveform">${Array(8).fill('<div class="bar" style="height:' + (Math.random()*16+4) + 'px; animation-delay:' + (Math.random()*0.5) + 's;"></div>').join('')}</div>`
+                        : state.hasAudio
+                          ? t.audio_done
+                          : `<span style="font-size:0.75rem;">${t.audio_tip}</span>`
+                      }
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mark done -->
+                <div class="phrase-done-btn">
+                  <button
+                    class="btn ${isDone ? 'btn--secondary' : 'btn--primary'} btn--sm"
+                    onclick="markDone('${phrase.id}')"
+                  >
+                    ${isDone ? '↩ ' + t.phrase_done_label : t.btn_mark_done}
+                  </button>
+                </div>
+
+              </div>
+            </div>`;
+
+          globalIdx++;
+        });
+
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // ── CHECKLIST ─────────────────────────────────────────
+    function renderChecklist() {
+      const t = i18n[currentLang];
+      const total  = topicData.phrases.length;
+      const done   = topicData.phrases.filter(p => phraseState[p.id].done).length;
+      const hasAud = topicData.phrases.filter(p => phraseState[p.id].hasAudio).length;
+      const hasTrl = topicData.phrases.filter(p => phraseState[p.id].translation).length;
+
+      document.getElementById('checklistItems').innerHTML = `
+        <div class="mini-progress-item">
+          <div class="mini-check ${hasTrl === total ? 'done' : ''}">✓</div>
+          <span style="font-size:0.82rem; color:var(--text-mid);">
+            ${currentLang==='sw' ? 'Tafsiri' : 'Translations'}: ${hasTrl}/${total}
+          </span>
+        </div>
+        <div class="mini-progress-item">
+          <div class="mini-check ${hasAud === total ? 'done' : ''}">✓</div>
+          <span style="font-size:0.82rem; color:var(--text-mid);">
+            ${currentLang==='sw' ? 'Sauti' : 'Audio'}: ${hasAud}/${total}
+          </span>
+        </div>
+        <div class="mini-progress-item">
+          <div class="mini-check ${done === total ? 'done' : ''}">✓</div>
+          <span style="font-size:0.82rem; color:var(--text-mid);">
+            ${currentLang==='sw' ? 'Zilizokamilika' : 'Marked done'}: ${done}/${total}
+          </span>
+        </div>
+        <div style="margin-top:var(--space-md);">
+          <div class="flex-between" style="margin-bottom:6px;">
+            <span style="font-size:0.78rem; color:var(--text-soft);">${done}/${total}</span>
+            <span style="font-size:0.78rem; font-weight:500; color:var(--green-deep);">${Math.round(done/total*100)}%</span>
+          </div>
+          <div class="progress"><div class="progress__fill" style="width:${Math.round(done/total*100)}%;"></div></div>
+        </div>`;
+    }
+
+    // ── INSTRUCTIONS ──────────────────────────────────────
+    function renderInstructions() {
+      const t = i18n[currentLang];
+      document.getElementById('instructionsText').textContent = t.instructions_text;
+    }
+
+    // ── INTERACTION HANDLERS ──────────────────────────────
+    function togglePhrase(id) {
+      const body = document.getElementById('body-' + id);
+      const chev = document.getElementById('chev-' + id);
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      chev.classList.toggle('open', !isOpen);
+    }
+
+    function onTranslationInput(id, value) {
+      phraseState[id].translation = value;
+      const input = document.getElementById('input-' + id);
+      input.classList.toggle('filled', !!value);
+      renderChecklist();
+      renderSteps();
+    }
+
+    function toggleRecord(id) {
+      if (recordingState[id]) {
+        // Stop recording → save
+        recordingState[id] = false;
+        phraseState[id].hasAudio = true;
+      } else {
+        // Start recording
+        recordingState[id] = true;
+      }
+      render();
+    }
+
+    function playAudio(id) {
+      // Placeholder — will hook into real audio in next version
+      alert(currentLang === 'sw' ? 'Kucheza sauti... (itafanya kazi na rekodi halisi)' : 'Playing audio... (will work with real recording)');
+    }
+
+    function deleteAudio(id) {
+      phraseState[id].hasAudio = false;
+      recordingState[id] = false;
+      render();
+    }
+
+    function markDone(id) {
+      phraseState[id].done = !phraseState[id].done;
+      // If marking done, close the phrase block
+      if (phraseState[id].done) {
+        const body = document.getElementById('body-' + id);
+        const chev = document.getElementById('chev-' + id);
+        if (body) body.classList.remove('open');
+        if (chev) chev.classList.remove('open');
+      }
+      render();
+    }
+
+    function saveDraft() {
+      const t = i18n[currentLang];
+      // Save to localStorage as placeholder
+      localStorage.setItem('lh_draft_' + topicData.id, JSON.stringify(phraseState));
+      const btn = document.querySelector('[onclick="saveDraft()"]');
+      const original = btn.textContent;
+      btn.textContent = t.save_msg;
+      btn.style.background = 'var(--green-mist)';
+      btn.style.color = 'var(--green-deep)';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    }
+
+    function submitForReview() {
+      const t = i18n[currentLang];
+      const allTranslated = topicData.phrases.every(p => phraseState[p.id].translation);
+      if (!allTranslated) {
+        alert(t.alert_incomplete);
+        return;
+      }
+      alert(t.submit_msg);
+      window.location.href = 'index.html';
+    }
+
+    // ── LOAD DRAFT ────────────────────────────────────────
+    function loadDraft() {
+      const saved = localStorage.getItem('lh_draft_' + topicData.id);
+      if (saved) {
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(id => {
+          if (phraseState[id]) {
+            phraseState[id] = { ...phraseState[id], ...data[id] };
+          }
+        });
+      }
+    }
+
+    // ── INIT ──────────────────────────────────────────────
+    loadDraft();
+    setLang('sw');
+  </script>
+
+</body>
+</html>
