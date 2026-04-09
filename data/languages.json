@@ -12,52 +12,196 @@
       "status": "active",
       "started": "2026-04",
       "contributors": [
-        { "name": "Priska Morara", "initials": "PM" },
-        { "name": "Chaha Gesase",  "initials": "CG" }
+        {
+          "name": "Priska Morara",
+          "initials": "PM"
+        },
+        {
+          "name": "Chaha Gesase",
+          "initials": "CG"
+        }
       ],
-      "moderator": { "name": "Ayeke Gesase", "initials": "AG" },
+      "moderator": {
+        "name": "Ayeke Gesase",
+        "initials": "AG"
+      },
       "levels": {
         "A1": {
           "active": true,
           "topics_total": 41,
           "grammar": [
-            { "id": "personal-pronouns",  "name_sw": "Viwakilishi vya nafsi",    "name_en": "Personal pronouns",      "status": "approved" },
-            { "id": "verb-to-be",         "name_sw": "Kitenzi 'kuwa' (sasa)",    "name_en": "Verb 'to be' (present)", "status": "pending" },
-            { "id": "question-words",     "name_sw": "Maneno ya kuuliza",         "name_en": "Question words",         "status": "pending" },
-            { "id": "negation",           "name_sw": "Kukanusha",                 "name_en": "Negation",               "status": "pending" },
-            { "id": "present-tense",      "name_sw": "Wakati wa sasa",            "name_en": "Present simple",         "status": "pending" },
-            { "id": "past-tense",         "name_sw": "Wakati wa kale",            "name_en": "Past simple",            "status": "pending" },
-            { "id": "future-tense",       "name_sw": "Wakati wa kesho",           "name_en": "Future tense",           "status": "pending" },
-            { "id": "numbers",            "name_sw": "Namba 1–20",                "name_en": "Numbers 1–20",           "status": "pending" },
-            { "id": "possessives",        "name_sw": "Viwakilishi vya umiliki",   "name_en": "Possessive pronouns",    "status": "pending" },
-            { "id": "prepositions",       "name_sw": "Kivumishi cha nafasi",      "name_en": "Prepositions of place",  "status": "pending" },
-            { "id": "noun-classes",       "name_sw": "Darasa za nomino",          "name_en": "Noun classes (Bantu)",   "status": "pending" }
+            {
+              "id": "personal-pronouns",
+              "name_sw": "Viwakilishi vya nafsi",
+              "name_en": "Personal pronouns",
+              "status": "approved"
+            },
+            {
+              "id": "verb-to-be",
+              "name_sw": "Kitenzi 'kuwa' (sasa)",
+              "name_en": "Verb 'to be' (present)",
+              "status": "pending"
+            },
+            {
+              "id": "question-words",
+              "name_sw": "Maneno ya kuuliza",
+              "name_en": "Question words",
+              "status": "pending"
+            },
+            {
+              "id": "negation",
+              "name_sw": "Kukanusha",
+              "name_en": "Negation",
+              "status": "pending"
+            },
+            {
+              "id": "present-tense",
+              "name_sw": "Wakati wa sasa",
+              "name_en": "Present simple",
+              "status": "pending"
+            },
+            {
+              "id": "past-tense",
+              "name_sw": "Wakati wa kale",
+              "name_en": "Past simple",
+              "status": "pending"
+            },
+            {
+              "id": "future-tense",
+              "name_sw": "Wakati wa kesho",
+              "name_en": "Future tense",
+              "status": "pending"
+            },
+            {
+              "id": "numbers",
+              "name_sw": "Namba 1–20",
+              "name_en": "Numbers 1–20",
+              "status": "pending"
+            },
+            {
+              "id": "possessives",
+              "name_sw": "Viwakilishi vya umiliki",
+              "name_en": "Possessive pronouns",
+              "status": "pending"
+            },
+            {
+              "id": "prepositions",
+              "name_sw": "Kivumishi cha nafasi",
+              "name_en": "Prepositions of place",
+              "status": "pending"
+            },
+            {
+              "id": "noun-classes",
+              "name_sw": "Darasa za nomino",
+              "name_en": "Noun classes (Bantu)",
+              "status": "pending"
+            }
           ],
           "vocabulary": [
-            { "id": "greetings",   "name_sw": "Salamu",               "name_en": "Greetings",        "status": "pending" },
-            { "id": "family",      "name_sw": "Familia",              "name_en": "Family",           "status": "pending" },
-            { "id": "food",        "name_sw": "Chakula na vinywaji",  "name_en": "Food and drinks",  "status": "pending" },
-            { "id": "body",        "name_sw": "Sehemu za mwili",      "name_en": "Body parts",       "status": "pending" },
-            { "id": "clothing",    "name_sw": "Nguo",                 "name_en": "Clothing",         "status": "pending" },
-            { "id": "household",   "name_sw": "Vitu vya nyumbani",    "name_en": "Household items",  "status": "pending" },
-            { "id": "animals",     "name_sw": "Wanyama",              "name_en": "Animals",          "status": "pending" },
-            { "id": "nature",      "name_sw": "Asili",                "name_en": "Nature",           "status": "pending" },
-            { "id": "basic-verbs", "name_sw": "Vitenzi vya msingi",   "name_en": "Basic verbs",      "status": "pending" },
-            { "id": "time",        "name_sw": "Wakati (saa, siku)",   "name_en": "Time (hours,days)","status": "pending" }
+            {
+              "id": "greetings",
+              "name_sw": "Salamu",
+              "name_en": "Greetings",
+              "status": "pending"
+            },
+            {
+              "id": "family",
+              "name_sw": "Familia",
+              "name_en": "Family",
+              "status": "pending"
+            },
+            {
+              "id": "food",
+              "name_sw": "Chakula na vinywaji",
+              "name_en": "Food and drinks",
+              "status": "pending"
+            },
+            {
+              "id": "body",
+              "name_sw": "Sehemu za mwili",
+              "name_en": "Body parts",
+              "status": "pending"
+            },
+            {
+              "id": "clothing",
+              "name_sw": "Nguo",
+              "name_en": "Clothing",
+              "status": "pending"
+            },
+            {
+              "id": "household",
+              "name_sw": "Vitu vya nyumbani",
+              "name_en": "Household items",
+              "status": "pending"
+            },
+            {
+              "id": "animals",
+              "name_sw": "Wanyama",
+              "name_en": "Animals",
+              "status": "pending"
+            },
+            {
+              "id": "nature",
+              "name_sw": "Asili",
+              "name_en": "Nature",
+              "status": "pending"
+            },
+            {
+              "id": "basic-verbs",
+              "name_sw": "Vitenzi vya msingi",
+              "name_en": "Basic verbs",
+              "status": "pending"
+            },
+            {
+              "id": "time",
+              "name_sw": "Wakati (saa, siku)",
+              "name_en": "Time (hours,days)",
+              "status": "pending"
+            }
           ],
           "phonetics": [
-            { "id": "alphabet", "name_sw": "Alfabeti na matamshi", "name_en": "Alphabet & pronunciation", "status": "pending" },
-            { "id": "tones",    "name_sw": "Toni za lugha",         "name_en": "Language tones",           "status": "pending" },
-            { "id": "vowels",   "name_sw": "Irabu ndefu na fupi",   "name_en": "Long and short vowels",    "status": "pending" }
+            {
+              "id": "alphabet",
+              "name_sw": "Alfabeti na matamshi",
+              "name_en": "Alphabet & pronunciation",
+              "status": "pending"
+            },
+            {
+              "id": "tones",
+              "name_sw": "Toni za lugha",
+              "name_en": "Language tones",
+              "status": "pending"
+            },
+            {
+              "id": "vowels",
+              "name_sw": "Irabu ndefu na fupi",
+              "name_en": "Long and short vowels",
+              "status": "pending"
+            }
           ]
         },
-        "A2": { "active": false, "topics_total": 0 },
-        "B1": { "active": false, "topics_total": 0 },
-        "B2": { "active": false, "topics_total": 0 },
-        "C1": { "active": false, "topics_total": 0 }
-      }
-    }
-    ,
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
+      },
+      "tribe": "Kurya",
+      "member_singular": "Mkurya",
+      "member_plural": "Wakurya",
+      "culture": {}
+    },
     {
       "id": "kinyamwezi",
       "name": "Kinyamwezi",
@@ -70,7 +214,10 @@
       "status": "active",
       "started": "2026-04",
       "contributors": [
-        { "name": "Shabani", "initials": "SH" }
+        {
+          "name": "Shabani",
+          "initials": "SH"
+        }
       ],
       "moderator": null,
       "levels": {
@@ -78,28 +225,104 @@
           "active": true,
           "topics_total": 12,
           "grammar": [
-            { "id": "pronouns",      "name_sw": "Viwakilishi (nafsi, kuonyesha, umiliki)", "name_en": "Pronouns (personal, demonstrative, possessive)", "status": "pending" },
-            { "id": "nouns",         "name_sw": "Nomino (jinsia, ngeli, idadi)",            "name_en": "Nouns (gender, classes, number)",                "status": "pending" },
-            { "id": "verb-tenses",   "name_sw": "Nyakati za kitenzi",                       "name_en": "Verb tenses",                                    "status": "pending" },
-            { "id": "agreement",     "name_sw": "Upatanisho",                               "name_en": "Agreement",                                      "status": "pending" },
-            { "id": "being-having",  "name_sw": "Kuwa na kuwa nacho",                       "name_en": "Being and having",                               "status": "pending" },
-            { "id": "questions",     "name_sw": "Maswali",                                  "name_en": "Questions",                                      "status": "pending" }
+            {
+              "id": "pronouns",
+              "name_sw": "Viwakilishi (nafsi, kuonyesha, umiliki)",
+              "name_en": "Pronouns (personal, demonstrative, possessive)",
+              "status": "pending"
+            },
+            {
+              "id": "nouns",
+              "name_sw": "Nomino (jinsia, ngeli, idadi)",
+              "name_en": "Nouns (gender, classes, number)",
+              "status": "pending"
+            },
+            {
+              "id": "verb-tenses",
+              "name_sw": "Nyakati za kitenzi",
+              "name_en": "Verb tenses",
+              "status": "pending"
+            },
+            {
+              "id": "agreement",
+              "name_sw": "Upatanisho",
+              "name_en": "Agreement",
+              "status": "pending"
+            },
+            {
+              "id": "being-having",
+              "name_sw": "Kuwa na kuwa nacho",
+              "name_en": "Being and having",
+              "status": "pending"
+            },
+            {
+              "id": "questions",
+              "name_sw": "Maswali",
+              "name_en": "Questions",
+              "status": "pending"
+            }
           ],
           "vocabulary": [
-            { "id": "communication-numbers-time", "name_sw": "Mawasiliano, nambari na wakati", "name_en": "Communication, numbers and time", "status": "pending" },
-            { "id": "person-family",   "name_sw": "Mtu na familia",          "name_en": "Person and family",    "status": "pending" },
-            { "id": "health-emotions", "name_sw": "Afya na hisia",           "name_en": "Health and emotions",  "status": "pending" },
-            { "id": "home-food",       "name_sw": "Nyumba, maisha na chakula","name_en": "Home, daily life and food","status": "pending" },
-            { "id": "nature-world",    "name_sw": "Asili na dunia",          "name_en": "Nature and the world", "status": "pending" },
-            { "id": "words",           "name_sw": "Maneno (vitenzi, vivumishi, rangi)", "name_en": "Words (verbs, adjectives, colours)", "status": "pending" }
+            {
+              "id": "communication-numbers-time",
+              "name_sw": "Mawasiliano, nambari na wakati",
+              "name_en": "Communication, numbers and time",
+              "status": "pending"
+            },
+            {
+              "id": "person-family",
+              "name_sw": "Mtu na familia",
+              "name_en": "Person and family",
+              "status": "pending"
+            },
+            {
+              "id": "health-emotions",
+              "name_sw": "Afya na hisia",
+              "name_en": "Health and emotions",
+              "status": "pending"
+            },
+            {
+              "id": "home-food",
+              "name_sw": "Nyumba, maisha na chakula",
+              "name_en": "Home, daily life and food",
+              "status": "pending"
+            },
+            {
+              "id": "nature-world",
+              "name_sw": "Asili na dunia",
+              "name_en": "Nature and the world",
+              "status": "pending"
+            },
+            {
+              "id": "words",
+              "name_sw": "Maneno (vitenzi, vivumishi, rangi)",
+              "name_en": "Words (verbs, adjectives, colours)",
+              "status": "pending"
+            }
           ],
           "phonetics": []
         },
-        "A2": { "active": false, "topics_total": 0 },
-        "B1": { "active": false, "topics_total": 0 },
-        "B2": { "active": false, "topics_total": 0 },
-        "C1": { "active": false, "topics_total": 0 }
-      }
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
+      },
+      "tribe": "Nyamwezi",
+      "member_singular": "Mnyamwezi",
+      "member_plural": "Wanyamwezi",
+      "culture": {}
     }
   ]
 }
