@@ -57,5 +57,49 @@
         "C1": { "active": false, "topics_total": 0 }
       }
     }
+    ,
+    {
+      "id": "kinyamwezi",
+      "name": "Kinyamwezi",
+      "country": "Tanzania",
+      "region": "East Africa",
+      "subregion": "Tabora Region",
+      "family": "Bantu",
+      "speakers": "~980,000",
+      "tonal": null,
+      "status": "active",
+      "started": "2026-04",
+      "contributors": [
+        { "name": "Shabani", "initials": "SH" }
+      ],
+      "moderator": null,
+      "levels": {
+        "A1": {
+          "active": true,
+          "topics_total": 12,
+          "grammar": [
+            { "id": "pronouns",      "name_sw": "Viwakilishi (nafsi, kuonyesha, umiliki)", "name_en": "Pronouns (personal, demonstrative, possessive)", "status": "pending" },
+            { "id": "nouns",         "name_sw": "Nomino (jinsia, ngeli, idadi)",            "name_en": "Nouns (gender, classes, number)",                "status": "pending" },
+            { "id": "verb-tenses",   "name_sw": "Nyakati za kitenzi",                       "name_en": "Verb tenses",                                    "status": "pending" },
+            { "id": "agreement",     "name_sw": "Upatanisho",                               "name_en": "Agreement",                                      "status": "pending" },
+            { "id": "being-having",  "name_sw": "Kuwa na kuwa nacho",                       "name_en": "Being and having",                               "status": "pending" },
+            { "id": "questions",     "name_sw": "Maswali",                                  "name_en": "Questions",                                      "status": "pending" }
+          ],
+          "vocabulary": [
+            { "id": "communication-numbers-time", "name_sw": "Mawasiliano, nambari na wakati", "name_en": "Communication, numbers and time", "status": "pending" },
+            { "id": "person-family",   "name_sw": "Mtu na familia",          "name_en": "Person and family",    "status": "pending" },
+            { "id": "health-emotions", "name_sw": "Afya na hisia",           "name_en": "Health and emotions",  "status": "pending" },
+            { "id": "home-food",       "name_sw": "Nyumba, maisha na chakula","name_en": "Home, daily life and food","status": "pending" },
+            { "id": "nature-world",    "name_sw": "Asili na dunia",          "name_en": "Nature and the world", "status": "pending" },
+            { "id": "words",           "name_sw": "Maneno (vitenzi, vivumishi, rangi)", "name_en": "Words (verbs, adjectives, colours)", "status": "pending" }
+          ],
+          "phonetics": []
+        },
+        "A2": { "active": false, "topics_total": 0 },
+        "B1": { "active": false, "topics_total": 0 },
+        "B2": { "active": false, "topics_total": 0 },
+        "C1": { "active": false, "topics_total": 0 }
+      }
+    }
   ]
 }
