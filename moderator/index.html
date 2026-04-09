@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Dashibodi ya Msimamizi</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher {
+      display:flex; align-items:center;
+      background:var(--cream-dark); border-radius:var(--radius-xl);
+      padding:3px; gap:2px;
+    }
+    .lang-switcher__btn {
+      padding:4px 12px; border-radius:var(--radius-xl); border:none;
+      background:transparent; font-size:0.8rem; font-weight:500;
+      color:var(--text-soft); cursor:pointer; transition:all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background:var(--white); color:var(--green-deep);
+      box-shadow:0 1px 4px var(--shadow-warm);
+    }
+
+    .summary-bar {
+      background: linear-gradient(135deg, #1a3a2e, var(--green-deep));
+      padding:var(--space-lg) 0;
+      margin-bottom:var(--space-xl);
+    }
+    .summary-bar__inner {
+      display:flex; align-items:center;
+      justify-content:space-between; flex-wrap:wrap; gap:var(--space-lg);
+    }
+    .summary-bar__greeting h2 { color:var(--cream); font-size:1.3rem; margin-bottom:4px; }
+    .summary-bar__greeting p  { color:var(--green-pale); font-size:0.85rem; }
+    .summary-bar__stats { display:flex; gap:var(--space-xl); }
+    .summary-stat { text-align:center; }
+    .summary-stat__value { font-size:1.6rem; font-weight:600; color:var(--cream); display:block; }
+    .summary-stat__label { font-size:0.72rem; color:var(--green-pale); }
+
+    /* Queue card */
+    .queue-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+      transition:all var(--transition);
+      box-shadow:0 2px 8px var(--shadow-warm);
+      margin-bottom:var(--space-md);
+    }
+    .queue-card:hover {
+      box-shadow:0 8px 24px var(--shadow-deep);
+      border-color:var(--green-pale);
+      transform:translateY(-2px);
+    }
+    .queue-card__header {
+      padding:var(--space-md) var(--space-lg);
+      display:flex; align-items:center;
+      gap:var(--space-md); flex-wrap:wrap;
+    }
+    .queue-card__type {
+      font-size:0.7rem; font-weight:500;
+      letter-spacing:0.06em; text-transform:uppercase;
+      color:var(--text-muted); width:72px; flex-shrink:0;
+    }
+    .queue-card__info { flex:1; }
+    .queue-card__name {
+      font-weight:600; color:var(--green-deep); font-size:1rem;
+    }
+    .queue-card__meta {
+      font-size:0.78rem; color:var(--text-muted); margin-top:3px;
+      display:flex; gap:var(--space-md); flex-wrap:wrap;
+    }
+    .queue-card__contributors {
+      display:flex; gap:var(--space-sm); align-items:center;
+    }
+    .contributor-chip {
+      display:flex; align-items:center; gap:5px;
+      background:var(--cream); border:1px solid var(--cream-border);
+      border-radius:var(--radius-xl); padding:3px 10px;
+      font-size:0.75rem; color:var(--text-mid);
+    }
+    .contributor-chip__dot {
+      width:7px; height:7px; border-radius:50%;
+      background:var(--green-soft);
+    }
+    .queue-card__footer {
+      padding:var(--space-md) var(--space-lg);
+      background:var(--cream);
+      border-top:1px solid var(--cream-border);
+      display:flex; align-items:center;
+      justify-content:space-between; gap:var(--space-md);
+    }
+    .urgency-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:3px 10px; border-radius:var(--radius-xl);
+      font-size:0.72rem; font-weight:500;
+    }
+    .urgency--ready   { background:var(--green-mist); color:var(--green-deep); }
+    .urgency--waiting { background:#FFF3CD; color:#856404; }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display:flex; gap:var(--space-xs);
+      border-bottom:2px solid var(--cream-border);
+      margin-bottom:var(--space-xl);
+    }
+    .filter-tab {
+      padding:var(--space-sm) var(--space-lg);
+      font-size:0.88rem; font-weight:500;
+      color:var(--text-soft); border:none; background:none;
+      border-bottom:2px solid transparent; margin-bottom:-2px;
+      cursor:pointer; transition:all var(--transition);
+      border-radius:var(--radius-sm) var(--radius-sm) 0 0;
+      display:flex; align-items:center; gap:6px;
+    }
+    .filter-tab:hover { color:var(--green-deep); background:var(--cream-dark); }
+    .filter-tab.active { color:var(--green-deep); border-bottom-color:var(--green-deep); }
+    .tab-count {
+      background:var(--cream-dark); color:var(--text-muted);
+      border-radius:99px; padding:1px 7px; font-size:0.72rem;
+    }
+    .filter-tab.active .tab-count {
+      background:var(--green-mist); color:var(--green-deep);
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+      background:var(--white); border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg); padding:var(--space-lg);
+      box-shadow:0 2px 8px var(--shadow-warm); margin-bottom:var(--space-md);
+    }
+    .sidebar-card__title {
+      font-size:0.72rem; font-weight:500; letter-spacing:0.08em;
+      text-transform:uppercase; color:var(--text-muted);
+      margin-bottom:var(--space-md); padding-bottom:var(--space-sm);
+      border-bottom:1px solid var(--cream-border);
+    }
+    .stat-row {
+      display:flex; justify-content:space-between;
+      font-size:0.85rem; padding:var(--space-xs) 0;
+      border-bottom:1px solid var(--cream-border);
+      color:var(--text-mid);
+    }
+    .stat-row:last-child { border-bottom:none; }
+    .stat-row span:last-child { font-weight:500; color:var(--text-dark); }
+
+    @media(max-width:900px) {
+      .main-grid { grid-template-columns:1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div class="nav__links">
+          <a href="../index.html" class="nav__link" data-i18n="nav_home">Nyumbani</a>
+          <a href="../profile/index.html" class="nav__link" data-i18n="nav_profile">Wasifu</a>
+        </div>
+        <div class="nav__actions">
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SUMMARY BAR -->
+  <div class="summary-bar">
+    <div class="container">
+      <div class="summary-bar__inner">
+        <div class="summary-bar__greeting">
+          <h2 data-i18n="greeting">Habari, Ayeke 👋</h2>
+          <p data-i18n="greeting_sub">Msimamizi · Kikurya</p>
+        </div>
+        <div class="summary-bar__stats">
+          <div class="summary-stat">
+            <span class="summary-stat__value" id="statReady">1</span>
+            <span class="summary-stat__label" data-i18n="stat_ready">Zinasubiri ukaguzi</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat__value" id="statDone">0</span>
+            <span class="summary-stat__label" data-i18n="stat_done">Zilizokaguliwa</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat__value" id="statDisputes">0</span>
+            <span class="summary-stat__label" data-i18n="stat_disputes">Pingamizi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="section">
+    <div class="container">
+      <div class="main-grid" style="display:grid; grid-template-columns:1fr 280px; gap:var(--space-xl); align-items:start;">
+
+        <!-- LEFT -->
+        <div>
+          <!-- Filter tabs -->
+          <div class="filter-tabs" id="filterTabs"></div>
+
+          <!-- Queue -->
+          <div id="queueList"></div>
+        </div>
+
+        <!-- RIGHT -->
+        <div style="position:sticky; top:80px;">
+
+          <div class="sidebar-card">
+            <div class="sidebar-card__title" data-i18n="my_stats">Takwimu zangu</div>
+            <div class="stat-row">
+              <span data-i18n="topics_reviewed">Mada zilizokaguliwa</span><span>0</span>
+            </div>
+            <div class="stat-row">
+              <span data-i18n="topics_pending">Zinasubiri</span><span id="sideStatPending">1</span>
+            </div>
+            <div class="stat-row">
+              <span data-i18n="accuracy">Usahihi wa maamuzi</span><span>—</span>
+            </div>
+            <div class="stat-row">
+              <span data-i18n="earned">Mapato</span><span>0 TZS</span>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-card__title" data-i18n="mod_guide">Mwongozo wa msimamizi</div>
+            <div style="font-size:0.82rem; color:var(--text-mid); line-height:1.75;">
+              <p data-i18n="guide_1">✓ Linganisha tafsiri kutoka kwa wachangiaji wawili</p>
+              <p data-i18n="guide_2">✓ Sikiliza sauti zote mbili na chagua bora</p>
+              <p data-i18n="guide_3">✓ Ikiwa zote ni sahihi — acha zote mbili</p>
+              <p data-i18n="guide_4">✓ Rekodi sauti yako mwenyewe ikiwa zote ni mbaya</p>
+              <p data-i18n="guide_5">✓ Weka maelezo ya makosa kwa kila tatizo</p>
+            </div>
+          </div>
+
+          <div class="sidebar-card" style="background:var(--gold-light); border-color:var(--gold);">
+            <div class="sidebar-card__title" style="color:#7a5c00;" data-i18n="pay_title">Malipo</div>
+            <div style="font-size:0.85rem; color:#5a4000; line-height:1.7;">
+              <div><strong>7,500 – 10,000 TZS</strong> <span data-i18n="per_topic">kwa kila mada</span></div>
+              <div style="margin-top:var(--space-sm); font-size:0.78rem;" data-i18n="pay_note">
+                Malipo yanasubiri ridhaa ya mchangiaji au uamuzi wa msimamizi.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Lugha Hai</div>
+      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
+      <div class="footer__bottom">
+        <span>© 2026 Lugha Hai.</span>
+        <span style="color:var(--green-pale); font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const i18n = {
+      sw: {
+        nav_home:"Nyumbani", nav_profile:"Wasifu", nav_signout:"Toka",
+        greeting:"Habari, Ayeke 👋", greeting_sub:"Msimamizi · Kikurya",
+        stat_ready:"Zinasubiri ukaguzi", stat_done:"Zilizokaguliwa", stat_disputes:"Pingamizi",
+        tab_all:"Zote", tab_ready:"Tayari", tab_done:"Zilizokaguliwa",
+        ready_label:"Tayari kukaguliwa", waiting_label:"Inasubiri wachangiaji",
+        contributors_label:"Wachangiaji:",
+        submitted_label:"Imetumwa:",
+        btn_review:"Kagua sasa", btn_view:"Angalia",
+        my_stats:"Takwimu zangu",
+        topics_reviewed:"Mada zilizokaguliwa", topics_pending:"Zinasubiri",
+        accuracy:"Usahihi wa maamuzi", earned:"Mapato",
+        mod_guide:"Mwongozo wa msimamizi",
+        guide_1:"✓ Linganisha tafsiri kutoka kwa wachangiaji wawili",
+        guide_2:"✓ Sikiliza sauti zote mbili na chagua bora",
+        guide_3:"✓ Ikiwa zote ni sahihi — acha zote mbili",
+        guide_4:"✓ Rekodi sauti yako mwenyewe ikiwa zote ni mbaya",
+        guide_5:"✓ Weka maelezo ya makosa kwa kila tatizo",
+        pay_title:"Malipo", per_topic:"kwa kila mada",
+        pay_note:"Malipo yanasubiri ridhaa ya mchangiaji au uamuzi wa msimamizi.",
+        footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi.",
+        type_grammar:"Sarufi", type_vocab:"Msamiati", type_phonetics:"Fonetiki",
+        no_items:"Hakuna mada katika orodha hii."
+      },
+      en: {
+        nav_home:"Home", nav_profile:"Profile", nav_signout:"Sign out",
+        greeting:"Hello, Ayeke 👋", greeting_sub:"Moderator · Kikurya",
+        stat_ready:"Awaiting review", stat_done:"Reviewed", stat_disputes:"Disputes",
+        tab_all:"All", tab_ready:"Ready", tab_done:"Reviewed",
+        ready_label:"Ready to review", waiting_label:"Waiting for contributors",
+        contributors_label:"Contributors:",
+        submitted_label:"Submitted:",
+        btn_review:"Review now", btn_view:"View",
+        my_stats:"My stats",
+        topics_reviewed:"Topics reviewed", topics_pending:"Pending",
+        accuracy:"Decision accuracy", earned:"Earnings",
+        mod_guide:"Moderator guide",
+        guide_1:"✓ Compare translations from both contributors",
+        guide_2:"✓ Listen to both audio recordings and pick the best",
+        guide_3:"✓ If both are correct — keep both",
+        guide_4:"✓ Record your own audio if both are wrong",
+        guide_5:"✓ Write error notes for every issue found",
+        pay_title:"Payment", per_topic:"per topic",
+        pay_note:"Payment pending contributor agreement or admin decision.",
+        footer_tagline:"Living languages, preserved for generations.",
+        type_grammar:"Grammar", type_vocab:"Vocabulary", type_phonetics:"Phonetics",
+        no_items:"No topics in this list."
+      }
+    };
+
+    let currentLang = 'sw';
+    let currentTab   = 'all';
+
+    // ── QUEUE DATA ────────────────────────────────────────
+    const queue = [
+      {
+        id: "personal-pronouns",
+        type: "grammar",
+        name_sw: "Viwakilishi vya nafsi",
+        name_en: "Personal pronouns",
+        contributors: ["Priska M.", "Chaha G."],
+        contributors_done: 2,
+        contributors_needed: 2,
+        submitted: "2026-04-06",
+        status: "ready"   // ready | waiting | done
+      }
+    ];
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      renderTabs();
+      renderQueue();
+    }
+
+    function renderTabs() {
+      const t = i18n[currentLang];
+      const counts = {
+        all:     queue.length,
+        ready:   queue.filter(q => q.status === 'ready').length,
+        done:    queue.filter(q => q.status === 'done').length,
+      };
+      document.getElementById('filterTabs').innerHTML = [
+        { key:'all',   label:t.tab_all },
+        { key:'ready', label:t.tab_ready },
+        { key:'done',  label:t.tab_done },
+      ].map(tab => `
+        <button class="filter-tab ${currentTab===tab.key?'active':''}" onclick="setTab('${tab.key}')">
+          ${tab.label} <span class="tab-count">${counts[tab.key]}</span>
+        </button>`
+      ).join('');
+    }
+
+    function setTab(tab) {
+      currentTab = tab;
+      renderTabs();
+      renderQueue();
+    }
+
+    function renderQueue() {
+      const t = i18n[currentLang];
+      const nameKey = currentLang === 'sw' ? 'name_sw' : 'name_en';
+      const typeMap = { grammar:t.type_grammar, vocab:t.type_vocab, phonetics:t.type_phonetics };
+
+      const filtered = currentTab === 'all' ? queue : queue.filter(q => q.status === currentTab);
+      const container = document.getElementById('queueList');
+
+      if (!filtered.length) {
+        container.innerHTML = `<div style="text-align:center; padding:var(--space-2xl) 0; color:var(--text-muted);">${t.no_items}</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isReady = item.status === 'ready';
+        const isDone  = item.status === 'done';
+
+        const chips = item.contributors.map(c =>
+          `<div class="contributor-chip"><div class="contributor-chip__dot"></div>${c}</div>`
+        ).join('');
+
+        return `
+          <div class="queue-card">
+            <div class="queue-card__header">
+              <div class="queue-card__type">${typeMap[item.type] || item.type}</div>
+              <div class="queue-card__info">
+                <div class="queue-card__name">${item[nameKey]}</div>
+                <div class="queue-card__meta">
+                  <span>${t.contributors_label} ${item.contributors_done}/${item.contributors_needed}</span>
+                  <span>${t.submitted_label} ${item.submitted}</span>
+                </div>
+              </div>
+              <div class="queue-card__contributors">${chips}</div>
+            </div>
+            <div class="queue-card__footer">
+              <span class="urgency-badge ${isReady ? 'urgency--ready' : 'urgency--waiting'}">
+                ${isReady ? t.ready_label : t.waiting_label}
+              </span>
+              <a href="topic.html?id=${item.id}" class="btn ${isReady ? 'btn--primary' : 'btn--secondary'} btn--sm">
+                ${isReady ? t.btn_review : t.btn_view}
+              </a>
+            </div>
+          </div>`;
+      }).join('');
+
+      // Update summary
+      document.getElementById('statReady').textContent   = queue.filter(q=>q.status==='ready').length;
+      document.getElementById('statDone').textContent    = queue.filter(q=>q.status==='done').length;
+      document.getElementById('statDisputes').textContent = 0;
+      document.getElementById('sideStatPending').textContent = queue.filter(q=>q.status==='ready').length;
+    }
+
+    setLang('sw');
+  </script>
+</body>
+</html>
