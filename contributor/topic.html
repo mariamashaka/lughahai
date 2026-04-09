@@ -363,7 +363,7 @@
       html += `
           <div class="block-header">
             ${block.label[nk]}
-            <span class="block-progress-chip ${blockAllDone?'done':'}">${blockDone}/${blockPhrases.length}</span>
+            <span class="block-progress-chip ${blockAllDone?'done':''}">${blockDone}/${blockPhrases.length}</span>
           </div>`;
 
       blockPhrases.forEach(phrase => {
