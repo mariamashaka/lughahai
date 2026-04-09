@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Admin · Lugha</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
+    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
+    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
+    .admin-layout { display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px); }
+    .admin-sidebar { background:var(--green-deep);padding:var(--space-lg) 0;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto; }
+    .admin-sidebar__section { padding:var(--space-sm) var(--space-lg);font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-pale);margin-top:var(--space-md); }
+    .admin-nav-link { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) var(--space-lg);font-size:0.88rem;color:var(--green-pale);transition:all var(--transition);cursor:pointer;border-left:3px solid transparent;text-decoration:none; }
+    .admin-nav-link:hover { background:rgba(255,255,255,0.06);color:var(--cream); }
+    .admin-nav-link.active { background:rgba(255,255,255,0.10);color:var(--cream);border-left-color:var(--terracotta); }
+    .admin-nav-link__icon { font-size:1rem;width:20px;text-align:center; }
+    .admin-content { padding:var(--space-xl);background:var(--cream); }
+    .admin-page-title { font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-xl); }
+
+    /* Language detail card */
+    .lang-detail-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+      box-shadow:0 2px 8px var(--shadow-warm);
+      margin-bottom:var(--space-xl);
+    }
+    .lang-detail-header {
+      background:var(--green-deep);
+      padding:var(--space-lg) var(--space-xl);
+      display:flex; align-items:center;
+      justify-content:space-between; gap:var(--space-lg);
+    }
+    .lang-detail-header h2 { color:var(--cream); margin-bottom:4px; }
+    .lang-detail-header p  { color:var(--green-pale); font-size:0.85rem; }
+    .lang-detail-body { padding:var(--space-xl); }
+    .lang-meta-grid {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:var(--space-md);
+      margin-bottom:var(--space-xl);
+    }
+    .lang-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .lang-meta-label { font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; }
+    .lang-meta-value { font-size:0.95rem; font-weight:500; color:var(--text-dark); }
+
+    /* Topics progress grid */
+    .topics-progress {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+      gap:var(--space-sm);
+    }
+    .topic-progress-item {
+      display:flex; align-items:center;
+      gap:var(--space-sm); padding:var(--space-sm);
+      border-radius:var(--radius-sm);
+      border:1px solid var(--cream-border);
+      font-size:0.8rem;
+    }
+    .topic-status-dot {
+      width:8px; height:8px; border-radius:50%; flex-shrink:0;
+    }
+    .dot--approved  { background:var(--green-soft); }
+    .dot--review    { background:#4A90D9; }
+    .dot--progress  { background:var(--gold); }
+    .dot--pending   { background:var(--cream-border); }
+
+    /* Add language form */
+    .add-lang-panel {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      box-shadow:0 2px 8px var(--shadow-warm);
+      overflow:hidden;
+    }
+    .add-lang-panel__header {
+      padding:var(--space-md) var(--space-lg);
+      border-bottom:1px solid var(--cream-border);
+      font-weight:600; color:var(--green-deep);
+    }
+    .add-lang-panel__body {
+      padding:var(--space-lg);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:var(--space-md);
+    }
+
+    @media(max-width:900px) {
+      .admin-layout { grid-template-columns:1fr; }
+      .admin-sidebar { position:static;height:auto; }
+      .lang-meta-grid { grid-template-columns:repeat(2,1fr); }
+      .add-lang-panel__body { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container" style="max-width:100%; padding:0 var(--space-lg);">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div style="display:flex; align-items:center; gap:var(--space-md);">
+          <span style="font-size:0.78rem; color:var(--text-muted);" data-i18n="admin_label">Msimamizi Mkuu</span>
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <div class="admin-sidebar">
+      <div class="admin-sidebar__section" data-i18n="sidebar_overview">MUHTASARI</div>
+      <a href="index.html" class="admin-nav-link">
+        <span class="admin-nav-link__icon">📊</span><span data-i18n="nav_dashboard">Dashibodi</span>
+      </a>
+      <div class="admin-sidebar__section" data-i18n="sidebar_content">MAUDHUI</div>
+      <a href="languages.html" class="admin-nav-link active">
+        <span class="admin-nav-link__icon">🌍</span><span data-i18n="nav_languages">Lugha</span>
+      </a>
+      <a href="users.html" class="admin-nav-link">
+        <span class="admin-nav-link__icon">👥</span><span data-i18n="nav_users">Watumiaji</span>
+      </a>
+      <a href="disputes.html" class="admin-nav-link">
+        <span class="admin-nav-link__icon">⚠️</span><span data-i18n="nav_disputes">Pingamizi</span>
+      </a>
+      <div class="admin-sidebar__section" data-i18n="sidebar_finance">FEDHA</div>
+      <a href="#" class="admin-nav-link">
+        <span class="admin-nav-link__icon">💰</span><span data-i18n="nav_payments">Malipo</span>
+      </a>
+      <div style="padding:var(--space-lg);">
+        <a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);" data-i18n="nav_view_site">← Angalia tovuti</a>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+      <div class="flex-between mb-xl">
+        <div class="admin-page-title" data-i18n="page_title">Lugha zinazosimamiwa</div>
+        <button class="btn btn--primary" onclick="document.getElementById('addLangPanel').scrollIntoView({behavior:'smooth'})" data-i18n="btn_add">+ Ongeza lugha</button>
+      </div>
+
+      <!-- KIKURYA DETAIL -->
+      <div class="lang-detail-card">
+        <div class="lang-detail-header">
+          <div>
+            <h2>Kikurya</h2>
+            <p>Tanzania · Mara Region · Bantu · ~600,000 <span data-i18n="speakers">wazungumzaji</span></p>
+          </div>
+          <div style="display:flex; gap:var(--space-md);">
+            <span class="badge badge--approved">A1 <span data-i18n="active">inafanya kazi</span></span>
+          </div>
+        </div>
+        <div class="lang-detail-body">
+
+          <!-- Meta -->
+          <div class="lang-meta-grid">
+            <div class="lang-meta-item">
+              <span class="lang-meta-label" data-i18n="meta_contributors">Wachangiaji</span>
+              <span class="lang-meta-value">Priska M. · Chaha G.</span>
+            </div>
+            <div class="lang-meta-item">
+              <span class="lang-meta-label" data-i18n="meta_moderator">Msimamizi</span>
+              <span class="lang-meta-value">Ayeke G.</span>
+            </div>
+            <div class="lang-meta-item">
+              <span class="lang-meta-label" data-i18n="meta_progress">Maendeleo A1</span>
+              <span class="lang-meta-value">1 / 41 (2%)</span>
+            </div>
+            <div class="lang-meta-item">
+              <span class="lang-meta-label" data-i18n="meta_started">Ilianza</span>
+              <span class="lang-meta-value">Aprili 2026</span>
+            </div>
+          </div>
+
+          <!-- Overall progress bar -->
+          <div style="margin-bottom:var(--space-xl);">
+            <div class="flex-between" style="margin-bottom:8px;">
+              <span style="font-size:0.85rem;color:var(--text-soft);" data-i18n="progress_a1">Maendeleo ya A1</span>
+              <span style="font-size:0.85rem;font-weight:500;color:var(--green-deep);">2%</span>
+            </div>
+            <div class="progress" style="height:10px;">
+              <div class="progress__fill" style="width:2%;"></div>
+            </div>
+          </div>
+
+          <!-- Topics status -->
+          <div style="margin-bottom:var(--space-md);font-size:0.78rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);" data-i18n="topics_status">Hali ya mada</div>
+          <div style="display:flex;gap:var(--space-md);margin-bottom:var(--space-md);flex-wrap:wrap;">
+            <span style="display:flex;align-items:center;gap:5px;font-size:0.78rem;color:var(--text-mid);">
+              <span class="topic-status-dot dot--approved"></span> <span data-i18n="legend_approved">Imekubaliwa</span>: 1
+            </span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:0.78rem;color:var(--text-mid);">
+              <span class="topic-status-dot dot--review"></span> <span data-i18n="legend_review">Ukaguzi</span>: 0
+            </span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:0.78rem;color:var(--text-mid);">
+              <span class="topic-status-dot dot--pending"></span> <span data-i18n="legend_pending">Bado</span>: 40
+            </span>
+          </div>
+          <div class="topics-progress" id="topicsProgress"></div>
+
+        </div>
+      </div>
+
+      <!-- ADD LANGUAGE FORM -->
+      <div class="add-lang-panel" id="addLangPanel">
+        <div class="add-lang-panel__header" data-i18n="add_lang_title">+ Ongeza lugha mpya</div>
+        <div class="add-lang-panel__body">
+          <div class="form-group">
+            <label class="form-label" data-i18n="field_name">Jina la lugha</label>
+            <input type="text" class="form-input" data-i18n-placeholder="field_name_ph" placeholder="mfano: Jerua" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="field_country">Nchi</label>
+            <input type="text" class="form-input" placeholder="Tanzania" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="field_region">Mkoa</label>
+            <input type="text" class="form-input" data-i18n-placeholder="field_region_ph" placeholder="mfano: Mara" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="field_speakers">Idadi ya wazungumzaji</label>
+            <input type="text" class="form-input" placeholder="~200,000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="field_family">Familia ya lugha</label>
+            <input type="text" class="form-input" placeholder="Bantu" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="field_tonal">Lugha ya toni?</label>
+            <select class="form-select">
+              <option data-i18n="opt_yes">Ndiyo</option>
+              <option data-i18n="opt_no">Hapana</option>
+              <option data-i18n="opt_unknown">Haijulikani</option>
+            </select>
+          </div>
+          <div style="grid-column:1/-1; display:flex; gap:var(--space-md);">
+            <button class="btn btn--primary" data-i18n="btn_create">Unda lugha</button>
+            <button class="btn btn--ghost" data-i18n="btn_cancel">Ghairi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const i18n = {
+      sw: {
+        admin_label:"Msimamizi Mkuu", nav_signout:"Toka",
+        sidebar_overview:"MUHTASARI", sidebar_content:"MAUDHUI", sidebar_finance:"FEDHA",
+        nav_dashboard:"Dashibodi", nav_languages:"Lugha", nav_users:"Watumiaji",
+        nav_disputes:"Pingamizi", nav_payments:"Malipo", nav_view_site:"← Angalia tovuti",
+        page_title:"Lugha zinazosimamiwa", btn_add:"+ Ongeza lugha",
+        speakers:"wazungumzaji", active:"inafanya kazi",
+        meta_contributors:"Wachangiaji", meta_moderator:"Msimamizi",
+        meta_progress:"Maendeleo A1", meta_started:"Ilianza",
+        progress_a1:"Maendeleo ya A1", topics_status:"Hali ya mada",
+        legend_approved:"Imekubaliwa", legend_review:"Ukaguzi", legend_pending:"Bado",
+        add_lang_title:"+ Ongeza lugha mpya",
+        field_name:"Jina la lugha", field_name_ph:"mfano: Jerua",
+        field_country:"Nchi", field_region:"Mkoa", field_region_ph:"mfano: Mara",
+        field_speakers:"Idadi ya wazungumzaji", field_family:"Familia ya lugha",
+        field_tonal:"Lugha ya toni?",
+        opt_yes:"Ndiyo", opt_no:"Hapana", opt_unknown:"Haijulikani",
+        btn_create:"Unda lugha", btn_cancel:"Ghairi",
+      },
+      en: {
+        admin_label:"Admin", nav_signout:"Sign out",
+        sidebar_overview:"OVERVIEW", sidebar_content:"CONTENT", sidebar_finance:"FINANCE",
+        nav_dashboard:"Dashboard", nav_languages:"Languages", nav_users:"Users",
+        nav_disputes:"Disputes", nav_payments:"Payments", nav_view_site:"← View site",
+        page_title:"Managed languages", btn_add:"+ Add language",
+        speakers:"speakers", active:"active",
+        meta_contributors:"Contributors", meta_moderator:"Moderator",
+        meta_progress:"A1 Progress", meta_started:"Started",
+        progress_a1:"A1 Progress", topics_status:"Topic status",
+        legend_approved:"Approved", legend_review:"In review", legend_pending:"Pending",
+        add_lang_title:"+ Add new language",
+        field_name:"Language name", field_name_ph:"e.g. Jerua",
+        field_country:"Country", field_region:"Region", field_region_ph:"e.g. Mara",
+        field_speakers:"Number of speakers", field_family:"Language family",
+        field_tonal:"Tonal language?",
+        opt_yes:"Yes", opt_no:"No", opt_unknown:"Unknown",
+        btn_create:"Create language", btn_cancel:"Cancel",
+      }
+    };
+
+    let currentLang = 'sw';
+
+    // All A1 topics for status grid
+    const allTopics = [
+      {name:"Viwakilishi vya nafsi", status:"approved"},
+      {name:"Kitenzi 'kuwa'",        status:"pending"},
+      {name:"Maneno ya kuuliza",     status:"pending"},
+      {name:"Kukanusha",             status:"pending"},
+      {name:"Wakati wa sasa",        status:"pending"},
+      {name:"Wakati wa kale",        status:"pending"},
+      {name:"Wakati wa kesho",       status:"pending"},
+      {name:"Namba 1–20",            status:"pending"},
+      {name:"Viwakilishi vya umiliki",status:"pending"},
+      {name:"Kivumishi cha nafasi",  status:"pending"},
+      {name:"Darasa za nomino",      status:"pending"},
+      {name:"Salamu",                status:"pending"},
+      {name:"Familia",               status:"pending"},
+      {name:"Chakula",               status:"pending"},
+      {name:"Sehemu za mwili",       status:"pending"},
+      {name:"Nguo",                  status:"pending"},
+      {name:"Vitu vya nyumbani",     status:"pending"},
+      {name:"Wanyama",               status:"pending"},
+      {name:"Asili",                 status:"pending"},
+      {name:"Vitenzi vya msingi",    status:"pending"},
+      {name:"Wakati",                status:"pending"},
+      {name:"Alfabeti",              status:"pending"},
+      {name:"Toni za lugha",         status:"pending"},
+      {name:"Irabu",                 status:"pending"},
+    ];
+
+    const dotClass = {
+      approved:'dot--approved', review:'dot--review',
+      in_progress:'dot--progress', pending:'dot--pending'
+    };
+
+    function renderTopicsGrid() {
+      document.getElementById('topicsProgress').innerHTML = allTopics.map(t => `
+        <div class="topic-progress-item">
+          <span class="topic-status-dot ${dotClass[t.status]||'dot--pending'}"></span>
+          <span style="color:var(--text-mid);">${t.name}</span>
+        </div>`
+      ).join('');
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang==='sw');
+      document.getElementById('btn-en').classList.toggle('active', lang==='en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+    }
+
+    renderTopicsGrid();
+    setLang('sw');
+  </script>
+</body>
+</html>
