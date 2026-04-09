@@ -1,650 +1,437 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lugha Hai — Mada</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
-    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
-    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
-
-    /* Topic header */
-    .topic-header { background:var(--white);border-bottom:1px solid var(--cream-border);padding:var(--space-lg) 0;margin-bottom:var(--space-xl); }
-    .topic-header__inner { display:flex;align-items:center;justify-content:space-between;gap:var(--space-lg);flex-wrap:wrap; }
-    .topic-header__breadcrumb { font-size:0.78rem;color:var(--text-muted);margin-bottom:var(--space-xs); }
-    .topic-header__breadcrumb a { color:var(--text-muted); }
-    .topic-header__breadcrumb a:hover { color:var(--green-mid); }
-    .topic-header__title { font-size:1.3rem;font-weight:600;color:var(--green-deep); }
-    .topic-header__payment {
-      display:flex;align-items:center;gap:var(--space-sm);
-      background:var(--green-mist);border-radius:var(--radius-xl);
-      padding:6px 16px;font-size:0.85rem;color:var(--green-deep);font-weight:500;
+{
+  "meta": {
+    "version": "1.1",
+    "levels": ["A1"],
+    "payment_note": {
+      "sw": "Malipo yanafanywa baada ya ukaguzi wa msimamizi na uthibitisho wa msimamizi mkuu. Njia ya malipo inakubaliwana kibinafsi.",
+      "en": "Payment is made after moderator review and admin confirmation. Payment method is agreed individually."
     }
+  },
 
-    /* Warning block */
-    .warning-block {
-      background:#fffbf0;border:1px solid var(--gold);border-left:4px solid var(--gold);
-      border-radius:var(--radius-md);padding:var(--space-lg);margin-bottom:var(--space-xl);
-    }
-    .warning-block__title { font-weight:600;color:#7a5c00;margin-bottom:var(--space-md);font-size:0.95rem; }
-    .warning-block__item { display:flex;align-items:flex-start;gap:var(--space-sm);font-size:0.85rem;color:#5a4000;line-height:1.6;margin-bottom:var(--space-sm); }
-    .warning-block__item:last-child { margin-bottom:0; }
-    .warning-block__icon { flex-shrink:0;margin-top:1px; }
+  "topics": [
 
-    /* Block section header */
-    .block-header {
-      font-size:0.8rem;font-weight:600;letter-spacing:0.06em;
-      text-transform:uppercase;color:var(--green-deep);
-      margin:var(--space-xl) 0 var(--space-md);
-      padding-bottom:var(--space-sm);border-bottom:2px solid var(--green-mist);
-      display:flex;align-items:center;gap:var(--space-md);
-    }
-    .block-progress-chip {
-      font-size:0.7rem;font-weight:500;padding:2px 10px;
-      border-radius:99px;background:var(--cream-dark);color:var(--text-muted);
-      text-transform:none;letter-spacing:0;
-    }
-    .block-progress-chip.done { background:var(--green-mist);color:var(--green-deep); }
+    {
+      "id": "pronouns",
+      "type": "grammar",
+      "level": "A1",
+      "order": 1,
+      "payment_tzs": 5000,
+      "name": {
+        "sw": "Viwakilishi (nafsi, kuonyesha, umiliki)",
+        "en": "Pronouns (personal, demonstrative, possessive)"
+      },
+      "description": {
+        "sw": "Viwakilishi vyote vya nafsi — mimi/wewe/yeye/sisi/ninyi/wao — pamoja na viwakilishi vya kuonyesha na umiliki.",
+        "en": "All personal pronouns — I/you/he/she/we/you/they — together with demonstrative and possessive pronouns."
+      },
+      "blocks": [
+        {
+          "id": "personal_subject",
+          "label": { "sw": "A. Viwakilishi vya nafsi — mtendaji", "en": "A. Personal pronouns — subject" },
+          "phrases": [
+            { "id": "a1",  "sw": "Mimi naenda nyumbani",                                                    "en": "I am going home",                                                              "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "a2",  "sw": "Wewe unaenda nyumbani",                                                   "en": "You are going home",                                                           "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "a3",  "sw": "Chaha anaenda nyumbani",                                                  "en": "Chaha is going home",                                                          "ctx_sw": "(Chaha — mvulana)",                             "ctx_en": "(Chaha — boy)" },
+            { "id": "a4",  "sw": "Priska anaenda nyumbani",                                                 "en": "Priska is going home",                                                         "ctx_sw": "(Priska — msichana)",                           "ctx_en": "(Priska — girl)" },
+            { "id": "a5",  "sw": "Sisi tunaenda nyumbani",                                                  "en": "We are going home",                                                            "ctx_sw": "(kikundi kikubwa, wanaume na wanawake)",         "ctx_en": "(large mixed group)" },
+            { "id": "a6",  "sw": "Mimi na Priska tunaenda nyumbani",                                        "en": "Priska and I are going home",                                                  "ctx_sw": "(wasichana wote wawili)",                       "ctx_en": "(both girls)" },
+            { "id": "a7",  "sw": "Mimi na Chaha tunaenda nyumbani",                                         "en": "Chaha and I are going home",                                                   "ctx_sw": "(jinsia tofauti)",                              "ctx_en": "(different genders)" },
+            { "id": "a8",  "sw": "Chaha na Gesase tunaenda nyumbani",                                       "en": "Chaha and Gesase are going home",                                              "ctx_sw": "(wavulana wote wawili)",                        "ctx_en": "(both boys)" },
+            { "id": "a9",  "sw": "Ninyi mnaenda nyumbani",                                                  "en": "You are going home",                                                           "ctx_sw": "(kikundi, wanaume na wanawake)",                 "ctx_en": "(plural, mixed group)" },
+            { "id": "a10", "sw": "Priska na Maria, mnakwenda nyumbani?",                                    "en": "Priska and Maria, are you going home?",                                        "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "a11", "sw": "Chaha na Gesase, mnakwenda nyumbani?",                                    "en": "Chaha and Gesase, are you going home?",                                        "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "a12", "sw": "Chaha na Priska wanaenda nyumbani",                                       "en": "Chaha and Priska are going home",                                              "ctx_sw": "(wanaume na wanawake)",                         "ctx_en": "(mixed group)" },
+            { "id": "a13", "sw": "Priska na Maria wanaenda nyumbani",                                       "en": "Priska and Maria are going home",                                              "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "a14", "sw": "Chaha na Gesase wanaenda nyumbani",                                       "en": "Chaha and Gesase are going home",                                              "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "a15", "sw": "Mimi na Priska (sisi wawili tu) tunaenda nyumbani",                       "en": "Priska and I (just the two of us) are going home",                             "ctx_sw": "(wasichana wawili tu)",                         "ctx_en": "(just two girls)" },
+            { "id": "a16", "sw": "Mimi na Chaha (sisi wawili tu) tunaenda nyumbani",                        "en": "Chaha and I (just the two of us) are going home",                              "ctx_sw": "(jinsia tofauti, wawili tu)",                   "ctx_en": "(different genders, just two)" },
+            { "id": "a17", "sw": "Chaha na Gesase (wao wawili tu) wanaenda nyumbani",                       "en": "Chaha and Gesase (just the two of them) are going home",                       "ctx_sw": "(wavulana wawili tu)",                          "ctx_en": "(just two boys)" },
+            { "id": "a18", "sw": "Chaha anauliza Priska na Maria (ninyi wawili tu): mtakuja?",               "en": "Chaha says to Priska and Maria (just the two of you): will you come?",          "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "a19", "sw": "Maria anasema: Chaha na Priska (wao wawili tu) wanaenda nyumbani",         "en": "Maria says: Chaha and Priska (just the two of them) are going home",            "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "a20", "sw": "Chaha anasema kwa mzee: ninyi mmefika?",                                  "en": "Chaha says to the elder: have you arrived?",                                   "ctx_sw": "(heshima / hadhi)",                             "ctx_en": "(polite / status form)" }
+          ]
+        },
+        {
+          "id": "personal_object",
+          "label": { "sw": "B. Viwakilishi vya nafsi — mtendewa (menya/wewe...)", "en": "B. Personal pronouns — object (me/you...)" },
+          "phrases": [
+            { "id": "b1",  "sw": "Chaha ananiona mimi",                                                     "en": "Chaha sees me",                                                                "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "b2",  "sw": "Chaha anakuona wewe",                                                     "en": "Chaha sees you",                                                               "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "b3",  "sw": "Maria anamwona Chaha / Maria anamwona yeye",                               "en": "Maria sees Chaha / Maria sees him",                                            "ctx_sw": "(Chaha — mvulana)",                             "ctx_en": "(Chaha — boy)" },
+            { "id": "b4",  "sw": "Maria anamwona Priska / Maria anamwona yeye",                              "en": "Maria sees Priska / Maria sees her",                                           "ctx_sw": "(Priska — msichana)",                           "ctx_en": "(Priska — girl)" },
+            { "id": "b5",  "sw": "Chaha anatuona sisi",                                                     "en": "Chaha sees us",                                                                "ctx_sw": "(wanaume na wanawake)",                         "ctx_en": "(mixed group)" },
+            { "id": "b6",  "sw": "Chaha anatuona sisi (Maria na Priska)",                                   "en": "Chaha sees us (Maria and Priska)",                                             "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "b7",  "sw": "Priska anawaona sisi (Chaha na Gesase)",                                  "en": "Priska sees us (Chaha and Gesase)",                                            "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "b8",  "sw": "Maria anawaona ninyi",                                                    "en": "Maria sees you",                                                               "ctx_sw": "(wanaume na wanawake)",                         "ctx_en": "(plural, mixed group)" },
+            { "id": "b9",  "sw": "Chaha anasema: nawaona ninyi (Maria na Priska)",                          "en": "Chaha says: I see you (Maria and Priska)",                                     "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "b10", "sw": "Maria anasema: nawaona ninyi (Chaha na Gesase)",                          "en": "Maria says: I see you (Chaha and Gesase)",                                     "ctx_sw": "(wavulana tu)",                                "ctx_en": "(boys only)" },
+            { "id": "b11", "sw": "Maria anawaona wao (Chaha na Priska)",                                    "en": "Maria sees them (Chaha and Priska)",                                           "ctx_sw": "(wanaume na wanawake)",                         "ctx_en": "(mixed group)" },
+            { "id": "b12", "sw": "Chaha anawaona wao (Maria na Priska)",                                    "en": "Chaha sees them (Maria and Priska)",                                           "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "b13", "sw": "Maria anawaona wao (Chaha na Gesase)",                                    "en": "Maria sees them (Chaha and Gesase)",                                           "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "b14", "sw": "Chaha anatuona sisi (sisi wawili tu — Maria na Priska)",                  "en": "Chaha sees us (just the two of us — Maria and Priska)",                        "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "b15", "sw": "Maria anasema: nawaona ninyi (ninyi wawili tu — Chaha na Gesase)",         "en": "Maria says: I see you (just the two of you — Chaha and Gesase)",               "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "b16", "sw": "Maria anawaona wao (wao wawili tu — Chaha na Priska)",                    "en": "Maria sees them (just the two of them — Chaha and Priska)",                    "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "b17", "sw": "Mzee anasema kwa Chaha: nakuona ninyi",                                   "en": "The elder says to Chaha: I see you",                                           "ctx_sw": "(heshima / hadhi)",                             "ctx_en": "(polite / status form)" }
+          ]
+        },
+        {
+          "id": "possessive",
+          "label": { "sw": "C. Viwakilishi vya umiliki (yangu/yako...)", "en": "C. Possessive pronouns (my/your...)" },
+          "phrases": [
+            { "id": "c1",  "sw": "Hii ni kitabu changu",                                                    "en": "This is my book",                                                              "ctx_sw": "(mmiliki — mimi)",                              "ctx_en": "(owner — me)" },
+            { "id": "c2",  "sw": "Hii ni kitabu chako",                                                     "en": "This is your book",                                                            "ctx_sw": "(mmiliki — wewe)",                              "ctx_en": "(owner — you)" },
+            { "id": "c3",  "sw": "Hii ni kitabu cha Chaha / Hii ni kitabu chake",                           "en": "This is Chaha's book / This is his book",                                      "ctx_sw": "(mmiliki — mvulana)",                           "ctx_en": "(owner — boy)" },
+            { "id": "c4",  "sw": "Hii ni kitabu cha Priska / Hii ni kitabu chake",                          "en": "This is Priska's book / This is her book",                                     "ctx_sw": "(mmiliki — msichana)",                          "ctx_en": "(owner — girl)" },
+            { "id": "c5",  "sw": "Hii ni kitabu chetu",                                                     "en": "This is our book",                                                             "ctx_sw": "(kikundi cha wanaume na wanawake)",             "ctx_en": "(mixed group)" },
+            { "id": "c6",  "sw": "Hii ni kitabu chetu (changu na cha Priska)",                              "en": "This is our book (mine and Priska's)",                                         "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "c7",  "sw": "Hii ni kitabu chetu (cha Chaha na Gesase)",                               "en": "This is our book (Chaha's and Gesase's)",                                      "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "c8",  "sw": "Hii ni kitabu chenu",                                                     "en": "This is your book",                                                            "ctx_sw": "(wanaume na wanawake)",                         "ctx_en": "(plural, mixed group)" },
+            { "id": "c9",  "sw": "Chaha anasema: hii ni kitabu chenu (cha Maria na Priska)",                "en": "Chaha says: this is your book (Maria's and Priska's)",                         "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "c10", "sw": "Maria anasema: hii ni kitabu chenu (cha Chaha na Gesase)",                "en": "Maria says: this is your book (Chaha's and Gesase's)",                         "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "c11", "sw": "Hii ni kitabu chao (cha Chaha na Priska)",                                "en": "This is their book (Chaha's and Priska's)",                                    "ctx_sw": "(wanaume na wanawake)",                         "ctx_en": "(mixed group)" },
+            { "id": "c12", "sw": "Hii ni kitabu chao (cha Maria na Priska)",                                "en": "This is their book (Maria's and Priska's)",                                    "ctx_sw": "(wasichana tu)",                                "ctx_en": "(girls only)" },
+            { "id": "c13", "sw": "Hii ni kitabu chao (cha Chaha na Gesase)",                                "en": "This is their book (Chaha's and Gesase's)",                                    "ctx_sw": "(wavulana tu)",                                 "ctx_en": "(boys only)" },
+            { "id": "c14", "sw": "Hii ni kitabu chetu (sisi wawili tu — changu na cha Priska)",             "en": "This is our book (just the two of us — mine and Priska's)",                    "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "c15", "sw": "Chaha anasema: hii ni kitabu chenu (ninyi wawili tu — cha Maria na Priska)","en": "Chaha says: this is your book (just the two of you — Maria's and Priska's)", "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "c16", "sw": "Hii ni kitabu chao (wao wawili tu — cha Chaha na Priska)",                "en": "This is their book (just the two of them — Chaha's and Priska's)",             "ctx_sw": "",                                              "ctx_en": "" },
+            { "id": "c17", "sw": "Mzee anasema kwa Chaha: hii ni kitabu chenu",                             "en": "The elder says to Chaha: this is your book",                                   "ctx_sw": "(heshima / hadhi)",                             "ctx_en": "(polite / status form)" }
+          ]
+        },
+        {
+          "id": "demonstrative",
+          "label": { "sw": "D. Viwakilishi vya kuonyesha", "en": "D. Demonstrative pronouns" },
+          "phrases": [
+            { "id": "d1",  "sw": "Mwanaume huyu anaenda nyumbani",                                          "en": "This man is going home",                                                       "ctx_sw": "(ninamwonyesha Chaha karibu nami)",             "ctx_en": "(pointing at Chaha next to me)" },
+            { "id": "d2",  "sw": "Mwanamke huyu anaenda nyumbani",                                          "en": "This woman is going home",                                                     "ctx_sw": "(ninamwonyesha Priska karibu nami)",            "ctx_en": "(pointing at Priska next to me)" },
+            { "id": "d3",  "sw": "Kitabu hiki ni changu",                                                   "en": "This book is mine",                                                            "ctx_sw": "(kitabu kipo karibu nami)",                     "ctx_en": "(book is next to me)" },
+            { "id": "d4",  "sw": "Watu hawa wanaenda nyumbani",                                             "en": "These people are going home",                                                  "ctx_sw": "(ninawaonyesha kikundi karibu nami)",           "ctx_en": "(pointing at group next to me)" },
+            { "id": "d5",  "sw": "Vitabu hivi ni vyangu",                                                   "en": "These books are mine",                                                         "ctx_sw": "(vitabu vipo karibu nami)",                     "ctx_en": "(books next to me)" },
+            { "id": "d6",  "sw": "Mwanaume huyo anaenda nyumbani",                                          "en": "That man is going home",                                                       "ctx_sw": "(ninamwonyesha Chaha karibu nawe)",             "ctx_en": "(pointing at Chaha next to you)" },
+            { "id": "d7",  "sw": "Kitabu hicho ni chako",                                                   "en": "That book is yours",                                                           "ctx_sw": "(kitabu kipo karibu nawe)",                     "ctx_en": "(book next to you)" },
+            { "id": "d8",  "sw": "Watu hao wanaenda nyumbani",                                              "en": "Those people are going home",                                                  "ctx_sw": "(ninawaonyesha kikundi karibu nawe)",           "ctx_en": "(pointing at group next to you)" },
+            { "id": "d9",  "sw": "Mwanaume yule anaenda nyumbani",                                          "en": "That man over there is going home",                                            "ctx_sw": "(ninamwonyesha Chaha mbali nasi)",              "ctx_en": "(pointing at Chaha far from us)" },
+            { "id": "d10", "sw": "Kitabu kile ni cha nani?",                                                "en": "Whose book is that over there?",                                               "ctx_sw": "(kitabu kipo mbali nasi wote wawili)",          "ctx_en": "(book far from both of us)" },
+            { "id": "d11", "sw": "Watu wale wanaenda nyumbani",                                             "en": "Those people over there are going home",                                       "ctx_sw": "(ninawaonyesha kikundi mbali nasi)",            "ctx_en": "(pointing at group far from us)" },
+            { "id": "d12", "sw": "Nipe hiki",                                                               "en": "Give me this",                                                                 "ctx_sw": "(ninaonyesha kitu karibu nami, siitaji jina)",  "ctx_en": "(pointing at object next to me, not naming it)" },
+            { "id": "d13", "sw": "Nataka kile",                                                             "en": "I want that one over there",                                                   "ctx_sw": "(ninaonyesha kitu mbali, siitaji jina)",        "ctx_en": "(pointing at object far away, not naming it)" }
+          ]
+        }
+      ],
 
-    /* Phrase block */
-    .phrase-block { background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:var(--space-md);box-shadow:0 2px 8px var(--shadow-warm); }
-    .phrase-block.done { border-color:var(--green-pale); }
-    .phrase-header { display:flex;align-items:center;justify-content:space-between;padding:var(--space-md) var(--space-lg);background:var(--cream);border-bottom:1px solid var(--cream-border);cursor:pointer;gap:var(--space-md); }
-    .phrase-header:hover { background:var(--cream-dark); }
-    .phrase-num { width:28px;height:28px;border-radius:50%;background:var(--green-deep);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;flex-shrink:0; }
-    .phrase-num.done { background:var(--green-soft); }
-    .phrase-source { flex:1;font-size:0.9rem;color:var(--text-dark);font-weight:500; }
-    .phrase-source span { display:block;font-size:0.75rem;color:var(--text-muted);font-weight:400;margin-top:2px; }
-    .phrase-chevron { color:var(--text-muted);transition:transform var(--transition);font-size:1rem; }
-    .phrase-chevron.open { transform:rotate(90deg); }
-
-    .phrase-body { padding:var(--space-lg);display:none;flex-direction:column;gap:var(--space-lg); }
-    .phrase-body.open { display:flex; }
-
-    /* Translation input */
-    .field-label { font-size:0.78rem;font-weight:500;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-sm); }
-    .translation-input {
-      width:100%;padding:0.75rem 1rem;border:1.5px solid var(--cream-border);
-      border-radius:var(--radius-md);background:var(--white);color:var(--text-dark);
-      font-size:1rem;outline:none;font-family:var(--font-body);
-      transition:border-color var(--transition),box-shadow var(--transition);
-    }
-    .translation-input:focus { border-color:var(--green-soft);box-shadow:0 0 0 3px rgba(92,140,117,0.15); }
-    .translation-input.filled { border-color:var(--green-pale);background:var(--green-mist); }
-
-    /* Audio */
-    .audio-controls { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md) var(--space-lg);background:var(--cream);border-radius:var(--radius-md);border:1px solid var(--cream-border); }
-    .rec-btn { width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all var(--transition);flex-shrink:0; }
-    .rec-btn--record { background:var(--terracotta);color:var(--white); }
-    .rec-btn--record:hover { background:#b05e38;transform:scale(1.05); }
-    .rec-btn--record.recording { background:#922b21;animation:pulse 1.2s infinite; }
-    .rec-btn--play { background:var(--green-mid);color:var(--white); }
-    .rec-btn--play:hover { background:var(--green-deep);transform:scale(1.05); }
-    .rec-btn--play:disabled { opacity:0.35;cursor:not-allowed;transform:none; }
-    .rec-btn--delete { background:var(--cream-dark);color:var(--text-soft); }
-    .rec-btn--delete:hover { background:#fdecea;color:#922b21; }
-    .rec-btn--delete:disabled { opacity:0.3;cursor:not-allowed; }
-    .audio-status { flex:1;font-size:0.82rem;color:var(--text-soft); }
-    .audio-status.has-rec { color:var(--green-mid);font-weight:500; }
-
-    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(146,43,33,0.4);}50%{box-shadow:0 0 0 8px rgba(146,43,33,0);} }
-
-    /* Sidebar */
-    .sidebar-card { background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);padding:var(--space-lg);box-shadow:0 2px 8px var(--shadow-warm);margin-bottom:var(--space-md); }
-    .sidebar-card__title { font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);padding-bottom:var(--space-sm);border-bottom:1px solid var(--cream-border); }
-    .mini-check { width:18px;height:18px;border-radius:50%;border:1.5px solid var(--cream-border);display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;color:transparent; }
-    .mini-check.done { background:var(--green-soft);border-color:var(--green-soft);color:var(--white); }
-
-    /* Status badge for topic */
-    .status-path { display:flex;flex-wrap:wrap;gap:var(--space-sm);align-items:center;margin-bottom:var(--space-xl); }
-    .status-step { font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:5px; }
-    .status-step.current { color:var(--green-deep);font-weight:600; }
-    .status-step__dot { width:8px;height:8px;border-radius:50%;background:var(--cream-border); }
-    .status-step.current .status-step__dot { background:var(--green-soft); }
-    .status-step.done-step .status-step__dot { background:var(--green-pale); }
-    .status-arrow { color:var(--text-muted);font-size:0.75rem; }
-
-    /* Loading state */
-    .loading { text-align:center;padding:var(--space-2xl);color:var(--text-muted); }
-
-    @media(max-width:900px) {
-      .topic-grid { grid-template-columns:1fr !important; }
-      .topic-sidebar { position:static !important; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="container">
-      <div class="nav__inner">
-        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
-        <div class="nav__links">
-          <a href="index.html" class="nav__link" data-i18n="nav_dashboard">Dashibodi</a>
-        </div>
-        <div class="nav__actions">
-          <div class="lang-switcher">
-            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
-            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
-          </div>
-          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- TOPIC HEADER -->
-  <div class="topic-header">
-    <div class="container">
-      <div class="topic-header__inner">
-        <div>
-          <div class="topic-header__breadcrumb">
-            <a href="index.html" data-i18n="nav_dashboard">Dashibodi</a> ›
-            <span id="hdr-lang">Kikurya A1</span> ›
-            <span id="hdr-type"></span>
-          </div>
-          <div class="topic-header__title" id="hdr-title">...</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap;">
-          <div class="topic-header__payment" id="hdr-payment">
-            💰 <span id="hdr-payment-amount">5,000 TZS</span>
-          </div>
-          <button class="btn btn--ghost btn--sm" onclick="saveDraft()" data-i18n="btn_save">Hifadhi</button>
-          <button class="btn btn--primary" onclick="submitTopic()" data-i18n="btn_submit">Tuma kwa ukaguzi</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container" id="mainContainer">
-    <div class="loading">⏳ <span data-i18n="loading">Inapakia...</span></div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__logo">Lugha Hai</div>
-      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
-      <div class="footer__bottom">
-        <span>© 2026 Lugha Hai.</span>
-        <span style="color:var(--green-pale);font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-  // ── TRANSLATIONS ──────────────────────────────────────
-  const i18n = {
-    sw: {
-      nav_dashboard:"Dashibodi", nav_signout:"Toka",
-      loading:"Inapakia...",
-      btn_save:"Hifadhi rasimu", btn_submit:"Tuma kwa ukaguzi",
-      type_grammar:"Sarufi", type_vocabulary:"Msamiati",
-      warning_title:"⚠️ Muhimu kujua",
-      w1:"Malipo yanafanywa baada ya ukaguzi wa msimamizi na uthibitisho wa msimamizi mkuu. Njia ya malipo inakubaliwana kibinafsi.",
-      w2:"Mfumo unakokotoa kiotomatiki asilimia ya makosa baada ya ukaguzi na kupunguza kiasi hicho kutoka malipo yako. Jaza kwa makini.",
-      w3:"Lahaja si kosa. Ikiwa tofauti na msemaji mwingine ni ya lahaja — utapata malipo kamili. Ikiwa ni kutokana na uzembe wa kujaza — kiasi kitapunguzwa.",
-      w4:"Ikiwa makosa yanazidi asilimia 20 — swali la kuendelea kufanya kazi linaenda kwa msimamizi mkuu.",
-      w5:"Unaweza kuhifadhi kazi yako wakati wowote na kurudi baadaye.",
-      w6:"Ikiwa hukubaliani na matokeo ya ukaguzi — unaweza kupinga. Kesi itaenda kwa msimamizi mkuu.",
-      field_translation:"Tafsiri (lugha yako)",
-      field_translation_ph:"Andika tafsiri yako hapa...",
-      field_audio:"Sauti",
-      audio_tip:"Zungumza polepole na wazi",
-      audio_saved:"✓ Sauti imehifadhiwa",
-      audio_recording:"Inarekodi... bonyeza kusimama",
-      btn_done:"Imekamilika ✓",
-      btn_undo:"↩ Rudi",
-      checklist_title:"Maendeleo",
-      label_translations:"Tafsiri",
-      label_audio:"Sauti",
-      label_done:"Zilizokamilika",
-      instructions_title:"Maelekezo",
-      instructions_body:"Kwa kila sentensi: (1) Andika tafsiri yako kwa lugha yako ya asili. (2) Rekodi sauti yako ukizungumza sentensi hiyo polepole na wazi. (3) Bonyeza 'Imekamilika' ukimaliza kila sentensi. Unaweza kusimama na kurudi baadaye.",
-      status_label:"Hali ya mada",
-      status_inprogress:"Inaendelea",
-      save_ok:"✓ Imehifadhiwa!",
-      submit_ok:"✓ Imetumwa kwa ukaguzi! Asante.",
-      submit_incomplete:"Tafadhali kamilisha tafsiri zote kabla ya kutuma.",
-      footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi."
+      "moderator_questions": [
+        {
+          "id": "mq1",
+          "sw": "Swali 1: Jinsia za maneno",
+          "en": "Question 1: Gender of nouns",
+          "body": {
+            "sw": "Katika Kiswahili na Kiingereza hakuna jinsia. Katika Kihispania na Kifaransa kuna jinsia mbili. Katika Kirusi na Kijerumani kuna jinsia tatu. Katika lugha yako ni vipi? Ukisema 'jiwe kubwa' na 'mto mkubwa' — neno 'kubwa' litakuwa sawa au tofauti?",
+            "en": "In Swahili and English there is no gender. In Spanish and French there are two genders. In Russian and German there are three genders. What about your language? If you say 'a big stone' and 'a big river' — does the word 'big' stay the same or change?"
+          },
+          "options": {
+            "sw": ["Sawa — hakuna jinsia", "Tofauti — kuna jinsia → ngapi? zipi?"],
+            "en": ["Stays the same — no gender", "Changes — there is gender → how many? what are they?"]
+          },
+          "if_yes": {
+            "sw": "Tunga mfano mmoja wa nomino ya kila jinsia na utoe tafsiri kwa Kiswahili na Kiingereza.",
+            "en": "Give one example noun for each gender and provide its translation in Swahili and English."
+          }
+        },
+        {
+          "id": "mq2",
+          "sw": "Swali 2: Upatanisho wa viwakilishi vya umiliki",
+          "en": "Question 2: Possessive agreement",
+          "body": {
+            "sw": "Katika Kiswahili 'kitabu chake' na 'gari lake' — neno 'wake' linabadilika kulingana na ngeli. Katika Kirusi 'его книга' na 'его машина' — neno 'его' daima ni sawa. Katika lugha yako ukisema 'jiwe lake' na 'mto wake' — neno 'wake' litakuwa sawa au tofauti?",
+            "en": "In Swahili 'kitabu chake' and 'gari lake' — the word 'his' changes according to noun class. In Russian 'his book' and 'his car' — the word 'his' is always the same. In your language — does 'his/her' change depending on the object?"
+          },
+          "options": {
+            "sw": ["Sawa", "Tofauti → toa mifano kadhaa na vitu tofauti na tafsiri"],
+            "en": ["Stays the same", "Changes → give several examples with different objects and translations"]
+          }
+        },
+        {
+          "id": "mq3",
+          "sw": "Swali 3: Mnyambuliko wa majina (hali za nomino)",
+          "en": "Question 3: Noun cases",
+          "body": {
+            "sw": "Katika Kiswahili Chaha daima ni Chaha. Katika Kirusi: Чача — вижу Чачу — говорю Чаче. Katika lugha yako — majina na viwakilishi yanabadilika katika sentensi tofauti au daima yanabaki sawa?",
+            "en": "In Swahili Chaha is always Chaha. In Russian: Чача — I see Чачу — I speak to Чаче. In your language — do names and pronouns change in different sentences or always stay the same?"
+          },
+          "options": {
+            "sw": ["Hayabadiliki", "Yanabadilika → toa mifano ya kila aina ya mabadiliko na tafsiri"],
+            "en": ["They stay the same", "They change → give examples of each type of change and translations"]
+          }
+        },
+        {
+          "id": "mq4",
+          "sw": "Swali 4: Uonekano (viwakilishi vya kuonyesha)",
+          "en": "Question 4: Visibility (demonstrative pronouns)",
+          "body": {
+            "sw": "Katika baadhi ya lugha kuna tofauti kati ya 'yule ninayemwona sasa hivi' na 'yule nisiyemwona lakini najua yuko.' Je, kuna tofauti kama hiyo katika lugha yako?",
+            "en": "In some languages there is a difference between 'that one I can see right now' and 'that one I cannot see but know is there.' Is there such a difference in your language?"
+          },
+          "options": {
+            "sw": ["Hapana — neno moja bila kujali uonekano", "Ndiyo → toa mifano miwili (kinaonekana / hakionekani) na tafsiri"],
+            "en": ["No — one word regardless of visibility", "Yes → give two examples (visible / not visible) and translations"]
+          }
+        },
+        {
+          "id": "mq5",
+          "sw": "Swali 5: Idadi ya viwango vya umbali",
+          "en": "Question 5: Number of distance levels",
+          "body": {
+            "sw": "Tulikupa makundi matatu — karibu nami / karibu nawe / mbali nasi wote wawili. Katika lugha yako kuna viwango vitatu au ni tofauti?",
+            "en": "We gave you three groups — close to me / close to you / far from both of us. In your language are there three levels or is it different?"
+          },
+          "options": {
+            "sw": ["Viwango viwili — hii (karibu) / ile (mbali)", "Viwango vitatu — kama katika sentensi zetu", "Zaidi ya vitatu → toa mifano ya kila kiwango na tafsiri"],
+            "en": ["Two levels — this (close) / that (far)", "Three levels — as in our sentences", "More than three → give examples for each level and translations"]
+          }
+        },
+        {
+          "id": "mq6",
+          "sw": "Swali 6: Kukusanya kitabu cha sarufi",
+          "en": "Question 6: Building the grammar reference",
+          "body": {
+            "sw": "Kulingana na maudhui yote — sentensi za wasemaji na majibu ya maswali — tunga kitabu cha sarufi kuhusu viwakilishi katika lugha yako.",
+            "en": "Based on all content provided — speakers' sentences and answers to the questions — write a grammar reference on pronouns in your language."
+          },
+          "structure": {
+            "sw": ["Jedwali la viwakilishi vya nafsi (nafsi zote, idadi, jinsia kama ipo)", "Viwakilishi vya kitu", "Viwakilishi vya umiliki — upatanisho", "Viwakilishi vya kuonyesha — viwango vya umbali", "Jedwali la maumbo", "Mifano ya sentensi kwa kila kanuni"],
+            "en": ["Table of personal pronouns (all persons, numbers, genders if any)", "Object pronouns", "Possessive pronouns — agreement", "Demonstrative pronouns — distance levels", "Table of forms", "Example sentences for each rule"]
+          }
+        }
+      ]
     },
-    en: {
-      nav_dashboard:"Dashboard", nav_signout:"Sign out",
-      loading:"Loading...",
-      btn_save:"Save draft", btn_submit:"Submit for review",
-      type_grammar:"Grammar", type_vocabulary:"Vocabulary",
-      warning_title:"⚠️ Important to know",
-      w1:"Payment is made after moderator review and admin confirmation. Payment method is agreed individually.",
-      w2:"The system automatically calculates the error percentage after review and deducts that amount from your payment. Fill in carefully.",
-      w3:"Dialects are not errors. If a difference from another speaker is due to dialect — you will receive full payment. If it is due to careless entry — the amount will be reduced.",
-      w4:"If errors exceed 20% — the question of continuing work is referred to the admin.",
-      w5:"You can save your work at any time and come back later.",
-      w6:"If you disagree with the review result — you can dispute it. The case will go to the admin.",
-      field_translation:"Translation (your language)",
-      field_translation_ph:"Type your translation here...",
-      field_audio:"Audio",
-      audio_tip:"Speak slowly and clearly",
-      audio_saved:"✓ Audio saved",
-      audio_recording:"Recording... click to stop",
-      btn_done:"Mark done ✓",
-      btn_undo:"↩ Undo",
-      checklist_title:"Progress",
-      label_translations:"Translations",
-      label_audio:"Audio",
-      label_done:"Completed",
-      instructions_title:"Instructions",
-      instructions_body:"For each sentence: (1) Write your translation in your heritage language. (2) Record yourself saying the sentence slowly and clearly. (3) Click 'Mark done' when you finish each sentence. You can pause and come back later.",
-      status_label:"Topic status",
-      status_inprogress:"In progress",
-      save_ok:"✓ Saved!",
-      submit_ok:"✓ Submitted for review! Thank you.",
-      submit_incomplete:"Please complete all translations before submitting.",
-      footer_tagline:"Living languages, preserved for generations."
-    }
-  };
 
-  let currentLang = localStorage.getItem('lh_lang') || 'sw';
-  let topicData   = null;
-  let phraseState = {}; // { phraseId: { translation, hasAudio, done } }
-  let recording   = {}; // { phraseId: true/false }
+    {
+      "id": "nouns",
+      "type": "grammar",
+      "level": "A1",
+      "order": 2,
+      "payment_tzs": 7500,
+      "name": {
+        "sw": "Nomino (jinsia, ngeli, idadi, upatanisho)",
+        "en": "Nouns (gender, classes, number, agreement)"
+      },
+      "description": {
+        "sw": "Jinsia na ngeli za nomino, umoja na wingi, upatanisho wa kivumishi na kitenzi, uhai, hali za nomino, utambuzi.",
+        "en": "Noun gender and classes, singular and plural, adjective and verb agreement, animacy, noun cases, definiteness."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
 
-  // ── LANG ──────────────────────────────────────────────
-  function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('lh_lang', lang);
-    document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    const t = i18n[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.textContent = t[key];
-    });
-    if (topicData) render();
-  }
+    {
+      "id": "verb-tenses",
+      "type": "grammar",
+      "level": "A1",
+      "order": 3,
+      "payment_tzs": 7500,
+      "name": {
+        "sw": "Nyakati za kitenzi (sasa, kale, kesho, kukanusha)",
+        "en": "Verb tenses (present, past, future, negation)"
+      },
+      "description": {
+        "sw": "Wakati wa sasa, wakati wa kale, wakati wa kesho, kukanusha katika nyakati zote tatu.",
+        "en": "Present simple, past simple, future tense, negation in all three tenses."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
 
-  // ── LOAD DATA ─────────────────────────────────────────
-  async function init() {
-    const params  = new URLSearchParams(window.location.search);
-    const topicId = params.get('id') || 'pronouns';
+    {
+      "id": "agreement",
+      "type": "grammar",
+      "level": "A1",
+      "order": 4,
+      "payment_tzs": 5000,
+      "name": {
+        "sw": "Upatanisho (kitenzi, nambari, mahali)",
+        "en": "Agreement (verb, numbers, locative)"
+      },
+      "description": {
+        "sw": "Upatanisho wa kitenzi na ngeli ya mtendaji, upatanisho wa nambari na ngeli, ngeli za mahali na vihusishi.",
+        "en": "Verb agreement with subject class, number agreement with classes, locative classes and prepositions."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
 
-    try {
-      const res  = await fetch('../data/topics.json');
-      const data = await res.json();
-      topicData  = data.topics.find(t => t.id === topicId);
-      if (!topicData) throw new Error('Topic not found: ' + topicId);
-    } catch(e) {
-      document.getElementById('mainContainer').innerHTML =
-        `<div class="loading" style="color:var(--terracotta);">Hitilafu: ${e.message}</div>`;
-      return;
-    }
+    {
+      "id": "being-having",
+      "type": "grammar",
+      "level": "A1",
+      "order": 5,
+      "payment_tzs": 5000,
+      "name": {
+        "sw": "Kuwa na kuwa nacho (kitenzi 'kuwa', 'nina')",
+        "en": "Being and having (verb 'to be', 'I have')"
+      },
+      "description": {
+        "sw": "Kitenzi 'kuwa' (uwepo na kutokuwepo), ujenzi wa 'nina/huna', maalum ya lugha.",
+        "en": "Verb 'to be' (presence/absence), construction 'I have / I don't have', language specifics."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
 
-    // Init phrase state
-    topicData.blocks.forEach(block => {
-      block.phrases.forEach(p => {
-        phraseState[p.id] = { translation:'', hasAudio:false, done:false };
-      });
-    });
+    {
+      "id": "questions",
+      "type": "grammar",
+      "level": "A1",
+      "order": 6,
+      "payment_tzs": 5000,
+      "name": {
+        "sw": "Maswali (ndiyo/hapana, maneno ya kuuliza)",
+        "en": "Questions (yes/no, question words)"
+      },
+      "description": {
+        "sw": "Maswali ya ndiyo/hapana, maneno ya kuuliza: nani, nini, wapi, lini, jinsi gani, kwa nini, ngapi.",
+        "en": "Yes/no questions, question words: who, what, where, when, how, why, how many."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
 
-    // Load saved draft
-    loadDraft();
+    {
+      "id": "communication-numbers-time",
+      "type": "vocabulary",
+      "level": "A1",
+      "order": 7,
+      "payment_tzs": 5000,
+      "name": {
+        "sw": "Mawasiliano, nambari na wakati",
+        "en": "Communication, numbers and time"
+      },
+      "description": {
+        "sw": "Salamu na kuaga, maneno ya heshima, nambari 1-100, siku za juma, miezi, nyakati za siku.",
+        "en": "Greetings and farewells, polite expressions, numbers 1-100, days of the week, months, parts of the day."
+      },
+      "blocks": [
+        {
+          "id": "greetings",
+          "label": { "sw": "A. Salamu", "en": "A. Greetings" },
+          "phrases": [
+            { "id": "gr1",  "sw": "Habari za asubuhi!",                                          "en": "Good morning!",                              "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "gr2",  "sw": "Habari za mchana!",                                           "en": "Good afternoon!",                            "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "gr3",  "sw": "Habari za jioni!",                                            "en": "Good evening!",                              "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "gr4",  "sw": "Habari, John!",                                               "en": "Hi, John!",                                  "ctx_sw": "(salamu kwa rafiki)",        "ctx_en": "(greeting a friend)" },
+            { "id": "gr5",  "sw": "John anamsalimia mzee",                                       "en": "John greets the elder",                      "ctx_sw": "(salamu kwa mzee)",          "ctx_en": "(greeting an elder)" },
+            { "id": "gr6",  "sw": "John anakutana na Anna mara ya kwanza: nafurahi kukujua!",    "en": "John meets Anna for the first time: nice to meet you!", "ctx_sw": "",            "ctx_en": "" },
+            { "id": "gr7",  "sw": "Anna anamjibu John: mimi pia!",                               "en": "Anna responds to John: nice to meet you too!", "ctx_sw": "",                       "ctx_en": "" }
+          ]
+        },
+        {
+          "id": "farewells",
+          "label": { "sw": "B. Kuaga", "en": "B. Farewells" },
+          "phrases": [
+            { "id": "fw1",  "sw": "Kwa heri!",                                                   "en": "Goodbye!",                                   "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "fw2",  "sw": "Baadaye, John!",                                              "en": "See you later, John!",                       "ctx_sw": "(kuaga kwa rafiki)",         "ctx_en": "(informal farewell)" },
+            { "id": "fw3",  "sw": "Tutaonana kesho, Anna!",                                      "en": "See you tomorrow, Anna!",                    "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "fw4",  "sw": "Nenda salama!",                                               "en": "Go well!",                                   "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "fw5",  "sw": "John anaaga mzee",                                            "en": "John says goodbye to the elder",             "ctx_sw": "(kuaga mzee)",               "ctx_en": "(farewell to elder)" }
+          ]
+        },
+        {
+          "id": "polite",
+          "label": { "sw": "C. Maneno ya heshima", "en": "C. Polite expressions" },
+          "phrases": [
+            { "id": "po1",  "sw": "Asante, Anna!",                                               "en": "Thank you, Anna!",                           "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "po2",  "sw": "Anna anasema asante, John anajibu: ___",                      "en": "Anna says thank you, John responds: ___",    "ctx_sw": "(jibu la asante)",           "ctx_en": "(responding to thank you)" },
+            { "id": "po3",  "sw": "Nipe maji, tafadhali",                                        "en": "Give me some water, please",                 "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "po4",  "sw": "Karibu!",                                                     "en": "You're welcome!",                            "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "po5",  "sw": "Samahani, barabara iko wapi?",                                "en": "Excuse me, where is the road?",              "ctx_sw": "(kwa mgeni)",                "ctx_en": "(to a stranger)" },
+            { "id": "po6",  "sw": "Nisamehe, John!",                                             "en": "Sorry, John!",                               "ctx_sw": "(kwa mtu unayemjua)",        "ctx_en": "(to someone you know)" },
+            { "id": "po7",  "sw": "John anasema msamaha, Anna anajibu: ___",                     "en": "John says sorry, Anna responds: ___",        "ctx_sw": "(jibu la msamaha)",          "ctx_en": "(responding to sorry)" },
+            { "id": "po8",  "sw": "Hakuna shida, usijali!",                                      "en": "It's okay, don't worry!",                    "ctx_sw": "",                          "ctx_en": "" }
+          ]
+        },
+        {
+          "id": "numbers",
+          "label": { "sw": "D. Nambari", "en": "D. Numbers" },
+          "phrases": [
+            { "id": "nu1",  "sw": "Moja, mbili, tatu, nne, tano, sita, saba, nane, tisa, kumi", "en": "One, two, three, four, five, six, seven, eight, nine, ten", "ctx_sw": "1-10", "ctx_en": "1-10" },
+            { "id": "nu2",  "sw": "Kumi, ishirini, thelathini, arobaini, hamsini, sitini, sabini, themanini, tisini, mia moja", "en": "Ten, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, one hundred", "ctx_sw": "makumi", "ctx_en": "tens" },
+            { "id": "nu3",  "sw": "Kumi na moja, kumi na mbili, ishirini na moja, ishirini na mbili, hamsini na tano", "en": "Eleven, twelve, twenty one, twenty two, fifty five", "ctx_sw": "nambari mchanganyiko", "ctx_en": "compound numbers" },
+            { "id": "nu4",  "sw": "Wa kwanza, wa pili, wa tatu, wa nne, wa tano, wa sita, wa saba, wa nane, wa tisa, wa kumi", "en": "First, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth", "ctx_sw": "nambari za mpangilio 1-10", "ctx_en": "ordinal numbers 1-10" },
+            { "id": "nu5",  "sw": "John anaishi nyumba ya kwanza",                               "en": "John lives in the first house",              "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "nu6",  "sw": "Leo ni siku ya pili",                                         "en": "Today is the second day",                    "ctx_sw": "",                          "ctx_en": "" }
+          ]
+        },
+        {
+          "id": "time",
+          "label": { "sw": "E. Wakati", "en": "E. Time" },
+          "phrases": [
+            { "id": "ti1",  "sw": "Jumatatu, Jumanne, Jumatano, Alhamisi, Ijumaa, Jumamosi, Jumapili", "en": "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday", "ctx_sw": "siku za juma", "ctx_en": "days of the week" },
+            { "id": "ti2",  "sw": "Leo ni Jumatatu",                                             "en": "Today is Monday",                            "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti3",  "sw": "John atakuja Ijumaa",                                         "en": "John will come on Friday",                   "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti4",  "sw": "Januari, Februari, Machi, Aprili, Mei, Juni, Julai, Agosti, Septemba, Oktoba, Novemba, Desemba", "en": "January, February, March, April, May, June, July, August, September, October, November, December", "ctx_sw": "miezi", "ctx_en": "months" },
+            { "id": "ti5",  "sw": "Sasa ni Januari",                                             "en": "It is January now",                          "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti6",  "sw": "Anna alizaliwa Machi",                                        "en": "Anna was born in March",                     "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti7",  "sw": "Asubuhi, mchana, jioni, usiku",                               "en": "Morning, afternoon, evening, night",          "ctx_sw": "nyakati za siku",            "ctx_en": "parts of the day" },
+            { "id": "ti8",  "sw": "Sasa ni asubuhi",                                             "en": "It is morning now",                          "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti9",  "sw": "John atakuja jioni",                                          "en": "John will come in the evening",              "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti10", "sw": "Jana, leo, kesho, sasa, baadaye, hivi karibuni",               "en": "Yesterday, today, tomorrow, now, later, soon", "ctx_sw": "",                       "ctx_en": "" },
+            { "id": "ti11", "sw": "Leo John yuko nyumbani",                                      "en": "Today John is at home",                      "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti12", "sw": "Jana Anna alikuwa shuleni",                                   "en": "Yesterday Anna was at school",               "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti13", "sw": "Kesho tutaenda sokoni",                                       "en": "Tomorrow we are going to the market",        "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti14", "sw": "Saa ngapi sasa?",                                             "en": "What time is it?",                           "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti15", "sw": "Sasa ni saa tisa",                                            "en": "It is three o'clock",                        "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti16", "sw": "Sasa ni saa tisa na nusu",                                    "en": "It is half past three",                      "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti17", "sw": "Sasa ni saa nne na dakika ishirini",                          "en": "It is ten twenty",                           "ctx_sw": "",                          "ctx_en": "" },
+            { "id": "ti18", "sw": "John atakuja saa moja na dakika thelathini",                  "en": "John will come at seven thirty",             "ctx_sw": "",                          "ctx_en": "" }
+          ]
+        }
+      ],
+      "moderator_questions": [
+        {
+          "id": "mq1",
+          "sw": "Swali 1: Nambari na ngeli",
+          "en": "Question 1: Numbers and noun classes",
+          "body": {
+            "sw": "Katika Kiswahili 'watu wawili' lakini 'vitabu viwili' — neno 'wawili/viwili' linabadilika kulingana na ngeli. Katika Kiingereza 'two' haibadiliki kamwe. Katika lugha yako — nambari inabadilika kulingana na kitu au daima ni sawa?",
+            "en": "In Swahili 'watu wawili' (two people) but 'vitabu viwili' (two books) — the word 'two' changes according to noun class. In English 'two' never changes. In your language — does the number change depending on the object or always stay the same?"
+          },
+          "options": {
+            "sw": ["Ni sawa — nambari haibadiliki", "Inabadilika → toa mifano na vitu tofauti na tafsiri"],
+            "en": ["Always the same — numbers do not change", "Changes → give examples with different objects and translations"]
+          }
+        },
+        {
+          "id": "mq2",
+          "sw": "Swali 2: Maumbo maalum ya 1 na 2",
+          "en": "Question 2: Special forms for 1 and 2",
+          "body": {
+            "sw": "Katika baadhi ya lugha nambari 1 na 2 zina maumbo maalum — zinapatana na nomino tofauti na nambari nyingine. Kwa mfano katika Kirusi nambari 1 na 2 zinabadilika kulingana na jinsia. Katika lugha yako — nambari 1 na 2 zina maalum au zinafanya kazi kama nyingine zote?",
+            "en": "In some languages numbers 1 and 2 have special forms — they agree with nouns differently from other numbers. In Russian numbers 1 and 2 change by gender. In your language — do numbers 1 and 2 have special forms or work like all other numbers?"
+          },
+          "options": {
+            "sw": ["Zinafanya kazi kama nyingine zote", "Zina maalum → toa mifano na tafsiri"],
+            "en": ["Same as all other numbers", "Special forms exist → give examples and translations"]
+          }
+        },
+        {
+          "id": "mq3",
+          "sw": "Swali 3: Kukusanya kitabu cha sarufi",
+          "en": "Question 3: Building the grammar reference",
+          "body": {
+            "sw": "Kulingana na maudhui yote — maneno, misemo ya wasemaji na majibu ya maswali — tunga kitabu kifupi cha sarufi kuhusu mada hii katika lugha yako.",
+            "en": "Based on all content provided — words, speakers' phrases and answers to the questions — write a short grammar reference on this topic in your language."
+          },
+          "structure": {
+            "sw": ["Salamu — orodha kamili na maelezo ni lini kutumia", "Kuaga — orodha kamili", "Maneno ya heshima na majibu yake", "Nambari — je, zinapatana na ngeli, maumbo maalum ya 1 na 2", "Siku za juma — maneno yake au ya mpangilio", "Miezi — majina yake au ya kukopa", "Jinsi ya kusema wakati — saa, dakika, nyakati za siku"],
+            "en": ["Greetings — full list with notes on when to use each", "Farewells — full list", "Polite expressions and responses", "Numbers — agreement with classes, special forms for 1 and 2", "Days of the week — own words or ordinal", "Months — own names or borrowed", "How to express time — hours, minutes, parts of the day"]
+          }
+        }
+      ]
+    },
 
-    // Update header
-    const t = i18n[currentLang];
-    document.getElementById('hdr-type').textContent =
-      topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
-    document.getElementById('hdr-title').textContent = topicData.name[currentLang];
-    document.getElementById('hdr-payment-amount').textContent =
-      topicData.payment_tzs.toLocaleString() + ' TZS';
+    { "id": "person-family",    "type": "vocabulary", "level": "A1", "order": 8,  "payment_tzs": 5000, "name": { "sw": "Mtu na familia", "en": "Person and family" }, "description": { "sw": "Familia na ndugu, sehemu za mwili, kazi za msingi.", "en": "Family and relatives, body parts, basic professions." }, "blocks": [], "moderator_questions": [] },
+    { "id": "health-emotions",  "type": "vocabulary", "level": "A1", "order": 9,  "payment_tzs": 5000, "name": { "sw": "Afya na hisia", "en": "Health and emotions" }, "description": { "sw": "Magonjwa na hali ya afya, hisia na hali za kihisia.", "en": "Illnesses and health conditions, emotions and emotional states." }, "blocks": [], "moderator_questions": [] },
+    { "id": "home-food",        "type": "vocabulary", "level": "A1", "order": 10, "payment_tzs": 5000, "name": { "sw": "Nyumba, maisha na chakula", "en": "Home, daily life and food" }, "description": { "sw": "Nyumba na sehemu zake, vitu vya nyumbani, nguo, chakula na vinywaji.", "en": "House and its parts, household items, clothing, food and drinks." }, "blocks": [], "moderator_questions": [] },
+    { "id": "nature-world",     "type": "vocabulary", "level": "A1", "order": 11, "payment_tzs": 5000, "name": { "sw": "Asili na dunia", "en": "Nature and the world" }, "description": { "sw": "Hali ya hewa, wanyama wa nyumbani na wa mwituni, asili, kijiji na mji.", "en": "Weather, domestic and wild animals, nature, village and town." }, "blocks": [], "moderator_questions": [] },
+    { "id": "words",            "type": "vocabulary", "level": "A1", "order": 12, "payment_tzs": 5000, "name": { "sw": "Maneno (vitenzi, vivumishi, rangi)", "en": "Words (verbs, adjectives, colours)" }, "description": { "sw": "Vitenzi vya msingi (~40-50), vivumishi vya msingi (~20-30), rangi.", "en": "Basic verbs (~40-50), basic adjectives (~20-30), colours." }, "blocks": [], "moderator_questions": [] }
 
-    render();
-  }
-
-  // ── RENDER ────────────────────────────────────────────
-  function render() {
-    const t   = i18n[currentLang];
-    const nk  = currentLang; // 'sw' or 'en'
-    const ck  = 'ctx_' + currentLang;
-
-    // Update dynamic i18n in header
-    document.getElementById('hdr-type').textContent =
-      topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
-    document.getElementById('hdr-title').textContent = topicData.name[currentLang];
-
-    // Count totals
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    const total   = allPhrases.length;
-    const nTrl    = allPhrases.filter(p => phraseState[p.id]?.translation).length;
-    const nAud    = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
-    const nDone   = allPhrases.filter(p => phraseState[p.id]?.done).length;
-    const pct     = Math.round(nDone / total * 100);
-
-    // Build HTML
-    let html = `
-      <!-- STATUS PATH -->
-      <div class="status-path">
-        <div class="status-step current">
-          <div class="status-step__dot"></div>
-          ${t.status_inprogress}
-        </div>
-        <div class="status-arrow">›</div>
-        <div class="status-step"><div class="status-step__dot"></div>${currentLang==='sw'?'Ukaguzi wa msimamizi':'Moderator review'}</div>
-        <div class="status-arrow">›</div>
-        <div class="status-step"><div class="status-step__dot"></div>${currentLang==='sw'?'Uamuzi wako':'Your decision'}</div>
-        <div class="status-arrow">›</div>
-        <div class="status-step"><div class="status-step__dot"></div>${currentLang==='sw'?'Malipo':'Payment'}</div>
-      </div>
-
-      <!-- WARNING BLOCK -->
-      <div class="warning-block">
-        <div class="warning-block__title">${t.warning_title}</div>
-        ${['w1','w2','w3','w4','w5','w6'].map(k => `
-          <div class="warning-block__item">
-            <span class="warning-block__icon">•</span>
-            <span>${t[k]}</span>
-          </div>`).join('')}
-      </div>
-
-      <!-- MAIN GRID -->
-      <div class="topic-grid" style="display:grid;grid-template-columns:1fr 280px;gap:var(--space-xl);align-items:start;">
-
-        <!-- LEFT: phrases -->
-        <div id="phraseArea">`;
-
-    // Render each block
-    let globalIdx = 1;
-    topicData.blocks.forEach(block => {
-      const blockPhrases   = block.phrases;
-      const blockDone      = blockPhrases.filter(p => phraseState[p.id]?.done).length;
-      const blockAllDone   = blockDone === blockPhrases.length;
-
-      html += `
-          <div class="block-header">
-            ${block.label[nk]}
-            <span class="block-progress-chip ${blockAllDone?'done':''}">${blockDone}/${blockPhrases.length}</span>
-          </div>`;
-
-      blockPhrases.forEach(phrase => {
-        const state   = phraseState[phrase.id] || {};
-        const isDone  = state.done;
-        const isOpen  = !isDone;
-        const isRec   = recording[phrase.id];
-        const ctx     = phrase[ck];
-
-        html += `
-          <div class="phrase-block ${isDone?'done':''}" id="pb-${phrase.id}">
-            <div class="phrase-header" onclick="togglePhrase('${phrase.id}')">
-              <div class="phrase-num ${isDone?'done':''}">${isDone?'✓':globalIdx}</div>
-              <div class="phrase-source">
-                ${phrase[nk]}
-                ${ctx ? `<span>${ctx}</span>` : ''}
-              </div>
-              <div class="phrase-chevron ${isOpen?'open':''}" id="chev-${phrase.id}">›</div>
-            </div>
-            <div class="phrase-body ${isOpen?'open':''}" id="body-${phrase.id}">
-
-              <!-- Translation -->
-              <div>
-                <div class="field-label">${t.field_translation}</div>
-                <input
-                  type="text"
-                  class="translation-input ${state.translation?'filled':''}"
-                  placeholder="${t.field_translation_ph}"
-                  value="${state.translation||''}"
-                  oninput="onInput('${phrase.id}', this.value)"
-                  id="inp-${phrase.id}"
-                />
-              </div>
-
-              <!-- Audio -->
-              <div>
-                <div class="field-label">${t.field_audio}</div>
-                <div class="audio-controls">
-                  <button class="rec-btn rec-btn--record ${isRec?'recording':''}"
-                    onclick="toggleRec('${phrase.id}')">
-                    ${isRec?'⏹':'🎙'}
-                  </button>
-                  <button class="rec-btn rec-btn--play"
-                    onclick="playAudio('${phrase.id}')"
-                    ${!state.hasAudio?'disabled':''}>▶</button>
-                  <button class="rec-btn rec-btn--delete"
-                    onclick="deleteAudio('${phrase.id}')"
-                    ${!state.hasAudio?'disabled':''}>🗑</button>
-                  <div class="audio-status ${state.hasAudio?'has-rec':''}">
-                    ${isRec ? t.audio_recording : state.hasAudio ? t.audio_saved : t.audio_tip}
-                  </div>
-                </div>
-              </div>
-
-              <!-- Mark done -->
-              <div style="display:flex;justify-content:flex-end;">
-                <button class="btn ${isDone?'btn--secondary':'btn--primary'} btn--sm"
-                  onclick="markDone('${phrase.id}')">
-                  ${isDone ? t.btn_undo : t.btn_done}
-                </button>
-              </div>
-
-            </div>
-          </div>`;
-
-        globalIdx++;
-      });
-    });
-
-    html += `
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div class="topic-sidebar" style="position:sticky;top:80px;">
-
-          <!-- Checklist -->
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">${t.checklist_title}</div>
-            <div style="display:flex;flex-direction:column;gap:var(--space-sm);margin-bottom:var(--space-md);">
-              <div style="display:flex;align-items:center;gap:var(--space-sm);">
-                <div class="mini-check ${nTrl===total?'done':''}">✓</div>
-                <span style="font-size:0.82rem;color:var(--text-mid);">${t.label_translations}: ${nTrl}/${total}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:var(--space-sm);">
-                <div class="mini-check ${nAud===total?'done':''}">✓</div>
-                <span style="font-size:0.82rem;color:var(--text-mid);">${t.label_audio}: ${nAud}/${total}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:var(--space-sm);">
-                <div class="mini-check ${nDone===total?'done':''}">✓</div>
-                <span style="font-size:0.82rem;color:var(--text-mid);">${t.label_done}: ${nDone}/${total}</span>
-              </div>
-            </div>
-            <div class="flex-between" style="margin-bottom:6px;">
-              <span style="font-size:0.78rem;color:var(--text-soft);">${nDone}/${total}</span>
-              <span style="font-size:0.78rem;font-weight:500;color:var(--green-deep);">${pct}%</span>
-            </div>
-            <div class="progress"><div class="progress__fill" style="width:${pct}%;"></div></div>
-          </div>
-
-          <!-- Instructions -->
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">${t.instructions_title}</div>
-            <div style="font-size:0.82rem;color:var(--text-mid);line-height:1.75;">${t.instructions_body}</div>
-          </div>
-
-          <!-- Payment info -->
-          <div class="sidebar-card" style="background:var(--green-mist);border-color:var(--green-pale);">
-            <div class="sidebar-card__title" style="color:var(--green-deep);">
-              ${currentLang==='sw'?'Malipo ya mada hii':'Payment for this topic'}
-            </div>
-            <div style="font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:4px;">
-              ${topicData.payment_tzs.toLocaleString()} TZS
-            </div>
-            <div style="font-size:0.78rem;color:var(--text-mid);">
-              ${currentLang==='sw'?'Baada ya ukaguzi na uthibitisho wa msimamizi mkuu':'After review and admin confirmation'}
-            </div>
-          </div>
-
-          <!-- Buttons -->
-          <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
-            <button class="btn btn--primary w-full" style="justify-content:center;" onclick="submitTopic()" data-i18n="btn_submit">
-              ${t.btn_submit}
-            </button>
-            <button class="btn btn--ghost w-full" style="justify-content:center;" onclick="saveDraft()" data-i18n="btn_save">
-              ${t.btn_save}
-            </button>
-          </div>
-
-        </div>
-      </div>
-      <div style="height:var(--space-2xl);"></div>`;
-
-    document.getElementById('mainContainer').innerHTML = html;
-  }
-
-  // ── INTERACTIONS ──────────────────────────────────────
-  function togglePhrase(id) {
-    const body = document.getElementById('body-' + id);
-    const chev = document.getElementById('chev-' + id);
-    if (!body) return;
-    const open = body.classList.toggle('open');
-    chev.classList.toggle('open', open);
-  }
-
-  function onInput(id, value) {
-    if (!phraseState[id]) phraseState[id] = {};
-    phraseState[id].translation = value;
-    const inp = document.getElementById('inp-' + id);
-    if (inp) inp.classList.toggle('filled', !!value);
-    updateChecklist();
-  }
-
-  function toggleRec(id) {
-    if (recording[id]) {
-      recording[id] = false;
-      if (!phraseState[id]) phraseState[id] = {};
-      phraseState[id].hasAudio = true;
-    } else {
-      recording[id] = true;
-    }
-    render();
-  }
-
-  function playAudio(id) {
-    const msg = currentLang === 'sw'
-      ? 'Kucheza sauti... (itafanya kazi na rekodi halisi)'
-      : 'Playing audio... (will work with real recordings)';
-    showToast(msg, 'info');
-  }
-
-  function deleteAudio(id) {
-    if (!phraseState[id]) phraseState[id] = {};
-    phraseState[id].hasAudio = false;
-    recording[id] = false;
-    render();
-  }
-
-  function markDone(id) {
-    if (!phraseState[id]) phraseState[id] = {};
-    phraseState[id].done = !phraseState[id].done;
-    if (phraseState[id].done) {
-      const body = document.getElementById('body-' + id);
-      const chev = document.getElementById('chev-' + id);
-      if (body) body.classList.remove('open');
-      if (chev) chev.classList.remove('open');
-      // Update phrase block and num without full re-render
-      const pb  = document.getElementById('pb-' + id);
-      const num = pb?.querySelector('.phrase-num');
-      if (pb)  pb.classList.add('done');
-      if (num) { num.classList.add('done'); num.textContent = '✓'; }
-    } else {
-      const pb  = document.getElementById('pb-' + id);
-      const num = pb?.querySelector('.phrase-num');
-      if (pb)  pb.classList.remove('done');
-      // Re-render to restore number — just update checklist for now
-    }
-    updateChecklist();
-  }
-
-  // ── CHECKLIST UPDATE (without full re-render) ─────────
-  function updateChecklist() {
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    const total  = allPhrases.length;
-    const nTrl   = allPhrases.filter(p => phraseState[p.id]?.translation).length;
-    const nAud   = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
-    const nDone  = allPhrases.filter(p => phraseState[p.id]?.done).length;
-    const pct    = Math.round(nDone / total * 100);
-    const t      = i18n[currentLang];
-
-    // Update mini checks text (find by content pattern)
-    const checks = document.querySelectorAll('.mini-check');
-    if (checks[0]) checks[0].classList.toggle('done', nTrl === total);
-    if (checks[1]) checks[1].classList.toggle('done', nAud === total);
-    if (checks[2]) checks[2].classList.toggle('done', nDone === total);
-
-    const spans = document.querySelectorAll('.sidebar-card span[style*="text-mid"]');
-    if (spans[0]) spans[0].textContent = `${t.label_translations}: ${nTrl}/${total}`;
-    if (spans[1]) spans[1].textContent = `${t.label_audio}: ${nAud}/${total}`;
-    if (spans[2]) spans[2].textContent = `${t.label_done}: ${nDone}/${total}`;
-
-    const bar = document.querySelector('.progress__fill');
-    if (bar) bar.style.width = pct + '%';
-  }
-
-  // ── DRAFT ─────────────────────────────────────────────
-  function saveDraft() {
-    try {
-      localStorage.setItem('lh_draft_' + topicData.id, JSON.stringify(phraseState));
-      showToast(i18n[currentLang].save_ok, 'success');
-    } catch(e) { console.warn('Save failed', e); }
-  }
-
-  function loadDraft() {
-    try {
-      const raw = localStorage.getItem('lh_draft_' + topicData.id);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        Object.keys(saved).forEach(id => {
-          if (phraseState[id] !== undefined) phraseState[id] = { ...phraseState[id], ...saved[id] };
-        });
-      }
-    } catch(e) { console.warn('Load draft failed', e); }
-  }
-
-  function submitTopic() {
-    const t = i18n[currentLang];
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    const allTrl = allPhrases.every(p => phraseState[p.id]?.translation);
-    if (!allTrl) { showToast(t.submit_incomplete, 'error'); return; }
-    saveDraft();
-    showToast(t.submit_ok, 'success');
-    setTimeout(() => window.location.href = 'index.html', 2000);
-  }
-
-  // ── TOAST ─────────────────────────────────────────────
-  function showToast(msg, type) {
-    const colors = {
-      success:{ bg:'var(--green-deep)', color:'var(--cream)' },
-      error:  { bg:'var(--terracotta)', color:'var(--white)' },
-      info:   { bg:'#1A5276',           color:'var(--white)' }
-    };
-    const c = colors[type] || colors.success;
-    const el = document.createElement('div');
-    el.textContent = msg;
-    Object.assign(el.style, {
-      position:'fixed', bottom:'24px', right:'24px',
-      background:c.bg, color:c.color,
-      padding:'12px 20px', borderRadius:'12px',
-      fontSize:'0.875rem', fontFamily:'var(--font-body)',
-      fontWeight:'500', boxShadow:'0 4px 16px rgba(0,0,0,0.18)',
-      zIndex:'9999', opacity:'0', transform:'translateY(8px)',
-      transition:'all 0.25s ease', maxWidth:'320px'
-    });
-    document.body.appendChild(el);
-    requestAnimationFrame(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; });
-    setTimeout(() => { el.style.opacity='0'; el.style.transform='translateY(8px)'; setTimeout(() => el.remove(), 300); }, 2800);
-  }
-
-  // ── INIT ──────────────────────────────────────────────
-  setLang(currentLang);
-  init();
-  </script>
-</body>
-</html>
+  ]
+}
