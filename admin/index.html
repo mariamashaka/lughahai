@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Admin</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher {
+      display:flex; align-items:center;
+      background:var(--cream-dark); border-radius:var(--radius-xl);
+      padding:3px; gap:2px;
+    }
+    .lang-switcher__btn {
+      padding:4px 12px; border-radius:var(--radius-xl); border:none;
+      background:transparent; font-size:0.8rem; font-weight:500;
+      color:var(--text-soft); cursor:pointer; transition:all var(--transition);
+    }
+    .lang-switcher__btn.active {
+      background:var(--white); color:var(--green-deep);
+      box-shadow:0 1px 4px var(--shadow-warm);
+    }
+
+    /* Admin sidebar nav */
+    .admin-layout {
+      display:grid;
+      grid-template-columns:220px 1fr;
+      min-height:calc(100vh - 65px);
+      gap:0;
+    }
+    .admin-sidebar {
+      background:var(--green-deep);
+      padding:var(--space-lg) 0;
+      position:sticky;
+      top:65px;
+      height:calc(100vh - 65px);
+      overflow-y:auto;
+    }
+    .admin-sidebar__section {
+      padding:var(--space-sm) var(--space-lg);
+      font-size:0.68rem;
+      font-weight:500;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      color:var(--green-pale);
+      margin-top:var(--space-md);
+    }
+    .admin-nav-link {
+      display:flex;
+      align-items:center;
+      gap:var(--space-md);
+      padding:var(--space-sm) var(--space-lg);
+      font-size:0.88rem;
+      color:var(--green-pale);
+      transition:all var(--transition);
+      cursor:pointer;
+      border-left:3px solid transparent;
+      text-decoration:none;
+    }
+    .admin-nav-link:hover {
+      background:rgba(255,255,255,0.06);
+      color:var(--cream);
+    }
+    .admin-nav-link.active {
+      background:rgba(255,255,255,0.10);
+      color:var(--cream);
+      border-left-color:var(--terracotta);
+    }
+    .admin-nav-link__icon { font-size:1rem; width:20px; text-align:center; }
+    .admin-nav-badge {
+      margin-left:auto;
+      background:var(--terracotta);
+      color:var(--white);
+      border-radius:99px;
+      padding:1px 7px;
+      font-size:0.68rem;
+      font-weight:600;
+    }
+
+    /* Admin content */
+    .admin-content {
+      padding:var(--space-xl);
+      background:var(--cream);
+    }
+    .admin-page-title {
+      font-size:1.4rem;
+      font-weight:600;
+      color:var(--green-deep);
+      margin-bottom:var(--space-xl);
+    }
+
+    /* Stat cards row */
+    .stat-cards {
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:var(--space-md);
+      margin-bottom:var(--space-xl);
+    }
+    .stat-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      padding:var(--space-lg);
+      box-shadow:0 2px 8px var(--shadow-warm);
+    }
+    .stat-card__value {
+      font-size:2rem;
+      font-weight:600;
+      color:var(--green-deep);
+      margin-bottom:4px;
+    }
+    .stat-card__label {
+      font-size:0.78rem;
+      color:var(--text-muted);
+    }
+    .stat-card__delta {
+      font-size:0.75rem;
+      color:var(--green-soft);
+      margin-top:4px;
+    }
+
+    /* Table */
+    .admin-table-wrap {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+      box-shadow:0 2px 8px var(--shadow-warm);
+      margin-bottom:var(--space-xl);
+    }
+    .admin-table-header {
+      padding:var(--space-md) var(--space-lg);
+      border-bottom:1px solid var(--cream-border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--space-md);
+      flex-wrap:wrap;
+    }
+    .admin-table-title {
+      font-size:0.9rem;
+      font-weight:600;
+      color:var(--green-deep);
+    }
+    table { width:100%; border-collapse:collapse; font-size:0.875rem; }
+    thead { background:var(--cream); }
+    thead th {
+      padding:10px var(--space-lg);
+      text-align:left;
+      font-size:0.72rem;
+      font-weight:500;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+      border-bottom:1px solid var(--cream-border);
+    }
+    tbody td {
+      padding:12px var(--space-lg);
+      color:var(--text-mid);
+      border-bottom:1px solid var(--cream-border);
+    }
+    tbody tr:last-child td { border-bottom:none; }
+    tbody tr:hover td { background:var(--cream); }
+    .td-name { font-weight:500; color:var(--text-dark); }
+
+    /* Alert card for disputes */
+    .alert-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-left:4px solid var(--terracotta);
+      border-radius:var(--radius-md);
+      padding:var(--space-md) var(--space-lg);
+      display:flex;
+      align-items:flex-start;
+      gap:var(--space-md);
+      margin-bottom:var(--space-md);
+      box-shadow:0 2px 8px var(--shadow-warm);
+    }
+    .alert-card__icon { font-size:1.2rem; flex-shrink:0; }
+    .alert-card__title { font-weight:500; color:var(--text-dark); margin-bottom:4px; }
+    .alert-card__sub   { font-size:0.78rem; color:var(--text-muted); }
+    .alert-card__actions { margin-left:auto; display:flex; gap:var(--space-sm); flex-shrink:0; }
+
+    /* Section panel */
+    .panel {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      box-shadow:0 2px 8px var(--shadow-warm);
+      margin-bottom:var(--space-xl);
+      overflow:hidden;
+    }
+    .panel__header {
+      padding:var(--space-md) var(--space-lg);
+      border-bottom:1px solid var(--cream-border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--space-md);
+    }
+    .panel__title {
+      font-size:0.9rem;
+      font-weight:600;
+      color:var(--green-deep);
+    }
+    .panel__body { padding:var(--space-lg); }
+
+    @media(max-width:900px) {
+      .admin-layout { grid-template-columns:1fr; }
+      .admin-sidebar { position:static; height:auto; }
+      .stat-cards { grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:500px) {
+      .stat-cards { grid-template-columns:1fr; }
+      .admin-content { padding:var(--space-md); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container" style="max-width:100%; padding:0 var(--space-lg);">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div style="display:flex; align-items:center; gap:var(--space-md);">
+          <span style="font-size:0.78rem; color:var(--text-muted);" data-i18n="admin_label">Msimamizi Mkuu</span>
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <div class="admin-sidebar">
+      <div class="admin-sidebar__section" data-i18n="sidebar_overview">MUHTASARI</div>
+      <a href="index.html" class="admin-nav-link active">
+        <span class="admin-nav-link__icon">📊</span>
+        <span data-i18n="nav_dashboard">Dashibodi</span>
+      </a>
+
+      <div class="admin-sidebar__section" data-i18n="sidebar_content">MAUDHUI</div>
+      <a href="languages.html" class="admin-nav-link">
+        <span class="admin-nav-link__icon">🌍</span>
+        <span data-i18n="nav_languages">Lugha</span>
+      </a>
+      <a href="users.html" class="admin-nav-link">
+        <span class="admin-nav-link__icon">👥</span>
+        <span data-i18n="nav_users">Watumiaji</span>
+      </a>
+      <a href="disputes.html" class="admin-nav-link">
+        <span class="admin-nav-link__icon">⚠️</span>
+        <span data-i18n="nav_disputes">Pingamizi</span>
+        <span class="admin-nav-badge">0</span>
+      </a>
+
+      <div class="admin-sidebar__section" data-i18n="sidebar_finance">FEDHA</div>
+      <a href="#" class="admin-nav-link">
+        <span class="admin-nav-link__icon">💰</span>
+        <span data-i18n="nav_payments">Malipo</span>
+      </a>
+
+      <div style="padding:var(--space-lg); margin-top:auto;">
+        <a href="../index.html" style="font-size:0.78rem; color:var(--green-pale);" data-i18n="nav_view_site">← Angalia tovuti</a>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-content">
+      <div class="admin-page-title" data-i18n="page_title">Dashibodi ya Msimamizi</div>
+
+      <!-- STAT CARDS -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card__value">1</div>
+          <div class="stat-card__label" data-i18n="stat_languages">Lugha hai</div>
+          <div class="stat-card__delta" data-i18n="stat_languages_sub">Kikurya — A1 inaendelea</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">3</div>
+          <div class="stat-card__label" data-i18n="stat_users">Watumiaji wote</div>
+          <div class="stat-card__delta">2 wachangiaji · 1 msimamizi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">1</div>
+          <div class="stat-card__label" data-i18n="stat_topics_done">Mada zilizokamilika</div>
+          <div class="stat-card__delta">41 zinazohitajika (A1)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value" style="color:var(--terracotta);">0</div>
+          <div class="stat-card__label" data-i18n="stat_disputes">Pingamizi zinazongoja</div>
+          <div class="stat-card__delta" data-i18n="stat_disputes_sub">Hakuna kwa sasa</div>
+        </div>
+      </div>
+
+      <!-- DISPUTES (if any) -->
+      <div class="panel">
+        <div class="panel__header">
+          <div class="panel__title" data-i18n="disputes_title">⚠️ Pingamizi zinazongoja uamuzi</div>
+        </div>
+        <div class="panel__body">
+          <div style="text-align:center; padding:var(--space-lg) 0; color:var(--text-muted); font-size:0.9rem;" data-i18n="no_disputes">
+            Hakuna pingamizi kwa sasa. 🎉
+          </div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES TABLE -->
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <div class="admin-table-title" data-i18n="languages_title">Lugha zinazosimamiwa</div>
+          <a href="languages.html" class="btn btn--primary btn--sm" data-i18n="btn_manage">Simamia</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="th_language">Lugha</th>
+              <th data-i18n="th_level">Kiwango</th>
+              <th data-i18n="th_progress">Maendeleo</th>
+              <th data-i18n="th_contributors">Wachangiaji</th>
+              <th data-i18n="th_moderator">Msimamizi</th>
+              <th data-i18n="th_status">Hali</th>
+            </tr>
+          </thead>
+          <tbody id="languagesTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- USERS TABLE -->
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <div class="admin-table-title" data-i18n="users_title">Watumiaji wa hivi karibuni</div>
+          <a href="users.html" class="btn btn--secondary btn--sm" data-i18n="btn_view_all">Angalia wote</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="th_name">Jina</th>
+              <th data-i18n="th_role">Jukumu</th>
+              <th data-i18n="th_language">Lugha</th>
+              <th data-i18n="th_topics">Mada</th>
+              <th data-i18n="th_quality">Ubora</th>
+              <th data-i18n="th_actions">Vitendo</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- PAYMENTS SUMMARY -->
+      <div class="panel">
+        <div class="panel__header">
+          <div class="panel__title" data-i18n="payments_title">💰 Muhtasari wa malipo</div>
+        </div>
+        <div class="panel__body">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-lg); text-align:center;">
+            <div>
+              <div style="font-size:1.4rem; font-weight:600; color:var(--green-deep);">5,000</div>
+              <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="pay_paid">TZS iliyolipwa</div>
+            </div>
+            <div>
+              <div style="font-size:1.4rem; font-weight:600; color:var(--gold);">0</div>
+              <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="pay_pending">TZS inayosubiri</div>
+            </div>
+            <div>
+              <div style="font-size:1.4rem; font-weight:600; color:var(--text-muted);">5,000</div>
+              <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="pay_total">TZS jumla</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const i18n = {
+      sw: {
+        admin_label:"Msimamizi Mkuu", nav_signout:"Toka",
+        sidebar_overview:"MUHTASARI", sidebar_content:"MAUDHUI", sidebar_finance:"FEDHA",
+        nav_dashboard:"Dashibodi", nav_languages:"Lugha", nav_users:"Watumiaji",
+        nav_disputes:"Pingamizi", nav_payments:"Malipo", nav_view_site:"← Angalia tovuti",
+        page_title:"Dashibodi ya Msimamizi",
+        stat_languages:"Lugha hai", stat_languages_sub:"Kikurya — A1 inaendelea",
+        stat_users:"Watumiaji wote", stat_topics_done:"Mada zilizokamilika",
+        stat_disputes:"Pingamizi zinazongoja", stat_disputes_sub:"Hakuna kwa sasa",
+        disputes_title:"⚠️ Pingamizi zinazongoja uamuzi",
+        no_disputes:"Hakuna pingamizi kwa sasa. 🎉",
+        languages_title:"Lugha zinazosimamiwa", btn_manage:"Simamia",
+        th_language:"Lugha", th_level:"Kiwango", th_progress:"Maendeleo",
+        th_contributors:"Wachangiaji", th_moderator:"Msimamizi", th_status:"Hali",
+        users_title:"Watumiaji wa hivi karibuni", btn_view_all:"Angalia wote",
+        th_name:"Jina", th_role:"Jukumu", th_topics:"Mada", th_quality:"Ubora", th_actions:"Vitendo",
+        payments_title:"💰 Muhtasari wa malipo",
+        pay_paid:"TZS iliyolipwa", pay_pending:"TZS inayosubiri", pay_total:"TZS jumla",
+        role_contributor:"Mchangiaji", role_moderator:"Msimamizi",
+        status_active:"Inafanya kazi", btn_view:"Angalia", btn_suspend:"Simamisha",
+      },
+      en: {
+        admin_label:"Admin", nav_signout:"Sign out",
+        sidebar_overview:"OVERVIEW", sidebar_content:"CONTENT", sidebar_finance:"FINANCE",
+        nav_dashboard:"Dashboard", nav_languages:"Languages", nav_users:"Users",
+        nav_disputes:"Disputes", nav_payments:"Payments", nav_view_site:"← View site",
+        page_title:"Admin Dashboard",
+        stat_languages:"Active languages", stat_languages_sub:"Kikurya — A1 in progress",
+        stat_users:"Total users", stat_topics_done:"Topics completed",
+        stat_disputes:"Pending disputes", stat_disputes_sub:"None at the moment",
+        disputes_title:"⚠️ Disputes awaiting decision",
+        no_disputes:"No disputes at the moment. 🎉",
+        languages_title:"Managed languages", btn_manage:"Manage",
+        th_language:"Language", th_level:"Level", th_progress:"Progress",
+        th_contributors:"Contributors", th_moderator:"Moderator", th_status:"Status",
+        users_title:"Recent users", btn_view_all:"View all",
+        th_name:"Name", th_role:"Role", th_topics:"Topics", th_quality:"Quality", th_actions:"Actions",
+        payments_title:"💰 Payments summary",
+        pay_paid:"TZS paid", pay_pending:"TZS pending", pay_total:"TZS total",
+        role_contributor:"Contributor", role_moderator:"Moderator",
+        status_active:"Active", btn_view:"View", btn_suspend:"Suspend",
+      }
+    };
+
+    let currentLang = 'sw';
+
+    // ── DATA ──────────────────────────────────────────────
+    const languages = [
+      { name:"Kikurya", level:"A1", topics_done:1, topics_total:41, contributors:2, moderator:"Ayeke G.", status:"active" }
+    ];
+
+    const users = [
+      { name:"Priska Morara", role:"contributor", lang:"Kikurya", topics:1, quality:"96%", status:"active" },
+      { name:"Chaha Gesase",  role:"contributor", lang:"Kikurya", topics:1, quality:"91%", status:"active" },
+      { name:"Ayeke Gesase",  role:"moderator",   lang:"Kikurya", topics:0, quality:"—",   status:"active" },
+    ];
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang==='sw');
+      document.getElementById('btn-en').classList.toggle('active', lang==='en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      renderTables();
+    }
+
+    function renderTables() {
+      const t = i18n[currentLang];
+
+      // Languages table
+      document.getElementById('languagesTableBody').innerHTML = languages.map(l => {
+        const pct = Math.round(l.topics_done / l.topics_total * 100);
+        return `<tr>
+          <td class="td-name">${l.name}</td>
+          <td><span class="badge badge--approved" style="font-size:0.72rem;">${l.level}</span></td>
+          <td>
+            <div style="display:flex; align-items:center; gap:var(--space-sm);">
+              <div class="progress" style="width:80px; flex-shrink:0;">
+                <div class="progress__fill" style="width:${pct}%;"></div>
+              </div>
+              <span style="font-size:0.78rem; color:var(--text-soft);">${l.topics_done}/${l.topics_total}</span>
+            </div>
+          </td>
+          <td>${l.contributors}</td>
+          <td>${l.moderator}</td>
+          <td><span class="badge badge--approved" style="font-size:0.72rem;">${t.status_active}</span></td>
+        </tr>`;
+      }).join('');
+
+      // Users table
+      document.getElementById('usersTableBody').innerHTML = users.map(u => {
+        const roleLabel = u.role === 'contributor' ? t.role_contributor : t.role_moderator;
+        const roleBadge = u.role === 'contributor' ? 'badge--approved' : 'badge--review';
+        return `<tr>
+          <td class="td-name">${u.name}</td>
+          <td><span class="badge ${roleBadge}" style="font-size:0.72rem;">${roleLabel}</span></td>
+          <td>${u.lang}</td>
+          <td>${u.topics}</td>
+          <td style="color:var(--green-soft); font-weight:500;">${u.quality}</td>
+          <td>
+            <div style="display:flex; gap:var(--space-sm);">
+              <button class="btn btn--ghost btn--sm">${t.btn_view}</button>
+              <button class="btn btn--ghost btn--sm" style="color:var(--terracotta);">${t.btn_suspend}</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    setLang('sw');
+  </script>
+</body>
+</html>
