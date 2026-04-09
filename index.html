@@ -248,21 +248,43 @@
     }
 
     // ── DATA ──────────────────────────────────────────────
-    const languages = [
-      {
-        id: "kikurya",
-        name: "Kikurya",
-        country: "Tanzania",
-        region: "East Africa",
-        subregion: "Mara Region",
-        speakers: "~600,000",
-        contributors: 2,
-        topics_done: 1,
-        topics_total: 41,
-        levels: ["A1"],
-        status: "active"
+    // -- DATA loaded from languages.json --
+    let languages = [];
+
+    async function loadLanguages() {
+      try {
+        const res  = await fetch('data/languages.json');
+        const data = await res.json();
+        languages = data.languages.map(l => {
+          const a1 = l.levels && l.levels.A1;
+          const allTopics = a1
+            ? [...(a1.grammar||[]), ...(a1.vocabulary||[]), ...(a1.phonetics||[])]
+            : [];
+          const done  = allTopics.filter(t => t.status === 'approved').length;
+          const total = a1 ? (a1.topics_total || allTopics.length) : 0;
+          const activeLevels = l.levels
+            ? Object.entries(l.levels).filter(([,v]) => v.active).map(([k]) => k)
+            : ['A1'];
+          return {
+            id:           l.id,
+            name:         l.name,
+            country:      l.country,
+            region:       l.region,
+            subregion:    l.subregion,
+            speakers:     l.speakers,
+            contributors: l.contributors ? l.contributors.length : 0,
+            topics_done:  done,
+            topics_total: total,
+            levels:       activeLevels,
+            status:       l.status
+          };
+        });
+      } catch(e) {
+        console.warn('Could not load languages.json:', e);
+        languages = [];
       }
-    ];
+      filterLanguages();
+    }
 
     // ── RENDER ────────────────────────────────────────────
     function renderCards(data) {
@@ -329,8 +351,9 @@
     document.getElementById('searchInput').addEventListener('input', filterLanguages);
     document.getElementById('regionFilter').addEventListener('change', filterLanguages);
 
-    // ── INIT ──────────────────────────────────────────────
+    // -- INIT --
     setLang('sw');
+    loadLanguages();
   </script>
 
 </body>
