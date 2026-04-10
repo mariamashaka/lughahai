@@ -448,26 +448,30 @@
 
   // ── TOPICS ────────────────────────────────────────────
   function renderTopics() {
-    const t    = i18n[currentLang];
-    const nk   = currentLang;
-    const lvl  = langData.levels?.[currentLevel];
-    const col  = document.getElementById('topicsCol');
+    const t   = i18n[currentLang];
+    const nk  = currentLang;
+    const lvl = langData.levels?.[currentLevel];
+    const col = document.getElementById('topicsCol');
 
     if (!lvl || !lvl.active) {
       col.innerHTML = `<div style="text-align:center;padding:var(--space-2xl);color:var(--text-muted);">${t.level_locked}</div>`;
       return;
     }
 
-    // Get topic status from langData, name from topicsData
-    function renderGroup(ids, sectionLabel) {
-      if (!ids || !ids.length) return '';
+    // Build status lookup from languages.json
+    const statusMap = {};
+    [...(lvl.grammar||[]), ...(lvl.vocabulary||[]), ...(lvl.phonetics||[])].forEach(t => {
+      statusMap[t.id] = t.status || 'pending';
+    });
+
+    function renderGroup(topicIds, sectionLabel) {
+      if (!topicIds || !topicIds.length) return '';
       let html = `<div class="section-label">${sectionLabel}</div>`;
-      ids.forEach(topicRef => {
-        const topicDef = topicsData.find(tp => tp.id === topicRef.id);
-        const name = topicDef
-          ? topicDef.name[nk]
-          : (topicRef['name_'+nk] || topicRef.name_en || topicRef.id);
-        const status = topicRef.status || 'pending';
+      topicIds.forEach(ref => {
+        // Get name from topics.json
+        const topicDef = topicsData.find(tp => tp.id === ref.id);
+        const name = topicDef ? topicDef.name[nk] : ref.id;
+        const status = statusMap[ref.id] || 'pending';
         const badgeMap = {
           approved:    { cls:'badge--approved',    label:t.badge_approved },
           review:      { cls:'badge--review',      label:t.badge_review },
@@ -476,7 +480,7 @@
         };
         const badge = badgeMap[status] || badgeMap.pending;
         html += `
-          <a href="contributor/topic.html?id=${topicRef.id}" class="topic-card ${status==='approved'?'approved':''}">
+          <a href="contributor/topic.html?id=${ref.id}" class="topic-card ${status==='approved'?'approved':''}">
             <div class="topic-card__name">${name}</div>
             <div class="topic-card__right">
               <span class="badge ${badge.cls}" style="font-size:0.7rem;">${badge.label}</span>
@@ -488,7 +492,7 @@
     }
 
     col.innerHTML =
-      renderGroup(lvl.grammar,   t.topics_grammar) +
+      renderGroup(lvl.grammar,    t.topics_grammar) +
       renderGroup(lvl.vocabulary, t.topics_vocab);
   }
 
