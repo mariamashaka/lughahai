@@ -36,11 +36,11 @@ export async function hasRole(userId, role, languageId) {
   return roles.some(r => r.role === role)
 }
 
-export async function signUp(email, password, fullName) {
+export async function signUp(email, password, fullName, phone) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName } }
+    options: { data: { full_name: fullName, phone: phone || null } }
   })
   return { data, error }
 }
