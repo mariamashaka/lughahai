@@ -31,9 +31,9 @@
     .auth-footer-link { text-align:center;margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-soft); }
     .auth-footer-link a { color:var(--green-mid);font-weight:500;text-decoration:underline; }
     .auth-nav { position:absolute;top:var(--space-lg);right:var(--space-lg); }
-    .error-msg { background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none; }
+    .error-msg { background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none;margin-bottom:var(--space-md); }
     .error-msg.visible { display:block; }
-    .success-msg { background:var(--green-mist);color:var(--green-deep);padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none; }
+    .success-msg { background:var(--green-mist);color:var(--green-deep);padding:var(--space-lg);border-radius:var(--radius-md);font-size:0.9rem;display:none;line-height:1.6; }
     .success-msg.visible { display:block; }
     @media(max-width:700px) { .auth-page{grid-template-columns:1fr;} .auth-panel{display:none;} }
   </style>
@@ -88,36 +88,33 @@
         <div class="success-msg" id="successMsg"></div>
 
         <div class="auth-form" id="registerForm">
-          <!-- Name -->
+
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
             <div class="form-group">
               <label class="form-label" data-i18n="first_name">Jina la kwanza</label>
-              <input type="text" class="form-input" id="firstName" data-i18n-placeholder="first_name_ph" placeholder="Jina" />
+              <input type="text" class="form-input" id="firstName" />
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="last_name">Jina la ukoo</label>
-              <input type="text" class="form-input" id="lastName" data-i18n-placeholder="last_name_ph" placeholder="Ukoo" />
+              <input type="text" class="form-input" id="lastName" />
             </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="phone_label">WhatsApp / Simu</label>
+            <input type="tel" class="form-input" id="phone" placeholder="+255..." />
+            <div class="form-hint" data-i18n="phone_hint">Tutawasiliana nawe kupitia nambari hii.</div>
           </div>
 
           <div class="form-group">
             <label class="form-label" data-i18n="email_label">Barua pepe</label>
-            <input type="email" class="form-input" id="email" data-i18n-placeholder="email_ph" placeholder="wewe@mfano.com" />
+            <input type="email" class="form-input" id="email" />
           </div>
 
           <div class="form-group">
             <label class="form-label" data-i18n="password_label">Nywila</label>
-            <input type="password" class="form-input" id="password" data-i18n-placeholder="password_ph" placeholder="••••••••" />
+            <input type="password" class="form-input" id="password" />
             <div class="form-hint" data-i18n="password_hint">Angalau herufi 8</div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" data-i18n="interest_label">Ninajiunga kwa sababu...</label>
-            <select class="form-select" id="interest">
-              <option value="learner" data-i18n="opt_learner">Nataka kujifunza lugha</option>
-              <option value="contributor" data-i18n="opt_contributor">Ninazungua lugha ya urithi</option>
-            </select>
-            <div class="form-hint" data-i18n="interest_hint">Unaweza kuomba jukumu zaidi baadaye.</div>
           </div>
 
           <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" id="submitBtn" onclick="handleRegister()" data-i18n="submit">
@@ -146,16 +143,13 @@
         role1_name:"Mchangiaji", role1_desc:"Weka maneno na sauti za lugha yako",
         role2_name:"Msimamizi",  role2_desc:"Kagua maudhui ya lugha yako",
         role3_name:"Mwanafunzi", role3_desc:"Jifunza lugha yoyote bila malipo",
-        title:"Unda akaunti yako", subtitle:"Jiunge na jamii ya kuhifadhi lugha za urithi.",
-        first_name:"Jina la kwanza", first_name_ph:"Jina",
-        last_name:"Jina la ukoo",   last_name_ph:"Ukoo",
-        email_label:"Barua pepe", email_ph:"wewe@mfano.com",
-        password_label:"Nywila",  password_ph:"••••••••",
-        password_hint:"Angalau herufi 8",
-        interest_label:"Ninajiunga kwa sababu...",
-        opt_learner:"Nataka kujifunza lugha",
-        opt_contributor:"Ninazungua lugha ya urithi",
-        interest_hint:"Unaweza kuomba jukumu zaidi baadaye.",
+        title:"Unda akaunti yako",
+        subtitle:"Jiunge na jamii ya kuhifadhi lugha za urithi.",
+        first_name:"Jina la kwanza", last_name:"Jina la ukoo",
+        phone_label:"WhatsApp / Simu",
+        phone_hint:"Tutawasiliana nawe kupitia nambari hii.",
+        email_label:"Barua pepe",
+        password_label:"Nywila", password_hint:"Angalau herufi 8",
         submit:"Unda akaunti",
         have_account:"Una akaunti tayari?", login_link:"Ingia hapa",
         back_home:"← Rudi nyumbani",
@@ -171,16 +165,13 @@
         role1_name:"Contributor", role1_desc:"Record words and audio in your language",
         role2_name:"Moderator",   role2_desc:"Review content in your language",
         role3_name:"Learner",     role3_desc:"Learn any language for free",
-        title:"Create your account", subtitle:"Join the community preserving heritage languages.",
-        first_name:"First name", first_name_ph:"First name",
-        last_name:"Last name",   last_name_ph:"Last name",
-        email_label:"Email", email_ph:"you@example.com",
-        password_label:"Password", password_ph:"••••••••",
-        password_hint:"At least 8 characters",
-        interest_label:"I am joining because...",
-        opt_learner:"I want to learn a language",
-        opt_contributor:"I speak a heritage language",
-        interest_hint:"You can request more roles later.",
+        title:"Create your account",
+        subtitle:"Join the community preserving heritage languages.",
+        first_name:"First name", last_name:"Last name",
+        phone_label:"WhatsApp / Phone",
+        phone_hint:"We will contact you through this number.",
+        email_label:"Email",
+        password_label:"Password", password_hint:"At least 8 characters",
         submit:"Create account",
         have_account:"Already have an account?", login_link:"Sign in here",
         back_home:"← Back to home",
@@ -204,16 +195,13 @@
         const key = el.getAttribute('data-i18n')
         if (t[key] !== undefined) el.textContent = t[key]
       })
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder')
-        if (t[key] !== undefined) el.placeholder = t[key]
-      })
     }
 
     window.handleRegister = async function() {
       const t         = i18n[currentLang]
       const firstName = document.getElementById('firstName').value.trim()
       const lastName  = document.getElementById('lastName').value.trim()
+      const phone     = document.getElementById('phone').value.trim()
       const email     = document.getElementById('email').value.trim()
       const password  = document.getElementById('password').value
       const btn       = document.getElementById('submitBtn')
@@ -233,7 +221,8 @@
       errMsg.classList.remove('visible')
 
       const fullName = [firstName, lastName].filter(Boolean).join(' ')
-      const { data, error } = await signUp(email, password, fullName)
+
+      const { data, error } = await signUp(email, password, fullName, phone)
 
       if (error) {
         errMsg.textContent = error.message.includes('already') ? t.err_email : t.err_generic
@@ -243,7 +232,6 @@
         return
       }
 
-      // Show success
       document.getElementById('registerForm').style.display = 'none'
       succMsg.textContent = t.success
       succMsg.classList.add('visible')
