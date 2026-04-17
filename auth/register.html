@@ -6,135 +6,36 @@
   <title>Lugha Hai — Jiunge / Register</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .lang-switcher {
-      display: flex; align-items: center;
-      background: var(--cream-dark); border-radius: var(--radius-xl);
-      padding: 3px; gap: 2px;
-    }
-    .lang-switcher__btn {
-      padding: 4px 12px; border-radius: var(--radius-xl); border: none;
-      background: transparent; font-size: 0.8rem; font-weight: 500;
-      color: var(--text-soft); cursor: pointer; transition: all var(--transition);
-    }
-    .lang-switcher__btn.active {
-      background: var(--white); color: var(--green-deep);
-      box-shadow: 0 1px 4px var(--shadow-warm);
-    }
-
-    .auth-page {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .auth-panel {
-      background: var(--green-deep);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-    .auth-panel::before {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 320px; height: 320px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-    }
-    .auth-panel::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; left: -60px;
-      width: 240px; height: 240px;
-      border-radius: 50%;
-      background: rgba(196,113,74,0.12);
-    }
-    .auth-panel__logo {
-      font-family: var(--font-display);
-      font-size: 1.6rem; font-weight: 600; color: var(--cream);
-    }
-    .auth-panel__logo span { color: var(--terracotta-light); font-style: italic; }
-    .auth-panel__quote { position: relative; z-index: 1; }
-    .auth-panel__quote-text {
-      font-family: var(--font-display);
-      font-size: 1.6rem; color: var(--cream);
-      line-height: 1.4; margin-bottom: var(--space-md);
-      font-style: italic; font-weight: 300;
-    }
-    .auth-panel__quote-sub { font-size: 0.85rem; color: var(--green-pale); }
-    .auth-panel__roles {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; gap: var(--space-sm);
-    }
-    .auth-panel__role {
-      display: flex; align-items: flex-start; gap: var(--space-md);
-      padding: var(--space-md);
-      background: rgba(255,255,255,0.06);
-      border-radius: var(--radius-md);
-    }
-    .auth-panel__role-icon { font-size: 1.2rem; }
-    .auth-panel__role-name { font-size: 0.85rem; font-weight: 500; color: var(--cream); }
-    .auth-panel__role-desc { font-size: 0.75rem; color: var(--green-pale); margin-top: 2px; }
-
-    .auth-form-wrap {
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      padding: var(--space-2xl) var(--space-xl);
-      background: var(--cream);
-      overflow-y: auto;
-    }
-    .auth-form-box { width: 100%; max-width: 420px; }
-    .auth-form-box h2 { margin-bottom: var(--space-sm); }
-    .auth-form-box > p { margin-bottom: var(--space-xl); color: var(--text-soft); font-size: 0.95rem; }
-    .auth-form { display: flex; flex-direction: column; gap: var(--space-md); }
-
-    /* Role selector */
-    .role-selector {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-sm);
-    }
-    .role-option {
-      border: 1.5px solid var(--cream-border);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      background: var(--white);
-    }
-    .role-option:hover { border-color: var(--green-soft); }
-    .role-option.selected {
-      border-color: var(--green-deep);
-      background: var(--green-mist);
-    }
-    .role-option__icon { font-size: 1.4rem; margin-bottom: 4px; }
-    .role-option__name { font-size: 0.85rem; font-weight: 500; color: var(--text-dark); }
-    .role-option__desc { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
-
-    .auth-nav {
-      position: absolute; top: var(--space-lg); right: var(--space-lg);
-    }
-    .auth-divider {
-      display: flex; align-items: center; gap: var(--space-md); margin: var(--space-md) 0;
-    }
-    .auth-divider::before, .auth-divider::after {
-      content: ''; flex: 1; height: 1px; background: var(--cream-border);
-    }
-    .auth-divider span { font-size: 0.78rem; color: var(--text-muted); }
-    .auth-footer-link {
-      text-align: center; margin-top: var(--space-lg);
-      font-size: 0.875rem; color: var(--text-soft);
-    }
-    .auth-footer-link a { color: var(--green-mid); font-weight: 500; text-decoration: underline; }
-
-    @media (max-width: 700px) {
-      .auth-page { grid-template-columns: 1fr; }
-      .auth-panel { display: none; }
-      .auth-form-wrap { padding: var(--space-xl) var(--space-lg); }
-    }
+    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
+    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
+    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
+    .auth-page { min-height:100vh;display:grid;grid-template-columns:1fr 1fr; }
+    .auth-panel { background:var(--green-deep);display:flex;flex-direction:column;justify-content:space-between;padding:var(--space-xl);position:relative;overflow:hidden; }
+    .auth-panel::before { content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.04); }
+    .auth-panel::after { content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(196,113,74,0.12); }
+    .auth-panel__logo { font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--cream); }
+    .auth-panel__logo span { color:var(--terracotta-light);font-style:italic; }
+    .auth-panel__quote { position:relative;z-index:1; }
+    .auth-panel__quote-text { font-family:var(--font-display);font-size:1.5rem;color:var(--cream);line-height:1.4;margin-bottom:var(--space-md);font-style:italic;font-weight:300; }
+    .auth-panel__quote-sub { font-size:0.85rem;color:var(--green-pale); }
+    .auth-panel__roles { position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--space-sm); }
+    .auth-panel__role { display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:rgba(255,255,255,0.06);border-radius:var(--radius-md); }
+    .auth-panel__role-icon { font-size:1.2rem; }
+    .auth-panel__role-name { font-size:0.85rem;font-weight:500;color:var(--cream); }
+    .auth-panel__role-desc { font-size:0.75rem;color:var(--green-pale);margin-top:2px; }
+    .auth-form-wrap { display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--space-2xl) var(--space-xl);background:var(--cream);overflow-y:auto; }
+    .auth-form-box { width:100%;max-width:420px; }
+    .auth-form-box h2 { margin-bottom:var(--space-sm); }
+    .auth-form-box > p { margin-bottom:var(--space-xl);color:var(--text-soft);font-size:0.95rem; }
+    .auth-form { display:flex;flex-direction:column;gap:var(--space-md); }
+    .auth-footer-link { text-align:center;margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-soft); }
+    .auth-footer-link a { color:var(--green-mid);font-weight:500;text-decoration:underline; }
+    .auth-nav { position:absolute;top:var(--space-lg);right:var(--space-lg); }
+    .error-msg { background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none; }
+    .error-msg.visible { display:block; }
+    .success-msg { background:var(--green-mist);color:var(--green-deep);padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none; }
+    .success-msg.visible { display:block; }
+    @media(max-width:700px) { .auth-page{grid-template-columns:1fr;} .auth-panel{display:none;} }
   </style>
 </head>
 <body>
@@ -147,33 +48,25 @@
   </div>
 
   <div class="auth-page">
-
-    <!-- LEFT PANEL -->
     <div class="auth-panel">
       <a href="../index.html" class="auth-panel__logo">Lugha <span>Hai</span></a>
-
       <div class="auth-panel__quote">
-        <div class="auth-panel__quote-text" data-i18n="panel_quote">
-          "Kila mtu ana zawadi ya lugha yake."
-        </div>
-        <div class="auth-panel__quote-sub" data-i18n="panel_quote_sub">
-          Every person holds the gift of their language.
-        </div>
+        <div class="auth-panel__quote-text" data-i18n="panel_quote">"Kila mtu ana zawadi ya lugha yake."</div>
+        <div class="auth-panel__quote-sub" data-i18n="panel_quote_sub">Every person holds the gift of their language.</div>
       </div>
-
       <div class="auth-panel__roles">
         <div class="auth-panel__role">
           <div class="auth-panel__role-icon">🗣️</div>
           <div>
             <div class="auth-panel__role-name" data-i18n="role1_name">Mchangiaji</div>
-            <div class="auth-panel__role-desc" data-i18n="role1_desc">Weka maneno, misemo na sauti za lugha yako</div>
+            <div class="auth-panel__role-desc" data-i18n="role1_desc">Weka maneno na sauti za lugha yako</div>
           </div>
         </div>
         <div class="auth-panel__role">
           <div class="auth-panel__role-icon">✅</div>
           <div>
             <div class="auth-panel__role-name" data-i18n="role2_name">Msimamizi</div>
-            <div class="auth-panel__role-desc" data-i18n="role2_desc">Kagua na thibitisha maudhui ya lugha yako</div>
+            <div class="auth-panel__role-desc" data-i18n="role2_desc">Kagua maudhui ya lugha yako</div>
           </div>
         </div>
         <div class="auth-panel__role">
@@ -186,78 +79,51 @@
       </div>
     </div>
 
-    <!-- RIGHT: FORM -->
     <div class="auth-form-wrap">
       <div class="auth-form-box">
-
         <h2 data-i18n="title">Unda akaunti yako</h2>
         <p data-i18n="subtitle">Jiunge na jamii ya kuhifadhi lugha za urithi.</p>
 
-        <div class="auth-form">
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="success-msg" id="successMsg"></div>
 
+        <div class="auth-form" id="registerForm">
           <!-- Name -->
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-sm);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
             <div class="form-group">
               <label class="form-label" data-i18n="first_name">Jina la kwanza</label>
-              <input type="text" class="form-input" data-i18n-placeholder="first_name_ph" placeholder="Jina" />
+              <input type="text" class="form-input" id="firstName" data-i18n-placeholder="first_name_ph" placeholder="Jina" />
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="last_name">Jina la ukoo</label>
-              <input type="text" class="form-input" data-i18n-placeholder="last_name_ph" placeholder="Ukoo" />
+              <input type="text" class="form-input" id="lastName" data-i18n-placeholder="last_name_ph" placeholder="Ukoo" />
             </div>
           </div>
 
-          <!-- Email -->
           <div class="form-group">
             <label class="form-label" data-i18n="email_label">Barua pepe</label>
-            <input type="email" class="form-input" data-i18n-placeholder="email_ph" placeholder="wewe@mfano.com" />
+            <input type="email" class="form-input" id="email" data-i18n-placeholder="email_ph" placeholder="wewe@mfano.com" />
           </div>
 
-          <!-- Password -->
           <div class="form-group">
             <label class="form-label" data-i18n="password_label">Nywila</label>
-            <input type="password" class="form-input" data-i18n-placeholder="password_ph" placeholder="••••••••" />
+            <input type="password" class="form-input" id="password" data-i18n-placeholder="password_ph" placeholder="••••••••" />
             <div class="form-hint" data-i18n="password_hint">Angalau herufi 8</div>
           </div>
 
-          <!-- Role selector -->
           <div class="form-group">
-            <label class="form-label" data-i18n="role_label">Nitakuwa...</label>
-            <div class="role-selector" id="roleSelector">
-              <div class="role-option selected" onclick="selectRole(this, 'learner')">
-                <div class="role-option__icon">📖</div>
-                <div class="role-option__name" data-i18n="opt_learner">Mwanafunzi</div>
-                <div class="role-option__desc" data-i18n="opt_learner_desc">Najifunza lugha</div>
-              </div>
-              <div class="role-option" onclick="selectRole(this, 'contributor')">
-                <div class="role-option__icon">🗣️</div>
-                <div class="role-option__name" data-i18n="opt_contributor">Mchangiaji</div>
-                <div class="role-option__desc" data-i18n="opt_contributor_desc">Ninazungua lugha ya urithi</div>
-              </div>
-            </div>
-            <div class="form-hint" data-i18n="role_hint">Unaweza kubadilisha hii baadaye au kuongeza lugha nyingine.</div>
-          </div>
-
-          <!-- Language (shown if contributor) -->
-          <div class="form-group" id="langField" style="display:none;">
-            <label class="form-label" data-i18n="lang_label">Lugha yangu ya urithi</label>
-            <select class="form-select">
-              <option value="" data-i18n="lang_select_default">Chagua lugha...</option>
-              <option value="kikurya">Kikurya</option>
-              <option value="jerua">Jerua</option>
-              <option value="jita">Jita</option>
-              <option value="other">Nyingine / Other</option>
+            <label class="form-label" data-i18n="interest_label">Ninajiunga kwa sababu...</label>
+            <select class="form-select" id="interest">
+              <option value="learner" data-i18n="opt_learner">Nataka kujifunza lugha</option>
+              <option value="contributor" data-i18n="opt_contributor">Ninazungua lugha ya urithi</option>
             </select>
-            <div class="form-hint" data-i18n="lang_hint">Unaweza kuwa mchangiaji kwa lugha moja na mwanafunzi kwa nyingine.</div>
+            <div class="form-hint" data-i18n="interest_hint">Unaweza kuomba jukumu zaidi baadaye.</div>
           </div>
 
-          <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" data-i18n="submit">
+          <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" id="submitBtn" onclick="handleRegister()" data-i18n="submit">
             Unda akaunti
           </button>
-
         </div>
-
-        <div class="auth-divider"><span data-i18n="or">au</span></div>
 
         <div class="auth-footer-link">
           <span data-i18n="have_account">Una akaunti tayari?</span>
@@ -266,91 +132,124 @@
         <div class="auth-footer-link" style="margin-top:var(--space-sm);">
           <a href="../index.html" style="color:var(--text-muted);" data-i18n="back_home">← Rudi nyumbani</a>
         </div>
-
       </div>
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { signUp } from '../js/supabase.js'
+
     const i18n = {
       sw: {
-        panel_quote: '"Kila mtu ana zawadi ya lugha yake."',
-        panel_quote_sub: "Kila mtu ana kipawa cha lugha yake.",
-        role1_name: "Mchangiaji", role1_desc: "Weka maneno, misemo na sauti za lugha yako",
-        role2_name: "Msimamizi", role2_desc: "Kagua na thibitisha maudhui ya lugha yako",
-        role3_name: "Mwanafunzi", role3_desc: "Jifunza lugha yoyote bila malipo",
-        title: "Unda akaunti yako",
-        subtitle: "Jiunge na jamii ya kuhifadhi lugha za urithi.",
-        first_name: "Jina la kwanza", first_name_ph: "Jina",
-        last_name: "Jina la ukoo", last_name_ph: "Ukoo",
-        email_label: "Barua pepe", email_ph: "wewe@mfano.com",
-        password_label: "Nywila", password_ph: "••••••••",
-        password_hint: "Angalau herufi 8",
-        role_label: "Nitakuwa...",
-        opt_learner: "Mwanafunzi", opt_learner_desc: "Najifunza lugha",
-        opt_contributor: "Mchangiaji", opt_contributor_desc: "Ninazungua lugha ya urithi",
-        role_hint: "Unaweza kubadilisha hii baadaye au kuongeza lugha nyingine.",
-        lang_label: "Lugha yangu ya urithi",
-        lang_select_default: "Chagua lugha...",
-        lang_hint: "Unaweza kuwa mchangiaji kwa lugha moja na mwanafunzi kwa nyingine.",
-        submit: "Unda akaunti",
-        or: "au",
-        have_account: "Una akaunti tayari?", login_link: "Ingia hapa",
-        back_home: "← Rudi nyumbani"
+        panel_quote:'"Kila mtu ana zawadi ya lugha yake."',
+        panel_quote_sub:"Kila mtu ana kipawa cha lugha yake.",
+        role1_name:"Mchangiaji", role1_desc:"Weka maneno na sauti za lugha yako",
+        role2_name:"Msimamizi",  role2_desc:"Kagua maudhui ya lugha yako",
+        role3_name:"Mwanafunzi", role3_desc:"Jifunza lugha yoyote bila malipo",
+        title:"Unda akaunti yako", subtitle:"Jiunge na jamii ya kuhifadhi lugha za urithi.",
+        first_name:"Jina la kwanza", first_name_ph:"Jina",
+        last_name:"Jina la ukoo",   last_name_ph:"Ukoo",
+        email_label:"Barua pepe", email_ph:"wewe@mfano.com",
+        password_label:"Nywila",  password_ph:"••••••••",
+        password_hint:"Angalau herufi 8",
+        interest_label:"Ninajiunga kwa sababu...",
+        opt_learner:"Nataka kujifunza lugha",
+        opt_contributor:"Ninazungua lugha ya urithi",
+        interest_hint:"Unaweza kuomba jukumu zaidi baadaye.",
+        submit:"Unda akaunti",
+        have_account:"Una akaunti tayari?", login_link:"Ingia hapa",
+        back_home:"← Rudi nyumbani",
+        loading:"Inaunda akaunti...",
+        success:"✓ Akaunti imoundwa! Angalia barua pepe yako ili kuthibitisha.",
+        err_email:"Barua pepe hii tayari ipo.",
+        err_password:"Nywila lazima iwe na herufi 8 au zaidi.",
+        err_generic:"Hitilafu imetokea. Jaribu tena."
       },
       en: {
-        panel_quote: '"Every person holds the gift of their language."',
-        panel_quote_sub: "Join us in preserving what matters.",
-        role1_name: "Contributor", role1_desc: "Record words, phrases and audio in your language",
-        role2_name: "Moderator", role2_desc: "Review and verify content in your language",
-        role3_name: "Learner", role3_desc: "Learn any language for free",
-        title: "Create your account",
-        subtitle: "Join the community preserving heritage languages.",
-        first_name: "First name", first_name_ph: "First name",
-        last_name: "Last name", last_name_ph: "Last name",
-        email_label: "Email", email_ph: "you@example.com",
-        password_label: "Password", password_ph: "••••••••",
-        password_hint: "At least 8 characters",
-        role_label: "I will be...",
-        opt_learner: "Learner", opt_learner_desc: "I want to learn a language",
-        opt_contributor: "Contributor", opt_contributor_desc: "I speak a heritage language",
-        role_hint: "You can change this later or add more languages.",
-        lang_label: "My heritage language",
-        lang_select_default: "Select a language...",
-        lang_hint: "You can be a contributor for one language and a learner for others.",
-        submit: "Create account",
-        or: "or",
-        have_account: "Already have an account?", login_link: "Sign in here",
-        back_home: "← Back to home"
+        panel_quote:'"Every person holds the gift of their language."',
+        panel_quote_sub:"Join us in preserving what matters.",
+        role1_name:"Contributor", role1_desc:"Record words and audio in your language",
+        role2_name:"Moderator",   role2_desc:"Review content in your language",
+        role3_name:"Learner",     role3_desc:"Learn any language for free",
+        title:"Create your account", subtitle:"Join the community preserving heritage languages.",
+        first_name:"First name", first_name_ph:"First name",
+        last_name:"Last name",   last_name_ph:"Last name",
+        email_label:"Email", email_ph:"you@example.com",
+        password_label:"Password", password_ph:"••••••••",
+        password_hint:"At least 8 characters",
+        interest_label:"I am joining because...",
+        opt_learner:"I want to learn a language",
+        opt_contributor:"I speak a heritage language",
+        interest_hint:"You can request more roles later.",
+        submit:"Create account",
+        have_account:"Already have an account?", login_link:"Sign in here",
+        back_home:"← Back to home",
+        loading:"Creating account...",
+        success:"✓ Account created! Check your email to confirm.",
+        err_email:"This email is already registered.",
+        err_password:"Password must be at least 8 characters.",
+        err_generic:"An error occurred. Please try again."
       }
-    };
+    }
 
-    let currentLang = 'sw';
+    let currentLang = localStorage.getItem('lh_lang') || 'sw'
 
-    function setLang(lang) {
-      currentLang = lang;
-      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      const t = i18n[lang];
+    window.setLang = function(lang) {
+      currentLang = lang
+      localStorage.setItem('lh_lang', lang)
+      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw')
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+      const t = i18n[lang]
       document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (t[key] !== undefined) el.textContent = t[key];
-      });
+        const key = el.getAttribute('data-i18n')
+        if (t[key] !== undefined) el.textContent = t[key]
+      })
       document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (t[key] !== undefined) el.placeholder = t[key];
-      });
+        const key = el.getAttribute('data-i18n-placeholder')
+        if (t[key] !== undefined) el.placeholder = t[key]
+      })
     }
 
-    function selectRole(el, role) {
-      document.querySelectorAll('.role-option').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('langField').style.display =
-        (role === 'contributor' || role === 'moderator') ? 'flex' : 'none';
+    window.handleRegister = async function() {
+      const t         = i18n[currentLang]
+      const firstName = document.getElementById('firstName').value.trim()
+      const lastName  = document.getElementById('lastName').value.trim()
+      const email     = document.getElementById('email').value.trim()
+      const password  = document.getElementById('password').value
+      const btn       = document.getElementById('submitBtn')
+      const errMsg    = document.getElementById('errorMsg')
+      const succMsg   = document.getElementById('successMsg')
+
+      if (!email || !password || !firstName) return
+
+      if (password.length < 8) {
+        errMsg.textContent = t.err_password
+        errMsg.classList.add('visible')
+        return
+      }
+
+      btn.textContent = t.loading
+      btn.disabled    = true
+      errMsg.classList.remove('visible')
+
+      const fullName = [firstName, lastName].filter(Boolean).join(' ')
+      const { data, error } = await signUp(email, password, fullName)
+
+      if (error) {
+        errMsg.textContent = error.message.includes('already') ? t.err_email : t.err_generic
+        errMsg.classList.add('visible')
+        btn.textContent = t.submit
+        btn.disabled    = false
+        return
+      }
+
+      // Show success
+      document.getElementById('registerForm').style.display = 'none'
+      succMsg.textContent = t.success
+      succMsg.classList.add('visible')
     }
 
-    setLang('sw');
+    setLang(currentLang)
   </script>
-
 </body>
 </html>
