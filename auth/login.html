@@ -3,38 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lugha Hai — Ingia / Sign in</title>
+  <title>Lugha Hai — Ingia</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
-    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
-    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
-    .auth-page { min-height:100vh;display:grid;grid-template-columns:1fr 1fr; }
-    .auth-panel { background:var(--green-deep);display:flex;flex-direction:column;justify-content:space-between;padding:var(--space-xl);position:relative;overflow:hidden; }
-    .auth-panel::before { content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.04); }
-    .auth-panel::after { content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(196,113,74,0.12); }
-    .auth-panel__logo { font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--cream); }
-    .auth-panel__logo span { color:var(--terracotta-light);font-style:italic; }
-    .auth-panel__quote { position:relative;z-index:1; }
-    .auth-panel__quote-text { font-family:var(--font-display);font-size:1.6rem;color:var(--cream);line-height:1.4;margin-bottom:var(--space-md);font-style:italic;font-weight:300; }
-    .auth-panel__quote-sub { font-size:0.85rem;color:var(--green-pale); }
-    .auth-panel__langs { display:flex;gap:var(--space-sm);flex-wrap:wrap;position:relative;z-index:1; }
-    .auth-panel__lang-chip { padding:4px 12px;border-radius:var(--radius-xl);background:rgba(255,255,255,0.08);font-size:0.75rem;color:var(--green-pale); }
-    .auth-form-wrap { display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--space-2xl) var(--space-xl);background:var(--cream); }
-    .auth-form-box { width:100%;max-width:400px; }
-    .auth-form-box h2 { margin-bottom:var(--space-sm); }
-    .auth-form-box > p { margin-bottom:var(--space-xl);color:var(--text-soft);font-size:0.95rem; }
-    .auth-form { display:flex;flex-direction:column;gap:var(--space-md); }
-    .auth-footer-link { text-align:center;margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-soft); }
-    .auth-footer-link a { color:var(--green-mid);font-weight:500;text-decoration:underline; }
-    .auth-nav { position:absolute;top:var(--space-lg);right:var(--space-lg); }
-    .error-msg { background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none; }
-    .error-msg.visible { display:block; }
-    @media(max-width:700px) { .auth-page{grid-template-columns:1fr;} .auth-panel{display:none;} }
+    .lang-switcher{display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px;}
+    .lang-switcher__btn{padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition);}
+    .lang-switcher__btn.active{background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm);}
+    .auth-page{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;}
+    .auth-panel{background:var(--green-deep);display:flex;flex-direction:column;justify-content:space-between;padding:var(--space-xl);position:relative;overflow:hidden;}
+    .auth-panel::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.04);}
+    .auth-panel::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(196,113,74,0.12);}
+    .auth-panel__logo{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--cream);}
+    .auth-panel__logo span{color:var(--terracotta-light);font-style:italic;}
+    .auth-panel__quote{position:relative;z-index:1;}
+    .auth-panel__quote-text{font-family:var(--font-display);font-size:1.6rem;color:var(--cream);line-height:1.4;margin-bottom:var(--space-md);font-style:italic;font-weight:300;}
+    .auth-panel__quote-sub{font-size:0.85rem;color:var(--green-pale);}
+    .auth-panel__langs{display:flex;gap:var(--space-sm);flex-wrap:wrap;position:relative;z-index:1;}
+    .auth-panel__lang-chip{padding:4px 12px;border-radius:var(--radius-xl);background:rgba(255,255,255,0.08);font-size:0.75rem;color:var(--green-pale);}
+    .auth-form-wrap{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--space-2xl) var(--space-xl);background:var(--cream);}
+    .auth-form-box{width:100%;max-width:400px;}
+    .auth-form-box h2{margin-bottom:var(--space-sm);}
+    .auth-form-box>p{margin-bottom:var(--space-xl);color:var(--text-soft);font-size:0.95rem;}
+    .auth-form{display:flex;flex-direction:column;gap:var(--space-md);}
+    .auth-footer-link{text-align:center;margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-soft);}
+    .auth-footer-link a{color:var(--green-mid);font-weight:500;text-decoration:underline;}
+    .auth-nav{position:absolute;top:var(--space-lg);right:var(--space-lg);}
+    .error-msg{background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none;margin-bottom:var(--space-md);}
+    .error-msg.visible{display:block;}
+    .divider{display:flex;align-items:center;gap:var(--space-md);margin:var(--space-md) 0;}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--cream-border);}
+    .divider span{font-size:0.78rem;color:var(--text-muted);}
+    .google-btn{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--cream-border);border-radius:var(--radius-xl);background:var(--white);cursor:pointer;font-family:var(--font-body);font-size:0.9rem;font-weight:500;color:var(--text-dark);display:flex;align-items:center;justify-content:center;gap:var(--space-md);transition:all var(--transition);}
+    .google-btn:hover{border-color:var(--green-soft);}
+    @media(max-width:700px){.auth-page{grid-template-columns:1fr;}.auth-panel{display:none;}}
   </style>
 </head>
 <body>
-
   <div class="auth-nav">
     <div class="lang-switcher">
       <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
@@ -60,24 +64,34 @@
       <div class="auth-form-box">
         <h2 data-i18n="title">Karibu tena</h2>
         <p data-i18n="subtitle">Ingia ili kuendelea na kazi yako.</p>
-
         <div class="error-msg" id="errorMsg"></div>
+
+        <!-- Google button -->
+        <button class="google-btn" onclick="handleGoogleLogin()">
+          <svg width="18" height="18" viewBox="0 0 18 18">
+            <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
+            <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/>
+            <path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/>
+            <path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.31z"/>
+          </svg>
+          <span data-i18n="google_btn">Ingia na Google</span>
+        </button>
+
+        <div class="divider"><span data-i18n="or">au</span></div>
 
         <div class="auth-form">
           <div class="form-group">
             <label class="form-label" data-i18n="email_label">Barua pepe</label>
-            <input type="email" class="form-input" id="email" data-i18n-placeholder="email_placeholder" placeholder="wewe@mfano.com" />
+            <input type="email" class="form-input" id="email" />
           </div>
           <div class="form-group">
             <label class="form-label" data-i18n="password_label">Nywila</label>
-            <input type="password" class="form-input" id="password" data-i18n-placeholder="password_placeholder" placeholder="••••••••" />
+            <input type="password" class="form-input" id="password" />
             <div style="text-align:right;margin-top:4px;">
               <a href="#" style="font-size:0.78rem;color:var(--green-mid);" data-i18n="forgot">Umesahau nywila?</a>
             </div>
           </div>
-          <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" id="submitBtn" onclick="handleLogin()" data-i18n="submit">
-            Ingia
-          </button>
+          <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" id="submitBtn" onclick="handleLogin()" data-i18n="submit">Ingia</button>
         </div>
 
         <div class="auth-footer-link" style="margin-top:var(--space-lg);">
@@ -92,37 +106,28 @@
   </div>
 
   <script type="module">
-    import { signIn, getUser, getUserRoles } from '../js/supabase.js'
+    import { signIn, getUser, getUserRoles, supabase } from '../js/supabase.js'
 
-    // Check if already logged in
-    getUser().then(user => {
-      if (user) window.location.href = '../profile/index.html'
-    })
+    getUser().then(user => { if (user) window.location.href = '../profile/index.html' })
 
     const i18n = {
       sw: {
         panel_quote:'"Lugha ni moyo wa utamaduni."', panel_quote_sub:"Lugha ni roho ya utamaduni.",
         title:"Karibu tena", subtitle:"Ingia ili kuendelea na kazi yako.",
-        email_label:"Barua pepe", email_placeholder:"wewe@mfano.com",
-        password_label:"Nywila", password_placeholder:"••••••••",
-        forgot:"Umesahau nywila?", submit:"Ingia",
-        no_account:"Huna akaunti?", register_link:"Jiunge hapa",
-        back_home:"← Rudi nyumbani",
-        loading:"Inaingia...",
-        err_invalid:"Barua pepe au nywila si sahihi.",
-        err_generic:"Hitilafu imetokea. Jaribu tena."
+        email_label:"Barua pepe", password_label:"Nywila",
+        forgot:"Umesahau nywila?", submit:"Ingia", or:"au",
+        google_btn:"Ingia na Google",
+        no_account:"Huna akaunti?", register_link:"Jiunge hapa", back_home:"← Rudi nyumbani",
+        loading:"Inaingia...", err_invalid:"Barua pepe au nywila si sahihi.", err_generic:"Hitilafu imetokea."
       },
       en: {
         panel_quote:'"Language is the heart of culture."', panel_quote_sub:"Every word carries a world.",
         title:"Welcome back", subtitle:"Sign in to continue your work.",
-        email_label:"Email", email_placeholder:"you@example.com",
-        password_label:"Password", password_placeholder:"••••••••",
-        forgot:"Forgot password?", submit:"Sign in",
-        no_account:"Don't have an account?", register_link:"Join here",
-        back_home:"← Back to home",
-        loading:"Signing in...",
-        err_invalid:"Invalid email or password.",
-        err_generic:"An error occurred. Please try again."
+        email_label:"Email", password_label:"Password",
+        forgot:"Forgot password?", submit:"Sign in", or:"or",
+        google_btn:"Sign in with Google",
+        no_account:"Don't have an account?", register_link:"Join here", back_home:"← Back to home",
+        loading:"Signing in...", err_invalid:"Invalid email or password.", err_generic:"An error occurred."
       }
     }
 
@@ -131,55 +136,48 @@
     window.setLang = function(lang) {
       currentLang = lang
       localStorage.setItem('lh_lang', lang)
-      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw')
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+      document.getElementById('btn-sw').classList.toggle('active', lang==='sw')
+      document.getElementById('btn-en').classList.toggle('active', lang==='en')
       const t = i18n[lang]
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n')
         if (t[key] !== undefined) el.textContent = t[key]
       })
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder')
-        if (t[key] !== undefined) el.placeholder = t[key]
+    }
+
+    window.handleGoogleLogin = async function() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: 'https://lughahai.netlify.app/profile/index.html' }
       })
+      if (error) console.error('Google error:', error)
     }
 
     window.handleLogin = async function() {
-      const t        = i18n[currentLang]
-      const email    = document.getElementById('email').value.trim()
+      const t = i18n[currentLang]
+      const email = document.getElementById('email').value.trim()
       const password = document.getElementById('password').value
-      const btn      = document.getElementById('submitBtn')
-      const errMsg   = document.getElementById('errorMsg')
-
+      const btn = document.getElementById('submitBtn')
+      const errMsg = document.getElementById('errorMsg')
       if (!email || !password) return
-
       btn.textContent = t.loading
-      btn.disabled    = true
+      btn.disabled = true
       errMsg.classList.remove('visible')
-
       const { data, error } = await signIn(email, password)
-
       if (error) {
         errMsg.textContent = error.message.includes('Invalid') ? t.err_invalid : t.err_generic
         errMsg.classList.add('visible')
         btn.textContent = t.submit
-        btn.disabled    = false
+        btn.disabled = false
         return
       }
-
-      // Redirect based on role
       const roles = await getUserRoles(data.user.id)
-      const isAdmin       = roles.some(r => r.role === 'admin')
-      const isModerator   = roles.some(r => r.role === 'moderator')
-      const isContributor = roles.some(r => r.role === 'contributor')
-
-      if (isAdmin)       window.location.href = '../admin/index.html'
-      else if (isModerator)   window.location.href = '../moderator/index.html'
-      else if (isContributor) window.location.href = '../contributor/index.html'
-      else                    window.location.href = '../profile/index.html'
+      if (roles.some(r => r.role === 'admin')) window.location.href = '../admin/index.html'
+      else if (roles.some(r => r.role === 'moderator')) window.location.href = '../moderator/index.html'
+      else if (roles.some(r => r.role === 'contributor')) window.location.href = '../contributor/index.html'
+      else window.location.href = '../profile/index.html'
     }
 
-    // Allow Enter key
     document.getElementById('password').addEventListener('keydown', e => {
       if (e.key === 'Enter') window.handleLogin()
     })
