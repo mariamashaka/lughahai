@@ -3,43 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lugha Hai — Jiunge / Register</title>
+  <title>Lugha Hai — Jiunge</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
-    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
-    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
-    .auth-page { min-height:100vh;display:grid;grid-template-columns:1fr 1fr; }
-    .auth-panel { background:var(--green-deep);display:flex;flex-direction:column;justify-content:space-between;padding:var(--space-xl);position:relative;overflow:hidden; }
-    .auth-panel::before { content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.04); }
-    .auth-panel::after { content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(196,113,74,0.12); }
-    .auth-panel__logo { font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--cream); }
-    .auth-panel__logo span { color:var(--terracotta-light);font-style:italic; }
-    .auth-panel__quote { position:relative;z-index:1; }
-    .auth-panel__quote-text { font-family:var(--font-display);font-size:1.5rem;color:var(--cream);line-height:1.4;margin-bottom:var(--space-md);font-style:italic;font-weight:300; }
-    .auth-panel__quote-sub { font-size:0.85rem;color:var(--green-pale); }
-    .auth-panel__roles { position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--space-sm); }
-    .auth-panel__role { display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:rgba(255,255,255,0.06);border-radius:var(--radius-md); }
-    .auth-panel__role-icon { font-size:1.2rem; }
-    .auth-panel__role-name { font-size:0.85rem;font-weight:500;color:var(--cream); }
-    .auth-panel__role-desc { font-size:0.75rem;color:var(--green-pale);margin-top:2px; }
-    .auth-form-wrap { display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--space-2xl) var(--space-xl);background:var(--cream);overflow-y:auto; }
-    .auth-form-box { width:100%;max-width:420px; }
-    .auth-form-box h2 { margin-bottom:var(--space-sm); }
-    .auth-form-box > p { margin-bottom:var(--space-xl);color:var(--text-soft);font-size:0.95rem; }
-    .auth-form { display:flex;flex-direction:column;gap:var(--space-md); }
-    .auth-footer-link { text-align:center;margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-soft); }
-    .auth-footer-link a { color:var(--green-mid);font-weight:500;text-decoration:underline; }
-    .auth-nav { position:absolute;top:var(--space-lg);right:var(--space-lg); }
-    .error-msg { background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none;margin-bottom:var(--space-md); }
-    .error-msg.visible { display:block; }
-    .success-msg { background:var(--green-mist);color:var(--green-deep);padding:var(--space-lg);border-radius:var(--radius-md);font-size:0.9rem;display:none;line-height:1.6; }
-    .success-msg.visible { display:block; }
-    @media(max-width:700px) { .auth-page{grid-template-columns:1fr;} .auth-panel{display:none;} }
+    .lang-switcher{display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px;}
+    .lang-switcher__btn{padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition);}
+    .lang-switcher__btn.active{background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm);}
+    .auth-page{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;}
+    .auth-panel{background:var(--green-deep);display:flex;flex-direction:column;justify-content:space-between;padding:var(--space-xl);position:relative;overflow:hidden;}
+    .auth-panel::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.04);}
+    .auth-panel::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(196,113,74,0.12);}
+    .auth-panel__logo{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--cream);}
+    .auth-panel__logo span{color:var(--terracotta-light);font-style:italic;}
+    .auth-panel__quote{position:relative;z-index:1;}
+    .auth-panel__quote-text{font-family:var(--font-display);font-size:1.5rem;color:var(--cream);line-height:1.4;margin-bottom:var(--space-md);font-style:italic;font-weight:300;}
+    .auth-panel__quote-sub{font-size:0.85rem;color:var(--green-pale);}
+    .auth-panel__roles{position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--space-sm);}
+    .auth-panel__role{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:rgba(255,255,255,0.06);border-radius:var(--radius-md);}
+    .auth-panel__role-icon{font-size:1.2rem;}
+    .auth-panel__role-name{font-size:0.85rem;font-weight:500;color:var(--cream);}
+    .auth-panel__role-desc{font-size:0.75rem;color:var(--green-pale);margin-top:2px;}
+    .auth-form-wrap{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--space-2xl) var(--space-xl);background:var(--cream);overflow-y:auto;}
+    .auth-form-box{width:100%;max-width:420px;}
+    .auth-form-box h2{margin-bottom:var(--space-sm);}
+    .auth-form-box>p{margin-bottom:var(--space-xl);color:var(--text-soft);font-size:0.95rem;}
+    .auth-form{display:flex;flex-direction:column;gap:var(--space-md);}
+    .auth-footer-link{text-align:center;margin-top:var(--space-lg);font-size:0.875rem;color:var(--text-soft);}
+    .auth-footer-link a{color:var(--green-mid);font-weight:500;text-decoration:underline;}
+    .auth-nav{position:absolute;top:var(--space-lg);right:var(--space-lg);}
+    .error-msg{background:#fdecea;color:#922b21;padding:var(--space-md);border-radius:var(--radius-md);font-size:0.85rem;display:none;margin-bottom:var(--space-md);}
+    .error-msg.visible{display:block;}
+    .success-msg{background:var(--green-mist);color:var(--green-deep);padding:var(--space-lg);border-radius:var(--radius-md);font-size:0.9rem;display:none;line-height:1.6;}
+    .success-msg.visible{display:block;}
+    .divider{display:flex;align-items:center;gap:var(--space-md);margin:var(--space-md) 0;}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--cream-border);}
+    .divider span{font-size:0.78rem;color:var(--text-muted);}
+    .google-btn{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--cream-border);border-radius:var(--radius-xl);background:var(--white);cursor:pointer;font-family:var(--font-body);font-size:0.9rem;font-weight:500;color:var(--text-dark);display:flex;align-items:center;justify-content:center;gap:var(--space-md);transition:all var(--transition);}
+    .google-btn:hover{border-color:var(--green-soft);}
+    @media(max-width:700px){.auth-page{grid-template-columns:1fr;}.auth-panel{display:none;}}
   </style>
 </head>
 <body>
-
   <div class="auth-nav">
     <div class="lang-switcher">
       <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
@@ -57,24 +61,15 @@
       <div class="auth-panel__roles">
         <div class="auth-panel__role">
           <div class="auth-panel__role-icon">🗣️</div>
-          <div>
-            <div class="auth-panel__role-name" data-i18n="role1_name">Mchangiaji</div>
-            <div class="auth-panel__role-desc" data-i18n="role1_desc">Weka maneno na sauti za lugha yako</div>
-          </div>
+          <div><div class="auth-panel__role-name" data-i18n="role1_name">Mchangiaji</div><div class="auth-panel__role-desc" data-i18n="role1_desc">Weka maneno na sauti za lugha yako</div></div>
         </div>
         <div class="auth-panel__role">
           <div class="auth-panel__role-icon">✅</div>
-          <div>
-            <div class="auth-panel__role-name" data-i18n="role2_name">Msimamizi</div>
-            <div class="auth-panel__role-desc" data-i18n="role2_desc">Kagua maudhui ya lugha yako</div>
-          </div>
+          <div><div class="auth-panel__role-name" data-i18n="role2_name">Msimamizi</div><div class="auth-panel__role-desc" data-i18n="role2_desc">Kagua maudhui ya lugha yako</div></div>
         </div>
         <div class="auth-panel__role">
           <div class="auth-panel__role-icon">📖</div>
-          <div>
-            <div class="auth-panel__role-name" data-i18n="role3_name">Mwanafunzi</div>
-            <div class="auth-panel__role-desc" data-i18n="role3_desc">Jifunza lugha yoyote bila malipo</div>
-          </div>
+          <div><div class="auth-panel__role-name" data-i18n="role3_name">Mwanafunzi</div><div class="auth-panel__role-desc" data-i18n="role3_desc">Jifunza lugha yoyote bila malipo</div></div>
         </div>
       </div>
     </div>
@@ -87,39 +82,53 @@
         <div class="error-msg" id="errorMsg"></div>
         <div class="success-msg" id="successMsg"></div>
 
-        <div class="auth-form" id="registerForm">
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
-            <div class="form-group">
-              <label class="form-label" data-i18n="first_name">Jina la kwanza</label>
-              <input type="text" class="form-input" id="firstName" />
-            </div>
-            <div class="form-group">
-              <label class="form-label" data-i18n="last_name">Jina la ukoo</label>
-              <input type="text" class="form-input" id="lastName" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" data-i18n="phone_label">WhatsApp / Simu</label>
-            <input type="tel" class="form-input" id="phone" placeholder="+255..." />
-            <div class="form-hint" data-i18n="phone_hint">Tutawasiliana nawe kupitia nambari hii.</div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" data-i18n="email_label">Barua pepe</label>
-            <input type="email" class="form-input" id="email" />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" data-i18n="password_label">Nywila</label>
-            <input type="password" class="form-input" id="password" />
-            <div class="form-hint" data-i18n="password_hint">Angalau herufi 8</div>
-          </div>
-
-          <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" id="submitBtn" onclick="handleRegister()" data-i18n="submit">
-            Unda akaunti
+        <div id="registerForm">
+          <!-- Google button -->
+          <button class="google-btn" onclick="handleGoogleRegister()">
+            <svg width="18" height="18" viewBox="0 0 18 18">
+              <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
+              <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/>
+              <path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/>
+              <path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.31z"/>
+            </svg>
+            <span data-i18n="google_btn">Jiunge na Google</span>
           </button>
+
+          <div class="divider"><span data-i18n="or">au</span></div>
+
+          <div class="auth-form">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm);">
+              <div class="form-group">
+                <label class="form-label" data-i18n="first_name">Jina la kwanza</label>
+                <input type="text" class="form-input" id="firstName" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="last_name">Jina la ukoo</label>
+                <input type="text" class="form-input" id="lastName" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" data-i18n="phone_label">WhatsApp / Simu</label>
+              <input type="tel" class="form-input" id="phone" placeholder="+255..." autocomplete="off" />
+              <div class="form-hint" data-i18n="phone_hint">Tutawasiliana nawe kupitia nambari hii.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" data-i18n="email_label">Barua pepe</label>
+              <input type="email" class="form-input" id="email" autocomplete="off" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" data-i18n="password_label">Nywila</label>
+              <input type="password" class="form-input" id="password" autocomplete="new-password" />
+              <div class="form-hint" data-i18n="password_hint">Angalau herufi 8</div>
+            </div>
+
+            <button class="btn btn--primary w-full btn--lg" style="justify-content:center;" id="submitBtn" onclick="handleRegister()" data-i18n="submit">
+              Unda akaunti
+            </button>
+          </div>
         </div>
 
         <div class="auth-footer-link">
@@ -134,52 +143,38 @@
   </div>
 
   <script type="module">
-    import { signUp } from '../js/supabase.js'
+    import { signUp, supabase } from '../js/supabase.js'
 
     const i18n = {
       sw: {
-        panel_quote:'"Kila mtu ana zawadi ya lugha yake."',
-        panel_quote_sub:"Kila mtu ana kipawa cha lugha yake.",
+        panel_quote:'"Kila mtu ana zawadi ya lugha yake."', panel_quote_sub:"Kila mtu ana kipawa cha lugha yake.",
         role1_name:"Mchangiaji", role1_desc:"Weka maneno na sauti za lugha yako",
         role2_name:"Msimamizi",  role2_desc:"Kagua maudhui ya lugha yako",
         role3_name:"Mwanafunzi", role3_desc:"Jifunza lugha yoyote bila malipo",
-        title:"Unda akaunti yako",
-        subtitle:"Jiunge na jamii ya kuhifadhi lugha za urithi.",
+        title:"Unda akaunti yako", subtitle:"Jiunge na jamii ya kuhifadhi lugha za urithi.",
         first_name:"Jina la kwanza", last_name:"Jina la ukoo",
-        phone_label:"WhatsApp / Simu",
-        phone_hint:"Tutawasiliana nawe kupitia nambari hii.",
-        email_label:"Barua pepe",
-        password_label:"Nywila", password_hint:"Angalau herufi 8",
-        submit:"Unda akaunti",
-        have_account:"Una akaunti tayari?", login_link:"Ingia hapa",
-        back_home:"← Rudi nyumbani",
+        phone_label:"WhatsApp / Simu", phone_hint:"Tutawasiliana nawe kupitia nambari hii.",
+        email_label:"Barua pepe", password_label:"Nywila", password_hint:"Angalau herufi 8",
+        submit:"Unda akaunti", or:"au", google_btn:"Jiunge na Google",
+        have_account:"Una akaunti tayari?", login_link:"Ingia hapa", back_home:"← Rudi nyumbani",
         loading:"Inaunda akaunti...",
         success:"✓ Akaunti imoundwa! Angalia barua pepe yako ili kuthibitisha.",
-        err_email:"Barua pepe hii tayari ipo.",
-        err_password:"Nywila lazima iwe na herufi 8 au zaidi.",
-        err_generic:"Hitilafu imetokea. Jaribu tena."
+        err_email:"Barua pepe hii tayari ipo.", err_password:"Nywila lazima iwe na herufi 8 au zaidi.", err_generic:"Hitilafu imetokea. Jaribu tena."
       },
       en: {
-        panel_quote:'"Every person holds the gift of their language."',
-        panel_quote_sub:"Join us in preserving what matters.",
+        panel_quote:'"Every person holds the gift of their language."', panel_quote_sub:"Join us in preserving what matters.",
         role1_name:"Contributor", role1_desc:"Record words and audio in your language",
         role2_name:"Moderator",   role2_desc:"Review content in your language",
         role3_name:"Learner",     role3_desc:"Learn any language for free",
-        title:"Create your account",
-        subtitle:"Join the community preserving heritage languages.",
+        title:"Create your account", subtitle:"Join the community preserving heritage languages.",
         first_name:"First name", last_name:"Last name",
-        phone_label:"WhatsApp / Phone",
-        phone_hint:"We will contact you through this number.",
-        email_label:"Email",
-        password_label:"Password", password_hint:"At least 8 characters",
-        submit:"Create account",
-        have_account:"Already have an account?", login_link:"Sign in here",
-        back_home:"← Back to home",
+        phone_label:"WhatsApp / Phone", phone_hint:"We will contact you through this number.",
+        email_label:"Email", password_label:"Password", password_hint:"At least 8 characters",
+        submit:"Create account", or:"or", google_btn:"Sign up with Google",
+        have_account:"Already have an account?", login_link:"Sign in here", back_home:"← Back to home",
         loading:"Creating account...",
         success:"✓ Account created! Check your email to confirm.",
-        err_email:"This email is already registered.",
-        err_password:"Password must be at least 8 characters.",
-        err_generic:"An error occurred. Please try again."
+        err_email:"This email is already registered.", err_password:"Password must be at least 8 characters.", err_generic:"An error occurred. Please try again."
       }
     }
 
@@ -188,8 +183,8 @@
     window.setLang = function(lang) {
       currentLang = lang
       localStorage.setItem('lh_lang', lang)
-      document.getElementById('btn-sw').classList.toggle('active', lang === 'sw')
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+      document.getElementById('btn-sw').classList.toggle('active', lang==='sw')
+      document.getElementById('btn-en').classList.toggle('active', lang==='en')
       const t = i18n[lang]
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n')
@@ -197,16 +192,24 @@
       })
     }
 
+    window.handleGoogleRegister = async function() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: 'https://lughahai.netlify.app/profile/index.html' }
+      })
+      if (error) console.error('Google error:', error)
+    }
+
     window.handleRegister = async function() {
-      const t         = i18n[currentLang]
+      const t = i18n[currentLang]
       const firstName = document.getElementById('firstName').value.trim()
       const lastName  = document.getElementById('lastName').value.trim()
       const phone     = document.getElementById('phone').value.trim()
       const email     = document.getElementById('email').value.trim()
       const password  = document.getElementById('password').value
-      const btn       = document.getElementById('submitBtn')
-      const errMsg    = document.getElementById('errorMsg')
-      const succMsg   = document.getElementById('successMsg')
+      const btn    = document.getElementById('submitBtn')
+      const errMsg = document.getElementById('errorMsg')
+      const succMsg= document.getElementById('successMsg')
 
       if (!email || !password || !firstName) return
 
@@ -217,18 +220,17 @@
       }
 
       btn.textContent = t.loading
-      btn.disabled    = true
+      btn.disabled = true
       errMsg.classList.remove('visible')
 
       const fullName = [firstName, lastName].filter(Boolean).join(' ')
-
       const { data, error } = await signUp(email, password, fullName, phone)
 
       if (error) {
         errMsg.textContent = error.message.includes('already') ? t.err_email : t.err_generic
         errMsg.classList.add('visible')
         btn.textContent = t.submit
-        btn.disabled    = false
+        btn.disabled = false
         return
       }
 
