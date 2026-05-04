@@ -9,31 +9,20 @@
     .lang-switcher{display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px;}
     .lang-switcher__btn{padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition);}
     .lang-switcher__btn.active{background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm);}
-
     .avatar{width:64px;height:64px;border-radius:50%;background:var(--green-deep);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:600;flex-shrink:0;}
     .profile-header{background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);padding:var(--space-xl);box-shadow:0 2px 12px var(--shadow-warm);display:flex;align-items:flex-start;gap:var(--space-lg);margin-bottom:var(--space-xl);}
     .profile-header__name{font-size:1.3rem;font-weight:600;color:var(--green-deep);margin-bottom:4px;}
     .profile-header__email{font-size:0.875rem;color:var(--text-soft);margin-bottom:var(--space-md);}
-
     .card{background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);padding:var(--space-lg);box-shadow:0 2px 8px var(--shadow-warm);margin-bottom:var(--space-md);}
     .card__title{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);padding-bottom:var(--space-sm);border-bottom:1px solid var(--cream-border);}
-
     .role-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 12px;border-radius:var(--radius-xl);font-size:0.78rem;font-weight:500;background:var(--cream-dark);color:var(--text-mid);}
-
     .request-role-card{background:var(--green-mist);border:1px solid var(--green-pale);border-radius:var(--radius-lg);padding:var(--space-lg);margin-bottom:var(--space-md);}
-    .request-role-card__title{font-size:0.9rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-sm);}
-    .request-role-card__text{font-size:0.82rem;color:var(--text-mid);line-height:1.6;margin-bottom:var(--space-md);}
-
-    .request-form{display:flex;flex-direction:column;gap:var(--space-md);}
-
-    .empty-state{text-align:center;padding:var(--space-xl);color:var(--text-muted);font-size:0.9rem;}
-
     .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-md);}
     .stat-item{text-align:center;}
     .stat-item__value{font-size:1.4rem;font-weight:600;color:var(--green-deep);}
     .stat-item__label{font-size:0.72rem;color:var(--text-muted);}
-
     .loading{text-align:center;padding:var(--space-2xl);color:var(--text-muted);}
+    @media(max-width:800px){.two-col{grid-template-columns:1fr !important;}}
   </style>
 </head>
 <body>
@@ -42,9 +31,6 @@
     <div class="container">
       <div class="nav__inner">
         <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
-        <div class="nav__links">
-          <a href="../index.html" class="nav__link" data-i18n="nav_home">Nyumbani</a>
-        </div>
         <div class="nav__actions">
           <div class="lang-switcher">
             <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
@@ -78,7 +64,7 @@
 
     const i18n = {
       sw: {
-        nav_home:"Nyumbani", nav_signout:"Toka",
+        nav_signout:"Toka",
         footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi.",
         role_learner:"Mwanafunzi", role_contributor:"Mchangiaji",
         role_moderator:"Msimamizi", role_admin:"Msimamizi Mkuu",
@@ -93,17 +79,17 @@
         request_btn:"Tuma ombi",
         request_sent:"✓ Ombi limetumwa! Tutawasiliana nawe hivi karibuni.",
         opt_contributor:"Mchangiaji — ninazungua lugha hii",
-        opt_moderator:"Msimamizi — nina elimu ya juu na naweza kukagua",
+        opt_moderator:"Msimamizi — ninaweza kukagua maudhui",
         stats_title:"Takwimu",
         stat_topics:"Mada zilizokamilika",
-        stat_pending:"Zinasubiri",
+        stat_pending:"Zinasubiri ukaguzi",
         stat_earned:"TZS iliyopatikana",
         explore_btn:"Gundua lugha",
         not_logged:"Tafadhali ingia kwanza.",
         login_btn:"Ingia"
       },
       en: {
-        nav_home:"Home", nav_signout:"Sign out",
+        nav_signout:"Sign out",
         footer_tagline:"Living languages, preserved for generations.",
         role_learner:"Learner", role_contributor:"Contributor",
         role_moderator:"Moderator", role_admin:"Admin",
@@ -118,10 +104,10 @@
         request_btn:"Send request",
         request_sent:"✓ Request sent! We will contact you soon.",
         opt_contributor:"Contributor — I speak this language",
-        opt_moderator:"Moderator — I have higher education and can review",
+        opt_moderator:"Moderator — I can review content",
         stats_title:"Stats",
         stat_topics:"Topics completed",
-        stat_pending:"Pending",
+        stat_pending:"Pending review",
         stat_earned:"TZS earned",
         explore_btn:"Explore languages",
         not_logged:"Please sign in first.",
@@ -132,8 +118,9 @@
     let currentLang = localStorage.getItem('lh_lang') || 'sw'
     let currentUser = null
     let userRoles   = []
+    let languages   = []
 
-    function setLang(lang) {
+    window.setLang = function(lang) {
       currentLang = lang
       localStorage.setItem('lh_lang', lang)
       document.getElementById('btn-sw').classList.toggle('active', lang==='sw')
@@ -144,7 +131,6 @@
         if (t[key] !== undefined) el.textContent = t[key]
       })
     }
-    window.setLang = setLang
 
     window.handleSignOut = async function() {
       await signOut()
@@ -152,13 +138,25 @@
     }
 
     async function init() {
+      // Load languages from JSON (not Supabase)
+      try {
+        const res  = await fetch('../data/languages.json')
+        const data = await res.json()
+        languages  = data.languages || []
+      } catch(e) {
+        languages = [
+          { id:'kikurya',    name:'Kikurya' },
+          { id:'kinyamwezi', name:'Kinyamwezi' }
+        ]
+      }
+
       const user = await getUser()
 
       if (!user) {
         const t = i18n[currentLang]
         document.getElementById('mainContainer').innerHTML = `
-          <div class="empty-state">
-            <p style="margin-bottom:var(--space-lg);">${t.not_logged}</p>
+          <div style="text-align:center;padding:var(--space-2xl);">
+            <p style="color:var(--text-muted);margin-bottom:var(--space-lg);">${t.not_logged}</p>
             <a href="../auth/login.html" class="btn btn--primary">${t.login_btn}</a>
           </div>`
         return
@@ -167,75 +165,60 @@
       currentUser = user
       userRoles   = await getUserRoles(user.id)
 
-      // Get profile from DB
+      // Get profile
       const { data: profile } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single()
 
-      // Get languages for dropdown
-      const { data: langsData } = await supabase
-        .from('languages')
-        .select('id, name')
-        .catch(() => ({ data: null }))
-
-      render(user, profile, langsData)
+      render(user, profile)
     }
 
-    function render(user, profile, langs) {
+    function render(user, profile) {
       const t = i18n[currentLang]
 
-      // Name & initials
       const name     = profile?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || '?'
       const email    = user.email || ''
       const initials = name.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase()
 
-      // Roles (exclude default learner if has other roles)
-      const nonLearner = userRoles.filter(r => r.role !== 'learner')
-
-      // Role labels
       const roleLabel = { learner:t.role_learner, contributor:t.role_contributor, moderator:t.role_moderator, admin:t.role_admin }
       const roleIcon  = { learner:'📖', contributor:'🗣️', moderator:'✅', admin:'⚙️' }
 
-      // Languages dropdown options
-      const langOptions = langs
-        ? langs.map(l => `<option value="${l.id}">${l.name}</option>`).join('')
-        : '<option value="kikurya">Kikurya</option><option value="kinyamwezi">Kinyamwezi</option>'
+      const nonLearner = userRoles.filter(r => r.role !== 'learner' && r.language_id !== '*')
+
+      const langOptions = languages.map(l => `<option value="${l.id}">${l.name}</option>`).join('')
 
       document.getElementById('mainContainer').innerHTML = `
 
-        <!-- Profile header -->
         <div class="profile-header">
           <div class="avatar">${initials}</div>
           <div style="flex:1;">
             <div class="profile-header__name">${name}</div>
             <div class="profile-header__email">${email}</div>
-            <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;">
-              ${userRoles.length === 0
-                ? `<span class="role-badge">📖 ${t.role_learner}</span>`
-                : userRoles.map(r =>
-                    `<span class="role-badge">${roleIcon[r.role]||'👤'} ${roleLabel[r.role]||r.role}${r.language_id !== '*' ? ' · ' + r.language_id : ''}</span>`
-                  ).join('')
-              }
+            <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;margin-top:var(--space-sm);">
+              <span class="role-badge">📖 ${t.role_learner}</span>
+              ${nonLearner.map(r =>
+                `<span class="role-badge badge--approved" style="background:var(--green-mist);color:var(--green-deep);">
+                  ${roleIcon[r.role]||'👤'} ${roleLabel[r.role]||r.role} · ${r.language_id}
+                </span>`
+              ).join('')}
             </div>
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 300px;gap:var(--space-xl);align-items:start;">
+        <div class="two-col" style="display:grid;grid-template-columns:1fr 280px;gap:var(--space-xl);align-items:start;">
 
-          <!-- LEFT -->
           <div>
-
-            <!-- Roles section -->
+            <!-- Roles -->
             <div class="card">
               <div class="card__title">${t.roles_title}</div>
               ${nonLearner.length === 0
-                ? `<p style="font-size:0.85rem;color:var(--text-soft);margin-bottom:0;">${t.no_roles}</p>`
+                ? `<p style="font-size:0.85rem;color:var(--text-soft);">${t.no_roles}</p>`
                 : nonLearner.map(r => `
                     <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-sm) 0;border-bottom:1px solid var(--cream-border);">
-                      <span style="font-size:0.9rem;">${roleIcon[r.role]||'👤'} ${roleLabel[r.role]||r.role}</span>
-                      <span class="badge badge--approved" style="font-size:0.72rem;">${r.language_id !== '*' ? r.language_id : 'Global'}</span>
+                      <span>${roleIcon[r.role]||'👤'} ${roleLabel[r.role]||r.role}</span>
+                      <span class="badge badge--approved" style="font-size:0.72rem;">${r.language_id}</span>
                     </div>`
                   ).join('')
               }
@@ -243,9 +226,9 @@
 
             <!-- Request role -->
             <div class="request-role-card">
-              <div class="request-role-card__title">${t.request_title}</div>
-              <p class="request-role-card__text">${t.request_text}</p>
-              <div class="request-form" id="requestForm">
+              <div style="font-size:0.9rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-sm);">${t.request_title}</div>
+              <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.6;margin-bottom:var(--space-md);">${t.request_text}</p>
+              <div id="requestForm" style="display:flex;flex-direction:column;gap:var(--space-md);">
                 <div class="form-group">
                   <label class="form-label">${t.request_role_label}</label>
                   <select class="form-select" id="reqRole">
@@ -255,9 +238,7 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label">${t.request_lang_label}</label>
-                  <select class="form-select" id="reqLang">
-                    ${langOptions}
-                  </select>
+                  <select class="form-select" id="reqLang">${langOptions}</select>
                 </div>
                 <div class="form-group">
                   <label class="form-label">${t.request_note_label}</label>
@@ -267,47 +248,29 @@
               </div>
               <div id="requestSuccess" style="display:none;color:var(--green-deep);font-size:0.9rem;font-weight:500;">${t.request_sent}</div>
             </div>
-
           </div>
 
-          <!-- RIGHT -->
           <div style="position:sticky;top:80px;">
-
             <div class="card">
               <div class="card__title">${t.stats_title}</div>
               <div class="stat-grid">
-                <div class="stat-item">
-                  <div class="stat-item__value">0</div>
-                  <div class="stat-item__label">${t.stat_topics}</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-item__value">0</div>
-                  <div class="stat-item__label">${t.stat_pending}</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-item__value">0</div>
-                  <div class="stat-item__label">${t.stat_earned}</div>
-                </div>
+                <div class="stat-item"><div class="stat-item__value">0</div><div class="stat-item__label">${t.stat_topics}</div></div>
+                <div class="stat-item"><div class="stat-item__value">0</div><div class="stat-item__label">${t.stat_pending}</div></div>
+                <div class="stat-item"><div class="stat-item__value">0</div><div class="stat-item__label">${t.stat_earned} TZS</div></div>
               </div>
             </div>
-
-            <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
-              <a href="../index.html" class="btn btn--secondary w-full" style="justify-content:center;">${t.explore_btn}</a>
-            </div>
-
+            <a href="../index.html" class="btn btn--secondary w-full" style="justify-content:center;display:flex;">${t.explore_btn}</a>
           </div>
         </div>`
 
-      setLang(currentLang)
+      window.setLang(currentLang)
     }
 
     window.sendRoleRequest = async function() {
       const t    = i18n[currentLang]
       const role = document.getElementById('reqRole').value
       const lang = document.getElementById('reqLang').value
-      const note = document.getElementById('reqNote').value
 
-      // Save role request as pending in user_roles
       const { error } = await supabase
         .from('user_roles')
         .upsert({
@@ -323,7 +286,7 @@
       }
     }
 
-    setLang(currentLang)
+    window.setLang(currentLang)
     init()
   </script>
 </body>
