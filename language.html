@@ -3,150 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lugha Hai — Language</title>
+  <title>Lugha Hai</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .lang-switcher {
-      display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px;
-    }
-    .lang-switcher__btn {
-      padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;
-      font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition);
-    }
-    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
+    .lang-switcher{display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px;}
+    .lang-switcher__btn{padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition);}
+    .lang-switcher__btn.active{background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm);}
 
     /* Hero banner */
-    .lang-hero { background:var(--green-deep);padding:var(--space-xl) 0; }
-    .lang-hero__inner { display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-xl);flex-wrap:wrap; }
-    .lang-hero__name { font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);font-weight:600;color:var(--cream);margin-bottom:var(--space-sm); }
-    .lang-hero__tribe { font-size:0.9rem;color:var(--green-pale);margin-bottom:var(--space-lg);line-height:1.7; }
-    .lang-hero__tribe strong { color:var(--cream); }
-    .lang-hero__stats { display:flex;gap:var(--space-xl);flex-wrap:wrap; }
-    .lang-hero__stat-value { font-size:1.6rem;font-weight:600;color:var(--cream); }
-    .lang-hero__stat-label { font-size:0.72rem;color:var(--green-pale);margin-top:2px; }
-    .lang-hero__breadcrumb { font-size:0.78rem;color:var(--green-pale);opacity:0.7;margin-bottom:var(--space-md); }
-    .lang-hero__breadcrumb a { color:var(--green-pale);opacity:0.7; }
+    .lang-hero{background:var(--green-deep);padding:var(--space-xl) 0;}
+    .lang-hero__name{font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);font-weight:600;color:var(--cream);margin-bottom:var(--space-sm);}
+    .lang-hero__tribe{font-size:0.9rem;color:var(--green-pale);margin-bottom:var(--space-lg);line-height:1.7;}
+    .lang-hero__stats{display:flex;gap:var(--space-xl);flex-wrap:wrap;}
+    .lang-hero__stat-value{font-size:1.6rem;font-weight:600;color:var(--cream);}
+    .lang-hero__stat-label{font-size:0.72rem;color:var(--green-pale);margin-top:2px;}
+    .lang-hero__breadcrumb{font-size:0.78rem;color:var(--green-pale);opacity:0.7;margin-bottom:var(--space-md);}
+    .lang-hero__breadcrumb a{color:var(--green-pale);opacity:0.7;}
+
+    /* Learn block */
+    .learn-block{
+      background:linear-gradient(135deg, var(--green-deep) 0%, #1a4a3a 100%);
+      border-radius:var(--radius-lg);
+      padding:var(--space-xl) var(--space-2xl);
+      margin-bottom:var(--space-xl);
+      display:flex;align-items:center;justify-content:space-between;
+      gap:var(--space-xl);flex-wrap:wrap;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .learn-block__text h2{color:var(--cream);margin-bottom:var(--space-sm);}
+    .learn-block__text p{color:var(--green-pale);font-size:0.95rem;max-width:500px;line-height:1.7;}
+    .learn-btn{
+      background:var(--terracotta);color:var(--white);
+      padding:1rem 2.5rem;border-radius:var(--radius-xl);
+      font-size:1.1rem;font-weight:600;border:none;cursor:pointer;
+      transition:all var(--transition);white-space:nowrap;
+      font-family:var(--font-body);text-decoration:none;
+      display:inline-flex;align-items:center;gap:var(--space-sm);
+    }
+    .learn-btn:hover{background:#b05e38;transform:translateY(-2px);box-shadow:0 6px 20px rgba(196,113,74,0.4);}
 
     /* Three column layout */
-    .three-col {
-      display:grid;
-      grid-template-columns: 1fr 260px 280px;
-      gap:var(--space-lg);
-      align-items:start;
-    }
+    .three-col{display:grid;grid-template-columns:1fr 260px 280px;gap:var(--space-lg);align-items:start;}
 
-    /* Topic cards */
-    .section-label {
-      font-size:0.72rem;font-weight:500;letter-spacing:0.08em;
-      text-transform:uppercase;color:var(--text-muted);
-      margin-bottom:var(--space-md);margin-top:var(--space-xl);
-      padding-bottom:var(--space-sm);border-bottom:1px solid var(--cream-border);
-    }
-    .section-label:first-child { margin-top:0; }
+    /* Section label */
+    .section-label{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);margin-top:var(--space-xl);padding-bottom:var(--space-sm);border-bottom:1px solid var(--cream-border);}
+    .section-label:first-child{margin-top:0;}
 
-    .topic-card {
-      background:var(--white);border:1px solid var(--cream-border);
-      border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);
-      display:flex;align-items:center;justify-content:space-between;
-      gap:var(--space-md);transition:all var(--transition);
-      cursor:pointer;text-decoration:none;margin-bottom:var(--space-sm);
-    }
-    .topic-card:hover { border-color:var(--green-pale);box-shadow:0 4px 16px var(--shadow-warm);transform:translateX(3px); }
-    .topic-card.approved { border-left:3px solid var(--green-soft); }
-    .topic-card__name { font-weight:500;color:var(--text-dark);font-size:0.9rem; }
-    .topic-card__right { display:flex;align-items:center;gap:var(--space-sm);flex-shrink:0; }
-    .topic-card__arrow { color:var(--text-muted);font-size:0.9rem;transition:transform var(--transition); }
-    .topic-card:hover .topic-card__arrow { transform:translateX(3px);color:var(--green-mid); }
+    /* Topic card */
+    .topic-card{background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);display:flex;align-items:center;justify-content:space-between;gap:var(--space-md);transition:all var(--transition);cursor:pointer;text-decoration:none;margin-bottom:var(--space-sm);}
+    .topic-card:hover{border-color:var(--green-pale);box-shadow:0 4px 16px var(--shadow-warm);transform:translateX(3px);}
+    .topic-card.approved{border-left:3px solid var(--green-soft);}
+    .topic-card__name{font-weight:500;color:var(--text-dark);font-size:0.9rem;}
+    .topic-card__right{display:flex;align-items:center;gap:var(--space-sm);flex-shrink:0;}
 
-    /* Middle column — language info */
-    .info-card {
-      background:var(--white);border:1px solid var(--cream-border);
-      border-radius:var(--radius-lg);padding:var(--space-lg);
-      box-shadow:0 2px 8px var(--shadow-warm);margin-bottom:var(--space-md);
+    /* Blurred zone */
+    .locked-zone{
+      position:relative;
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+      margin-bottom:var(--space-xl);
     }
-    .info-card__title {
-      font-size:0.72rem;font-weight:500;letter-spacing:0.08em;
-      text-transform:uppercase;color:var(--text-muted);
-      margin-bottom:var(--space-md);padding-bottom:var(--space-sm);
-      border-bottom:1px solid var(--cream-border);
+    .locked-zone__content{
+      filter:blur(3px);
+      pointer-events:none;
+      user-select:none;
+      opacity:0.5;
     }
-    .info-row {
-      display:flex;justify-content:space-between;align-items:flex-start;
-      padding:var(--space-sm) 0;border-bottom:1px solid var(--cream-border);
-      font-size:0.85rem;gap:var(--space-md);
+    .locked-zone__overlay{
+      position:absolute;inset:0;
+      background:rgba(247,243,236,0.85);
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      padding:var(--space-xl);text-align:center;
+      backdrop-filter:blur(2px);
     }
-    .info-row:last-child { border-bottom:none; }
-    .info-row__label { color:var(--text-soft);flex-shrink:0; }
-    .info-row__value { color:var(--text-dark);font-weight:500;text-align:right; }
+    .locked-zone__icon{font-size:2rem;margin-bottom:var(--space-md);}
+    .locked-zone__title{font-size:1rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-sm);}
+    .locked-zone__desc{font-size:0.85rem;color:var(--text-mid);line-height:1.6;margin-bottom:var(--space-lg);max-width:340px;}
 
-    /* Progress in middle */
-    .progress-card {
-      background:var(--green-deep);border-radius:var(--radius-lg);
-      padding:var(--space-lg);margin-bottom:var(--space-md);
-    }
-    .progress-card__title { font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-pale);margin-bottom:var(--space-md); }
-    .progress-card__pct { font-size:2rem;font-weight:600;color:var(--cream);margin-bottom:4px; }
-    .progress-card__sub { font-size:0.78rem;color:var(--green-pale);margin-bottom:var(--space-md); }
-    .progress-bar-dark { height:6px;background:rgba(255,255,255,0.15);border-radius:99px;overflow:hidden;margin-bottom:var(--space-md); }
-    .progress-bar-dark__fill { height:100%;background:var(--green-soft);border-radius:99px; }
-    .progress-stat { display:flex;justify-content:space-between;font-size:0.8rem;padding:4px 0; }
-    .progress-stat__label { color:var(--green-pale); }
-    .progress-stat__value { color:var(--cream);font-weight:500; }
+    /* Info card */
+    .info-card{background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);padding:var(--space-lg);box-shadow:0 2px 8px var(--shadow-warm);margin-bottom:var(--space-md);}
+    .info-card__title{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);padding-bottom:var(--space-sm);border-bottom:1px solid var(--cream-border);}
+    .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:var(--space-sm) 0;border-bottom:1px solid var(--cream-border);font-size:0.85rem;gap:var(--space-md);}
+    .info-row:last-child{border-bottom:none;}
+    .info-row__label{color:var(--text-soft);flex-shrink:0;}
+    .info-row__value{color:var(--text-dark);font-weight:500;text-align:right;}
 
-    /* Right column — culture cards */
-    .culture-card {
-      background:var(--white);border:1px solid var(--cream-border);
-      border-radius:var(--radius-md);padding:var(--space-md);
-      display:flex;align-items:center;gap:var(--space-md);
-      cursor:pointer;transition:all var(--transition);
-      text-decoration:none;margin-bottom:var(--space-sm);
-    }
-    .culture-card:hover { border-color:var(--green-pale);box-shadow:0 4px 12px var(--shadow-warm);transform:translateX(3px); }
-    .culture-card__icon { font-size:1.4rem;width:40px;height:40px;border-radius:var(--radius-sm);background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
-    .culture-card__info { flex:1;min-width:0; }
-    .culture-card__name { font-size:0.88rem;font-weight:500;color:var(--text-dark); }
-    .culture-card__count { font-size:0.72rem;color:var(--text-muted);margin-top:2px; }
-    .culture-card__arrow { color:var(--text-muted);font-size:0.85rem;flex-shrink:0; }
+    /* Progress */
+    .progress-card{background:var(--green-deep);border-radius:var(--radius-lg);padding:var(--space-lg);margin-bottom:var(--space-md);}
+    .progress-card__title{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green-pale);margin-bottom:var(--space-md);}
+    .progress-card__pct{font-size:2rem;font-weight:600;color:var(--cream);margin-bottom:4px;}
+    .progress-card__sub{font-size:0.78rem;color:var(--green-pale);margin-bottom:var(--space-md);}
+    .progress-bar-dark{height:6px;background:rgba(255,255,255,0.15);border-radius:99px;overflow:hidden;margin-bottom:var(--space-md);}
+    .progress-bar-dark__fill{height:100%;background:var(--green-soft);border-radius:99px;}
+    .progress-stat{display:flex;justify-content:space-between;font-size:0.8rem;padding:4px 0;}
+    .progress-stat__label{color:var(--green-pale);}
+    .progress-stat__value{color:var(--cream);font-weight:500;}
 
-    .culture-section-label {
-      font-size:0.68rem;font-weight:500;letter-spacing:0.08em;
-      text-transform:uppercase;color:var(--text-muted);
-      margin:var(--space-lg) 0 var(--space-sm);
-    }
-    .culture-section-label:first-child { margin-top:0; }
-
-    /* Contribute CTA in right col */
-    .contribute-card {
-      background:var(--green-mist);border:1px solid var(--green-pale);
-      border-radius:var(--radius-lg);padding:var(--space-lg);
-      margin-top:var(--space-md);
-    }
-    .contribute-card__title { font-size:0.88rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-sm); }
-    .contribute-card__text { font-size:0.78rem;color:var(--text-mid);line-height:1.6;margin-bottom:var(--space-md); }
+    /* Culture cards */
+    .culture-card{background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md);display:flex;align-items:center;gap:var(--space-md);cursor:pointer;transition:all var(--transition);text-decoration:none;margin-bottom:var(--space-sm);}
+    .culture-card:hover{border-color:var(--green-pale);box-shadow:0 4px 12px var(--shadow-warm);transform:translateX(3px);}
+    .culture-card__icon{font-size:1.4rem;width:40px;height:40px;border-radius:var(--radius-sm);background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .culture-card__name{font-size:0.88rem;font-weight:500;color:var(--text-dark);}
+    .culture-card__count{font-size:0.72rem;color:var(--text-muted);margin-top:2px;}
 
     /* Level tabs */
-    .level-tabs { display:flex;gap:var(--space-sm);margin-bottom:var(--space-lg);flex-wrap:wrap; }
-    .level-tab {
-      padding:5px 16px;border-radius:var(--radius-xl);border:1.5px solid var(--cream-border);
-      background:var(--white);font-size:0.82rem;font-weight:500;color:var(--text-soft);
-      cursor:pointer;transition:all var(--transition);
-    }
-    .level-tab:hover { border-color:var(--green-soft);color:var(--green-deep); }
-    .level-tab.active { background:var(--green-deep);border-color:var(--green-deep);color:var(--cream); }
-    .level-tab.locked { opacity:0.4;cursor:not-allowed; }
+    .level-tabs{display:flex;gap:var(--space-sm);margin-bottom:var(--space-lg);flex-wrap:wrap;}
+    .level-tab{padding:5px 16px;border-radius:var(--radius-xl);border:1.5px solid var(--cream-border);background:var(--white);font-size:0.82rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition);}
+    .level-tab:hover{border-color:var(--green-soft);color:var(--green-deep);}
+    .level-tab.active{background:var(--green-deep);border-color:var(--green-deep);color:var(--cream);}
+    .level-tab.locked{opacity:0.4;cursor:not-allowed;}
 
-    @media(max-width:1100px) {
-      .three-col { grid-template-columns:1fr 240px; }
-      .three-col > :last-child { grid-column:1/-1; }
-    }
-    @media(max-width:700px) {
-      .three-col { grid-template-columns:1fr; }
-    }
+    @media(max-width:1100px){.three-col{grid-template-columns:1fr 240px;}.three-col>:last-child{grid-column:1/-1;}}
+    @media(max-width:700px){.three-col{grid-template-columns:1fr;}.learn-block{padding:var(--space-lg);}}
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="nav">
     <div class="container">
       <div class="nav__inner">
@@ -172,23 +145,14 @@
       <div class="lang-hero__breadcrumb">
         <a href="index.html" data-i18n="nav_home">Nyumbani</a> › <span id="hero-name">...</span>
       </div>
-      <div class="lang-hero__inner">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-xl);flex-wrap:wrap;">
         <div>
           <h1 class="lang-hero__name" id="hero-title">...</h1>
           <div class="lang-hero__tribe" id="hero-tribe"></div>
           <div class="lang-hero__stats">
-            <div>
-              <div class="lang-hero__stat-value" id="hero-speakers">—</div>
-              <div class="lang-hero__stat-label" data-i18n="label_speakers">Wazungumzaji</div>
-            </div>
-            <div>
-              <div class="lang-hero__stat-value" id="hero-topics-done">—</div>
-              <div class="lang-hero__stat-label" data-i18n="label_topics_done">Mada zilizokamilika</div>
-            </div>
-            <div>
-              <div class="lang-hero__stat-value" id="hero-contributors">—</div>
-              <div class="lang-hero__stat-label" data-i18n="label_contributors">Wachangiaji</div>
-            </div>
+            <div><div class="lang-hero__stat-value" id="hero-speakers">—</div><div class="lang-hero__stat-label" data-i18n="label_speakers">Wazungumzaji</div></div>
+            <div><div class="lang-hero__stat-value" id="hero-done">—</div><div class="lang-hero__stat-label" data-i18n="label_topics_done">Mada zilizokamilika</div></div>
+            <div><div class="lang-hero__stat-value" id="hero-contributors">—</div><div class="lang-hero__stat-label" data-i18n="label_contributors">Wachangiaji</div></div>
           </div>
         </div>
       </div>
@@ -199,48 +163,40 @@
   <div class="section">
     <div class="container">
 
+      <!-- LEARN BLOCK -->
+      <div class="learn-block" id="learnBlock">
+        <div class="learn-block__text">
+          <h2 id="learn-title">...</h2>
+          <p id="learn-desc">...</p>
+        </div>
+        <a href="#" class="learn-btn" id="learnBtn">
+          📖 <span data-i18n="learn_btn">Jifunze</span>
+        </a>
+      </div>
+
       <!-- Level tabs -->
       <div class="level-tabs" id="levelTabs"></div>
 
-      <!-- Three columns -->
+      <!-- THREE COLUMNS -->
       <div class="three-col">
 
-        <!-- LEFT: topics -->
-        <div id="topicsCol">
-          <div style="text-align:center;padding:var(--space-2xl);color:var(--text-muted);">⏳</div>
+        <!-- LEFT: contributor + moderator zones -->
+        <div id="leftCol">
+          <div style="text-align:center;padding:var(--space-xl);color:var(--text-muted);">⏳</div>
         </div>
 
-        <!-- MIDDLE: language info + progress -->
+        <!-- MIDDLE: progress + info -->
         <div>
-          <!-- Progress -->
-          <div class="progress-card" id="progressCard">
+          <div class="progress-card">
             <div class="progress-card__title" data-i18n="progress_title">MAENDELEO YA A1</div>
             <div class="progress-card__pct" id="prog-pct">0%</div>
             <div class="progress-card__sub" id="prog-sub">0 / 0</div>
-            <div class="progress-bar-dark">
-              <div class="progress-bar-dark__fill" id="prog-bar" style="width:0%;"></div>
-            </div>
-            <div class="progress-stat">
-              <span class="progress-stat__label" data-i18n="stat_approved">✅ Zilizokubaliwa</span>
-              <span class="progress-stat__value" id="prog-approved">0</span>
-            </div>
-            <div class="progress-stat">
-              <span class="progress-stat__label" data-i18n="stat_review">🔵 Ukaguzi</span>
-              <span class="progress-stat__value" id="prog-review">0</span>
-            </div>
-            <div class="progress-stat">
-              <span class="progress-stat__label" data-i18n="stat_pending">🔘 Bado</span>
-              <span class="progress-stat__value" id="prog-pending">0</span>
-            </div>
+            <div class="progress-bar-dark"><div class="progress-bar-dark__fill" id="prog-bar" style="width:0%;"></div></div>
+            <div class="progress-stat"><span class="progress-stat__label" data-i18n="stat_approved">✅ Zilizokubaliwa</span><span class="progress-stat__value" id="prog-approved">0</span></div>
+            <div class="progress-stat"><span class="progress-stat__label" data-i18n="stat_review">🔵 Ukaguzi</span><span class="progress-stat__value" id="prog-review">0</span></div>
+            <div class="progress-stat"><span class="progress-stat__label" data-i18n="stat_pending">🔘 Bado</span><span class="progress-stat__value" id="prog-pending">0</span></div>
           </div>
-
-          <!-- Language info -->
-          <div class="info-card" id="infoCard">
-            <div class="info-card__title" data-i18n="info_title">HABARI ZA LUGHA</div>
-            <div id="infoRows"></div>
-          </div>
-
-          <!-- Contribute -->
+          <div class="info-card"><div class="info-card__title" data-i18n="info_title">HABARI ZA LUGHA</div><div id="infoRows"></div></div>
           <a href="auth/register.html" class="info-card" style="display:block;text-decoration:none;background:var(--green-mist);border-color:var(--green-pale);">
             <div class="info-card__title" style="color:var(--green-deep);" data-i18n="contrib_title">UNAZUNGUA LUGHA HII?</div>
             <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.6;margin-bottom:var(--space-md);" data-i18n="contrib_text">Jiunge kama mchangiaji na usaidie kuhifadhi lugha yako ya asili.</p>
@@ -248,9 +204,9 @@
           </a>
         </div>
 
-        <!-- RIGHT: culture archive -->
-        <div id="cultureCol">
-          <div class="culture-section-label" data-i18n="culture_label">HAZINA YA UTAMADUNI</div>
+        <!-- RIGHT: culture -->
+        <div>
+          <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);" data-i18n="culture_label">HAZINA YA UTAMADUNI</div>
           <div id="cultureCards"></div>
         </div>
 
@@ -258,7 +214,6 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer__logo">Lugha Hai</div>
@@ -270,312 +225,366 @@
     </div>
   </footer>
 
-  <script>
-  // ── TRANSLATIONS ──────────────────────────────────────
-  const i18n = {
-    sw: {
-      nav_home:"Nyumbani", nav_signin:"Ingia", nav_join:"Jiunge",
-      label_speakers:"Wazungumzaji", label_topics_done:"Mada zilizokamilika", label_contributors:"Wachangiaji",
-      progress_title:"MAENDELEO YA A1",
-      stat_approved:"✅ Zilizokubaliwa", stat_review:"🔵 Ukaguzi", stat_pending:"🔘 Bado",
-      info_title:"HABARI ZA LUGHA",
-      info_family:"Familia", info_country:"Nchi", info_region:"Mkoa",
-      info_tonal:"Lugha ya toni?", info_tonal_yes:"Ndiyo", info_tonal_no:"Hapana", info_tonal_unknown:"Haijulikani",
-      info_speakers:"Wazungumzaji", info_started:"Ilianza",
-      contrib_title:"UNAZUNGUA LUGHA HII?",
-      contrib_text:"Jiunge kama mchangiaji na usaidie kuhifadhi lugha yako ya asili.",
-      contrib_btn:"Jiunge sasa",
-      culture_label:"HAZINA YA UTAMADUNI",
-      culture_empty:"Hakuna maudhui bado.",
-      culture_add:"Ongeza",
-      topics_grammar:"Sarufi", topics_vocab:"Msamiati",
-      level_locked:"Bado haijaanza",
-      badge_approved:"Imekubaliwa", badge_review:"Ukaguzi",
-      badge_pending:"Bado", badge_progress:"Inaendelea",
-      footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi.",
-      tribe_text:"{language} ni lugha ya {tribe}. Mtu mmoja anaitwa {singular}, watu wanaitwa {plural}.",
-      culture_items: {
-        geography:  { icon:"📍", name:"Jiografia", desc:"Mahali wanapoishi" },
-        history:    { icon:"📜", name:"Historia ya kabila", desc:"Asili na historia" },
-        lang_history:{ icon:"🗣️", name:"Historia ya lugha", desc:"Asili ya lugha" },
-        food:       { icon:"🍲", name:"Chakula cha jadi", desc:"Mapishi na vyakula" },
-        dances:     { icon:"💃", name:"Ngoma za jadi", desc:"Michezo na ngoma" },
-        songs:      { icon:"🎵", name:"Nyimbo za jadi", desc:"Nyimbo na mashairi" },
-        housing:    { icon:"🏠", name:"Makazi", desc:"Aina za makazi" },
-        lifestyle:  { icon:"🌱", name:"Mfumo wa maisha", desc:"Desturi za kila siku" },
-        tales:      { icon:"📖", name:"Hadithi na misemo", desc:"Ngano na methali" },
-        rituals:    { icon:"🔮", name:"Mila na desturi", desc:"Matambiko na sherehe" },
-        beliefs:    { icon:"🙏", name:"Imani", desc:"Dini na mila za kale" },
-        clans:      { icon:"👥", name:"Makoo na ukoo", desc:"Familia na mfumo wa jamii" }
+  <script type="module">
+    import { getUser, getUserRoles } from './js/supabase.js'
+
+    const i18n = {
+      sw: {
+        nav_home:"Nyumbani", nav_signin:"Ingia", nav_join:"Jiunge",
+        label_speakers:"Wazungumzaji", label_topics_done:"Mada zilizokamilika", label_contributors:"Wachangiaji",
+        progress_title:"MAENDELEO YA A1",
+        stat_approved:"✅ Zilizokubaliwa", stat_review:"🔵 Ukaguzi", stat_pending:"🔘 Bado",
+        info_title:"HABARI ZA LUGHA",
+        info_family:"Familia", info_country:"Nchi", info_region:"Mkoa",
+        info_tonal:"Lugha ya toni?", info_tonal_yes:"Ndiyo", info_tonal_no:"Hapana", info_tonal_unknown:"Haijulikani",
+        info_speakers:"Wazungumzaji", info_started:"Ilianza",
+        contrib_title:"UNAZUNGUA LUGHA HII?",
+        contrib_text:"Jiunge kama mchangiaji na usaidie kuhifadhi lugha yako ya asili.",
+        contrib_btn:"Jiunge sasa",
+        culture_label:"HAZINA YA UTAMADUNI",
+        culture_empty:"Hakuna maudhui bado.",
+        topics_grammar:"Sarufi", topics_vocab:"Msamiati",
+        level_locked:"Bado haijaanza",
+        badge_approved:"Imekubaliwa", badge_review:"Ukaguzi",
+        badge_pending:"Bado", badge_progress:"Inaendelea",
+        learn_btn:"Jifunze",
+        learn_title:"Jifunze {lang}",
+        learn_desc:"Jifunza lugha ya {tribe} — maneno, sarufi na utamaduni. Masomo yameundwa na wasemaji wa lugha hii.",
+        contrib_zone_title:"Ukanda wa Wachangiaji",
+        contrib_zone_desc:"Wachangiaji ni wazungumzaji wa asili wanaoweka maneno, misemo na sauti za lugha hii. Kazi yao ndiyo msingi wa maudhui yote ya lugha hii kwenye Lugha Hai.",
+        contrib_zone_btn:"Omba kuwa Mchangiaji",
+        mod_zone_title:"Ukanda wa Wasimamizi",
+        mod_zone_desc:"Wasimamizi wana elimu ya juu na wanakagua kazi za wachangiaji. Wanachagua maudhui bora na kuunda vitabu vya sarufi.",
+        mod_zone_btn:"Omba kuwa Msimamizi",
+        footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi.",
+        tribe_text:"{lang} ni lugha ya {tribe}. Mtu mmoja anaitwa {singular}, watu wanaitwa {plural}.",
+        culture_items:{
+          geography:{icon:"📍",name:"Jiografia",desc:"Mahali wanapoishi"},
+          history:{icon:"📜",name:"Historia ya kabila",desc:"Asili na historia"},
+          lang_history:{icon:"🗣️",name:"Historia ya lugha",desc:"Asili ya lugha"},
+          food:{icon:"🍲",name:"Chakula cha jadi",desc:"Mapishi na vyakula"},
+          dances:{icon:"💃",name:"Ngoma za jadi",desc:"Michezo na ngoma"},
+          songs:{icon:"🎵",name:"Nyimbo za jadi",desc:"Nyimbo na mashairi"},
+          housing:{icon:"🏠",name:"Makazi",desc:"Aina za makazi"},
+          lifestyle:{icon:"🌱",name:"Mfumo wa maisha",desc:"Desturi za kila siku"},
+          tales:{icon:"📖",name:"Hadithi na misemo",desc:"Ngano na methali"},
+          rituals:{icon:"🔮",name:"Mila na desturi",desc:"Matambiko na sherehe"},
+          beliefs:{icon:"🙏",name:"Imani",desc:"Dini na mila za kale"},
+          clans:{icon:"👥",name:"Makoo na ukoo",desc:"Familia na mfumo wa jamii"}
+        }
+      },
+      en: {
+        nav_home:"Home", nav_signin:"Sign in", nav_join:"Join",
+        label_speakers:"Speakers", label_topics_done:"Topics completed", label_contributors:"Contributors",
+        progress_title:"A1 PROGRESS",
+        stat_approved:"✅ Approved", stat_review:"🔵 In review", stat_pending:"🔘 Pending",
+        info_title:"LANGUAGE INFO",
+        info_family:"Family", info_country:"Country", info_region:"Region",
+        info_tonal:"Tonal language?", info_tonal_yes:"Yes", info_tonal_no:"No", info_tonal_unknown:"Unknown",
+        info_speakers:"Speakers", info_started:"Started",
+        contrib_title:"DO YOU SPEAK THIS LANGUAGE?",
+        contrib_text:"Join as a contributor and help preserve your heritage language.",
+        contrib_btn:"Join now",
+        culture_label:"CULTURAL ARCHIVE",
+        culture_empty:"No content yet.",
+        topics_grammar:"Grammar", topics_vocab:"Vocabulary",
+        level_locked:"Not started yet",
+        badge_approved:"Approved", badge_review:"In review",
+        badge_pending:"Pending", badge_progress:"In progress",
+        learn_btn:"Learn",
+        learn_title:"Learn {lang}",
+        learn_desc:"Learn the {tribe} language — words, grammar and culture. Lessons are built by native speakers of this language.",
+        contrib_zone_title:"Contributors Zone",
+        contrib_zone_desc:"Contributors are native speakers who record words, phrases and audio for this language. Their work is the foundation of all content on Lugha Hai.",
+        contrib_zone_btn:"Request Contributor access",
+        mod_zone_title:"Moderators Zone",
+        mod_zone_desc:"Moderators have higher education and review contributors' work. They select the best content and build grammar references.",
+        mod_zone_btn:"Request Moderator access",
+        footer_tagline:"Living languages, preserved for generations.",
+        tribe_text:"{lang} is the language of the {tribe} people. A single member is called {singular}, the people are called {plural}.",
+        culture_items:{
+          geography:{icon:"📍",name:"Geography",desc:"Where they live"},
+          history:{icon:"📜",name:"Tribe history",desc:"Origins and history"},
+          lang_history:{icon:"🗣️",name:"Language history",desc:"Origins of the language"},
+          food:{icon:"🍲",name:"Traditional food",desc:"Recipes and dishes"},
+          dances:{icon:"💃",name:"Traditional dances",desc:"Dances and performances"},
+          songs:{icon:"🎵",name:"Traditional songs",desc:"Songs and poetry"},
+          housing:{icon:"🏠",name:"Housing",desc:"Types of dwellings"},
+          lifestyle:{icon:"🌱",name:"Way of life",desc:"Daily customs"},
+          tales:{icon:"📖",name:"Tales & proverbs",desc:"Folk tales and sayings"},
+          rituals:{icon:"🔮",name:"Rituals",desc:"Ceremonies and celebrations"},
+          beliefs:{icon:"🙏",name:"Beliefs",desc:"Religion and ancient traditions"},
+          clans:{icon:"👥",name:"Clans & lineage",desc:"Family and social structure"}
+        }
       }
-    },
-    en: {
-      nav_home:"Home", nav_signin:"Sign in", nav_join:"Join",
-      label_speakers:"Speakers", label_topics_done:"Topics completed", label_contributors:"Contributors",
-      progress_title:"A1 PROGRESS",
-      stat_approved:"✅ Approved", stat_review:"🔵 In review", stat_pending:"🔘 Pending",
-      info_title:"LANGUAGE INFO",
-      info_family:"Family", info_country:"Country", info_region:"Region",
-      info_tonal:"Tonal language?", info_tonal_yes:"Yes", info_tonal_no:"No", info_tonal_unknown:"Unknown",
-      info_speakers:"Speakers", info_started:"Started",
-      contrib_title:"DO YOU SPEAK THIS LANGUAGE?",
-      contrib_text:"Join as a contributor and help preserve your heritage language.",
-      contrib_btn:"Join now",
-      culture_label:"CULTURAL ARCHIVE",
-      culture_empty:"No content yet.",
-      culture_add:"Add",
-      topics_grammar:"Grammar", topics_vocab:"Vocabulary",
-      level_locked:"Not started yet",
-      badge_approved:"Approved", badge_review:"In review",
-      badge_pending:"Pending", badge_progress:"In progress",
-      footer_tagline:"Living languages, preserved for generations.",
-      tribe_text:"{language} is the language of the {tribe} people. A single member is called {singular}, the people are called {plural}.",
-      culture_items: {
-        geography:  { icon:"📍", name:"Geography",        desc:"Where they live" },
-        history:    { icon:"📜", name:"Tribe history",    desc:"Origins and history" },
-        lang_history:{ icon:"🗣️", name:"Language history", desc:"Origins of the language" },
-        food:       { icon:"🍲", name:"Traditional food", desc:"Recipes and dishes" },
-        dances:     { icon:"💃", name:"Traditional dances",desc:"Dances and performances" },
-        songs:      { icon:"🎵", name:"Traditional songs", desc:"Songs and poetry" },
-        housing:    { icon:"🏠", name:"Housing",          desc:"Types of dwellings" },
-        lifestyle:  { icon:"🌱", name:"Way of life",      desc:"Daily customs" },
-        tales:      { icon:"📖", name:"Tales & proverbs", desc:"Folk tales and sayings" },
-        rituals:    { icon:"🔮", name:"Rituals",          desc:"Ceremonies and celebrations" },
-        beliefs:    { icon:"🙏", name:"Beliefs",          desc:"Religion and ancient traditions" },
-        clans:      { icon:"👥", name:"Clans & lineage",  desc:"Family and social structure" }
+    }
+
+    let currentLang  = localStorage.getItem('lh_lang') || 'sw'
+    let langData     = null
+    let topicsData   = []
+    let currentLevel = 'A1'
+    let currentUser  = null
+    let userRoles    = []
+
+    window.setLang = function(lang) {
+      currentLang = lang
+      localStorage.setItem('lh_lang', lang)
+      document.getElementById('btn-sw').classList.toggle('active', lang==='sw')
+      document.getElementById('btn-en').classList.toggle('active', lang==='en')
+      const t = i18n[lang]
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n')
+        if (t[key] !== undefined) el.textContent = t[key]
+      })
+      if (langData) render()
+    }
+
+    async function init() {
+      const params = new URLSearchParams(window.location.search)
+      const langId = params.get('id') || 'kikurya'
+
+      // Load user session
+      try {
+        currentUser = await getUser()
+        if (currentUser) userRoles = await getUserRoles(currentUser.id)
+      } catch(e) {}
+
+      try {
+        const [langsRes, topicsRes] = await Promise.all([
+          fetch('data/languages.json'),
+          fetch('data/topics.json')
+        ])
+        const langsJson  = await langsRes.json()
+        const topicsJson = await topicsRes.json()
+        langData   = langsJson.languages.find(l => l.id === langId)
+        topicsData = topicsJson.topics
+        if (!langData) throw new Error('Language not found')
+      } catch(e) {
+        document.querySelector('.three-col').innerHTML =
+          `<div style="color:var(--terracotta);padding:var(--space-xl);">Error: ${e.message}</div>`
+        return
+      }
+
+      renderHero()
+      renderLearnBlock()
+      renderLevelTabs()
+      render()
+    }
+
+    function renderHero() {
+      const t = i18n[currentLang]
+      const l = langData
+      document.title = `Lugha Hai — ${l.name}`
+      document.getElementById('hero-name').textContent  = l.name
+      document.getElementById('hero-title').textContent = l.name
+      document.getElementById('hero-speakers').textContent     = l.speakers || '—'
+      document.getElementById('hero-contributors').textContent = l.contributors ? l.contributors.length : '—'
+
+      if (l.tribe) {
+        const txt = t.tribe_text
+          .replace('{lang}',     l.name)
+          .replace('{tribe}',    l.tribe)
+          .replace('{singular}', l.member_singular || l.tribe)
+          .replace('{plural}',   l.member_plural   || l.tribe)
+        document.getElementById('hero-tribe').textContent = txt
+      } else {
+        document.getElementById('hero-tribe').textContent = `${l.region||''} · ${l.country||''}`
       }
     }
-  };
 
-  let currentLang = localStorage.getItem('lh_lang') || 'sw';
-  let langData    = null;
-  let topicsData  = [];
-  let currentLevel = 'A1';
+    function renderLearnBlock() {
+      const t = i18n[currentLang]
+      const l = langData
+      const tribe = l.tribe || l.name
 
-  // ── LANG ──────────────────────────────────────────────
-  function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('lh_lang', lang);
-    document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    const t = i18n[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.textContent = t[key];
-    });
-    if (langData) render();
-  }
+      document.getElementById('learn-title').textContent =
+        t.learn_title.replace('{lang}', l.name)
+      document.getElementById('learn-desc').textContent =
+        t.learn_desc.replace('{lang}', l.name).replace('{tribe}', tribe)
 
-  // ── LOAD ──────────────────────────────────────────────
-  async function init() {
-    const params = new URLSearchParams(window.location.search);
-    const langId = params.get('id') || 'kikurya';
-
-    try {
-      const [langsRes, topicsRes] = await Promise.all([
-        fetch('data/languages.json'),
-        fetch('data/topics.json')
-      ]);
-      const langsJson  = await langsRes.json();
-      const topicsJson = await topicsRes.json();
-
-      langData   = langsJson.languages.find(l => l.id === langId);
-      topicsData = topicsJson.topics;
-
-      if (!langData) throw new Error('Language not found: ' + langId);
-    } catch(e) {
-      document.querySelector('.three-col').innerHTML =
-        `<div style="color:var(--terracotta);padding:var(--space-xl);">Error: ${e.message}</div>`;
-      return;
+      // Learn button — placeholder for now
+      document.getElementById('learnBtn').href = '#'
+      document.getElementById('learnBtn').onclick = (e) => {
+        e.preventDefault()
+        alert(currentLang === 'sw'
+          ? 'Sehemu ya kujifunza itakuwa tayari hivi karibuni!'
+          : 'Learning section coming soon!')
+      }
     }
 
-    renderHero();
-    renderLevelTabs();
-    render();
-  }
-
-  // ── HERO ──────────────────────────────────────────────
-  function renderHero() {
-    const t   = i18n[currentLang];
-    const l   = langData;
-
-    document.title = `Lugha Hai — ${l.name}`;
-    document.getElementById('hero-name').textContent  = l.name;
-    document.getElementById('hero-title').textContent = l.name;
-    document.getElementById('hero-speakers').textContent =
-      l.speakers || '—';
-    document.getElementById('hero-contributors').textContent =
-      l.contributors ? l.contributors.length : '—';
-
-    // Tribe text — auto substitution
-    if (l.tribe) {
-      const tribeText = t.tribe_text
-        .replace('{language}',  l.name)
-        .replace('{tribe}',     l.tribe)
-        .replace('{singular}',  l.member_singular || l.tribe)
-        .replace('{plural}',    l.member_plural   || l.tribe);
-      document.getElementById('hero-tribe').innerHTML =
-        `<strong>${l.tribe}</strong> · ${tribeText}`;
-    } else {
-      document.getElementById('hero-tribe').textContent =
-        `${l.region || ''} · ${l.country || ''}`;
-    }
-  }
-
-  // ── LEVEL TABS ────────────────────────────────────────
-  function renderLevelTabs() {
-    const t      = i18n[currentLang];
-    const levels = langData.levels ? Object.keys(langData.levels) : ['A1'];
-    document.getElementById('levelTabs').innerHTML = levels.map(lvl => {
-      const active = lvl === currentLevel;
-      const locked = !langData.levels[lvl]?.active;
-      return `<button
-        class="level-tab ${active?'active':''} ${locked?'locked':''}"
-        onclick="${locked?'':` selectLevel('${lvl}')`}"
-        ${locked?`title="${t.level_locked}"`:''}>
-        ${lvl}${locked?' 🔒':''}
-      </button>`;
-    }).join('');
-  }
-
-  // ── RENDER ALL ────────────────────────────────────────
-  function render() {
-    renderTopics();
-    renderProgress();
-    renderInfo();
-    renderCulture();
-  }
-
-  // ── TOPICS ────────────────────────────────────────────
-  function renderTopics() {
-    const t   = i18n[currentLang];
-    const nk  = currentLang;
-    const lvl = langData.levels?.[currentLevel];
-    const col = document.getElementById('topicsCol');
-
-    if (!lvl || !lvl.active) {
-      col.innerHTML = `<div style="text-align:center;padding:var(--space-2xl);color:var(--text-muted);">${t.level_locked}</div>`;
-      return;
+    function renderLevelTabs() {
+      const t      = i18n[currentLang]
+      const levels = langData.levels ? Object.keys(langData.levels) : ['A1']
+      document.getElementById('levelTabs').innerHTML = levels.map(lvl => {
+        const active = lvl === currentLevel
+        const locked = !langData.levels[lvl]?.active
+        return `<button
+          class="level-tab ${active?'active':''} ${locked?'locked':''}"
+          onclick="${locked?'':` selectLevel('${lvl}')`}"
+          ${locked?`title="${t.level_locked}"`:''}>
+          ${lvl}${locked?' 🔒':''}
+        </button>`
+      }).join('')
     }
 
-    // Build status lookup from languages.json
-    const statusMap = {};
-    [...(lvl.grammar||[]), ...(lvl.vocabulary||[]), ...(lvl.phonetics||[])].forEach(t => {
-      statusMap[t.id] = t.status || 'pending';
-    });
+    function render() {
+      renderLeft()
+      renderProgress()
+      renderInfo()
+      renderCulture()
+    }
 
-    function renderGroup(topicIds, sectionLabel) {
-      if (!topicIds || !topicIds.length) return '';
-      let html = `<div class="section-label">${sectionLabel}</div>`;
-      topicIds.forEach(ref => {
-        // Get name from topics.json
-        const topicDef = topicsData.find(tp => tp.id === ref.id);
-        const name = topicDef ? topicDef.name[nk] : ref.id;
-        const status = statusMap[ref.id] || 'pending';
-        const badgeMap = {
-          approved:    { cls:'badge--approved',    label:t.badge_approved },
-          review:      { cls:'badge--review',      label:t.badge_review },
-          in_progress: { cls:'badge--in-progress', label:t.badge_progress },
-          pending:     { cls:'badge--not-started', label:t.badge_pending }
-        };
-        const badge = badgeMap[status] || badgeMap.pending;
-        html += `
-          <a href="contributor/topic.html?id=${ref.id}" class="topic-card ${status==='approved'?'approved':''}">
-            <div class="topic-card__name">${name}</div>
-            <div class="topic-card__right">
-              <span class="badge ${badge.cls}" style="font-size:0.7rem;">${badge.label}</span>
-              <span class="topic-card__arrow">›</span>
+    // Check if user has role for this language
+    function hasRole(role) {
+      if (!currentUser) return false
+      return userRoles.some(r =>
+        r.role === role && (r.language_id === langData.id || r.language_id === '*')
+      )
+    }
+
+    function renderLeft() {
+      const t   = i18n[currentLang]
+      const nk  = currentLang
+      const lvl = langData.levels?.[currentLevel]
+      const col = document.getElementById('leftCol')
+
+      const statusMap = {}
+      if (lvl) {
+        ;[...(lvl.grammar||[]), ...(lvl.vocabulary||[])].forEach(t => { statusMap[t.id] = t.status || 'pending' })
+      }
+
+      function topicCards(ids) {
+        if (!ids || !ids.length) return ''
+        return ids.map(ref => {
+          const def    = topicsData.find(tp => tp.id === ref.id)
+          const name   = def ? def.name[nk] : ref.id
+          const status = statusMap[ref.id] || 'pending'
+          const badge  = { approved:'badge--approved', review:'badge--review', in_progress:'badge--in-progress', pending:'badge--not-started' }[status] || 'badge--not-started'
+          const label  = { approved:t.badge_approved, review:t.badge_review, in_progress:t.badge_progress, pending:t.badge_pending }[status] || t.badge_pending
+          return `
+            <a href="contributor/topic.html?id=${ref.id}" class="topic-card ${status==='approved'?'approved':''}">
+              <div class="topic-card__name">${name}</div>
+              <div class="topic-card__right">
+                <span class="badge ${badge}" style="font-size:0.7rem;">${label}</span>
+                <span style="color:var(--text-muted);">›</span>
+              </div>
+            </a>`
+        }).join('')
+      }
+
+      // Fake topic cards for blurred preview
+      const fakeCards = `
+        <div style="background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-sm);height:52px;"></div>
+        <div style="background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-sm);height:52px;opacity:0.7;"></div>
+        <div style="background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-sm);height:52px;opacity:0.4;"></div>`
+
+      const isContributor = hasRole('contributor')
+      const isModerator   = hasRole('moderator')
+
+      col.innerHTML = `
+
+        ${lvl ? `
+          <!-- Topics visible to contributors -->
+          ${isContributor ? `
+            <div class="section-label">${t.topics_grammar}</div>
+            ${topicCards(lvl.grammar)}
+            <div class="section-label" style="margin-top:var(--space-xl);">${t.topics_vocab}</div>
+            ${topicCards(lvl.vocabulary)}
+          ` : ''}
+        ` : ''}
+
+        <!-- Contributor zone -->
+        ${isContributor ? '' : `
+          <div class="locked-zone">
+            <div class="locked-zone__content">${fakeCards}${fakeCards}</div>
+            <div class="locked-zone__overlay">
+              <div class="locked-zone__icon">🗣️</div>
+              <div class="locked-zone__title">${t.contrib_zone_title}</div>
+              <div class="locked-zone__desc">${t.contrib_zone_desc}</div>
+              <a href="profile/index.html" class="btn btn--primary btn--sm">${t.contrib_zone_btn}</a>
             </div>
-          </a>`;
-      });
-      return html;
+          </div>
+        `}
+
+        <!-- Moderator zone -->
+        ${isModerator ? `
+          <div class="section-label" style="margin-top:var(--space-xl);">🔵 ${currentLang==='sw'?'Ukanda wa Wasimamizi':'Moderators Zone'}</div>
+          <a href="moderator/index.html" class="btn btn--secondary w-full" style="justify-content:center;display:flex;">
+            ${currentLang==='sw'?'Dashibodi ya Msimamizi':'Moderator Dashboard'}
+          </a>
+        ` : `
+          <div class="locked-zone" style="margin-top:var(--space-lg);">
+            <div class="locked-zone__content">${fakeCards}</div>
+            <div class="locked-zone__overlay">
+              <div class="locked-zone__icon">✅</div>
+              <div class="locked-zone__title">${t.mod_zone_title}</div>
+              <div class="locked-zone__desc">${t.mod_zone_desc}</div>
+              <a href="profile/index.html" class="btn btn--secondary btn--sm">${t.mod_zone_btn}</a>
+            </div>
+          </div>
+        `}
+      `
     }
 
-    col.innerHTML =
-      renderGroup(lvl.grammar,    t.topics_grammar) +
-      renderGroup(lvl.vocabulary, t.topics_vocab);
-  }
+    function renderProgress() {
+      const lvl = langData.levels?.[currentLevel]
+      if (!lvl) return
+      const all      = [...(lvl.grammar||[]), ...(lvl.vocabulary||[]), ...(lvl.phonetics||[])]
+      const total    = all.length
+      const approved = all.filter(t => t.status === 'approved').length
+      const review   = all.filter(t => t.status === 'review').length
+      const pct      = total ? Math.round(approved/total*100) : 0
 
-  // ── PROGRESS ──────────────────────────────────────────
-  function renderProgress() {
-    const lvl = langData.levels?.[currentLevel];
-    if (!lvl) return;
+      document.getElementById('prog-pct').textContent      = pct + '%'
+      document.getElementById('prog-sub').textContent      = `${approved} / ${total}`
+      document.getElementById('prog-bar').style.width      = pct + '%'
+      document.getElementById('prog-approved').textContent = approved
+      document.getElementById('prog-review').textContent   = review
+      document.getElementById('prog-pending').textContent  = total - approved - review
+      document.getElementById('hero-done').textContent     = approved
+    }
 
-    const all      = [...(lvl.grammar||[]), ...(lvl.vocabulary||[]), ...(lvl.phonetics||[])];
-    const total    = all.length;
-    const approved = all.filter(t => t.status === 'approved').length;
-    const review   = all.filter(t => t.status === 'review').length;
-    const pending  = total - approved - review;
-    const pct      = total ? Math.round(approved/total*100) : 0;
+    function renderInfo() {
+      const t = i18n[currentLang]
+      const l = langData
+      const tonal = l.tonal === true ? t.info_tonal_yes : l.tonal === false ? t.info_tonal_no : t.info_tonal_unknown
+      const rows = [
+        { label:t.info_family,   value:l.family   || '—' },
+        { label:t.info_country,  value:l.country  || '—' },
+        { label:t.info_region,   value:l.subregion|| l.region || '—' },
+        { label:t.info_speakers, value:l.speakers || '—' },
+        { label:t.info_tonal,    value:tonal },
+        { label:t.info_started,  value:l.started  || '—' },
+      ]
+      document.getElementById('infoRows').innerHTML = rows.map(r =>
+        `<div class="info-row"><span class="info-row__label">${r.label}</span><span class="info-row__value">${r.value}</span></div>`
+      ).join('')
+    }
 
-    document.getElementById('prog-pct').textContent     = pct + '%';
-    document.getElementById('prog-sub').textContent     = `${approved} / ${total}`;
-    document.getElementById('prog-bar').style.width     = pct + '%';
-    document.getElementById('prog-approved').textContent = approved;
-    document.getElementById('prog-review').textContent   = review;
-    document.getElementById('prog-pending').textContent  = pending;
-    document.getElementById('hero-topics-done').textContent = approved;
-  }
+    function renderCulture() {
+      const t     = i18n[currentLang]
+      const items = t.culture_items
+      document.getElementById('cultureCards').innerHTML = Object.entries(items).map(([key, item]) =>
+        `<a href="#" class="culture-card" onclick="return false;">
+          <div class="culture-card__icon">${item.icon}</div>
+          <div>
+            <div class="culture-card__name">${item.name}</div>
+            <div class="culture-card__count">${t.culture_empty}</div>
+          </div>
+          <span style="color:var(--text-muted);font-size:0.9rem;">›</span>
+        </a>`
+      ).join('')
+    }
 
-  // ── INFO ──────────────────────────────────────────────
-  function renderInfo() {
-    const t = i18n[currentLang];
-    const l = langData;
-    const tonal = l.tonal === true ? t.info_tonal_yes
-                : l.tonal === false ? t.info_tonal_no
-                : t.info_tonal_unknown;
+    window.selectLevel = function(lvl) {
+      currentLevel = lvl
+      renderLevelTabs()
+      renderLeft()
+      renderProgress()
+    }
 
-    const rows = [
-      { label: t.info_family,   value: l.family || '—' },
-      { label: t.info_country,  value: l.country || '—' },
-      { label: t.info_region,   value: l.subregion || l.region || '—' },
-      { label: t.info_speakers, value: l.speakers || '—' },
-      { label: t.info_tonal,    value: tonal },
-      { label: t.info_started,  value: l.started || '—' },
-    ];
-
-    document.getElementById('infoRows').innerHTML = rows.map(r => `
-      <div class="info-row">
-        <span class="info-row__label">${r.label}</span>
-        <span class="info-row__value">${r.value}</span>
-      </div>`).join('');
-  }
-
-  // ── CULTURE ───────────────────────────────────────────
-  function renderCulture() {
-    const t       = i18n[currentLang];
-    const items   = t.culture_items;
-    const langId  = langData.id;
-
-    // Culture entries from langData (empty for now)
-    const cultureData = langData.culture || {};
-
-    document.getElementById('cultureCards').innerHTML =
-      Object.entries(items).map(([key, item]) => {
-        const count = (cultureData[key] || []).length;
-        return `
-          <a href="culture/${langId}/${key}.html" class="culture-card">
-            <div class="culture-card__icon">${item.icon}</div>
-            <div class="culture-card__info">
-              <div class="culture-card__name">${item.name}</div>
-              <div class="culture-card__count">${count > 0 ? count + ' ' + t.culture_add : t.culture_empty}</div>
-            </div>
-            <div class="culture-card__arrow">›</div>
-          </a>`;
-      }).join('');
-  }
-
-  function selectLevel(lvl) {
-    currentLevel = lvl;
-    renderLevelTabs();
-    renderTopics();
-    renderProgress();
-  }
-
-  // ── INIT ──────────────────────────────────────────────
-  setLang(currentLang);
-  init();
+    window.setLang(currentLang)
+    init()
   </script>
-
 </body>
 </html>
