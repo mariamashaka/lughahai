@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Admin · Темы и цены</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
+    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
+    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
+
+    .admin-layout { display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px); }
+    .admin-sidebar { background:var(--green-deep);padding:var(--space-lg) 0;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto; }
+    .admin-sidebar__section { padding:var(--space-sm) var(--space-lg);font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-pale);margin-top:var(--space-md); }
+    .admin-nav-link { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) var(--space-lg);font-size:0.88rem;color:var(--green-pale);transition:all var(--transition);cursor:pointer;border-left:3px solid transparent;text-decoration:none; }
+    .admin-nav-link:hover { background:rgba(255,255,255,0.06);color:var(--cream); }
+    .admin-nav-link.active { background:rgba(255,255,255,0.10);color:var(--cream);border-left-color:var(--terracotta); }
+    .admin-nav-link__icon { font-size:1rem;width:20px;text-align:center; }
+    .admin-content { padding:var(--space-xl);background:var(--cream); }
+    .admin-page-title { font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:4px; }
+    .admin-page-sub { font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-xl); }
+
+    /* Section header */
+    .section-header {
+      display:flex;align-items:center;gap:var(--space-md);
+      margin:var(--space-xl) 0 var(--space-md);
+      padding-bottom:var(--space-sm);
+      border-bottom:2px solid var(--green-mist);
+    }
+    .section-header__title {
+      font-size:0.78rem;font-weight:600;letter-spacing:0.08em;
+      text-transform:uppercase;color:var(--green-deep);
+    }
+    .section-header__badge {
+      font-size:0.7rem;padding:2px 10px;border-radius:99px;
+      background:var(--green-mist);color:var(--green-deep);font-weight:500;
+    }
+
+    /* Topic row */
+    .topic-row {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      padding:var(--space-md) var(--space-lg);
+      margin-bottom:var(--space-sm);
+      display:grid;
+      grid-template-columns:1fr 160px 180px 120px;
+      align-items:center;
+      gap:var(--space-md);
+      box-shadow:0 1px 4px var(--shadow-warm);
+      transition:box-shadow var(--transition);
+    }
+    .topic-row:hover { box-shadow:0 4px 12px var(--shadow-deep); }
+    .topic-row.saving { opacity:0.6; pointer-events:none; }
+
+    .topic-name { font-weight:500;color:var(--text-dark);font-size:0.9rem; }
+    .topic-name span { display:block;font-size:0.75rem;color:var(--text-muted);font-weight:400;margin-top:2px; }
+
+    /* Price input */
+    .price-wrap { position:relative; }
+    .price-input {
+      width:100%;padding:8px 40px 8px 12px;
+      border:1.5px solid var(--cream-border);
+      border-radius:var(--radius-md);
+      font-size:0.9rem;font-weight:500;color:var(--text-dark);
+      background:var(--white);outline:none;
+      transition:border-color var(--transition),box-shadow var(--transition);
+      font-family:var(--font-body);
+    }
+    .price-input:focus { border-color:var(--green-soft);box-shadow:0 0 0 3px rgba(92,140,117,0.15); }
+    .price-input.changed { border-color:var(--gold); }
+    .price-suffix {
+      position:absolute;right:10px;top:50%;transform:translateY(-50%);
+      font-size:0.72rem;color:var(--text-muted);pointer-events:none;
+    }
+
+    /* Toggle switch */
+    .toggle-wrap { display:flex;align-items:center;gap:var(--space-sm); }
+    .toggle-label { font-size:0.78rem;color:var(--text-soft); }
+    .toggle {
+      position:relative;width:44px;height:24px;flex-shrink:0;
+    }
+    .toggle input { opacity:0;width:0;height:0; }
+    .toggle-slider {
+      position:absolute;inset:0;background:var(--cream-border);
+      border-radius:99px;cursor:pointer;transition:all 0.25s;
+    }
+    .toggle-slider:before {
+      content:'';position:absolute;width:18px;height:18px;
+      left:3px;top:3px;background:var(--white);
+      border-radius:50%;transition:all 0.25s;
+      box-shadow:0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle input:checked + .toggle-slider { background:var(--green-soft); }
+    .toggle input:checked + .toggle-slider:before { transform:translateX(20px); }
+
+    /* Save button per row */
+    .save-row-btn {
+      padding:6px 16px;border-radius:var(--radius-md);border:none;
+      background:var(--green-deep);color:var(--cream);
+      font-size:0.78rem;font-weight:500;cursor:pointer;
+      transition:all var(--transition);white-space:nowrap;
+      font-family:var(--font-body);
+    }
+    .save-row-btn:hover { background:var(--green-mid); }
+    .save-row-btn:disabled { opacity:0.4;cursor:not-allowed; }
+    .save-row-btn.saved { background:var(--green-soft); }
+
+    /* Info banner */
+    .info-banner {
+      background:var(--green-mist);border:1px solid var(--green-pale);
+      border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);
+      margin-bottom:var(--space-xl);
+      display:flex;align-items:flex-start;gap:var(--space-md);
+      font-size:0.85rem;color:var(--green-deep);
+    }
+
+    /* Toast */
+    #toast {
+      position:fixed;bottom:24px;right:24px;
+      background:var(--green-deep);color:var(--cream);
+      padding:12px 20px;border-radius:12px;
+      font-size:0.875rem;font-weight:500;
+      box-shadow:0 4px 16px rgba(0,0,0,0.18);
+      z-index:9999;opacity:0;transform:translateY(8px);
+      transition:all 0.25s ease;pointer-events:none;
+    }
+    #toast.show { opacity:1;transform:translateY(0); }
+
+    /* Loading */
+    .loading { text-align:center;padding:var(--space-2xl);color:var(--text-muted); }
+
+    @media(max-width:900px) {
+      .admin-layout { grid-template-columns:1fr; }
+      .admin-sidebar { position:static;height:auto; }
+      .topic-row { grid-template-columns:1fr 1fr;grid-template-rows:auto auto; }
+    }
+    @media(max-width:600px) {
+      .topic-row { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container" style="max-width:100%;padding:0 var(--space-lg);">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div style="display:flex;align-items:center;gap:var(--space-md);">
+          <span style="font-size:0.78rem;color:var(--text-muted);" data-i18n="admin_label">Msimamizi Mkuu</span>
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+
+    <div class="admin-sidebar">
+      <div class="admin-sidebar__section">MUHTASARI</div>
+      <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span>Dashibodi</span></a>
+      <div class="admin-sidebar__section">MAUDHUI</div>
+      <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span>Lugha</span></a>
+      <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span>Watumiaji</span></a>
+      <a href="topics.html" class="admin-nav-link active"><span class="admin-nav-link__icon">📚</span><span data-i18n="nav_topics">Mada na Bei</span></a>
+      <a href="disputes.html" class="admin-nav-link"><span class="admin-nav-link__icon">⚠️</span><span>Pingamizi</span></a>
+      <div class="admin-sidebar__section">FEDHA</div>
+      <a href="#" class="admin-nav-link"><span class="admin-nav-link__icon">💰</span><span>Malipo</span></a>
+      <div style="padding:var(--space-lg);">
+        <a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);">← Angalia tovuti</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="admin-page-title" data-i18n="page_title">Темы и цены</div>
+      <div class="admin-page-sub" data-i18n="page_sub">Управление ценами и видимостью оплаты для каждой темы</div>
+
+      <div class="info-banner">
+        <span style="font-size:1.2rem;flex-shrink:0;">💡</span>
+        <div data-i18n="info_text">
+          <b>Показывать цену</b> — если выключено, носитель видит тему без информации об оплате. Включите когда будете готовы показывать. Цену можно менять в любой момент — сохраняется сразу в базу.
+        </div>
+      </div>
+
+      <div id="topicsContainer">
+        <div class="loading">⏳ <span data-i18n="loading">Загрузка...</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script>
+    const i18n = {
+      sw: {
+        admin_label:"Msimamizi Mkuu", nav_signout:"Toka",
+        nav_topics:"Mada na Bei",
+        page_title:"Mada na Bei",
+        page_sub:"Simamia bei na uonyeshaji wa malipo kwa kila mada",
+        info_text:"<b>Onyesha bei</b> — ikiwa imezimwa, mchangiaji anaona mada bila habari za malipo. Washa unapokuwa tayari kuonyesha. Bei inaweza kubadilishwa wakati wowote.",
+        loading:"Inapakia...",
+        section_grammar:"Sarufi",
+        section_vocab:"Msamiati",
+        show_price_label:"Onyesha bei",
+        price_label:"Bei (TZS)",
+        btn_save:"Hifadhi",
+        btn_saved:"✓ Imehifadhiwa",
+        toast_ok:"Imehifadhiwa!",
+        toast_err:"Hitilafu. Jaribu tena.",
+      },
+      en: {
+        admin_label:"Admin", nav_signout:"Sign out",
+        nav_topics:"Topics & Prices",
+        page_title:"Topics & Prices",
+        page_sub:"Manage payment amounts and visibility for each topic",
+        info_text:"<b>Show price</b> — if off, contributors see the topic without payment information. Turn on when ready to show. Price can be changed any time.",
+        loading:"Loading...",
+        section_grammar:"Grammar",
+        section_vocab:"Vocabulary",
+        show_price_label:"Show price",
+        price_label:"Price (TZS)",
+        btn_save:"Save",
+        btn_saved:"✓ Saved",
+        toast_ok:"Saved!",
+        toast_err:"Error. Please try again.",
+      }
+    };
+
+    let currentLang = 'sw';
+    let topics = [];
+    // Track unsaved changes per topic
+    const changed = {};
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('btn-sw').classList.toggle('active', lang==='sw');
+      document.getElementById('btn-en').classList.toggle('active', lang==='en');
+      const t = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      if (topics.length) renderTopics();
+    }
+
+    async function loadTopics() {
+      try {
+        const { data, error } = await supabase
+          .from('topics')
+          .select('*')
+          .order('sort_order');
+        if (error) throw error;
+        topics = data;
+        renderTopics();
+      } catch(e) {
+        document.getElementById('topicsContainer').innerHTML =
+          `<div class="loading" style="color:var(--terracotta);">Ошибка загрузки: ${e.message}</div>`;
+      }
+    }
+
+    function renderTopics() {
+      const t = i18n[currentLang];
+      const grammar = topics.filter(tp => tp.type === 'grammar');
+      const vocab   = topics.filter(tp => tp.type === 'vocabulary');
+
+      let html = '';
+
+      html += `<div class="section-header">
+        <div class="section-header__title">📖 ${t.section_grammar}</div>
+        <div class="section-header__badge">${grammar.length}</div>
+      </div>`;
+      grammar.forEach(tp => { html += topicRowHTML(tp, t); });
+
+      html += `<div class="section-header">
+        <div class="section-header__title">💬 ${t.section_vocab}</div>
+        <div class="section-header__badge">${vocab.length}</div>
+      </div>`;
+      vocab.forEach(tp => { html += topicRowHTML(tp, t); });
+
+      document.getElementById('topicsContainer').innerHTML = html;
+    }
+
+    function topicRowHTML(tp, t) {
+      const name    = currentLang === 'sw' ? tp.name_sw : tp.name_en;
+      const altName = currentLang === 'sw' ? tp.name_en : tp.name_sw;
+      const isChanged = changed[tp.id];
+      return `
+        <div class="topic-row" id="row-${tp.id}">
+          <div class="topic-name">
+            ${name}
+            <span>${altName}</span>
+          </div>
+          <div class="price-wrap">
+            <input
+              type="number"
+              class="price-input ${isChanged?'changed':''}"
+              value="${tp.payment_tzs}"
+              min="0" step="500"
+              id="price-${tp.id}"
+              onchange="markChanged('${tp.id}')"
+              oninput="markChanged('${tp.id}')"
+            />
+            <span class="price-suffix">TZS</span>
+          </div>
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="toggle-${tp.id}"
+                ${tp.show_payment ? 'checked' : ''}
+                onchange="markChanged('${tp.id}')">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" data-i18n="show_price_label">${t.show_price_label}</span>
+          </div>
+          <button
+            class="save-row-btn"
+            id="btn-${tp.id}"
+            onclick="saveRow('${tp.id}')">
+            ${t.btn_save}
+          </button>
+        </div>`;
+    }
+
+    function markChanged(id) {
+      changed[id] = true;
+      const inp = document.getElementById('price-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (inp) inp.classList.add('changed');
+      if (btn) { btn.textContent = i18n[currentLang].btn_save; btn.classList.remove('saved'); }
+    }
+
+    async function saveRow(id) {
+      const priceInput  = document.getElementById('price-' + id);
+      const toggleInput = document.getElementById('toggle-' + id);
+      const btn         = document.getElementById('btn-' + id);
+      const row         = document.getElementById('row-' + id);
+      if (!priceInput || !toggleInput) return;
+
+      const newPrice    = parseInt(priceInput.value, 10);
+      const newShow     = toggleInput.checked;
+
+      if (isNaN(newPrice) || newPrice < 0) {
+        showToast(currentLang === 'sw' ? 'Bei si sahihi' : 'Invalid price', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '...';
+      row.classList.add('saving');
+
+      try {
+        const { error } = await supabase
+          .from('topics')
+          .update({ payment_tzs: newPrice, show_payment: newShow, updated_at: new Date().toISOString() })
+          .eq('id', id);
+        if (error) throw error;
+
+        // Update local state
+        const tp = topics.find(t => t.id === id);
+        if (tp) { tp.payment_tzs = newPrice; tp.show_payment = newShow; }
+        delete changed[id];
+
+        priceInput.classList.remove('changed');
+        btn.classList.add('saved');
+        btn.textContent = i18n[currentLang].btn_saved;
+        showToast(i18n[currentLang].toast_ok, 'success');
+      } catch(e) {
+        showToast(i18n[currentLang].toast_err, 'error');
+        btn.textContent = i18n[currentLang].btn_save;
+      } finally {
+        btn.disabled = false;
+        row.classList.remove('saving');
+      }
+    }
+
+    function showToast(msg, type) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.style.background = type === 'error' ? 'var(--terracotta)' : 'var(--green-deep)';
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2500);
+    }
+
+    // Init
+    setLang('sw');
+    loadTopics();
+  </script>
+</body>
+</html>
