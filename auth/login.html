@@ -148,7 +148,7 @@
     window.handleGoogleLogin = async function() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: 'https://lughahai.netlify.app/profile/index.html' }
+options: { redirectTo: 'https://mariamashaka.github.io/lughahai/profile/index.html' }
       })
       if (error) console.error('Google error:', error)
     }
