@@ -400,7 +400,9 @@
           render();
           try {
             const fd = new FormData();
-            fd.append('file', blob, id + '_' + Date.now() + '.webm');
+            fd.append('file', blob, id + '.webm');
+            fd.append('public_id', 'lughahai/audio/' + id);
+            fd.append('overwrite', 'true');
             fd.append('upload_preset', CLOUDINARY_PRESET);
             fd.append('folder', 'lughahai/audio');
             const res  = await fetch('https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/video/upload', { method:'POST', body:fd });
