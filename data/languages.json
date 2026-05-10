@@ -202,6 +202,51 @@
       "member_singular": "Mnyamwezi",
       "member_plural": "Wanyamwezi",
       "culture": {}
+},
+    {
+      "id": "kimakonde",
+      "name": "Kimakonde",
+      "country": "Tanzania",
+      "region": "East Africa",
+      "subregion": "Mtwara Region",
+      "family": "Bantu",
+      "speakers": "~1,300,000",
+      "tonal": null,
+      "status": "active",
+      "started": "2026-05",
+      "contributors": [],
+      "moderator": null,
+      "levels": {
+        "A1": {
+          "active": true,
+          "topics_total": 12,
+          "grammar": [
+            {"id":"pronouns","status":"pending"},
+            {"id":"nouns","status":"pending"},
+            {"id":"verb-tenses","status":"pending"},
+            {"id":"agreement","status":"pending"},
+            {"id":"being-having","status":"pending"},
+            {"id":"questions","status":"pending"}
+          ],
+          "vocabulary": [
+            {"id":"communication","status":"pending"},
+            {"id":"person-family","status":"pending"},
+            {"id":"health-emotions","status":"pending"},
+            {"id":"home-food","status":"pending"},
+            {"id":"nature-world","status":"pending"},
+            {"id":"words","status":"pending"}
+          ],
+          "phonetics": []
+        },
+        "A2": {"active":false,"topics_total":0},
+        "B1": {"active":false,"topics_total":0},
+        "B2": {"active":false,"topics_total":0},
+        "C1": {"active":false,"topics_total":0}
+      },
+      "tribe": "Makonde",
+      "member_singular": "Mmakonde",
+      "member_plural": "Wamakonde",
+      "culture": {}
     }
   ]
 }
