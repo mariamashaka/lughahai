@@ -150,8 +150,8 @@
         <div style="display:flex;align-items:center;gap:var(--space-md);">
           <span style="font-size:0.78rem;color:var(--text-muted);" data-i18n="admin_label">Msimamizi Mkuu</span>
           <div class="lang-switcher">
-            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
-            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+            <button class="lang-switcher__btn active" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" id="btn-en">EN</button>
           </div>
           <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
         </div>
@@ -193,10 +193,11 @@
     </div>
   </div>
 
-<div id="toast"></div>
+  <div id="toast"></div>
 
-<script type="module">
-import { supabase } from '../js/supabase.js';
+  <script type="module">
+  import { supabase } from '../js/supabase.js';
+
     const i18n = {
       sw: {
         admin_label:"Msimamizi Mkuu", nav_signout:"Toka",
@@ -284,6 +285,20 @@ import { supabase } from '../js/supabase.js';
       vocab.forEach(tp => { html += topicRowHTML(tp, t); });
 
       document.getElementById('topicsContainer').innerHTML = html;
+
+      // Attach events via delegation (required for type="module")
+      document.getElementById('topicsContainer').addEventListener('input', e => {
+        const id = e.target.dataset.changedId;
+        if (id) markChanged(id);
+      });
+      document.getElementById('topicsContainer').addEventListener('change', e => {
+        const id = e.target.dataset.changedId;
+        if (id) markChanged(id);
+      });
+      document.getElementById('topicsContainer').addEventListener('click', e => {
+        const btn = e.target.closest('[data-save-id]');
+        if (btn) saveRow(btn.dataset.saveId);
+      });
     }
 
     function topicRowHTML(tp, t) {
@@ -303,8 +318,7 @@ import { supabase } from '../js/supabase.js';
               value="${tp.payment_tzs}"
               min="0" step="500"
               id="price-${tp.id}"
-              onchange="markChanged('${tp.id}')"
-              oninput="markChanged('${tp.id}')"
+              data-changed-id="${tp.id}"
             />
             <span class="price-suffix">TZS</span>
           </div>
@@ -312,7 +326,7 @@ import { supabase } from '../js/supabase.js';
             <label class="toggle">
               <input type="checkbox" id="toggle-${tp.id}"
                 ${tp.show_payment ? 'checked' : ''}
-                onchange="markChanged('${tp.id}')">
+                data-changed-id="${tp.id}">
               <span class="toggle-slider"></span>
             </label>
             <span class="toggle-label" data-i18n="show_price_label">${t.show_price_label}</span>
@@ -320,7 +334,7 @@ import { supabase } from '../js/supabase.js';
           <button
             class="save-row-btn"
             id="btn-${tp.id}"
-            onclick="saveRow('${tp.id}')">
+            data-save-id="${tp.id}">
             ${t.btn_save}
           </button>
         </div>`;
@@ -387,6 +401,8 @@ import { supabase } from '../js/supabase.js';
     }
 
     // Init
+    document.getElementById('btn-sw').addEventListener('click', () => setLang('sw'));
+    document.getElementById('btn-en').addEventListener('click', () => setLang('en'));
     setLang('sw');
     loadTopics();
   </script>
