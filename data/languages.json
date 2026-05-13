@@ -104,6 +104,10 @@
       "member_singular": "Mkurya",
       "member_plural": "Wakurya",
       "culture": {}
+      "images": {
+  "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_1_r3bdv2",
+  "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_2_oiiaui"
+}
     },
     {
       "id": "kinyamwezi",
@@ -202,6 +206,10 @@
       "member_singular": "Mnyamwezi",
       "member_plural": "Wanyamwezi",
       "culture": {}
+      "images": {
+  "flags": null,
+  "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/nyamwezi_2_uzxdyl"
+}
 },
     {
       "id": "kimakonde",
@@ -247,6 +255,10 @@
       "member_singular": "Mmakonde",
       "member_plural": "Wamakonde",
       "culture": {}
+      "images": {
+  "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_1_pndw6m",
+  "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_2_fejwes"
+}
     }
   ]
 }
