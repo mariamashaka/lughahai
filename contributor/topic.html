@@ -122,14 +122,21 @@
     </div>
   </footer>
 
-  <script>
+  <script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const supabase = createClient(
+    'https://geogbanccumdcaymhkdb.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+  );
+
   const CLOUDINARY_CLOUD  = 'diwfef3hg';
   const CLOUDINARY_PRESET = 'lughahai_audio';
 
   const i18n = {
     sw: {
       nav_dashboard:"Dashibodi", nav_signout:"Toka", loading:"Inapakia...",
-      btn_save:"Hifadhi rasimu", btn_submit:"Tuma kwa ukaguzi",
+      btn_save:"Hifadhi", btn_submit:"Tuma kwa ukaguzi",
       type_grammar:"Sarufi", type_vocabulary:"Msamiati",
       warning_title:"⚠️ Muhimu kujua",
       w1:"Malipo yanafanywa baada ya ukaguzi wa msimamizi na uthibitisho wa msimamizi mkuu.",
@@ -148,16 +155,17 @@
       checklist_title:"Maendeleo",
       label_translations:"Tafsiri", label_audio:"Sauti", label_done:"Zilizokamilika",
       instructions_title:"Maelekezo",
-      instructions_body:"Kwa kila sentensi: (1) Andika tafsiri kwa lugha yako. (2) Bonyeza 🎙 kurekodi sauti yako — zungumza polepole na wazi. (3) Bonyeza ⏹ kusimama — sauti itapakiwa moja kwa moja. (4) Bonyeza 'Imekamilika' ukimaliza.",
+      instructions_body:"Kwa kila sentensi: (1) Andika tafsiri kwa lugha yako. (2) Bonyeza 🎙 kurekodi — zungumza polepole na wazi. (3) Bonyeza ⏹ kusimama. (4) Bonyeza 'Imekamilika' ukimaliza.",
       status_inprogress:"Inaendelea",
       save_ok:"✓ Imehifadhiwa!", submit_ok:"✓ Imetumwa kwa ukaguzi! Asante.",
       submit_incomplete:"Tafadhali kamilisha tafsiri zote kabla ya kutuma.",
       mic_error:"Ruhusa ya maikrofoni inahitajika",
+      not_logged:"Tafadhali ingia kwanza",
       footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi."
     },
     en: {
       nav_dashboard:"Dashboard", nav_signout:"Sign out", loading:"Loading...",
-      btn_save:"Save draft", btn_submit:"Submit for review",
+      btn_save:"Save", btn_submit:"Submit for review",
       type_grammar:"Grammar", type_vocabulary:"Vocabulary",
       warning_title:"⚠️ Important to know",
       w1:"Payment is made after moderator review and admin confirmation.",
@@ -176,24 +184,29 @@
       checklist_title:"Progress",
       label_translations:"Translations", label_audio:"Audio", label_done:"Completed",
       instructions_title:"Instructions",
-      instructions_body:"For each sentence: (1) Write your translation. (2) Click 🎙 to record — speak slowly and clearly. (3) Click ⏹ to stop — audio uploads automatically. (4) Click 'Mark done' when finished.",
+      instructions_body:"For each sentence: (1) Write your translation. (2) Click 🎙 to record — speak slowly and clearly. (3) Click ⏹ to stop. (4) Click 'Mark done' when finished.",
       status_inprogress:"In progress",
       save_ok:"✓ Saved!", submit_ok:"✓ Submitted for review! Thank you.",
       submit_incomplete:"Please complete all translations before submitting.",
       mic_error:"Microphone permission required",
+      not_logged:"Please sign in first",
       footer_tagline:"Living languages, preserved for generations."
     }
   };
 
-  let currentLang  = localStorage.getItem('lh_lang') || 'sw';
-  let topicData    = null;
-  let phraseState  = {};
-  let recording    = {};
-  let mediaRecorder = null;
-  let audioChunks  = {};
-  let audioLocal   = {};
+  let currentLang    = localStorage.getItem('lh_lang') || 'sw';
+  let topicData      = null;
+  let phraseState    = {};
+  let recording      = {};
+  let mediaRecorder  = null;
+  let audioChunks    = {};
+  let audioLocal     = {};
+  let currentUser    = null;
+  let submissionId   = null;
+  let languageId     = null;
 
-  function setLang(lang) {
+  // ── LANG ──────────────────────────────────────────────
+  window.setLang = function(lang) {
     currentLang = lang;
     localStorage.setItem('lh_lang', lang);
     document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
@@ -206,9 +219,17 @@
     if (topicData) render();
   }
 
+  // ── INIT ──────────────────────────────────────────────
   async function init() {
     const params  = new URLSearchParams(window.location.search);
     const topicId = params.get('id') || 'pronouns';
+    languageId    = params.get('lang') || 'kikurya';
+
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    currentUser = user;
+
+    // Load topic data
     try {
       const res  = await fetch('../data/topics.json');
       const data = await res.json();
@@ -219,19 +240,97 @@
         `<div class="loading" style="color:var(--terracotta);">Hitilafu: ${e.message}</div>`;
       return;
     }
+
+    // Init phrase state
     topicData.blocks.forEach(block => {
       block.phrases.forEach(p => {
         phraseState[p.id] = { translation:'', hasAudio:false, audioUrl:null, audioUploading:false, done:false };
       });
     });
-    loadDraft();
+
+    // Load saved data from Supabase if logged in
+    if (currentUser) {
+      await loadFromSupabase(topicId);
+    } else {
+      loadDraft(); // fallback to localStorage
+    }
+
+    // Update header
     const t = i18n[currentLang];
     document.getElementById('hdr-type').textContent = topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
     document.getElementById('hdr-title').textContent = topicData.name[currentLang];
     document.getElementById('hdr-payment-amount').textContent = topicData.payment_tzs.toLocaleString() + ' TZS';
+
     render();
   }
 
+  // ── LOAD FROM SUPABASE ────────────────────────────────
+  async function loadFromSupabase(topicId) {
+    try {
+      // Get or create submission
+      const { data: existing } = await supabase
+        .from('submissions')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .eq('language_id', languageId)
+        .eq('topic_id', topicId)
+        .single();
+
+      if (existing) {
+        submissionId = existing.id;
+        // Load phrase responses
+        const { data: responses } = await supabase
+          .from('phrase_responses')
+          .select('*')
+          .eq('submission_id', submissionId);
+
+        if (responses) {
+          responses.forEach(r => {
+            if (phraseState[r.phrase_id]) {
+              phraseState[r.phrase_id].translation = r.translation || '';
+              phraseState[r.phrase_id].audioUrl    = r.audio_url || null;
+              phraseState[r.phrase_id].hasAudio    = !!r.audio_url;
+              phraseState[r.phrase_id].done        = r.is_done || false;
+              if (r.audio_url) audioLocal[r.phrase_id] = r.audio_url;
+            }
+          });
+        }
+      } else {
+        // Create new submission
+        const { data: newSub } = await supabase
+          .from('submissions')
+          .insert({ user_id: currentUser.id, language_id: languageId, topic_id: topicId, status: 'in_progress' })
+          .select()
+          .single();
+        if (newSub) submissionId = newSub.id;
+      }
+    } catch(e) {
+      console.warn('Supabase load error:', e);
+      loadDraft(); // fallback
+    }
+  }
+
+  // ── SAVE TO SUPABASE ──────────────────────────────────
+  async function saveToSupabase(phraseId) {
+    if (!submissionId || !currentUser) return;
+    const state = phraseState[phraseId];
+    try {
+      await supabase
+        .from('phrase_responses')
+        .upsert({
+          submission_id: submissionId,
+          phrase_id:     phraseId,
+          translation:   state.translation || null,
+          audio_url:     state.audioUrl    || null,
+          is_done:       state.done        || false,
+          updated_at:    new Date().toISOString()
+        }, { onConflict: 'submission_id,phrase_id' });
+    } catch(e) {
+      console.warn('Save error:', e);
+    }
+  }
+
+  // ── RENDER ────────────────────────────────────────────
   function render() {
     const t  = i18n[currentLang];
     const nk = currentLang;
@@ -361,7 +460,8 @@
     document.getElementById('mainContainer').innerHTML = html;
   }
 
-  function togglePhrase(id) {
+  // ── INTERACTIONS ──────────────────────────────────────
+  window.togglePhrase = function(id) {
     const body = document.getElementById('body-' + id);
     const chev = document.getElementById('chev-' + id);
     if (!body) return;
@@ -369,7 +469,7 @@
     chev.classList.toggle('open', open);
   }
 
-  function onInput(id, value) {
+  window.onInput = function(id, value) {
     if (!phraseState[id]) phraseState[id] = {};
     phraseState[id].translation = value;
     const inp = document.getElementById('inp-' + id);
@@ -377,14 +477,12 @@
     updateChecklist();
   }
 
-  // ── REAL AUDIO ────────────────────────────────────────
-  async function toggleRec(id) {
+  // ── AUDIO ─────────────────────────────────────────────
+  window.toggleRec = async function(id) {
     if (recording[id]) {
-      // STOP
       if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
       recording[id] = false;
     } else {
-      // START
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         audioChunks[id] = [];
@@ -399,16 +497,19 @@
           phraseState[id].audioUploading = true;
           render();
           try {
+            // Use user ID + phrase ID for unique stable filename
+            const userId = currentUser ? currentUser.id.substring(0,8) : 'anon';
+            const fileName = userId + '_' + id;
             const fd = new FormData();
-            fd.append('file', blob, id + '.webm');
-            fd.append('public_id', 'lughahai/audio/' + id);
-            fd.append('overwrite', 'true');
+            fd.append('file', blob, fileName + '.webm');
             fd.append('upload_preset', CLOUDINARY_PRESET);
-            fd.append('folder', 'lughahai/audio');
+            fd.append('public_id', 'lughahai/audio/' + fileName);
             const res  = await fetch('https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/video/upload', { method:'POST', body:fd });
             const data = await res.json();
-            phraseState[id].audioUrl      = data.secure_url;
+            phraseState[id].audioUrl       = data.secure_url;
             phraseState[id].audioUploading = false;
+            // Save to Supabase immediately
+            await saveToSupabase(id);
             showToast(i18n[currentLang].audio_saved, 'success');
           } catch(e) {
             phraseState[id].audioUploading = false;
@@ -426,27 +527,28 @@
     render();
   }
 
-  function playAudio(id) {
+  window.playAudio = function(id) {
     const url = audioLocal[id] || phraseState[id]?.audioUrl;
     if (!url) return;
     new Audio(url).play();
   }
 
-  function deleteAudio(id) {
+  window.deleteAudio = async function(id) {
     if (!phraseState[id]) phraseState[id] = {};
     phraseState[id].hasAudio = false;
     phraseState[id].audioUrl = null;
     phraseState[id].audioUploading = false;
     delete audioLocal[id];
     recording[id] = false;
+    await saveToSupabase(id);
     render();
   }
 
-  function markDone(id) {
+  window.markDone = async function(id) {
     if (!phraseState[id]) phraseState[id] = {};
     phraseState[id].done = !phraseState[id].done;
-    const pb  = document.getElementById('pb-' + id);
-    const num = pb?.querySelector('.phrase-num');
+    const pb   = document.getElementById('pb-' + id);
+    const num  = pb?.querySelector('.phrase-num');
     const body = document.getElementById('body-' + id);
     const chev = document.getElementById('chev-' + id);
     if (phraseState[id].done) {
@@ -457,9 +559,11 @@
     } else {
       if (pb) pb.classList.remove('done');
     }
+    await saveToSupabase(id);
     updateChecklist();
   }
 
+  // ── CHECKLIST ─────────────────────────────────────────
   function updateChecklist() {
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     const total = allPhrases.length;
@@ -480,13 +584,16 @@
     if (bar) bar.style.width = pct + '%';
   }
 
-  function saveDraft() {
-    try {
-      localStorage.setItem('lh_draft_' + topicData.id, JSON.stringify(phraseState));
-      showToast(i18n[currentLang].save_ok, 'success');
-    } catch(e) {}
+  // ── SAVE / SUBMIT ─────────────────────────────────────
+  window.saveDraft = async function() {
+    if (!currentUser) { showToast(i18n[currentLang].not_logged, 'error'); return; }
+    // Save all phrases to Supabase
+    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
+    await Promise.all(allPhrases.map(p => saveToSupabase(p.id)));
+    showToast(i18n[currentLang].save_ok, 'success');
   }
 
+  // Fallback localStorage
   function loadDraft() {
     try {
       const raw = localStorage.getItem('lh_draft_' + topicData.id);
@@ -499,16 +606,22 @@
     } catch(e) {}
   }
 
-  function submitTopic() {
+  window.submitTopic = async function() {
     const t = i18n[currentLang];
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     const allTrl = allPhrases.every(p => phraseState[p.id]?.translation);
     if (!allTrl) { showToast(t.submit_incomplete, 'error'); return; }
-    saveDraft();
+    // Save all to Supabase
+    await Promise.all(allPhrases.map(p => saveToSupabase(p.id)));
+    // Update submission status
+    if (submissionId) {
+      await supabase.from('submissions').update({ status: 'submitted', updated_at: new Date().toISOString() }).eq('id', submissionId);
+    }
     showToast(t.submit_ok, 'success');
     setTimeout(() => window.location.href = 'index.html', 2000);
   }
 
+  // ── TOAST ─────────────────────────────────────────────
   function showToast(msg, type) {
     const colors = { success:{bg:'var(--green-deep)',color:'var(--cream)'}, error:{bg:'var(--terracotta)',color:'var(--white)'}, info:{bg:'#1A5276',color:'var(--white)'} };
     const c = colors[type] || colors.success;
@@ -520,7 +633,8 @@
     setTimeout(() => { el.style.opacity='0'; el.style.transform='translateY(8px)'; setTimeout(() => el.remove(), 300); }, 2800);
   }
 
-  setLang(currentLang);
+  // ── START ─────────────────────────────────────────────
+  window.setLang(currentLang);
   init();
   </script>
 </body>
