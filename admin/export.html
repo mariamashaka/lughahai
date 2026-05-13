@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Admin · Export</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
+    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
+    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
+    .admin-layout { display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px); }
+    .admin-sidebar { background:var(--green-deep);padding:var(--space-lg) 0;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto; }
+    .admin-sidebar__section { padding:var(--space-sm) var(--space-lg);font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-pale);margin-top:var(--space-md); }
+    .admin-nav-link { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) var(--space-lg);font-size:0.88rem;color:var(--green-pale);transition:all var(--transition);cursor:pointer;border-left:3px solid transparent;text-decoration:none; }
+    .admin-nav-link:hover { background:rgba(255,255,255,0.06);color:var(--cream); }
+    .admin-nav-link.active { background:rgba(255,255,255,0.10);color:var(--cream);border-left-color:var(--terracotta); }
+    .admin-nav-link__icon { font-size:1rem;width:20px;text-align:center; }
+    .admin-content { padding:var(--space-xl);background:var(--cream); }
+    .admin-page-title { font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:4px; }
+    .admin-page-sub { font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-xl); }
+
+    .export-form {
+      background:var(--white);border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);padding:var(--space-xl);
+      box-shadow:0 2px 8px var(--shadow-warm);
+      margin-bottom:var(--space-xl);
+    }
+    .form-grid {
+      display:grid;grid-template-columns:1fr 1fr 1fr;
+      gap:var(--space-lg);margin-bottom:var(--space-lg);
+    }
+    .export-btn {
+      background:var(--green-deep);color:var(--cream);
+      padding:12px 28px;border:none;border-radius:var(--radius-md);
+      font-size:0.95rem;font-weight:600;cursor:pointer;
+      font-family:var(--font-body);transition:all var(--transition);
+    }
+    .export-btn:hover { background:var(--green-mid); }
+    .export-btn:disabled { opacity:0.5;cursor:not-allowed; }
+
+    /* Preview table */
+    .preview-wrap {
+      background:var(--white);border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);overflow:hidden;
+      box-shadow:0 2px 8px var(--shadow-warm);
+    }
+    .preview-header {
+      padding:var(--space-md) var(--space-lg);
+      border-bottom:1px solid var(--cream-border);
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:var(--space-md);
+    }
+    .preview-title { font-size:0.9rem;font-weight:600;color:var(--green-deep); }
+    .download-btn {
+      background:var(--green-soft);color:var(--white);
+      padding:6px 18px;border:none;border-radius:var(--radius-md);
+      font-size:0.82rem;font-weight:600;cursor:pointer;
+      font-family:var(--font-body);transition:all var(--transition);
+    }
+    .download-btn:hover { background:var(--green-deep); }
+
+    table { width:100%;border-collapse:collapse;font-size:0.8rem; }
+    thead { background:var(--cream); }
+    thead th { padding:10px var(--space-md);text-align:left;font-size:0.7rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--cream-border); }
+    tbody td { padding:10px var(--space-md);color:var(--text-mid);border-bottom:1px solid var(--cream-border);vertical-align:top; }
+    tbody tr:last-child td { border-bottom:none; }
+    tbody tr:hover td { background:var(--cream); }
+    .td-id { font-family:monospace;color:var(--text-soft);font-size:0.72rem; }
+    .td-translation { color:var(--green-deep);font-weight:500; }
+    .td-audio { font-size:0.72rem; }
+    .audio-link { color:var(--green-mid);text-decoration:none; }
+    .audio-link:hover { text-decoration:underline; }
+    .no-audio { color:var(--text-muted); }
+    .badge-done { background:var(--green-mist);color:var(--green-deep);padding:2px 8px;border-radius:99px;font-size:0.68rem;font-weight:500; }
+    .badge-pending { background:var(--cream-dark);color:var(--text-muted);padding:2px 8px;border-radius:99px;font-size:0.68rem; }
+
+    .empty-state { text-align:center;padding:var(--space-2xl);color:var(--text-muted); }
+    .loading { text-align:center;padding:var(--space-xl);color:var(--text-muted); }
+
+    @media(max-width:900px) {
+      .admin-layout { grid-template-columns:1fr; }
+      .admin-sidebar { position:static;height:auto; }
+      .form-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container" style="max-width:100%;padding:0 var(--space-lg);">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div style="display:flex;align-items:center;gap:var(--space-md);">
+          <span style="font-size:0.78rem;color:var(--text-muted);">Msimamizi Mkuu</span>
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar__section">MUHTASARI</div>
+      <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span>Dashibodi</span></a>
+      <div class="admin-sidebar__section">MAUDHUI</div>
+      <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span>Lugha</span></a>
+      <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span>Watumiaji</span></a>
+      <a href="topics.html" class="admin-nav-link"><span class="admin-nav-link__icon">📚</span><span>Mada na Bei</span></a>
+      <a href="disputes.html" class="admin-nav-link"><span class="admin-nav-link__icon">⚠️</span><span>Pingamizi</span></a>
+      <div class="admin-sidebar__section">DATA</div>
+      <a href="export.html" class="admin-nav-link active"><span class="admin-nav-link__icon">⬇️</span><span>Hamisha data</span></a>
+      <div class="admin-sidebar__section">FEDHA</div>
+      <a href="#" class="admin-nav-link"><span class="admin-nav-link__icon">💰</span><span>Malipo</span></a>
+      <div style="padding:var(--space-lg);">
+        <a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);">← Angalia tovuti</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="admin-page-title">⬇️ Hamisha data</div>
+      <div class="admin-page-sub">Chagua lugha, mada na mchangiaji — upakue CSV kwa uchanganuzi</div>
+
+      <div class="export-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Lugha</label>
+            <select class="form-select" id="selLanguage">
+              <option value="">— chagua —</option>
+              <option value="kikurya">Kikurya</option>
+              <option value="kinyamwezi">Kinyamwezi</option>
+              <option value="kimakonde">Kimakonde</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mada</label>
+            <select class="form-select" id="selTopic">
+              <option value="">— chagua —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mchangiaji</label>
+            <select class="form-select" id="selContributor">
+              <option value="">Wote</option>
+            </select>
+          </div>
+        </div>
+        <button class="export-btn" id="btnLoad" onclick="loadData()">🔍 Angalia data</button>
+      </div>
+
+      <div id="previewArea"></div>
+    </div>
+  </div>
+
+  <script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const supabase = createClient(
+    'https://geogbanccumdcaymhkdb.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+  );
+
+  let topicsData = [];
+  let profilesCache = {};
+
+  // Load topics for dropdown
+  async function loadTopics() {
+    const res  = await fetch('../data/topics.json');
+    const data = await res.json();
+    topicsData = data.topics;
+    const sel  = document.getElementById('selTopic');
+    topicsData.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t.id;
+      opt.textContent = t.name.sw + ' / ' + t.name.en;
+      sel.appendChild(opt);
+    });
+  }
+
+  // Load contributors for selected language
+  document.getElementById('selLanguage').addEventListener('change', async function() {
+    const langId = this.value;
+    const sel    = document.getElementById('selContributor');
+    sel.innerHTML = '<option value="">Wote</option>';
+    if (!langId) return;
+    // Get users with contributor role for this language
+    const { data: roles } = await supabase
+      .from('user_roles')
+      .select('user_id')
+      .eq('language_id', langId)
+      .eq('role', 'contributor')
+      .eq('status', 'approved');
+    if (!roles || !roles.length) return;
+    // Get profiles
+    const ids = roles.map(r => r.user_id);
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, full_name')
+      .in('id', ids);
+    if (!profiles) return;
+    profiles.forEach(p => {
+      profilesCache[p.id] = p.full_name;
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = p.full_name || p.id.substring(0,8);
+      sel.appendChild(opt);
+    });
+  });
+
+  window.loadData = async function() {
+    const langId      = document.getElementById('selLanguage').value;
+    const topicId     = document.getElementById('selTopic').value;
+    const contributorId = document.getElementById('selContributor').value;
+
+    if (!langId || !topicId) {
+      alert('Tafadhali chagua lugha na mada');
+      return;
+    }
+
+    document.getElementById('previewArea').innerHTML =
+      '<div class="loading">⏳ Inapakia...</div>';
+
+    // Find topic phrases
+    const topic = topicsData.find(t => t.id === topicId);
+    if (!topic) return;
+    const allPhrases = topic.blocks.flatMap(b => b.phrases);
+    const phraseMap  = {};
+    allPhrases.forEach(p => { phraseMap[p.id] = p; });
+
+    // Get submissions
+    let subsQuery = supabase
+      .from('submissions')
+      .select('id, user_id, status')
+      .eq('language_id', langId)
+      .eq('topic_id', topicId);
+    if (contributorId) subsQuery = subsQuery.eq('user_id', contributorId);
+    const { data: submissions } = await subsQuery;
+
+    if (!submissions || !submissions.length) {
+      document.getElementById('previewArea').innerHTML =
+        '<div class="preview-wrap"><div class="empty-state">😔 Hakuna data bado kwa chaguo hili.</div></div>';
+      return;
+    }
+
+    // Get all phrase responses for these submissions
+    const subIds = submissions.map(s => s.id);
+    const { data: responses } = await supabase
+      .from('phrase_responses')
+      .select('*')
+      .in('submission_id', subIds);
+
+    // Get contributor names
+    const userIds = [...new Set(submissions.map(s => s.user_id))];
+    for (const uid of userIds) {
+      if (!profilesCache[uid]) {
+        const { data: p } = await supabase.from('profiles').select('full_name').eq('id', uid).single();
+        profilesCache[uid] = p?.full_name || uid.substring(0,8);
+      }
+    }
+
+    // Build rows: one row per phrase per contributor
+    const rows = [];
+    submissions.forEach(sub => {
+      const contribName = profilesCache[sub.user_id] || sub.user_id.substring(0,8);
+      const subResponses = (responses || []).filter(r => r.submission_id === sub.id);
+      allPhrases.forEach(phrase => {
+        const resp = subResponses.find(r => r.phrase_id === phrase.id);
+        rows.push({
+          contributor: contribName,
+          phrase_id:   phrase.id,
+          sw:          phrase.sw,
+          en:          phrase.en,
+          ctx_sw:      phrase.ctx_sw || '',
+          translation: resp?.translation || '',
+          has_audio:   !!resp?.audio_url,
+          audio_url:   resp?.audio_url || '',
+          is_done:     resp?.is_done || false,
+          status:      sub.status
+        });
+      });
+    });
+
+    // Render preview
+    const contributorLabel = contributorId
+      ? (profilesCache[contributorId] || contributorId)
+      : 'Wachangiaji wote';
+
+    document.getElementById('previewArea').innerHTML = `
+      <div class="preview-wrap">
+        <div class="preview-header">
+          <div class="preview-title">
+            ${topic.name.sw} · ${contributorLabel} · ${rows.length} safu
+          </div>
+          <button class="download-btn" onclick="downloadCSV()">⬇️ Pakua CSV</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Mchangiaji</th>
+                <th>ID</th>
+                <th>Kiswahili</th>
+                <th>English</th>
+                <th>Muktadha</th>
+                <th>Tafsiri</th>
+                <th>Sauti</th>
+                <th>Hali</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.contributor}</td>
+                  <td class="td-id">${r.phrase_id}</td>
+                  <td>${r.sw}</td>
+                  <td>${r.en}</td>
+                  <td style="font-size:0.72rem;color:var(--text-muted);">${r.ctx_sw}</td>
+                  <td class="td-translation">${r.translation || '<span style="color:var(--text-muted);font-style:italic;">—</span>'}</td>
+                  <td class="td-audio">
+                    ${r.audio_url
+                      ? `<a href="${r.audio_url}" target="_blank" class="audio-link">▶ Sikiliza</a>`
+                      : '<span class="no-audio">—</span>'}
+                  </td>
+                  <td>
+                    ${r.is_done
+                      ? '<span class="badge-done">✓ Imekamilika</span>'
+                      : '<span class="badge-pending">Inaendelea</span>'}
+                  </td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+
+    // Store rows for CSV download
+    window._exportRows = rows;
+    window._exportTopic = topic;
+  }
+
+  window.downloadCSV = function() {
+    const rows  = window._exportRows;
+    const topic = window._exportTopic;
+    if (!rows) return;
+
+    const headers = ['Mchangiaji', 'phrase_id', 'Kiswahili', 'English', 'Muktadha', 'Tafsiri', 'Audio URL', 'Imekamilika'];
+    const csvRows = [
+      headers.join(','),
+      ...rows.map(r => [
+        `"${r.contributor}"`,
+        `"${r.phrase_id}"`,
+        `"${r.sw.replace(/"/g,'""')}"`,
+        `"${r.en.replace(/"/g,'""')}"`,
+        `"${r.ctx_sw.replace(/"/g,'""')}"`,
+        `"${r.translation.replace(/"/g,'""')}"`,
+        `"${r.audio_url}"`,
+        r.is_done ? 'Ndiyo' : 'Hapana'
+      ].join(','))
+    ];
+
+    const blob = new Blob(['\uFEFF' + csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `lughahai_${topic.id}_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Lang switcher
+  document.getElementById('btn-sw').addEventListener('click', () => {
+    document.getElementById('btn-sw').classList.add('active');
+    document.getElementById('btn-en').classList.remove('active');
+  });
+  document.getElementById('btn-en').addEventListener('click', () => {
+    document.getElementById('btn-en').classList.add('active');
+    document.getElementById('btn-sw').classList.remove('active');
+  });
+
+  loadTopics();
+  </script>
+</body>
+</html> 
