@@ -301,7 +301,7 @@
 
       noResults.style.display = 'none';
       grid.innerHTML = data.map(lang => {
-        const progress = Math.round((lang.topics_done / lang.topics_total) * 100);
+        const progress = lang.topics_total > 0 ? Math.round((lang.topics_done / lang.topics_total) * 100) : 0;
         const badges = lang.levels.map(l =>
           `<span class="badge badge--approved" style="font-size:0.7rem;">${l}</span>`
         ).join('');
