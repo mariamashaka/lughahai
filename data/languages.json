@@ -12,102 +12,45 @@
       "status": "active",
       "started": "2026-04",
       "contributors": [
-        {
-          "name": "Priska Morara",
-          "initials": "PM"
-        },
-        {
-          "name": "Chaha Gesase",
-          "initials": "CG"
-        }
+        { "name": "Priska Morara", "initials": "PM" },
+        { "name": "Chaha Gesase", "initials": "CG" }
       ],
-      "moderator": {
-        "name": "Ayeke Gesase",
-        "initials": "AG"
-      },
+      "moderator": { "name": "Ayeke Gesase", "initials": "AG" },
       "levels": {
         "A1": {
           "active": true,
           "topics_total": 12,
           "grammar": [
-            {
-              "id": "pronouns",
-              "status": "approved"
-            },
-            {
-              "id": "nouns",
-              "status": "pending"
-            },
-            {
-              "id": "verb-tenses",
-              "status": "pending"
-            },
-            {
-              "id": "agreement",
-              "status": "pending"
-            },
-            {
-              "id": "being-having",
-              "status": "pending"
-            },
-            {
-              "id": "questions",
-              "status": "pending"
-            }
+            { "id": "pronouns", "status": "approved" },
+            { "id": "nouns", "status": "pending" },
+            { "id": "verb-tenses", "status": "pending" },
+            { "id": "agreement", "status": "pending" },
+            { "id": "being-having", "status": "pending" },
+            { "id": "questions", "status": "pending" }
           ],
           "vocabulary": [
-            {
-              "id": "communication-numbers-time",
-              "status": "pending"
-            },
-            {
-              "id": "person-family",
-              "status": "pending"
-            },
-            {
-              "id": "health-emotions",
-              "status": "pending"
-            },
-            {
-              "id": "home-food",
-              "status": "pending"
-            },
-            {
-              "id": "nature-world",
-              "status": "pending"
-            },
-            {
-              "id": "words",
-              "status": "pending"
-            }
+            { "id": "communication-numbers-time", "status": "pending" },
+            { "id": "person-family", "status": "pending" },
+            { "id": "health-emotions", "status": "pending" },
+            { "id": "home-food", "status": "pending" },
+            { "id": "nature-world", "status": "pending" },
+            { "id": "words", "status": "pending" }
           ],
           "phonetics": []
         },
-        "A2": {
-          "active": false,
-          "topics_total": 0
-        },
-        "B1": {
-          "active": false,
-          "topics_total": 0
-        },
-        "B2": {
-          "active": false,
-          "topics_total": 0
-        },
-        "C1": {
-          "active": false,
-          "topics_total": 0
-        }
+        "A2": { "active": false, "topics_total": 0 },
+        "B1": { "active": false, "topics_total": 0 },
+        "B2": { "active": false, "topics_total": 0 },
+        "C1": { "active": false, "topics_total": 0 }
       },
       "tribe": "Kurya",
       "member_singular": "Mkurya",
       "member_plural": "Wakurya",
       "culture": {},
       "images": {
-  "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_1_r3bdv2",
-  "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_2_oiiaui"
-}
+        "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_1_r3bdv2",
+        "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_2_oiiaui"
+      }
     },
     {
       "id": "kinyamwezi",
@@ -121,10 +64,7 @@
       "status": "active",
       "started": "2026-04",
       "contributors": [
-        {
-          "name": "Shabani",
-          "initials": "SH"
-        }
+        { "name": "Shabani", "initials": "SH" }
       ],
       "moderator": null,
       "levels": {
@@ -132,85 +72,37 @@
           "active": true,
           "topics_total": 12,
           "grammar": [
-            {
-              "id": "pronouns",
-              "status": "pending"
-            },
-            {
-              "id": "nouns",
-              "status": "pending"
-            },
-            {
-              "id": "verb-tenses",
-              "status": "pending"
-            },
-            {
-              "id": "agreement",
-              "status": "pending"
-            },
-            {
-              "id": "being-having",
-              "status": "pending"
-            },
-            {
-              "id": "questions",
-              "status": "pending"
-            }
+            { "id": "pronouns", "status": "pending" },
+            { "id": "nouns", "status": "pending" },
+            { "id": "verb-tenses", "status": "pending" },
+            { "id": "agreement", "status": "pending" },
+            { "id": "being-having", "status": "pending" },
+            { "id": "questions", "status": "pending" }
           ],
           "vocabulary": [
-            {
-              "id": "communication-numbers-time",
-              "status": "pending"
-            },
-            {
-              "id": "person-family",
-              "status": "pending"
-            },
-            {
-              "id": "health-emotions",
-              "status": "pending"
-            },
-            {
-              "id": "home-food",
-              "status": "pending"
-            },
-            {
-              "id": "nature-world",
-              "status": "pending"
-            },
-            {
-              "id": "words",
-              "status": "pending"
-            }
+            { "id": "communication-numbers-time", "status": "pending" },
+            { "id": "person-family", "status": "pending" },
+            { "id": "health-emotions", "status": "pending" },
+            { "id": "home-food", "status": "pending" },
+            { "id": "nature-world", "status": "pending" },
+            { "id": "words", "status": "pending" }
           ],
           "phonetics": []
         },
-        "A2": {
-          "active": false,
-          "topics_total": 0
-        },
-        "B1": {
-          "active": false,
-          "topics_total": 0
-        },
-        "B2": {
-          "active": false,
-          "topics_total": 0
-        },
-        "C1": {
-          "active": false,
-          "topics_total": 0
-        }
+        "A2": { "active": false, "topics_total": 0 },
+        "B1": { "active": false, "topics_total": 0 },
+        "B2": { "active": false, "topics_total": 0 },
+        "C1": { "active": false, "topics_total": 0 }
       },
       "tribe": "Nyamwezi",
       "member_singular": "Mnyamwezi",
       "member_plural": "Wanyamwezi",
-      "culture": {}
+      "culture": {},
       "images": {
-  "flags": null,
-  "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/nyamwezi_2_uzxdyl"
-}
-},
+        "flags": null,
+        "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/nyamwezi_2_uzxdyl"
+      }
+    },
     {
       "id": "kimakonde",
       "name": "Kimakonde",
@@ -229,36 +121,36 @@
           "active": true,
           "topics_total": 12,
           "grammar": [
-            {"id":"pronouns","status":"pending"},
-            {"id":"nouns","status":"pending"},
-            {"id":"verb-tenses","status":"pending"},
-            {"id":"agreement","status":"pending"},
-            {"id":"being-having","status":"pending"},
-            {"id":"questions","status":"pending"}
+            { "id": "pronouns", "status": "pending" },
+            { "id": "nouns", "status": "pending" },
+            { "id": "verb-tenses", "status": "pending" },
+            { "id": "agreement", "status": "pending" },
+            { "id": "being-having", "status": "pending" },
+            { "id": "questions", "status": "pending" }
           ],
           "vocabulary": [
-            {"id":"communication","status":"pending"},
-            {"id":"person-family","status":"pending"},
-            {"id":"health-emotions","status":"pending"},
-            {"id":"home-food","status":"pending"},
-            {"id":"nature-world","status":"pending"},
-            {"id":"words","status":"pending"}
+            { "id": "communication", "status": "pending" },
+            { "id": "person-family", "status": "pending" },
+            { "id": "health-emotions", "status": "pending" },
+            { "id": "home-food", "status": "pending" },
+            { "id": "nature-world", "status": "pending" },
+            { "id": "words", "status": "pending" }
           ],
           "phonetics": []
         },
-        "A2": {"active":false,"topics_total":0},
-        "B1": {"active":false,"topics_total":0},
-        "B2": {"active":false,"topics_total":0},
-        "C1": {"active":false,"topics_total":0}
+        "A2": { "active": false, "topics_total": 0 },
+        "B1": { "active": false, "topics_total": 0 },
+        "B2": { "active": false, "topics_total": 0 },
+        "C1": { "active": false, "topics_total": 0 }
       },
       "tribe": "Makonde",
       "member_singular": "Mmakonde",
       "member_plural": "Wamakonde",
-      "culture": {}
+      "culture": {},
       "images": {
-  "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_1_pndw6m",
-  "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_2_fejwes"
-}
+        "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_1_pndw6m",
+        "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_2_fejwes"
+      }
     }
   ]
 }
