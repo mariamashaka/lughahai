@@ -46,20 +46,20 @@
               "ctx_sw": "",
               "ctx_en": ""
             },
-            {
-              "id": "a3",
-              "sw": "John anaenda nyumbani",
-              "en": "John is going home",
-              "ctx_sw": "(John — mvulana)",
-              "ctx_en": "(John — boy)"
-            },
-            {
-              "id": "a4",
-              "sw": "Anna anaenda nyumbani",
-              "en": "Anna is going home",
-              "ctx_sw": "(Anna — msichana)",
-              "ctx_en": "(Anna — girl)"
-            },
+{
+  "id": "a3",
+  "sw": "John anaenda nyumbani. Yeye anaenda nyumbani",
+  "en": "John is going home. He is going home",
+  "ctx_sw": "(John — mvulana)",
+  "ctx_en": "(John — boy)"
+},
+{
+  "id": "a4",
+  "sw": "Anna anaenda nyumbani. Yeye anaenda nyumbani",
+  "en": "Anna is going home. She is going home",
+  "ctx_sw": "(Anna — msichana)",
+  "ctx_en": "(Anna — girl)"
+},
             {
               "id": "a5",
               "sw": "Sisi tunaenda nyumbani",
@@ -133,7 +133,7 @@
             {
               "id": "a15",
               "sw": "Mimi na Grace (sisi wawili tu) tunaenda nyumbani",
-              "en": "Anna and I (just the two of us) are going home",
+              "en": "I and Grace (just the two of us) are going home",
               "ctx_sw": "(wasichana wawili tu)",
               "ctx_en": "(just two girls)"
             },
