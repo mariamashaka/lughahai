@@ -1,0 +1,6 @@
+[
+  { "id": "pronouns", "path": "data/topics/a1/grammar/pronouns.json" },
+  { "id": "nouns", "path": "data/topics/a1/grammar/nouns.json" },
+  { "id": "verb-tenses", "path": "data/topics/a1/grammar/verb-tenses.json" },
+  { "id": "communication-numbers-time", "path": "data/topics/a1/vocabulary/communication-numbers-time.json" }
+]
