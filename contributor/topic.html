@@ -231,9 +231,12 @@
 
     // Load topic data
     try {
-      const res  = await fetch('../data/topics.json');
-      const data = await res.json();
-      topicData  = data.topics.find(t => t.id === topicId);
+const indexRes = await fetch('../data/index.json');
+const index    = await indexRes.json();
+const entry    = index.find(t => t.id === topicId);
+if (!entry) throw new Error('Topic not found in index: ' + topicId);
+const res  = await fetch('../' + entry.path);
+topicData  = await res.json();
       if (!topicData) throw new Error('Topic not found: ' + topicId);
     } catch(e) {
       document.getElementById('mainContainer').innerHTML =
