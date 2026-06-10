@@ -418,6 +418,50 @@
             }
           ]
         },
+          {
+  "id": "possessive_agreement",
+  "label": {
+    "sw": "C2. Upatanisho wa umiliki — vitu tofauti",
+    "en": "C2. Possessive agreement — different objects"
+  },
+  "phrases": [
+    {
+      "id": "c2_1",
+      "sw": "Hii ni kitabu cha John / ni chake",
+      "en": "This is John's book / it is his",
+      "ctx_sw": "(kitu — kitabu)",
+      "ctx_en": "(object — book)"
+    },
+    {
+      "id": "c2_2",
+      "sw": "Hii ni nyumba ya John / ni yake",
+      "en": "This is John's house / it is his",
+      "ctx_sw": "(kitu — nyumba)",
+      "ctx_en": "(object — house)"
+    },
+    {
+      "id": "c2_3",
+      "sw": "Huyu ni ng'ombe wa John / ni wake",
+      "en": "This is John's cow / it is his",
+      "ctx_sw": "(mnyama — ng'ombe)",
+      "ctx_en": "(animal — cow)"
+    },
+    {
+      "id": "c2_4",
+      "sw": "Huu ni mti wa John / ni wake",
+      "en": "This is John's tree / it is his",
+      "ctx_sw": "(mmea — mti)",
+      "ctx_en": "(plant — tree)"
+    },
+    {
+      "id": "c2_5",
+      "sw": "Hizi ni pesa za John / ni zake",
+      "en": "This is John's money / it is his",
+      "ctx_sw": "(dhana — pesa)",
+      "ctx_en": "(abstract — money)"
+    }
+  ]
+},
         {
           "id": "demonstrative",
           "label": {
