@@ -563,6 +563,50 @@
           ]
         }
       ],
+        {
+  "id": "stories",
+  "label": {
+    "sw": "E. Hadithi fupi",
+    "en": "E. Short stories"
+  },
+  "phrases": [
+    {
+      "id": "s1",
+      "sw": "John anasema kwa Anna: 'Hii ni kitabu changu!' Anna anajibu: 'Hapana, ni kitabu changu!' Grace anawaangalia na kusema: 'Ni kitabu chake — nilimwona akinunua.'",
+      "en": "John says to Anna: 'This is my book!' Anna replies: 'No, it is my book!' Grace looks at them and says: 'It is her book — I saw her buy it.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "s2",
+      "sw": "Daniel anasema kwa John: 'Anakuangalia wewe.' John anasema: 'Hapana, anakuangalia wewe.' Grace anasema: 'Ninawaangalia ninyi wote kwa sababu mnazuia njia yangu.'",
+      "en": "Daniel says to John: 'She is looking at you.' John says: 'No, she is looking at you.' Grace says: 'I am looking at both of you because you are blocking my way.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "s3",
+      "sw": "Grace anasema kwa Anna: 'Yule mwanamke ananiangalia mimi.' Anna anasema: 'Nani — yeye?' Grace anasema: 'Yule!' Anna anasema: 'Grace, hiyo ni kioo.'",
+      "en": "Grace says to Anna: 'That woman is looking at me.' Anna says: 'Who — her?' Grace says: 'That one!' Anna says: 'Grace, that is a mirror.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "s4",
+      "sw": "Anna anasema: 'Wao wanaenda nyumbani — wao wawili tu.' Grace anauliza: 'Wao ni nani?' Anna anasema: 'John na Daniel. Si sisi. Sisi tunabaki.'",
+      "en": "Anna says: 'They are going home — just the two of them.' Grace asks: 'Who are they?' Anna says: 'John and Daniel. Not us. We are staying.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "s5",
+      "sw": "John anasema: 'Huyu ng'ombe ni wangu.' Daniel anasema: 'Hapana, ni wetu.' Anna anasema: 'Ni wa mzee. Kimbia.'",
+      "en": "John says: 'This cow is mine.' Daniel says: 'No, it is ours.' Anna says: 'It is the elder's. Run.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    }
+  ]
+}
       "moderator_questions": [
         {
           "id": "mq1",
