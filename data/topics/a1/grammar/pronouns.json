@@ -611,8 +611,8 @@
           "sw": "Swali 3: Mnyambuliko wa majina (hali za nomino)",
           "en": "Question 3: Noun cases",
           "body": {
-            "sw": "Katika Kiswahili John daima ni John. Katika Kirusi: Чача — вижу Чачу — говорю Чаче. Katika lugha yako — majina na viwakilishi yanabadilika katika sentensi tofauti au daima yanabaki sawa?",
-            "en": "In Swahili John is always John. In Russian: Чача — I see Чачу — I speak to Чаче. In your language — do names and pronouns change in different sentences or always stay the same?"
+            "sw": "Katika Kiswahili John daima ni John. Katika Kirusi: Джон — вижу Джона — говорю Джону. Katika lugha yako — majina na viwakilishi yanabadilika katika sentensi tofauti au daima yanabaki sawa?",
+            "en": "In Swahili John is always John. In Russian: Джон — I see Джона — I speak to с Джоном. In your language — do names and pronouns change in different sentences or always stay the same?"
           },
           "options": {
             "sw": [
