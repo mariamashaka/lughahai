@@ -1813,6 +1813,49 @@
           ]
         }
       ],
+        {
+  "id": "stories",
+  "label": {
+    "sw": "J. Hadithi fupi",
+    "en": "J. Short stories"
+  },
+  "phrases": [
+    {
+      "id": "j1",
+      "sw": "John ana nyumba mpya. Ndogo, lakini nzuri. Anna anasema: 'Nyumba nzuri, John!' John anasema: 'Asante. Ingia.'",
+      "en": "John has a new house. Small, but beautiful. Anna says: 'Beautiful house, John!' John says: 'Thank you. Come in.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "j2",
+      "sw": "Anna na Grace wanakaa kando ya mto. Mto mkubwa, maji baridi. Wanakaa kimya. Vizuri.",
+      "en": "Anna and Grace sit by the river. A big river, cold water. They sit in silence. Good.",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "j3",
+      "sw": "Grace alipata jiwe dogo. Jiwe zuri. Jiwe jeupe. Analibeba nyumbani. Jiwe hilo litakuwa chini ya mto wa Grace.",
+      "en": "Grace found a small stone. A beautiful stone. A white stone. She carries it home. That stone will lie under Grace's pillow.",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "j4",
+      "sw": "Grace ana mbuzi. Mbuzi anakula vitabu. Kitabu kimoja, vitabu viwili, vitabu vitatu. Grace anasema: 'Simama!' Mbuzi anasema: 'Kimoja kingine.'",
+      "en": "Grace has a goat. The goat eats books. One book, two books, three books. Grace says: 'Stop!' The goat says: 'One more.'",
+      "ctx_sw": "",
+      "ctx_en": ""
+    },
+    {
+      "id": "j5",
+      "sw": "Anna ana mbwa. Mbwa anavaa miwani na kusoma kitabu. Anna anasema: 'Miwani yangu iko wapi?' Mbwa anamletea miwani, lakini bila miwani yeye haoni chochote. Mbwa anaacha kitabu. Jinsi gani kusoma kitabu bila miwani?",
+      "en": "Anna has a dog. The dog puts on glasses and reads a book. Anna says: 'Where are my glasses?' The dog brings her the glasses, but without glasses she cannot see anything. The dog drops the book. How can you read a book without glasses?",
+      "ctx_sw": "",
+      "ctx_en": ""
+    }
+  ],
       "moderator_questions": [
         {
           "id": "mq1",
