@@ -22,7 +22,7 @@
       "phrases": [
         {
           "id": "a1",
-          "sw": "Mimi naenda nyumbani",
+          "sw": "Mimi ninaenda nyumbani",
           "en": "I am going home",
           "ctx_sw": "",
           "ctx_en": ""
@@ -57,22 +57,22 @@
         },
         {
           "id": "a6",
-          "sw": "Mimi na Grace tunaenda nyumbani",
-          "en": "Grace and I are going home",
+          "sw": "Mimi na Grace tunaenda nyumbani. Sisi tunaenda nyumbani",
+          "en": "Grace and I are going home. We are going home",
           "ctx_sw": "(wasichana wote wawili)",
           "ctx_en": "(both girls)"
         },
         {
           "id": "a7",
-          "sw": "Mimi na John tunaenda nyumbani",
-          "en": "John and I are going home",
+          "sw": "Mimi na John tunaenda nyumbani. Sisi tunaenda nyumbani",
+          "en": "John and I are going home. We are going home",
           "ctx_sw": "(jinsia tofauti)",
           "ctx_en": "(different genders)"
         },
         {
           "id": "a8",
-          "sw": "John na Daniel tunaenda nyumbani",
-          "en": "John and Daniel are going home",
+          "sw": "John na Daniel tunaenda nyumbani. Sisi tunaenda nyumbani",
+          "en": "John and Daniel are going home. We are going home",
           "ctx_sw": "(wavulana wote wawili)",
           "ctx_en": "(both boys)"
         },
@@ -85,71 +85,71 @@
         },
         {
           "id": "a10",
-          "sw": "Grace na Anna, mnakwenda nyumbani?",
-          "en": "Grace and Anna, are you going home?",
+          "sw": "Grace na Anna, mnaenda nyumbani? Ninyi mnaenda nyumbani?",
+          "en": "Grace and Anna, are you going home? Are you going home?",
           "ctx_sw": "(wasichana tu)",
           "ctx_en": "(girls only)"
         },
         {
           "id": "a11",
-          "sw": "John na Daniel, mnakwenda nyumbani?",
-          "en": "John and Daniel, are you going home?",
+          "sw": "John na Daniel, mnaenda nyumbani? Ninyi mnaenda nyumbani?",
+          "en": "John and Daniel, are you going home? Are you going home?",
           "ctx_sw": "(wavulana tu)",
           "ctx_en": "(boys only)"
         },
         {
           "id": "a12",
-          "sw": "John na Grace wanaenda nyumbani",
-          "en": "John and Grace are going home",
+          "sw": "John na Grace wanaenda nyumbani. Wao wanaenda nyumbani",
+          "en": "John and Grace are going home. They are going home",
           "ctx_sw": "(wanaume na wanawake)",
           "ctx_en": "(mixed group)"
         },
         {
           "id": "a13",
-          "sw": "Grace na Anna wanaenda nyumbani",
-          "en": "Grace and Anna are going home",
+          "sw": "Grace na Anna wanaenda nyumbani. Wao wanaenda nyumbani",
+          "en": "Grace and Anna are going home. They are going home",
           "ctx_sw": "(wasichana tu)",
           "ctx_en": "(girls only)"
         },
         {
           "id": "a14",
-          "sw": "John na Daniel wanaenda nyumbani",
-          "en": "John and Daniel are going home",
+          "sw": "John na Daniel wanaenda nyumbani. Wao wanaenda nyumbani",
+          "en": "John and Daniel are going home. They are going home",
           "ctx_sw": "(wavulana tu)",
           "ctx_en": "(boys only)"
         },
         {
           "id": "a15",
-          "sw": "Mimi na Grace (sisi wawili tu) tunaenda nyumbani",
-          "en": "I and Grace (just the two of us) are going home",
+          "sw": "Mimi na Grace (sisi wawili tu) tunaenda nyumbani. Sisi tunaenda nyumbani",
+          "en": "I and Grace (just the two of us) are going home. We are going home",
           "ctx_sw": "(wasichana wawili tu)",
           "ctx_en": "(just two girls)"
         },
         {
           "id": "a16",
-          "sw": "Mimi na John (sisi wawili tu) tunaenda nyumbani",
-          "en": "John and I (just the two of us) are going home",
+          "sw": "Mimi na John (sisi wawili tu) tunaenda nyumbani. Sisi tunaenda nyumbani",
+          "en": "John and I (just the two of us) are going home. We are going home",
           "ctx_sw": "(jinsia tofauti, wawili tu)",
           "ctx_en": "(different genders, just two)"
         },
         {
           "id": "a17",
-          "sw": "John na Daniel (wao wawili tu) wanaenda nyumbani",
-          "en": "John and Daniel (just the two of them) are going home",
+          "sw": "John na Daniel (wao wawili tu) wanaenda nyumbani. Wao wanaenda nyumbani",
+          "en": "John and Daniel (just the two of them) are going home. They are going home",
           "ctx_sw": "(wavulana wawili tu)",
           "ctx_en": "(just two boys)"
         },
         {
           "id": "a18",
-          "sw": "John anauliza Grace na Anna (ninyi wawili tu): mtakuja?",
-          "en": "John says to Grace and Anna (just the two of you): will you come?",
+          "sw": "John anauliza Grace na Anna (ninyi wawili tu): mtakuja? Yeye anauliza wao",
+          "en": "John says to Grace and Anna (just the two of you): will you come? He asks them",
           "ctx_sw": "",
           "ctx_en": ""
         },
         {
           "id": "a19",
-          "sw": "Anna anasema: John na Daniel (wao wawili tu) wanaenda nyumbani",
-          "en": "Anna says: John and Daniel (just the two of them) are going home",
+          "sw": "Anna anasema: John na Daniel (wao wawili tu) wanaenda nyumbani. Yeye anasema: wao wanaenda nyumbani",
+          "en": "Anna says: John and Daniel (just the two of them) are going home. She says: they are going home",
           "ctx_sw": "",
           "ctx_en": ""
         },
