@@ -4406,6 +4406,85 @@
               "ctx_en": "[R14_IMP_POL_NEG]"
             }
           ]
+        },
+          {
+          "id": "stories",
+          "label": {
+            "sw": "E. Hadithi fupi",
+            "en": "E. Short stories"
+          },
+          "phrases": [
+            {
+              "id": "vt_story1_title",
+              "sw": "Mpishi Mpya",
+              "en": "The New Cook",
+              "ctx_sw": "hadithi ya kuchekesha",
+              "ctx_en": "funny story"
+            },
+            {
+              "id": "vt_story1_body",
+              "sw": "John aliamua kupika chakula cha jioni kwa mara ya kwanza maishani mwake. Alisoma mapishi lakini alichanganya chumvi na sukari. Anna alionja supu na akatabasamu kwa upole. Grace alionja na akakimbia kutafuta maji. Daniel hakuonja — alikwisha elewa kila kitu kwa harufu tu.",
+              "en": "John decided to cook dinner for the first time in his life. He read the recipe but mixed up the salt and the sugar. Anna tasted the soup and smiled politely. Grace tasted it and ran for water. Daniel did not taste it — he had already understood everything from the smell.",
+              "ctx_sw": "",
+              "ctx_en": ""
+            },
+            {
+              "id": "vt_story2_title",
+              "sw": "Lugha ya Ndege",
+              "en": "The Language of Birds",
+              "ctx_sw": "hadithi ya ajabu",
+              "ctx_en": "magical story"
+            },
+            {
+              "id": "vt_story2_body",
+              "sw": "Siku moja asubuhi Anna aliamka na kugundua kwamba anaelewa lugha ya ndege. Ndege aliyekuwa juu ya mti alisema: leo usiende sokoni. Anna alibaki nyumbani. Jioni alijua kwamba mvua kubwa ilikuwa imenyesha sokoni. Asubuhi iliyofuata alisikiliza ndege tena — lakini walikuwa wanazungumza tu kuhusu minyoo.",
+              "en": "One morning Anna woke up and found that she could understand the language of birds. A bird sitting in the tree said: do not go to the market today. Anna stayed home. In the evening she learned that heavy rain had fallen at the market. The next morning she listened to the birds again — but they were only talking about worms.",
+              "ctx_sw": "",
+              "ctx_en": ""
+            },
+            {
+              "id": "vt_story3_title",
+              "sw": "Ufunguo Uliopotea",
+              "en": "The Lost Key",
+              "ctx_sw": "hadithi ya kawaida",
+              "ctx_en": "everyday story"
+            },
+            {
+              "id": "vt_story3_body",
+              "sw": "Grace alipoteza ufunguo wa nyumba yake. Alitafuta kwa saa moja — ndani ya mfuko, mfukoni, chini ya mto. Alimpigia John simu. John alikuja na kupata ufunguo kwa dakika moja. Ulikuwa mezani karibu na mlango. Grace alisema asante na akafunga mlango. Kisha akagundua kwamba John bado yuko nje.",
+              "en": "Grace lost the key to her house. She searched for one hour — in her bag, in her pocket, under the pillow. She called John. John came and found the key in one minute. It was on the table next to the door. Grace said thank you and closed the door. Then she realized that John was still outside.",
+              "ctx_sw": "",
+              "ctx_en": ""
+            },
+            {
+              "id": "vt_story4_title",
+              "sw": "Kwa Wakati",
+              "en": "On Time",
+              "ctx_sw": "hadithi ya kawaida",
+              "ctx_en": "everyday story"
+            },
+            {
+              "id": "vt_story4_body",
+              "sw": "Daniel aliahidi kuja saa moja usiku. Saa moja hakuja. Saa mbili pia. Saa tatu Anna alikula chakula chake cha jioni. Saa nne Daniel alifika na kusema: nilikuja kwa wakati — sikukuambia siku ipi.",
+              "en": "Daniel promised to come at seven. At seven he did not come. At eight either. At nine Anna ate his dinner. At ten Daniel arrived and said: I came on time — I just did not say which day.",
+              "ctx_sw": "",
+              "ctx_en": ""
+            },
+            {
+              "id": "vt_story5_title",
+              "sw": "Simu Mpya",
+              "en": "The New Phone",
+              "ctx_sw": "hadithi ya kawaida",
+              "ctx_en": "everyday story"
+            },
+            {
+              "id": "vt_story5_body",
+              "sw": "John alinunua simu mpya. Hakuweza kuelewa jinsi inavyofanya kazi. Alimwomba Anna — hakuweza. Alimwomba Grace — yeye pia hakuweza. Kisha akaita mtoto wa jirani wa miaka minane. Mtoto alirekebishia kila kitu kwa dakika mbili na akaenda bila kugeuka.",
+              "en": "John bought a new phone. He could not understand how it worked. He asked Anna — she could not figure it out. He asked Grace — she could not either. Then he called the neighbour's child who was eight years old. The child fixed everything in two minutes and left without looking back.",
+              "ctx_sw": "",
+              "ctx_en": ""
+            }
+          ]
         }
       ],
       "moderator_questions": [
