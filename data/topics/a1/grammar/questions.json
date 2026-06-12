@@ -1,0 +1,880 @@
+{
+  "id": "questions",
+  "type": "grammar",
+  "level": "A1",
+  "order": 6,
+  "payment_tzs": 5000,
+  "name": {
+    "sw": "Maswali (ndiyo/hapana, maneno ya kuuliza)",
+    "en": "Questions (yes/no, question words)"
+  },
+  "description": {
+    "sw": "Maswali ya ndiyo/hapana, maneno ya kuuliza: nani, nini, wapi, lini, jinsi gani, kwa nini, ngapi.",
+    "en": "Yes/no questions, question words: who, what, where, when, how, why, how many."
+  },
+  "blocks": [
+    {
+      "id": "block_simple",
+      "label": {
+        "sw": "A. Sentensi rahisi — jozi 13 (kauli + swali + majibu)",
+        "en": "A. Simple sentences — 13 pairs (statement + question + answers)"
+      },
+      "phrases": [
+        {
+          "id": "q_s1_stmt",
+          "sw": "Wewe unaenda nyumbani.",
+          "en": "You are going home.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s1_yn",
+          "sw": "Je, unaenda nyumbani? Ndiyo, ninaenda nyumbani. Hapana, siendi nyumbani.",
+          "en": "Are you going home? Yes, I am going home. No, I am not going home.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s1_wh",
+          "sw": "Unaenda wapi?",
+          "en": "Where are you going?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_s2_stmt",
+          "sw": "John anasoma kitabu.",
+          "en": "John is reading a book.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s2_yn",
+          "sw": "Je, John anasoma kitabu? Ndiyo, John anasoma kitabu. Hapana, John hasomi kitabu.",
+          "en": "Is John reading a book? Yes, John is reading a book. No, John is not reading a book.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s2_wh",
+          "sw": "John anasoma nini?",
+          "en": "What is John reading?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_s3_stmt",
+          "sw": "Anna yuko nyumbani.",
+          "en": "Anna is at home.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s3_yn",
+          "sw": "Je, Anna yuko nyumbani? Ndiyo, Anna yuko nyumbani. Hapana, Anna hayuko nyumbani.",
+          "en": "Is Anna at home? Yes, Anna is at home. No, Anna is not at home.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s3_wh",
+          "sw": "Anna yuko wapi?",
+          "en": "Where is Anna?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_s4_stmt",
+          "sw": "Grace anaona mbwa.",
+          "en": "Grace sees a dog.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s4_yn",
+          "sw": "Je, Grace anaona mbwa? Ndiyo, Grace anaona mbwa. Hapana, Grace haoni mbwa.",
+          "en": "Does Grace see a dog? Yes, Grace sees a dog. No, Grace does not see a dog.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s4_wh",
+          "sw": "Grace anaona nini?",
+          "en": "What does Grace see?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_s5_stmt",
+          "sw": "Daniel anakula wali.",
+          "en": "Daniel is eating rice.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s5_yn",
+          "sw": "Je, Daniel anakula wali? Ndiyo, Daniel anakula wali. Hapana, Daniel hakuli wali.",
+          "en": "Is Daniel eating rice? Yes, Daniel is eating rice. No, Daniel is not eating rice.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s5_wh",
+          "sw": "Daniel anakula nini?",
+          "en": "What is Daniel eating?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_s6_stmt",
+          "sw": "Mnajua Grace.",
+          "en": "You know Grace.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s6_yn",
+          "sw": "Je, mnajua Grace? Ndiyo, tunajua Grace. Hapana, hatujui Grace.",
+          "en": "Do you know Grace? Yes, we know Grace. No, we do not know Grace.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s6_wh",
+          "sw": "Mnajua nani?",
+          "en": "Who do you know?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_s7_stmt",
+          "sw": "Wanafanya kazi shambani.",
+          "en": "They are working in the field.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s7_yn",
+          "sw": "Je, wanafanya kazi shambani? Ndiyo, wanafanya kazi shambani. Hapana, hawafanyi kazi shambani.",
+          "en": "Are they working in the field? Yes, they are working in the field. No, they are not working in the field.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s7_wh",
+          "sw": "Wanafanya kazi wapi?",
+          "en": "Where are they working?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_s8_stmt",
+          "sw": "John alikuja jana.",
+          "en": "John came yesterday.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s8_yn",
+          "sw": "Je, John alikuja jana? Ndiyo, John alikuja jana. Hapana, John hakuja jana.",
+          "en": "Did John come yesterday? Yes, John came yesterday. No, John did not come yesterday.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s8_wh",
+          "sw": "John alikuja lini?",
+          "en": "When did John come?",
+          "ctx_sw": "swali la lini",
+          "ctx_en": "when question"
+        },
+        {
+          "id": "q_s9_stmt",
+          "sw": "Anna anamsaidia Daniel.",
+          "en": "Anna is helping Daniel.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s9_yn",
+          "sw": "Je, Anna anamsaidia Daniel? Ndiyo, Anna anamsaidia Daniel. Hapana, Anna hamsaidii Daniel.",
+          "en": "Is Anna helping Daniel? Yes, Anna is helping Daniel. No, Anna is not helping Daniel.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s9_wh",
+          "sw": "Anna anamsaidia nani?",
+          "en": "Who is Anna helping?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_s10_stmt",
+          "sw": "Grace anaandika barua.",
+          "en": "Grace is writing a letter.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s10_yn",
+          "sw": "Je, Grace anaandika barua? Ndiyo, Grace anaandika barua. Hapana, Grace haandiki barua.",
+          "en": "Is Grace writing a letter? Yes, Grace is writing a letter. No, Grace is not writing a letter.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s10_wh",
+          "sw": "Grace anaandika nini?",
+          "en": "What is Grace writing?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_s11_stmt",
+          "sw": "Huendi nyumbani.",
+          "en": "You are not going home.",
+          "ctx_sw": "kauli ya ukanushi",
+          "ctx_en": "negative statement"
+        },
+        {
+          "id": "q_s11_yn",
+          "sw": "Je, huendi nyumbani? Hapana, siendi nyumbani. Ndiyo, ninaenda nyumbani.",
+          "en": "Are you not going home? No, I am not going home. Yes, I am going home.",
+          "ctx_sw": "swali la ukanushi + majibu",
+          "ctx_en": "negative question + answers"
+        },
+        {
+          "id": "q_s11_wh",
+          "sw": "Unaenda wapi?",
+          "en": "Where are you going?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_s12_stmt",
+          "sw": "John hakula leo.",
+          "en": "John did not eat today.",
+          "ctx_sw": "kauli ya ukanushi",
+          "ctx_en": "negative statement"
+        },
+        {
+          "id": "q_s12_yn",
+          "sw": "Je, John hakula leo? Hapana, John hakula. Ndiyo, John alikula.",
+          "en": "Did John not eat today? No, John did not eat. Yes, John ate.",
+          "ctx_sw": "swali la ukanushi + majibu",
+          "ctx_en": "negative question + answers"
+        },
+        {
+          "id": "q_s12_wh",
+          "sw": "John alikula nini?",
+          "en": "What did John eat?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_s13_stmt",
+          "sw": "Hii ni kitabu cha John.",
+          "en": "This is John's book.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_s13_yn",
+          "sw": "Je, hii ni kitabu cha John? Ndiyo, hiki ni kitabu chake. Hapana, hiki si kitabu chake.",
+          "en": "Is this John's book? Yes, this is his book. No, this is not his book.",
+          "ctx_sw": "swali la ndiyo/hapana + majibu",
+          "ctx_en": "yes/no question + answers"
+        },
+        {
+          "id": "q_s13_wh",
+          "sw": "Hiki ni kitabu cha nani?",
+          "en": "Whose book is this?",
+          "ctx_sw": "swali la cha nani",
+          "ctx_en": "whose question"
+        }
+      ]
+    },
+    {
+      "id": "block_complex",
+      "label": {
+        "sw": "B. Sentensi ngumu na za kuvutia zaidi — jozi 5",
+        "en": "B. More complex and interesting sentences — 5 pairs"
+      },
+      "phrases": [
+        {
+          "id": "q_c1_stmt",
+          "sw": "John alisahau mwavuli wake kwa sababu alikuwa akikimbia kwenda kazini.",
+          "en": "John forgot his umbrella because he was rushing to work.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_c1_yn",
+          "sw": "Je, John alisahau mwavuli wake? (ndiyo/hapana)",
+          "en": "Did John forget his umbrella? (yes/no)",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_c1_why1",
+          "sw": "Kwa nini John alisahau mwavuli wake?",
+          "en": "Why did John forget his umbrella?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_c1_why2",
+          "sw": "Kwa nini John alikuwa akikimbia?",
+          "en": "Why was John rushing?",
+          "ctx_sw": "swali la kwa nini — 2",
+          "ctx_en": "why question 2"
+        },
+        {
+          "id": "q_c2_stmt",
+          "sw": "Anna anapika chakula cha jioni kwa familia nzima kwa sababu leo ni siku ya kuzaliwa ya kaka yake.",
+          "en": "Anna is cooking dinner for the whole family because today is her brother's birthday.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_c2_yn",
+          "sw": "Je, Anna anapika chakula cha jioni? (ndiyo/hapana)",
+          "en": "Is Anna cooking dinner? (yes/no)",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_c2_who",
+          "sw": "Anna anapika chakula cha jioni kwa ajili ya nani?",
+          "en": "Who is Anna cooking dinner for?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_c2_why",
+          "sw": "Kwa nini Anna anapika chakula cha jioni?",
+          "en": "Why is Anna cooking dinner?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_c3_stmt",
+          "sw": "Daniel na Grace walikwenda sokoni kununua matunda na mboga.",
+          "en": "Daniel and Grace went to the market to buy fruit and vegetables.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_c3_yn",
+          "sw": "Je, Daniel na Grace walikwenda sokoni? (ndiyo/hapana)",
+          "en": "Did Daniel and Grace go to the market? (yes/no)",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_c3_where",
+          "sw": "Daniel na Grace walikwenda wapi?",
+          "en": "Where did Daniel and Grace go?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_c3_why",
+          "sw": "Walikwenda sokoni kwa ajili ya nini?",
+          "en": "Why did they go to the market?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_c4_stmt",
+          "sw": "John anasimulia hadithi kuhusu mzee aliyeishi kijijini hapa miaka 50 iliyopita.",
+          "en": "John is telling a story about an elder who lived in this village 50 years ago.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_c4_yn",
+          "sw": "Je, John anasimulia hadithi? (ndiyo/hapana)",
+          "en": "Is John telling a story? (yes/no)",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_c4_who",
+          "sw": "John anasimulia hadithi kuhusu nani?",
+          "en": "Who is John telling a story about?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_c4_when",
+          "sw": "Mzee aliishi kijijini hapa lini?",
+          "en": "When did the elder live in this village?",
+          "ctx_sw": "swali la lini",
+          "ctx_en": "when question"
+        },
+        {
+          "id": "q_c5_stmt",
+          "sw": "Anna hataki kwenda shambani kwa sababu anaogopa nyoka.",
+          "en": "Anna does not want to go to the field because she is afraid of snakes.",
+          "ctx_sw": "kauli ya ukanushi",
+          "ctx_en": "negative statement"
+        },
+        {
+          "id": "q_c5_yn",
+          "sw": "Je, Anna hataki kwenda shambani? (ndiyo/hapana)",
+          "en": "Does Anna not want to go to the field? (yes/no)",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_c5_why",
+          "sw": "Kwa nini Anna hataki kwenda shambani?",
+          "en": "Why does Anna not want to go to the field?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_c5_what",
+          "sw": "Anna anaogopa nini?",
+          "en": "What is Anna afraid of?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        }
+      ]
+    },
+    {
+      "id": "block_indirect",
+      "label": {
+        "sw": "C. Maswali ya njia ya pili (indirect questions)",
+        "en": "C. Indirect questions"
+      },
+      "phrases": [
+        {
+          "id": "q_ind1",
+          "sw": "John hajui Anna yuko wapi. Hajui yuko wapi.",
+          "en": "John doesn't know where Anna is. He doesn't know where she is.",
+          "ctx_sw": "swali lisilo la moja kwa moja — wapi",
+          "ctx_en": "indirect question — where"
+        },
+        {
+          "id": "q_ind2",
+          "sw": "Grace alimwuliza Daniel kwa nini mvua inanyesha. Daniel hajui kwa nini mvua inanyesha.",
+          "en": "Grace asked Daniel why it is raining. Daniel doesn't know why it is raining.",
+          "ctx_sw": "swali lisilo la moja kwa moja — kwa nini",
+          "ctx_en": "indirect question — why"
+        },
+        {
+          "id": "q_ind3",
+          "sw": "Anna haelewi John alifika sokoni vipi. Haelewi alifika vipi.",
+          "en": "Anna doesn't understand how John got to the market. She doesn't understand how he got there.",
+          "ctx_sw": "swali lisilo la moja kwa moja — vipi",
+          "ctx_en": "indirect question — how"
+        }
+      ]
+    },
+    {
+      "id": "block_extra_words",
+      "label": {
+        "sw": "D. Maneno ya ziada ya kuuliza",
+        "en": "D. Additional question words"
+      },
+      "phrases": [
+        {
+          "id": "q_ex_how_many",
+          "sw": "John ana vitabu vingapi?",
+          "en": "How many books does John have?",
+          "ctx_sw": "ngapi",
+          "ctx_en": "how many"
+        },
+        {
+          "id": "q_ex_which",
+          "sw": "Nyumba ya Grace ina rangi gani?",
+          "en": "What colour is Grace's house?",
+          "ctx_sw": "gani",
+          "ctx_en": "which / what kind"
+        },
+        {
+          "id": "q_ex_whose",
+          "sw": "Hiki ni kitabu cha nani?",
+          "en": "Whose book is this?",
+          "ctx_sw": "cha nani",
+          "ctx_en": "whose"
+        },
+        {
+          "id": "q_ex_how",
+          "sw": "Daniel alifika sokoni kwa miguu. Daniel alifika sokoni vipi?",
+          "en": "Daniel walked to the market. How did Daniel get to the market?",
+          "ctx_sw": "vipi",
+          "ctx_en": "how"
+        },
+        {
+          "id": "q_ex_with_whom",
+          "sw": "Anna anaenda sokoni na nani?",
+          "en": "Who is Anna going to the market with?",
+          "ctx_sw": "na nani",
+          "ctx_en": "with whom"
+        },
+        {
+          "id": "q_ex_what_time",
+          "sw": "John alikuja asubuhi. John alikuja lini? John alikuja saa ngapi?",
+          "en": "John came in the morning. When did John come? What time did John come?",
+          "ctx_sw": "lini / saa ngapi",
+          "ctx_en": "when / what time"
+        }
+      ]
+    },
+    {
+      "id": "stories",
+      "label": {
+        "sw": "E. Jozi tano zenye hadithi",
+        "en": "E. Five pairs with a story"
+      },
+      "phrases": [
+        {
+          "id": "q_st1_title",
+          "sw": "Mbuzi Kwenye Kikapu",
+          "en": "The Goat in the Basket",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "q_st1_stmt",
+          "sw": "Anna na Grace walimtafuta mbuzi siku nzima lakini walimkuta tu jioni — alikuwa akilala kwenye kikapu cha nguo kama paka mdogo.",
+          "en": "Anna and Grace were looking for the goat all day but only found it in the evening — it was sleeping in a basket of clothes like a kitten.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_st1_q1",
+          "sw": "Je, Anna na Grace walimkuta mbuzi? Ndiyo, walimkuta. Hapana, hawakumkuta.",
+          "en": "Did Anna and Grace find the goat? Yes, they found the goat. No, they did not find the goat.",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_st1_q2",
+          "sw": "Mbuzi alikuwa akilala wapi?",
+          "en": "Where was the goat sleeping?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_st1_q3",
+          "sw": "Kwa nini mbuzi alikuwa akilala kwenye kikapu?",
+          "en": "Why was the goat sleeping in the basket?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_st1_q4",
+          "sw": "Walikuwa wakimtafuta nani siku nzima?",
+          "en": "Who were they looking for all day?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_st2_title",
+          "sw": "Jiwe Linalowaka",
+          "en": "The Stone That Glows",
+          "ctx_sw": "hadithi ya ajabu",
+          "ctx_en": "magical story"
+        },
+        {
+          "id": "q_st2_stmt",
+          "sw": "Daniel alipata jiwe la ajabu barabarani ambalo linawaka usiku. Sasa majirani wote wanaomba amwonyeshe jiwe hilo lakini Daniel anaogopa kwamba wataiba.",
+          "en": "Daniel found a strange stone on the road that glows at night. Now all the neighbours are asking him to show them the stone but Daniel is afraid that someone will steal it.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_st2_q1",
+          "sw": "Je, Daniel alipata jiwe? Ndiyo, Daniel alipata jiwe. Hapana, Daniel hakupata jiwe.",
+          "en": "Did Daniel find a stone? Yes, Daniel found a stone. No, Daniel did not find a stone.",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_st2_q2",
+          "sw": "Jiwe linawaka lini?",
+          "en": "When does the stone glow?",
+          "ctx_sw": "swali la lini",
+          "ctx_en": "when question"
+        },
+        {
+          "id": "q_st2_q3",
+          "sw": "Kwa nini Daniel anaogopa kuonyesha jiwe?",
+          "en": "Why is Daniel afraid to show the stone?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_st2_q4",
+          "sw": "Nani wanomwomba Daniel aonyeshe jiwe?",
+          "en": "Who is asking Daniel to show the stone?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_st3_title",
+          "sw": "Ndege Anayerudia Maneno",
+          "en": "The Bird That Repeats Words",
+          "ctx_sw": "hadithi ya ajabu",
+          "ctx_en": "magical story"
+        },
+        {
+          "id": "q_st3_stmt",
+          "sw": "Grace analisha ndege karibu na dirisha lake na majirani wote wanasema kwamba ndege huyu anaweza kurudia maneno kama kasuku. Lakini Grace ana uhakika kwamba ndege anapenda tu sauti yake.",
+          "en": "Grace feeds a bird outside her window and all the neighbours say that this bird can repeat words like a parrot. But Grace is sure that the bird simply loves her voice.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_st3_q1",
+          "sw": "Je, Grace analisha ndege? Ndiyo, Grace analisha ndege. Hapana, Grace hamsishi ndege.",
+          "en": "Does Grace feed a bird? Yes, Grace feeds a bird. No, Grace does not feed a bird.",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_st3_q2",
+          "sw": "Ndege anaweza kufanya nini?",
+          "en": "What can the bird do?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_st3_q3",
+          "sw": "Kwa nini majirani wanazungumza kuhusu ndege?",
+          "en": "Why do the neighbours talk about the bird?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_st3_q4",
+          "sw": "Grace anaamini nini?",
+          "en": "What does Grace believe?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_st4_title",
+          "sw": "Mvua ya Maembe",
+          "en": "The Mango Rain",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "q_st4_stmt",
+          "sw": "Jana kulikuwa na upepo mkali kijijini na maembe mengi yaliyoiva yalianguka kutoka kwa mti mkubwa wa embe karibu na nyumba ya John hadi watoto wote walikusanya na kufanya sherehe. Sasa John kwa mzaha anauita mti huo \"mkarimu\".",
+          "en": "Yesterday there was a strong wind in the village and so many ripe mangoes fell from the big mango tree by John's house that all the children collected them and had a celebration. Now John jokingly calls the tree \"generous\".",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_st4_q1",
+          "sw": "Je, kulikuwa na upepo kijijini? Ndiyo, kulikuwa na upepo. Hapana, haukuwa na upepo.",
+          "en": "Was there wind in the village? Yes, there was wind in the village. No, there was no wind in the village.",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_st4_q2",
+          "sw": "Nini kilianguka kutoka kwa mti?",
+          "en": "What fell from the tree?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_st4_q3",
+          "sw": "Kwa nini watoto walifanya sherehe?",
+          "en": "Why did the children have a celebration?",
+          "ctx_sw": "swali la kwa nini",
+          "ctx_en": "why question"
+        },
+        {
+          "id": "q_st4_q4",
+          "sw": "John sasa anauita mti huo nini?",
+          "en": "What does John now call the tree?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        },
+        {
+          "id": "q_st5_title",
+          "sw": "Viatu Vilivyosahauliwa",
+          "en": "The Forgotten Shoes",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "q_st5_stmt",
+          "sw": "John aliacha viatu vyake karibu na mto alipokuwa akiosha miguu yake na alipokuwa anarudi aliona kwamba kiatu kimoja kimetoweka. Ikabainika kwamba mbuzi alikicharua hadi kwenye zizi lake na sasa anakitafuna.",
+          "en": "John left his shoes by the river when he was washing his feet and when he came back he saw that one shoe had disappeared. It turned out that a goat had carried it off to its pen and was now chewing on it.",
+          "ctx_sw": "kauli",
+          "ctx_en": "statement"
+        },
+        {
+          "id": "q_st5_q1",
+          "sw": "Je, John aliacha viatu vyake karibu na mto? Ndiyo, John aliacha viatu vyake. Hapana, John hakuacha viatu vyake.",
+          "en": "Did John leave his shoes by the river? Yes, John left his shoes by the river. No, John did not leave his shoes by the river.",
+          "ctx_sw": "swali la ndiyo/hapana",
+          "ctx_en": "yes/no question"
+        },
+        {
+          "id": "q_st5_q2",
+          "sw": "Kiatu kilipotea wapi?",
+          "en": "Where did the shoe disappear to?",
+          "ctx_sw": "swali la wapi",
+          "ctx_en": "where question"
+        },
+        {
+          "id": "q_st5_q3",
+          "sw": "Nani alipeleka kiatu?",
+          "en": "Who took the shoe?",
+          "ctx_sw": "swali la nani",
+          "ctx_en": "who question"
+        },
+        {
+          "id": "q_st5_q4",
+          "sw": "Mbuzi anafanya nini na kiatu sasa?",
+          "en": "What is the goat doing with the shoe now?",
+          "ctx_sw": "swali la nini",
+          "ctx_en": "what question"
+        }
+      ]
+    }
+  ],
+  "moderator_questions": [
+    {
+      "id": "mq1",
+      "sw": "Swali la 1. Jinsi maswali ya ndiyo/hapana yanavyoundwa",
+      "en": "Question 1. How yes/no questions are formed",
+      "body": {
+        "sw": "Katika lugha mbalimbali maswali ya ndiyo/hapana yanajengwa tofauti.\n\nKatika Kirusi lafudhi peke yake inatosha — \"Ты идёшь домой.\" na \"Ты идёшь домой?\" — mpangilio wa maneno ni sawa, lafudhi peke yake inabadilika.\n\nKatika Kiingereza kitenzi kinahamia mbele — \"You are going home.\" → \"Are you going home?\" — mpangilio wa maneno unabadilika.\n\nKatika Kiswahili chembe je inaongezwa mwanzoni — \"Unaenda nyumbani.\" → \"Je, unaenda nyumbani?\" — mpangilio wa maneno haubadiliki lakini neno maalum linaonekana.\n\nKatika Kijapani chembe ka inaongezwa mwishoni — \"Uchi ni kaeru.\" → \"Uchi ni kaeru ka?\"\n\nAngalia tafsiri zako za maswali rahisi ya ndiyo/hapana. Swali linajengwaje katika lugha yako?",
+        "en": "Different languages form yes/no questions in different ways.\n\nIn Russian intonation alone is enough — \"Ты идёшь домой.\" and \"Ты идёшь домой?\" — the word order is the same, only the intonation changes.\n\nIn English the verb moves to the front — \"You are going home.\" → \"Are you going home?\" — the word order changes.\n\nIn Swahili the particle je is added at the beginning — \"Unaenda nyumbani.\" → \"Je, unaenda nyumbani?\" — the word order does not change but a special word appears.\n\nIn Japanese the particle ka is added at the end — \"Uchi ni kaeru.\" → \"Uchi ni kaeru ka?\"\n\nLook at your translations of the simple yes/no questions. How is a question formed in your language?"
+      },
+      "options": {
+        "sw": [
+          "Lafudhi peke yake — mpangilio wa maneno haubadiliki, hakuna maneno maalum",
+          "Mpangilio wa maneno unabadilika → unabadilika vipi hasa? Toa mfano",
+          "Chembe au neno maalum linaongezwa → lipi? Liko mwanzoni au mwishoni? Toa mfano",
+          "Mchanganyiko → eleza na utoe mifano"
+        ],
+        "en": [
+          "Intonation only — the word order does not change, no special words",
+          "The word order changes → how exactly? Give an example",
+          "A special particle or word is added → which one? Does it go at the beginning or at the end? Give an example",
+          "A combination → explain and give examples"
+        ]
+      }
+    },
+    {
+      "id": "mq2",
+      "sw": "Swali la 2. Neno la kuuliza linasimama wapi",
+      "en": "Question 2. Where the question word stands",
+      "body": {
+        "sw": "Katika Kirusi na Kiingereza neno la kuuliza linasimama mwanzoni mwa sentensi — \"Куда ты идёшь?\", \"Where are you going?\"\n\nKatika baadhi ya lugha neno la kuuliza linasimama mahali pale ambapo jibu lingesimama — yaani katikati au mwishoni mwa sentensi. Kwa mfano katika Kichina: \"Unaenda wapi?\" badala ya \"Wapi unaenda?\"\n\nAngalia tafsiri zako za sentensi zenye maneno ya kuuliza — wapi, nini, lini, kwa nini, nani, ngapi. Neno la kuuliza linasimama wapi katika lugha yako?",
+        "en": "In Russian and English the question word stands at the beginning of the sentence — \"Куда ты идёшь?\", \"Where are you going?\"\n\nIn some languages the question word stands in the same position as the answer would — that is in the middle or at the end of the sentence. For example in Chinese: \"You are going where?\" instead of \"Where are you going?\"\n\nLook at your translations of phrases with question words — where, what, when, why, who, how many. Where does the question word stand in your language?"
+      },
+      "options": {
+        "sw": [
+          "Mwanzoni mwa sentensi — kama katika Kirusi",
+          "Mahali pa neno linalojibiwa — katikati au mwishoni",
+          "Tofauti kulingana na neno la kuuliza → eleza na utoe mifano"
+        ],
+        "en": [
+          "At the beginning of the sentence — like in Russian",
+          "In the position of the word it is asking about — in the middle or at the end",
+          "Differently depending on the question word → explain and give examples"
+        ]
+      }
+    },
+    {
+      "id": "mq3",
+      "sw": "Swali la 3. Maswali ya ukanushi",
+      "en": "Question 3. Negative questions",
+      "body": {
+        "sw": "Angalia tafsiri zako za:\n\n- \"Je, huendi nyumbani?\"\n- \"Je, John hakula leo?\"\n\nKatika Kirusi swali la ukanushi linajengwa vivyo hivyo kama swali la kawaida — unaongeza tu \"не\" mbele ya kitenzi.\n\nKatika Kiingereza ni ngumu zaidi — \"Aren't you going home?\" — ukanushi umejengwa ndani ya kitenzi kisaidizi.\n\nKatika lugha yako — swali la ukanushi linajengwa vivyo hivyo kama swali la kawaida, tu na ukanushi uliongezwa? Au kuna muundo maalum?",
+        "en": "Look at your translations of:\n\n- \"Are you not going home?\"\n- \"Did John not eat today?\"\n\nIn Russian a negative question is formed the same way as a regular question — you simply add \"не\" before the verb.\n\nIn English it is more complex — \"Aren't you going home?\" — the negation is built into the auxiliary verb.\n\nIn your language — is a negative question formed the same way as a regular question, just with negation added? Or is there a special construction?"
+      },
+      "options": {
+        "sw": [
+          "Vivyo hivyo kama swali la kawaida pamoja na ukanushi",
+          "Muundo maalum → eleza na utoe mifano"
+        ],
+        "en": [
+          "The same as a regular question plus negation",
+          "A special construction → explain and give examples"
+        ]
+      }
+    },
+    {
+      "id": "mq4",
+      "sw": "Swali la 4. Majibu ya ndiyo na hapana",
+      "en": "Question 4. The answers yes and no",
+      "body": {
+        "sw": "Katika Kirusi \"ndiyo\" na \"hapana\" ni maneno tofauti ambayo hayabadiliki kamwe.\n\nKatika baadhi ya lugha \"ndiyo\" na \"hapana\" yanabadilika kulingana na swali. Kwa mfano katika Kiwelsh — hakuna maneno tofauti ya \"ndiyo\" na \"hapana\", badala yake kitenzi kutoka swali kinajibiwa katika hali ya uthibitisho au ukanushi: \"Je, unaenda?\" → \"Naenda\" / \"Siendi\".\n\nKatika baadhi ya lugha ukijibu swali la ukanushi \"Je, huendi?\" jibu \"ndiyo\" linamaanisha \"ndiyo, siendi\" — yaani linathibitisha ukanushi. Katika lugha nyingine \"ndiyo\" daima linamaanisha \"naenda\" bila kujali umbo la swali.\n\nAngalia majibu uliyoandika katika tafsiri zako. \"Ndiyo\" na \"hapana\" zinafanya kazi vipi katika lugha yako?",
+        "en": "In Russian \"yes\" and \"no\" are separate words that never change.\n\nIn some languages \"yes\" and \"no\" change depending on the question. For example in Welsh — there are no separate words for \"yes\" and \"no\", instead the verb from the question is repeated in its positive or negative form: \"Are you going?\" → \"Going\" / \"Not going\".\n\nIn some languages when answering a negative question \"Are you not going?\" the answer \"yes\" means \"yes, I am not going\" — that is it confirms the negation. In other languages \"yes\" always means \"I am going\" regardless of the form of the question.\n\nLook at the answers you wrote in your translations. How do \"yes\" and \"no\" work in your language?"
+      },
+      "options": {
+        "sw": [
+          "Maneno tofauti yasiyobadilika kama katika Kirusi",
+          "Umbo la kitenzi linajibiwa → toa mifano",
+          "Kuna kitu maalum na maswali ya ukanushi → eleza"
+        ],
+        "en": [
+          "Separate unchanging words like in Russian",
+          "The verb form is repeated → give examples",
+          "There is something special with negative questions → explain"
+        ]
+      }
+    },
+    {
+      "id": "mq5",
+      "sw": "Swali la 5. Swali lisilo la moja kwa moja",
+      "en": "Question 5. Indirect questions",
+      "body": {
+        "sw": "Katika Kirusi swali la moja kwa moja — \"Unaenda wapi?\" — na swali lisilo la moja kwa moja — \"Sijui unaenda wapi\" — vinajengwa tofauti kidogo. Katika swali lisilo la moja kwa moja hakuna lafudhi ya kuuliza na wakati mwingine mpangilio wa maneno unabadilika.\n\nKatika baadhi ya lugha maswali ya moja kwa moja na yasiyokuwa ya moja kwa moja yanajengwa vivyo hivyo. Katika nyingine — ni tofauti kabisa, na chembe maalum au maumbo ya kitenzi.\n\nAngalia sentensi hii kutoka hadithi — \"John hajui kwa nini mbuzi alikuwa akilala kwenye kikapu.\" Hili ni swali lisilo la moja kwa moja. Linajengwa vivyo hivyo kama swali la moja kwa moja katika lugha yako au tofauti?",
+        "en": "In Russian a direct question — \"Where are you going?\" — and an indirect question — \"I don't know where you are going\" — are built slightly differently. In the indirect question there is no question intonation and sometimes the word order changes.\n\nIn some languages direct and indirect questions are built the same way. In others they are completely different, with special particles or verb forms.\n\nLook at this phrase from the stories — \"John does not know why the goat was sleeping in the basket.\" This is an indirect question. Is it built the same way as a direct question in your language or differently?"
+      },
+      "options": {
+        "sw": [
+          "Vivyo hivyo kama swali la moja kwa moja",
+          "Tofauti → nini hasa kinabadilika? Toa mfano wa swali la moja kwa moja na lisilo la moja kwa moja pamoja"
+        ],
+        "en": [
+          "The same as a direct question",
+          "Differently → what exactly changes? Give an example of a direct and an indirect question side by side"
+        ]
+      }
+    },
+    {
+      "id": "mq6",
+      "sw": "Swali la 6. Kukusanya kitabu cha sarufi",
+      "en": "Question 6. Building the grammar reference",
+      "body": {
+        "sw": "Kulingana na maudhui yote yaliyotolewa — tafsiri za sentensi na majibu ya maswali hapo juu — tunga kitabu kifupi cha sarufi kuhusu maswali katika lugha yako.",
+        "en": "Based on all the content provided — translations of phrases and answers to the questions above — write a short grammar reference on questions in your language."
+      },
+      "structure": {
+        "sw": [
+          "Maswali ya ndiyo/hapana — jinsi yanavyoundwa, je mpangilio wa maneno unabadilika, je kuna chembe maalum",
+          "Maneno ya kuuliza — orodha kamili na tafsiri, yanasimama wapi katika sentensi",
+          "Maswali ya ukanushi — jinsi yanavyojengwa",
+          "Majibu ya ndiyo na hapana — jinsi yanavyofanya kazi",
+          "Swali lisilo la moja kwa moja — je linatofautiana na swali la moja kwa moja",
+          "Mifano ya sentensi kwa kila kanuni"
+        ],
+        "en": [
+          "Yes/no questions — how they are formed, whether the word order changes, whether there are special particles",
+          "Question words — full list with translation, where they stand in the sentence",
+          "Negative questions — how they are formed",
+          "The answers yes and no — how they work",
+          "Indirect questions — whether they differ from direct questions",
+          "Example sentences for each rule"
+        ]
+      }
+    }
+  ]
+}
