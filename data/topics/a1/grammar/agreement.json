@@ -1,0 +1,871 @@
+{
+  "id": "agreement",
+  "type": "grammar",
+  "level": "A1",
+  "order": 4,
+  "payment_tzs": 5000,
+  "name": {
+    "sw": "Upatanisho (kitenzi, nambari, mahali)",
+    "en": "Agreement (verb, numbers, locative)"
+  },
+  "description": {
+    "sw": "Upatanisho wa kitenzi na ngeli ya mtendaji, upatanisho wa nambari na ngeli, ngeli za mahali na vihusishi.",
+    "en": "Verb agreement with subject class, number agreement with classes, locative classes and prepositions."
+  },
+  "blocks": [
+    {
+      "id": "block_a1",
+      "label": {
+        "sw": "A1. Nafsi na nambari — kitenzi cha mwendo",
+        "en": "A1. Person and number — motion verb"
+      },
+      "phrases": [
+        {
+          "id": "ag_a1_1sg",
+          "sw": "Mimi ninaenda nyumbani",
+          "en": "I am going home",
+          "ctx_sw": "mimi",
+          "ctx_en": "I"
+        },
+        {
+          "id": "ag_a1_2sg",
+          "sw": "Wewe unaenda nyumbani",
+          "en": "You are going home",
+          "ctx_sw": "wewe",
+          "ctx_en": "you"
+        },
+        {
+          "id": "ag_a1_3sgm",
+          "sw": "John anaenda nyumbani",
+          "en": "John is going home",
+          "ctx_sw": "yeye (John — mvulana)",
+          "ctx_en": "he (John)"
+        },
+        {
+          "id": "ag_a1_3sgf",
+          "sw": "Anna anaenda nyumbani",
+          "en": "Anna is going home",
+          "ctx_sw": "yeye (Anna — msichana)",
+          "ctx_en": "she (Anna)"
+        },
+        {
+          "id": "ag_a1_1pl",
+          "sw": "Sisi tunaenda nyumbani",
+          "en": "We are going home",
+          "ctx_sw": "sisi",
+          "ctx_en": "we"
+        },
+        {
+          "id": "ag_a1_2pl",
+          "sw": "Ninyi mnaenda nyumbani",
+          "en": "You are going home",
+          "ctx_sw": "ninyi",
+          "ctx_en": "you (plural)"
+        },
+        {
+          "id": "ag_a1_3pl",
+          "sw": "John na Anna wanaenda nyumbani",
+          "en": "John and Anna are going home",
+          "ctx_sw": "wao",
+          "ctx_en": "they"
+        }
+      ]
+    },
+    {
+      "id": "block_a2",
+      "label": {
+        "sw": "A2. Nafsi na nambari — kitenzi cha kitendo (kinachohitaji kitu)",
+        "en": "A2. Person and number — action verb (transitive)"
+      },
+      "phrases": [
+        {
+          "id": "ag_a2_1sg",
+          "sw": "Mimi ninakula mkate",
+          "en": "I am eating bread",
+          "ctx_sw": "mimi",
+          "ctx_en": "I"
+        },
+        {
+          "id": "ag_a2_2sg",
+          "sw": "Wewe unakula mkate",
+          "en": "You are eating bread",
+          "ctx_sw": "wewe",
+          "ctx_en": "you"
+        },
+        {
+          "id": "ag_a2_3sgm",
+          "sw": "John anakula mkate",
+          "en": "John is eating bread",
+          "ctx_sw": "yeye (John)",
+          "ctx_en": "he (John)"
+        },
+        {
+          "id": "ag_a2_3sgf",
+          "sw": "Anna anakula mkate",
+          "en": "Anna is eating bread",
+          "ctx_sw": "yeye (Anna)",
+          "ctx_en": "she (Anna)"
+        },
+        {
+          "id": "ag_a2_1pl",
+          "sw": "Sisi tunakula mkate",
+          "en": "We are eating bread",
+          "ctx_sw": "sisi",
+          "ctx_en": "we"
+        },
+        {
+          "id": "ag_a2_2pl",
+          "sw": "Ninyi mnakula mkate",
+          "en": "You are eating bread",
+          "ctx_sw": "ninyi",
+          "ctx_en": "you (plural)"
+        },
+        {
+          "id": "ag_a2_3pl",
+          "sw": "John na Anna wanakula mkate",
+          "en": "John and Anna are eating bread",
+          "ctx_sw": "wao",
+          "ctx_en": "they"
+        }
+      ]
+    },
+    {
+      "id": "block_a3",
+      "label": {
+        "sw": "A3. Kitu kama mtenda — je kitenzi kinabadilika",
+        "en": "A3. Object as subject — does the verb change"
+      },
+      "phrases": [
+        {
+          "id": "ag_a3_table",
+          "sw": "Meza inasimama ukutani",
+          "en": "The table stands by the wall",
+          "ctx_sw": "meza — kitu 1",
+          "ctx_en": "table — object 1"
+        },
+        {
+          "id": "ag_a3_book",
+          "sw": "Kitabu kilalalo mezani",
+          "en": "The book lies on the table",
+          "ctx_sw": "kitabu — kitu 2",
+          "ctx_en": "book — object 2"
+        },
+        {
+          "id": "ag_a3_tree",
+          "sw": "Mti unakua karibu na nyumba",
+          "en": "The tree grows by the house",
+          "ctx_sw": "mti — kitu 3",
+          "ctx_en": "tree — object 3"
+        },
+        {
+          "id": "ag_a3_milk",
+          "sw": "Maziwa yako mezani",
+          "en": "The milk is on the table",
+          "ctx_sw": "maziwa — kitu 4, kioevu",
+          "ctx_en": "milk — object 4, substance"
+        },
+        {
+          "id": "ag_a3_children",
+          "sw": "Watoto wanaenda nyumbani",
+          "en": "The children are going home",
+          "ctx_sw": "watoto — wenye uhai, wingi",
+          "ctx_en": "children — animate, plural"
+        }
+      ]
+    },
+    {
+      "id": "block_a4",
+      "label": {
+        "sw": "A4. Mtenda wa pamoja",
+        "en": "A4. Compound subject"
+      },
+      "phrases": [
+        {
+          "id": "ag_a4_two_people",
+          "sw": "John na Anna wanaenda nyumbani",
+          "en": "John and Anna are going home",
+          "ctx_sw": "watu wawili",
+          "ctx_en": "two people"
+        },
+        {
+          "id": "ag_a4_person_object",
+          "sw": "John na mfuko wake wanalala karibu na mlango (muktadha: John alianguka na kudondoa mfuko wake)",
+          "en": "John and his bag are lying by the door (context: John fell and dropped his bag)",
+          "ctx_sw": "mtu na kitu — si ya kawaida lakini inahitajika",
+          "ctx_en": "person + object — unnatural but necessary"
+        },
+        {
+          "id": "ag_a4_two_objects",
+          "sw": "Meza na kitabu viko chumbani",
+          "en": "The table and the book are in the room",
+          "ctx_sw": "vitu viwili",
+          "ctx_en": "two objects"
+        }
+      ]
+    },
+    {
+      "id": "block_b1",
+      "label": {
+        "sw": "B1. Nambari \"moja\" na nomino tofauti",
+        "en": "B1. The numeral \"one\" with different nouns"
+      },
+      "phrases": [
+        {
+          "id": "ag_b1_one_man",
+          "sw": "Mwanaume mmoja anaenda nyumbani (John)",
+          "en": "One man is going home (John)",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b1_one_woman",
+          "sw": "Mwanamke mmoja anaenda nyumbani (Anna)",
+          "en": "One woman is going home (Anna)",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b1_one_book",
+          "sw": "Kitabu kimoja kilalalo mezani",
+          "en": "One book is lying on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b1_one_tree",
+          "sw": "Mti mmoja unakua karibu na nyumba",
+          "en": "One tree is growing by the house",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b1_one_cow",
+          "sw": "Ng'ombe mmoja anasimama uwanjani",
+          "en": "One cow is standing in the yard",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b2",
+      "label": {
+        "sw": "B2. Nambari \"mbili\" na nomino tofauti",
+        "en": "B2. The numeral \"two\" with different nouns"
+      },
+      "phrases": [
+        {
+          "id": "ag_b2_two_men",
+          "sw": "Wanaume wawili wanaenda nyumbani",
+          "en": "Two men are going home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b2_two_women",
+          "sw": "Wanawake wawili wanaenda nyumbani",
+          "en": "Two women are going home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b2_two_books",
+          "sw": "Vitabu viwili vinalala mezani",
+          "en": "Two books are lying on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b2_two_trees",
+          "sw": "Miti miwili inakua karibu na nyumba",
+          "en": "Two trees are growing by the house",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b2_two_cows",
+          "sw": "Ng'ombe wawili wanasimama uwanjani",
+          "en": "Two cows are standing in the yard",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b3",
+      "label": {
+        "sw": "B3. Nambari \"tatu\", \"tano\", \"kumi\"",
+        "en": "B3. The numerals \"three\", \"five\", \"ten\""
+      },
+      "phrases": [
+        {
+          "id": "ag_b3_three_books",
+          "sw": "Vitabu vitatu vinalala mezani",
+          "en": "Three books are lying on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_five_books",
+          "sw": "Vitabu vitano vinalala mezani",
+          "en": "Five books are lying on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_ten_books",
+          "sw": "Vitabu kumi vinalala mezani",
+          "en": "Ten books are lying on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_three_cows",
+          "sw": "Ng'ombe watatu wanasimama uwanjani",
+          "en": "Three cows are standing in the yard",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_five_cows",
+          "sw": "Ng'ombe watano wanasimama uwanjani",
+          "en": "Five cows are standing in the yard",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_ten_cows",
+          "sw": "Ng'ombe kumi wanasimama uwanjani",
+          "en": "Ten cows are standing in the yard",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_three_men",
+          "sw": "Wanaume watatu wanaenda nyumbani",
+          "en": "Three men are going home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_five_men",
+          "sw": "Wanaume watano wanaenda nyumbani",
+          "en": "Five men are going home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_b3_ten_men",
+          "sw": "Wanaume kumi wanaenda nyumbani",
+          "en": "Ten men are going home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b4",
+      "label": {
+        "sw": "B4. Mpangilio wa nambari",
+        "en": "B4. Order of the numeral"
+      },
+      "phrases": [
+        {
+          "id": "ag_b4_order_books",
+          "sw": "Vitabu vitatu vinalala mezani",
+          "en": "Three books are lying on the table",
+          "ctx_sw": "sentensi moja — msemaji anaweka nambari mahali inapofaa kiasili (vitabu vingapi?)",
+          "ctx_en": "same phrase — the contributor places the numeral where it feels natural (how many books?)"
+        },
+        {
+          "id": "ag_b4_order_people",
+          "sw": "Watu watano walikuja sokoni",
+          "en": "Five people came to the market",
+          "ctx_sw": "watu wangapi?",
+          "ctx_en": "how many people?"
+        }
+      ]
+    },
+    {
+      "id": "block_c1",
+      "label": {
+        "sw": "C1. Utulivu — kitu kipo wapi",
+        "en": "C1. Static — where something is located"
+      },
+      "phrases": [
+        {
+          "id": "ag_c1_in_bag",
+          "sw": "Kitabu kiko ndani ya mfuko",
+          "en": "The book is in the bag",
+          "ctx_sw": "ndani",
+          "ctx_en": "in / inside"
+        },
+        {
+          "id": "ag_c1_in_house",
+          "sw": "John ameketi ndani ya nyumba",
+          "en": "John is sitting in the house",
+          "ctx_sw": "ndani",
+          "ctx_en": "in / inside"
+        },
+        {
+          "id": "ag_c1_on_table_book",
+          "sw": "Kitabu kilalalo juu ya meza",
+          "en": "The book is lying on the table",
+          "ctx_sw": "juu ya",
+          "ctx_en": "on"
+        },
+        {
+          "id": "ag_c1_on_table_glass",
+          "sw": "Glasi inasimama juu ya meza",
+          "en": "The glass is standing on the table",
+          "ctx_sw": "juu ya",
+          "ctx_en": "on"
+        },
+        {
+          "id": "ag_c1_by_tree",
+          "sw": "John anasimama karibu na mti",
+          "en": "John is standing by the tree",
+          "ctx_sw": "karibu na",
+          "ctx_en": "by / next to"
+        },
+        {
+          "id": "ag_c1_by_house",
+          "sw": "Ng'ombe anasimama karibu na nyumba",
+          "en": "The cow is standing by the house",
+          "ctx_sw": "karibu na",
+          "ctx_en": "by / next to"
+        },
+        {
+          "id": "ag_c1_under_table",
+          "sw": "Paka ameketi chini ya meza",
+          "en": "The cat is sitting under the table",
+          "ctx_sw": "chini ya",
+          "ctx_en": "under"
+        },
+        {
+          "id": "ag_c1_under_bed",
+          "sw": "Kitabu kilalalo chini ya kitanda",
+          "en": "The book is lying under the bed",
+          "ctx_sw": "chini ya",
+          "ctx_en": "under"
+        },
+        {
+          "id": "ag_c1_above_table",
+          "sw": "Taa inaning'inia juu ya meza",
+          "en": "The lamp is hanging above the table",
+          "ctx_sw": "juu ya / uso wa",
+          "ctx_en": "above / over"
+        },
+        {
+          "id": "ag_c1_over_house",
+          "sw": "Ndege anaruka juu ya nyumba",
+          "en": "The bird is flying over the house",
+          "ctx_sw": "juu ya / uso wa",
+          "ctx_en": "above / over"
+        },
+        {
+          "id": "ag_c1_between_house_tree",
+          "sw": "John anasimama kati ya nyumba na mti",
+          "en": "John is standing between the house and the tree",
+          "ctx_sw": "kati ya",
+          "ctx_en": "between"
+        },
+        {
+          "id": "ag_c1_between_glasses",
+          "sw": "Kitabu kilalalo kati ya glasi mbili",
+          "en": "The book is lying between two glasses",
+          "ctx_sw": "kati ya",
+          "ctx_en": "between"
+        },
+        {
+          "id": "ag_c1_far",
+          "sw": "Soko liko mbali na nyumba",
+          "en": "The market is far from the house",
+          "ctx_sw": "mbali",
+          "ctx_en": "far"
+        },
+        {
+          "id": "ag_c1_close",
+          "sw": "Shule iko karibu na nyumba",
+          "en": "The school is close to the house",
+          "ctx_sw": "karibu",
+          "ctx_en": "close"
+        }
+      ]
+    },
+    {
+      "id": "block_c2",
+      "label": {
+        "sw": "C2. Mwendo — kwenda wapi",
+        "en": "C2. Movement — where to"
+      },
+      "phrases": [
+        {
+          "id": "ag_c2_into_house",
+          "sw": "John anaenda ndani ya nyumba",
+          "en": "John is going into the house",
+          "ctx_sw": "ndani / kuingia",
+          "ctx_en": "into / inside"
+        },
+        {
+          "id": "ag_c2_into_bag",
+          "sw": "Anna anaweka kitabu ndani ya mfuko",
+          "en": "Anna is putting the book into the bag",
+          "ctx_sw": "ndani / kuingia",
+          "ctx_en": "into / inside"
+        },
+        {
+          "id": "ag_c2_onto_table",
+          "sw": "Anna anaweka glasi juu ya meza",
+          "en": "Anna is putting the glass onto the table",
+          "ctx_sw": "juu ya / kupanda",
+          "ctx_en": "onto"
+        },
+        {
+          "id": "ag_c2_up_mountain",
+          "sw": "John anapanda mlima",
+          "en": "John is climbing up the mountain",
+          "ctx_sw": "juu ya / kupanda",
+          "ctx_en": "onto"
+        },
+        {
+          "id": "ag_c2_towards_tree",
+          "sw": "John anaenda kuelekea mti",
+          "en": "John is walking towards the tree",
+          "ctx_sw": "kuelekea",
+          "ctx_en": "towards"
+        },
+        {
+          "id": "ag_c2_towards_market",
+          "sw": "Anna anaenda kuelekea soko",
+          "en": "Anna is walking towards the market",
+          "ctx_sw": "kuelekea",
+          "ctx_en": "towards"
+        },
+        {
+          "id": "ag_c2_under_table",
+          "sw": "Paka aliingia chini ya meza",
+          "en": "The cat crawled under the table",
+          "ctx_sw": "chini ya",
+          "ctx_en": "under"
+        },
+        {
+          "id": "ag_c2_away_house",
+          "sw": "John anaondoka mbali na nyumba",
+          "en": "John is walking away from the house",
+          "ctx_sw": "mbali na / kutoka",
+          "ctx_en": "away / from"
+        }
+      ]
+    },
+    {
+      "id": "block_c3",
+      "label": {
+        "sw": "C3. Tofauti kati ya \"wapi\" na \"kwenda wapi\" — jozi moja",
+        "en": "C3. The difference between \"where\" and \"where to\" — same pair"
+      },
+      "phrases": [
+        {
+          "id": "ag_c3_static_house",
+          "sw": "John ameketi ndani ya nyumba",
+          "en": "John is sitting in the house",
+          "ctx_sw": "wapi — utulivu",
+          "ctx_en": "where — static"
+        },
+        {
+          "id": "ag_c3_motion_house",
+          "sw": "John anaenda ndani ya nyumba",
+          "en": "John is going into the house",
+          "ctx_sw": "kwenda wapi — mwendo",
+          "ctx_en": "where to — movement"
+        },
+        {
+          "id": "ag_c3_static_table",
+          "sw": "Kitabu kilalalo juu ya meza",
+          "en": "The book is lying on the table",
+          "ctx_sw": "wapi",
+          "ctx_en": "where"
+        },
+        {
+          "id": "ag_c3_motion_table",
+          "sw": "Anna anaweka kitabu juu ya meza",
+          "en": "Anna is putting the book on the table",
+          "ctx_sw": "kwenda wapi",
+          "ctx_en": "where to"
+        },
+        {
+          "id": "ag_c3_static_tree",
+          "sw": "John anasimama karibu na mti",
+          "en": "John is standing by the tree",
+          "ctx_sw": "wapi",
+          "ctx_en": "where"
+        },
+        {
+          "id": "ag_c3_motion_tree",
+          "sw": "John anaenda karibu na mti",
+          "en": "John is walking up to the tree",
+          "ctx_sw": "kwenda wapi",
+          "ctx_en": "where to"
+        }
+      ]
+    },
+    {
+      "id": "block_c4",
+      "label": {
+        "sw": "C4. Mahali kama mtenda (\"mezani kuna\")",
+        "en": "C4. Location as subject (\"on the table stands\")"
+      },
+      "phrases": [
+        {
+          "id": "ag_c4_table_glass",
+          "sw": "Juu ya meza kuna glasi",
+          "en": "On the table stands a glass",
+          "ctx_sw": "sentensi hizi zinahitajika ili kuona — je kuna mabadiliko yoyote katika kitenzi wakati mahali panachukua nafasi ya mtenda",
+          "ctx_en": "these phrases are needed to see whether something changes in the verb when the location takes the place of the subject"
+        },
+        {
+          "id": "ag_c4_house_john",
+          "sw": "Ndani ya nyumba anaishi John",
+          "en": "In the house lives John",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_c4_tree_book",
+          "sw": "Karibu na mti kilalalo kitabu",
+          "en": "By the tree lies a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_c4_bed_cat",
+          "sw": "Chini ya kitanda ameketi paka",
+          "en": "Under the bed sits a cat",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "stories",
+      "label": {
+        "sw": "D. Hadithi fupi",
+        "en": "D. Short stories"
+      },
+      "phrases": [
+        {
+          "id": "ag_story1_title",
+          "sw": "Mwanzie na Vitabu",
+          "en": "The Chair and the Books",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "ag_story1_body",
+          "sw": "John aliweka kiti juu ya meza ili afikie kitabu kilichokuwa juu ya rafu. Anna aliweka paka juu ya kiti. Paka aliweka mguu juu ya kitabu. Kitabu kilianguka chini ya kiti. Kiti kilianguka chini ya meza. John alisema: wakati ujao nitamwomba Grace.",
+          "en": "John put a chair on the table to reach a book on the shelf. Anna put the cat on the chair. The cat put its paw on the book. The book fell under the chair. The chair fell under the table. John said: next time I will ask Grace.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_story2_title",
+          "sw": "Usiku wa Ajabu",
+          "en": "The Magical Night",
+          "ctx_sw": "hadithi ya ajabu",
+          "ctx_en": "magical story"
+        },
+        {
+          "id": "ag_story2_body",
+          "sw": "Usiku mmoja vitu vyote ndani ya nyumba ya Anna vilibadilisha mahali pake. Kitanda kilikuwa jikoni. Meza ilikuwa bustanini. Vitabu vilining'inia juu ya mlango. Anna alitembea kutoka chumba kimoja hadi kingine na hakuelewa kilichokuwa kikiendelea. Katika chumba cha mwisho alikuwa ameketi paka, akitazama ukutani. Anna alipomwangalia kiti — kiti kilipanda polepole na kuning'inia chini ya dari. Paka hakugeuka.",
+          "en": "One night all the objects in Anna's house changed their places. The bed was in the kitchen. The table was in the garden. The books were hanging above the door. Anna walked from room to room and could not understand what was happening. In the last room sat the cat, staring at the wall. When Anna looked at the chair — the chair slowly rose and hung under the ceiling. The cat did not turn around.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_story3_title",
+          "sw": "Miwani Iliyopotea",
+          "en": "The Lost Glasses",
+          "ctx_sw": "hadithi ya kawaida",
+          "ctx_en": "everyday story"
+        },
+        {
+          "id": "ag_story3_body",
+          "sw": "Grace alitafuta miwani yake. Haikuwa juu ya meza, wala chini ya meza, wala ndani ya mfuko, wala kati ya vitabu. Alimpigia John simu. John aliuliza: umeitazama kichwani? Grace aliweka simu chini.",
+          "en": "Grace was looking for her glasses. They were not on the table, not under the table, not in the bag, not between the books. She called John. John asked: have you looked on your head? Grace put the phone down.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_story4_title",
+          "sw": "Kalamu Moja",
+          "en": "One Pen",
+          "ctx_sw": "hadithi ya kawaida",
+          "ctx_en": "everyday story"
+        },
+        {
+          "id": "ag_story4_body",
+          "sw": "Daniel alileta vitabu vitano, daftari tatu na kalamu moja. Anna alisema: kalamu moja haitoshi kwa watu watano. Daniel alisema: nilikula moja njiani. Anna alishangaa na akaamua kutouliza tena.",
+          "en": "Daniel brought five books, three notebooks and one pen. Anna said: one pen is not enough for five people. Daniel said: I ate one on the way. Anna was surprised and decided not to ask any more questions.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ag_story5_title",
+          "sw": "Nyumba ya Anna",
+          "en": "Anna's House",
+          "ctx_sw": "hadithi ya kawaida",
+          "ctx_en": "everyday story"
+        },
+        {
+          "id": "ag_story5_body",
+          "sw": "John alimweleza Grace mahali anapoishi Anna. Karibu na mti mkubwa. Kati ya soko na shule. Mbali na mto. Karibu na msikiti. Grace alisikiliza kwa saa moja. Kisha alisema: ninamjua Anna miaka ishirini. Mimi mwenyewe ndiye niliyekuleta kwake.",
+          "en": "John was explaining to Grace where Anna lives. Near the big tree. Between the market and the school. Far from the river. Close to the mosque. Grace listened for an hour. Then she said: I have known Anna for twenty years. I am the one who brought you to her myself.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    }
+  ],
+  "moderator_questions": [
+    {
+      "id": "mq1",
+      "sw": "Swali la 1. Kitenzi na kitu kama mtenda",
+      "en": "Question 1. The verb and an object as subject",
+      "body": {
+        "sw": "Angalia sentensi ulizotafsiri:\n\n- \"Meza inasimama ukutani\"\n- \"Kitabu kilalalo juu ya meza\"\n- \"Mti unakua karibu na nyumba\"\n\nNa uzilinganishe na sentensi ambapo mtenda ni mtu:\n\n- \"John anaenda nyumbani\"\n- \"Anna anakula mkate\"\n\nKatika lugha yako — je kitenzi kinabadilika umbo lake kulingana na ni nani mtenda? Au umbo la kitenzi ni sawa kwa mtu na kwa kitu?",
+        "en": "Look at the phrases you translated:\n\n- \"The table stands by the wall\"\n- \"The book lies on the table\"\n- \"The tree grows by the house\"\n\nAnd compare them with phrases where the subject is a person:\n\n- \"John is going home\"\n- \"Anna is eating bread\"\n\nIn your language — does the verb change its form depending on who the subject is? Or is the verb form the same for a person and for an object?"
+      },
+      "options": {
+        "sw": [
+          "Sawa — kitenzi hakibadiliki iwe mtenda ni mtu au kitu",
+          "Tofauti — kuna tofauti → tofauti iko wapi hasa? Toa mfano: \"John anasimama\" na \"meza inasimama\" — kitenzi kinaonekana vipi katika kila kisa?"
+        ],
+        "en": [
+          "The same — the verb does not change whether the subject is a person or an object",
+          "Different — there is a difference → what exactly is the difference? Give an example: \"John stands\" and \"the table stands\" — what does the verb look like in each case?"
+        ]
+      },
+      "follow_up": {
+        "sw": "Kama kinabadilika — angalia vitu vyote ulivyotafsiri (meza, kitabu, mti, maziwa, ng'ombe). Je kitenzi ni sawa kwa vitu vyote au kila kitu kina umbo lake la kitenzi?\n\n- Sawa kwa vitu vyote\n- Vitu tofauti vina maumbo tofauti ya kitenzi → toa mfano kwa kila kitu",
+        "en": "If it changes — look at all the objects you translated (table, book, tree, milk, cow). Is the verb the same for all objects or does each object have its own verb form?\n\n- The same for all objects\n- Different objects have different verb forms → give an example for each object"
+      }
+    },
+    {
+      "id": "mq2",
+      "sw": "Swali la 2. Mtenda wa pamoja",
+      "en": "Question 2. Compound subject",
+      "body": {
+        "sw": "Katika Kirusi \"John na Anna wanaenda\" — kitenzi kiko katika wingi bila kujali kwamba kuna mwanaume mmoja na mwanamke mmoja.\n\nKatika lugha yako — nini kinatokea kwa kitenzi wakati watenda ni wengi? Angalia sentensi \"John na Anna wanaenda nyumbani\" uliyoitafsiri.",
+        "en": "In Russian \"John and Anna are going\" — the verb is in the plural regardless of the fact that there is one man and one woman.\n\nIn your language — what happens to the verb when there are several subjects? Look at the phrase \"John and Anna are going home\" that you translated."
+      },
+      "options": {
+        "sw": [
+          "Kitenzi kinakwenda tu katika wingi",
+          "Kitenzi kinapatana na mtenda wa karibu zaidi",
+          "Kitenzi kinachukua umbo maalum kwa mtenda wa pamoja → toa mifano"
+        ],
+        "en": [
+          "The verb simply goes into the plural",
+          "The verb agrees with the nearest subject",
+          "The verb takes a special form for a compound subject → give examples"
+        ]
+      },
+      "follow_up": {
+        "sw": "Sasa angalia sentensi \"meza na kitabu viko chumbani\". Je kitenzi kinafanya kama na watu wawili — au tofauti?\n\n- Sawa\n- Tofauti → tofauti iko wapi hasa? Toa mfano",
+        "en": "Now look at the phrase \"the table and the book are in the room\". Does the verb behave the same way as with two people — or differently?\n\n- The same\n- Differently → how exactly? Give an example"
+      }
+    },
+    {
+      "id": "mq3",
+      "sw": "Swali la 3. Nambari \"moja\"",
+      "en": "Question 3. The numeral \"one\"",
+      "body": {
+        "sw": "Katika Kirusi \"moja\" inapatana na nomino kwa jinsia: один стол (meza moja, kiume) / одна книга (kitabu kimoja, kike) / одно дерево (mti mmoja, kati). Inafanya kama kivumishi.\n\nKatika Kiingereza \"one\" haibadiliki kabisa — one table / one book / one tree.\n\nKatika Kiswahili \"moja\" pia inabadilika lakini kulingana na ngeli ya nomino — kitabu kimoja / mtu mmoja.\n\nAngalia tafsiri zako za sentensi zenye \"moja\":\n\n- Mwanaume mmoja anaenda nyumbani\n- Mwanamke mmoja anaenda nyumbani\n- Kitabu kimoja kilalalo mezani\n- Mti mmoja unakua karibu na nyumba\n- Ng'ombe mmoja anasimama uwanjani\n\nJe neno \"moja\" ni sawa katika sentensi hizi zote au linabadilika?",
+        "en": "In Russian \"one\" agrees with the noun by gender: один стол (one table, masculine) / одна книга (one book, feminine) / одно дерево (one tree, neuter). It behaves like an adjective.\n\nIn English \"one\" does not change at all — one table / one book / one tree.\n\nIn Swahili \"one\" also changes but by the noun class of the noun — kitabu kimoja (one book) / mtu mmoja (one person).\n\nLook at your translations of the phrases with \"one\":\n\n- One man is going home\n- One woman is going home\n- One book is lying on the table\n- One tree is growing by the house\n- One cow is standing in the yard\n\nIs the word \"one\" the same in all these phrases or does it change?"
+      },
+      "options": {
+        "sw": [
+          "Sawa — haibadiliki kabisa",
+          "Inabadilika → inabadilika kwa nini (kwa jinsia, kwa ngeli ya nomino, kwa kitu kingine)? Andika maumbo yote uliyoyapata"
+        ],
+        "en": [
+          "The same — it does not change at all",
+          "It changes → what does it change by (by gender, by noun class, by something else)? Write out all the forms you ended up with"
+        ]
+      }
+    },
+    {
+      "id": "mq4",
+      "sw": "Swali la 4. Tofauti ndogo za mahali",
+      "en": "Question 4. Fine distinctions of location",
+      "body": {
+        "sw": "Katika Kiswahili kuna njia tatu tofauti za kusema \"kuwepo mahali fulani\":\n\n- niko — nipo mahali fulani (kwa takriban, si kwa usahihi): \"niko nyumbani\" = mahali fulani ndani ya nyumba\n- nipo — nipo hapa hasa (msemaji anaonyesha sehemu maalum): \"nipo hapa\"\n- nimo — nipo ndani ya kitu: \"nimo ndani ya nyumba\"\n\nKatika Kirusi hakuna tofauti kama hiyo — \"я в доме\" (niko ndani ya nyumba) inafunika hali zote, bila kujali kama ni kwa usahihi au kwa takriban, ndani au nje.\n\nKatika lugha yako — je kuna tofauti ndogo kama hizo za mahali?",
+        "en": "In Swahili there are three different ways to say \"to be somewhere\":\n\n- niko — I am somewhere (approximately, not precisely): \"I am home\" = somewhere in the house\n- nipo — I am exactly here (the speaker is pointing to a specific spot): \"I am right here\"\n- nimo — I am inside something: \"I am inside the house\"\n\nIn Russian there is no such distinction — \"я в доме\" (I am in the house) covers everything, regardless of whether it is precise or approximate, inside or outside.\n\nIn your language — are there such fine distinctions for location?"
+      },
+      "options": {
+        "sw": [
+          "Hapana — neno moja au umbo moja kwa hali zote",
+          "Ndiyo — kuna tofauti → tofauti iko wapi hasa? Tunga mifano katika lugha yako na utoe tafsiri kwa Kiswahili na Kiingereza"
+        ],
+        "en": [
+          "No — one word or form for all situations",
+          "Yes — there is a distinction → what exactly? Formulate examples in your language and provide a translation in Swahili and English"
+        ]
+      }
+    },
+    {
+      "id": "mq5",
+      "sw": "Swali la 5. Mahali kunaathiri kitenzi",
+      "en": "Question 5. Location affects the verb",
+      "body": {
+        "sw": "Katika Kiswahili unaweza kusema:\n\nMezani pana chakula — Kuna chakula mezani\n\nHapa kitenzi pana kina kiambishi awali pa- — alama ya mahali hasa. Kwa hiyo si tu \"kuna chakula\" bali \"hasa pale kuna chakula\" — mahali pamekuwa sehemu ya kitenzi chenyewe.\n\nKatika Kirusi hii haipo — \"на столе стоит стакан\" (glasi inasimama mezani) — kitenzi \"inasimama\" hakibadiliki kabisa kwa sababu mtenda yuko mezani.\n\nAngalia tafsiri zako za sentensi kama:\n\n- \"Juu ya meza kuna glasi\"\n- \"Ndani ya nyumba anaishi John\"\n- \"Karibu na mti kilalalo kitabu\"\n\nKatika lugha yako — je kitenzi kinabadilika kwa njia yoyote katika sentensi kama hizi ikilinganishwa na za kawaida? Au umbo la kitenzi ni sawa kabisa?",
+        "en": "In Swahili you can say:\n\nMezani pana chakula — There is food on the table\n\nHere the verb pana contains the prefix pa- — a marker of exact location. So it is not just \"there is food\" but \"right there there is food\" — the location has become part of the verb itself.\n\nIn Russian this does not exist — \"на столе стоит стакан\" (a glass stands on the table) — the verb \"stands\" does not change at all because of the fact that the subject is on the table.\n\nLook at your translations of phrases like:\n\n- \"On the table stands a glass\"\n- \"In the house lives John\"\n- \"By the tree lies a book\"\n\nIn your language — does the verb change in any way in such sentences compared to ordinary ones? Or is the verb form exactly the same?"
+      },
+      "options": {
+        "sw": [
+          "Sawa kabisa — mahali hayaathiri kitenzi",
+          "Inabadilika → inabadilika vipi hasa? Toa mifano na utoe tafsiri kwa Kiswahili na Kiingereza"
+        ],
+        "en": [
+          "Exactly the same — location does not affect the verb",
+          "It changes → how exactly? Give examples and provide a translation in Swahili and English"
+        ]
+      }
+    },
+    {
+      "id": "mq6",
+      "sw": "Swali la 6. Kukusanya kitabu cha sarufi",
+      "en": "Question 6. Building the grammar reference",
+      "body": {
+        "sw": "Kulingana na maudhui yote yaliyotolewa — tafsiri za sentensi na majibu ya maswali hapo juu — tunga kitabu kifupi cha sarufi kuhusu upatanisho katika lugha yako.",
+        "en": "Based on all the content provided — translations of phrases and answers to the questions above — write a short grammar reference on agreement in your language."
+      },
+      "structure": {
+        "sw": [
+          "Upatanisho wa kitenzi na mtenda — inabadilika kwa nini (nafsi, nambari, jinsia, ngeli, au haibadiliki)",
+          "Kitenzi na kitu kama mtenda — sawa na mtu au tofauti",
+          "Mtenda wa pamoja — nini kinatokea kwa kitenzi",
+          "Nambari — zinabadilika au la, zinabadilika kwa nini, mpangilio, maneno ya kuhesabu kama yapo",
+          "Nambari \"moja\" — inafanya vipi",
+          "Kuonyesha mahali — kihusishi, kihusishi cha nyuma, hali, chembe",
+          "Tofauti kati ya \"wapi\" na \"kwenda wapi\" — inavyoonyeshwa",
+          "Tofauti ndogo za mahali — kama zipo",
+          "Mahali na umbo la kitenzi — kunaathiri au la",
+          "Mifano ya sentensi kwa kila kanuni"
+        ],
+        "en": [
+          "Verb agreement with the subject — what does it change by (person, number, gender, class, or does not change)",
+          "The verb and an object as subject — the same as with a person or not",
+          "Compound subject — what happens to the verb",
+          "Numerals — do they change or not, what do they change by, order, counting words if they exist",
+          "The numeral \"one\" — how it behaves",
+          "Expressing location — preposition, postposition, case, particle",
+          "The distinction between \"where\" and \"where to\" — how it is expressed",
+          "Fine locative distinctions — if they exist",
+          "Location and verb form — does it affect the verb or not",
+          "Example sentences for each rule"
+        ]
+      }
+    }
+  ]
+}
