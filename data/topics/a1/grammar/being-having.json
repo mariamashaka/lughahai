@@ -1,0 +1,1030 @@
+{
+  "id": "being-having",
+  "type": "grammar",
+  "level": "A1",
+  "order": 5,
+  "payment_tzs": 5000,
+  "name": {
+    "sw": "Kuwa na kuwa nacho (kitenzi 'kuwa', 'nina')",
+    "en": "Being and having (verb 'to be', 'I have')"
+  },
+  "description": {
+    "sw": "Kitenzi 'kuwa' (uwepo na kutokuwepo), ujenzi wa 'nina/huna', maalum ya lugha.",
+    "en": "Verb 'to be' (presence/absence), construction 'I have / I don't have', language specifics."
+  },
+  "blocks": [
+    {
+      "id": "block_a1",
+      "label": {
+        "sw": "A1. Utambulisho — ni nani (sasa)",
+        "en": "A1. Identity — who someone is (present)"
+      },
+      "phrases": [
+        {
+          "id": "bh_a1_1sg_pos",
+          "sw": "Mimi ni mwalimu",
+          "en": "I am a teacher",
+          "ctx_sw": "mimi",
+          "ctx_en": "I"
+        },
+        {
+          "id": "bh_a1_1sg_neg",
+          "sw": "Mimi si mwalimu",
+          "en": "I am not a teacher",
+          "ctx_sw": "mimi — ukanushi",
+          "ctx_en": "I — negative"
+        },
+        {
+          "id": "bh_a1_2sg_pos",
+          "sw": "Wewe ni mwalimu",
+          "en": "You are a teacher",
+          "ctx_sw": "wewe",
+          "ctx_en": "you"
+        },
+        {
+          "id": "bh_a1_2sg_neg",
+          "sw": "Wewe si mwalimu",
+          "en": "You are not a teacher",
+          "ctx_sw": "wewe — ukanushi",
+          "ctx_en": "you — negative"
+        },
+        {
+          "id": "bh_a1_3sgm_pos",
+          "sw": "John ni mwalimu",
+          "en": "John is a teacher",
+          "ctx_sw": "yeye (John)",
+          "ctx_en": "he (John)"
+        },
+        {
+          "id": "bh_a1_3sgm_neg",
+          "sw": "John si mwalimu",
+          "en": "John is not a teacher",
+          "ctx_sw": "yeye (John) — ukanushi",
+          "ctx_en": "he (John) — negative"
+        },
+        {
+          "id": "bh_a1_3sgf_pos",
+          "sw": "Anna ni mwalimu",
+          "en": "Anna is a teacher",
+          "ctx_sw": "yeye (Anna)",
+          "ctx_en": "she (Anna)"
+        },
+        {
+          "id": "bh_a1_3sgf_neg",
+          "sw": "Anna si mwalimu",
+          "en": "Anna is not a teacher",
+          "ctx_sw": "yeye (Anna) — ukanushi",
+          "ctx_en": "she (Anna) — negative"
+        },
+        {
+          "id": "bh_a1_1pl_pos",
+          "sw": "Sisi ni walimu",
+          "en": "We are teachers",
+          "ctx_sw": "sisi",
+          "ctx_en": "we"
+        },
+        {
+          "id": "bh_a1_1pl_neg",
+          "sw": "Sisi si walimu",
+          "en": "We are not teachers",
+          "ctx_sw": "sisi — ukanushi",
+          "ctx_en": "we — negative"
+        },
+        {
+          "id": "bh_a1_2pl_pos",
+          "sw": "Ninyi ni walimu",
+          "en": "You are teachers",
+          "ctx_sw": "ninyi",
+          "ctx_en": "you (plural)"
+        },
+        {
+          "id": "bh_a1_2pl_neg",
+          "sw": "Ninyi si walimu",
+          "en": "You are not teachers",
+          "ctx_sw": "ninyi — ukanushi",
+          "ctx_en": "you (plural) — negative"
+        },
+        {
+          "id": "bh_a1_3pl_pos",
+          "sw": "John na Anna ni walimu",
+          "en": "John and Anna are teachers",
+          "ctx_sw": "wao",
+          "ctx_en": "they"
+        },
+        {
+          "id": "bh_a1_3pl_neg",
+          "sw": "John na Anna si walimu",
+          "en": "John and Anna are not teachers",
+          "ctx_sw": "wao — ukanushi",
+          "ctx_en": "they — negative"
+        }
+      ]
+    },
+    {
+      "id": "block_a2",
+      "label": {
+        "sw": "A2. Utambulisho — ni nani (wakati wa kale na kesho)",
+        "en": "A2. Identity — who someone is (past and future)"
+      },
+      "phrases": [
+        {
+          "id": "bh_a2_john_past_pos",
+          "sw": "John alikuwa mwalimu",
+          "en": "John was a teacher",
+          "ctx_sw": "wakati wa kale",
+          "ctx_en": "past"
+        },
+        {
+          "id": "bh_a2_john_past_neg",
+          "sw": "John hakuwa mwalimu",
+          "en": "John was not a teacher",
+          "ctx_sw": "wakati wa kale — ukanushi",
+          "ctx_en": "past — negative"
+        },
+        {
+          "id": "bh_a2_john_future_pos",
+          "sw": "John atakuwa mwalimu",
+          "en": "John will be a teacher",
+          "ctx_sw": "wakati wa kesho",
+          "ctx_en": "future"
+        },
+        {
+          "id": "bh_a2_john_future_neg",
+          "sw": "John hatakuwa mwalimu",
+          "en": "John will not be a teacher",
+          "ctx_sw": "wakati wa kesho — ukanushi",
+          "ctx_en": "future — negative"
+        },
+        {
+          "id": "bh_a2_anna_past_pos",
+          "sw": "Anna alikuwa mwalimu",
+          "en": "Anna was a teacher",
+          "ctx_sw": "wakati wa kale",
+          "ctx_en": "past"
+        },
+        {
+          "id": "bh_a2_anna_past_neg",
+          "sw": "Anna hakuwa mwalimu",
+          "en": "Anna was not a teacher",
+          "ctx_sw": "wakati wa kale — ukanushi",
+          "ctx_en": "past — negative"
+        },
+        {
+          "id": "bh_a2_anna_future_pos",
+          "sw": "Anna atakuwa mwalimu",
+          "en": "Anna will be a teacher",
+          "ctx_sw": "wakati wa kesho",
+          "ctx_en": "future"
+        }
+      ]
+    },
+    {
+      "id": "block_a3",
+      "label": {
+        "sw": "A3. Mahali — yuko wapi (sasa)",
+        "en": "A3. Location — where someone is (present)"
+      },
+      "phrases": [
+        {
+          "id": "bh_a3_1sg_pos",
+          "sw": "Mimi niko nyumbani",
+          "en": "I am at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_1sg_neg",
+          "sw": "Mimi siko nyumbani",
+          "en": "I am not at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_john_pos",
+          "sw": "John yuko nyumbani",
+          "en": "John is at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_john_neg",
+          "sw": "John hayuko nyumbani",
+          "en": "John is not at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_anna_pos",
+          "sw": "Anna yuko sokoni",
+          "en": "Anna is at the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_anna_neg",
+          "sw": "Anna hayuko sokoni",
+          "en": "Anna is not at the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_1pl_pos",
+          "sw": "Sisi tuko shambani",
+          "en": "We are in the field",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a3_1pl_neg",
+          "sw": "Sisi hatuko shambani",
+          "en": "We are not in the field",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_a4",
+      "label": {
+        "sw": "A4. Mahali — yuko wapi (wakati wa kale na kesho)",
+        "en": "A4. Location — where someone is (past and future)"
+      },
+      "phrases": [
+        {
+          "id": "bh_a4_john_past_pos",
+          "sw": "John alikuwa nyumbani",
+          "en": "John was at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a4_john_past_neg",
+          "sw": "John hakuwa nyumbani",
+          "en": "John was not at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a4_john_future_pos",
+          "sw": "John atakuwa nyumbani",
+          "en": "John will be at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a4_anna_past_pos",
+          "sw": "Anna alikuwa sokoni",
+          "en": "Anna was at the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a4_anna_past_neg",
+          "sw": "Anna hakuwa sokoni",
+          "en": "Anna was not at the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a4_anna_future_pos",
+          "sw": "Anna atakuwa sokoni",
+          "en": "Anna will be at the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_a5",
+      "label": {
+        "sw": "A5. Hali — ana hali gani (sasa)",
+        "en": "A5. State — what someone is like (present)"
+      },
+      "phrases": [
+        {
+          "id": "bh_a5_john_tired_pos",
+          "sw": "John amechoka",
+          "en": "John is tired",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_john_tired_neg",
+          "sw": "John hajachoka",
+          "en": "John is not tired",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_anna_hungry_pos",
+          "sw": "Anna ana njaa",
+          "en": "Anna is hungry",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_anna_hungry_neg",
+          "sw": "Anna hana njaa",
+          "en": "Anna is not hungry",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_1pl_ready_pos",
+          "sw": "Sisi tuko tayari",
+          "en": "We are ready",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_1pl_ready_neg",
+          "sw": "Sisi hatupo tayari",
+          "en": "We are not ready",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_daniel_sick_pos",
+          "sw": "Daniel ana ugonjwa",
+          "en": "Daniel is sick",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a5_daniel_sick_neg",
+          "sw": "Daniel hana ugonjwa",
+          "en": "Daniel is not sick",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_a6",
+      "label": {
+        "sw": "A6. Hali — ana hali gani (wakati wa kale na kesho)",
+        "en": "A6. State — what someone is like (past and future)"
+      },
+      "phrases": [
+        {
+          "id": "bh_a6_john_tired_past_pos",
+          "sw": "John alikuwa amechoka",
+          "en": "John was tired",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a6_john_tired_past_neg",
+          "sw": "John hakuwa amechoka",
+          "en": "John was not tired",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a6_anna_ready_future",
+          "sw": "Anna atakuwa tayari",
+          "en": "Anna will be ready",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a6_daniel_sick_past_pos",
+          "sw": "Daniel alikuwa na ugonjwa",
+          "en": "Daniel was sick",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a6_daniel_sick_past_neg",
+          "sw": "Daniel hakuwa na ugonjwa",
+          "en": "Daniel was not sick",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_a7",
+      "label": {
+        "sw": "A7. Maswali ya \"kuwa\"",
+        "en": "A7. Questions with \"to be\""
+      },
+      "phrases": [
+        {
+          "id": "bh_a7_q_teacher",
+          "sw": "Je, wewe ni mwalimu?",
+          "en": "Are you a teacher?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a7_q_home",
+          "sw": "Je, John yuko nyumbani?",
+          "en": "Is John at home?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a7_q_tired",
+          "sw": "Je, Anna amechoka?",
+          "en": "Is Anna tired?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a7_q_ready",
+          "sw": "Je, nyinyi mko tayari?",
+          "en": "Are you ready?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a7_q_where",
+          "sw": "John yuko wapi?",
+          "en": "Where is John?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_a7_q_who",
+          "sw": "Wewe ni nani?",
+          "en": "Who are you?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b1",
+      "label": {
+        "sw": "B1. Nina — sasa, nafsi zote",
+        "en": "B1. Have — present, all persons"
+      },
+      "phrases": [
+        {
+          "id": "bh_b1_1sg",
+          "sw": "Mimi nina kitabu",
+          "en": "I have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b1_2sg",
+          "sw": "Wewe una kitabu",
+          "en": "You have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b1_3sgm",
+          "sw": "John ana kitabu",
+          "en": "John has a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b1_3sgf",
+          "sw": "Anna ana kitabu",
+          "en": "Anna has a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b1_1pl",
+          "sw": "Sisi tuna kitabu",
+          "en": "We have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b1_2pl",
+          "sw": "Ninyi mna kitabu",
+          "en": "You (plural) have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b1_3pl",
+          "sw": "Wao wana kitabu",
+          "en": "They have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b2",
+      "label": {
+        "sw": "B2. Sina — sasa, nafsi zote",
+        "en": "B2. Don't have — present, all persons"
+      },
+      "phrases": [
+        {
+          "id": "bh_b2_1sg",
+          "sw": "Mimi sina kitabu",
+          "en": "I don't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b2_2sg",
+          "sw": "Wewe huna kitabu",
+          "en": "You don't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b2_3sgm",
+          "sw": "John hana kitabu",
+          "en": "John doesn't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b2_3sgf",
+          "sw": "Anna hana kitabu",
+          "en": "Anna doesn't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b2_1pl",
+          "sw": "Sisi hatuna kitabu",
+          "en": "We don't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b2_2pl",
+          "sw": "Ninyi hamna kitabu",
+          "en": "You (plural) don't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b2_3pl",
+          "sw": "Wao hawana kitabu",
+          "en": "They don't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b3",
+      "label": {
+        "sw": "B3. Vitu tofauti — wenye uhai na visivyo na uhai",
+        "en": "B3. Different objects — animate and inanimate"
+      },
+      "phrases": [
+        {
+          "id": "bh_b3_john_cow_pos",
+          "sw": "John ana ng'ombe",
+          "en": "John has a cow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_john_cow_neg",
+          "sw": "John hana ng'ombe",
+          "en": "John doesn't have a cow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_anna_child_pos",
+          "sw": "Anna ana mtoto",
+          "en": "Anna has a child",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_anna_child_neg",
+          "sw": "Anna hana mtoto",
+          "en": "Anna doesn't have a child",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_daniel_bike_pos",
+          "sw": "Daniel ana baiskeli",
+          "en": "Daniel has a bicycle",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_daniel_bike_neg",
+          "sw": "Daniel hana baiskeli",
+          "en": "Daniel doesn't have a bicycle",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_grace_garden_pos",
+          "sw": "Grace ana bustani",
+          "en": "Grace has a garden",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b3_grace_garden_neg",
+          "sw": "Grace hana bustani",
+          "en": "Grace doesn't have a garden",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b4",
+      "label": {
+        "sw": "B4. Umiliki — wakati wa kale",
+        "en": "B4. Having — past"
+      },
+      "phrases": [
+        {
+          "id": "bh_b4_1sg_book_pos",
+          "sw": "Mimi nilikuwa na kitabu",
+          "en": "I had a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b4_1sg_book_neg",
+          "sw": "Mimi haikuwa na kitabu",
+          "en": "I didn't have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b4_john_cow_pos",
+          "sw": "John alikuwa na ng'ombe",
+          "en": "John had a cow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b4_john_cow_neg",
+          "sw": "John hakuwa na ng'ombe",
+          "en": "John didn't have a cow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b4_anna_child_pos",
+          "sw": "Anna alikuwa na mtoto",
+          "en": "Anna had a child",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b4_anna_child_neg",
+          "sw": "Anna hakuwa na mtoto",
+          "en": "Anna didn't have a child",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b5",
+      "label": {
+        "sw": "B5. Umiliki — wakati wa kesho",
+        "en": "B5. Having — future"
+      },
+      "phrases": [
+        {
+          "id": "bh_b5_1sg_book_pos",
+          "sw": "Mimi nitakuwa na kitabu",
+          "en": "I will have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b5_1sg_book_neg",
+          "sw": "Mimi sitakuwa na kitabu",
+          "en": "I will not have a book",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b5_john_cow_pos",
+          "sw": "John atakuwa na ng'ombe",
+          "en": "John will have a cow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b5_john_cow_neg",
+          "sw": "John hatakuwa na ng'ombe",
+          "en": "John will not have a cow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b5_anna_child_pos",
+          "sw": "Anna atakuwa na mtoto",
+          "en": "Anna will have a child",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b6",
+      "label": {
+        "sw": "B6. Uwepo bila mmiliki",
+        "en": "B6. Existence without an owner"
+      },
+      "phrases": [
+        {
+          "id": "bh_b6_book_house_pos",
+          "sw": "Kuna kitabu ndani ya nyumba",
+          "en": "There is a book in the house",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_book_house_neg",
+          "sw": "Hakuna kitabu ndani ya nyumba",
+          "en": "There is no book in the house",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_food_table_pos",
+          "sw": "Kuna chakula mezani",
+          "en": "There is food on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_food_table_neg",
+          "sw": "Hakuna chakula mezani",
+          "en": "There is no food on the table",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_school_village_pos",
+          "sw": "Kuna shule kijijini",
+          "en": "There is a school in the village",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_school_village_neg",
+          "sw": "Hakuna shule kijijini",
+          "en": "There is no school in the village",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_water_field_pos",
+          "sw": "Kuna maji shambani",
+          "en": "There is water in the field",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b6_water_field_neg",
+          "sw": "Hakuna maji shambani",
+          "en": "There is no water in the field",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "block_b7",
+      "label": {
+        "sw": "B7. Maswali ya umiliki",
+        "en": "B7. Questions about having"
+      },
+      "phrases": [
+        {
+          "id": "bh_b7_q_book",
+          "sw": "Je, una kitabu?",
+          "en": "Do you have a book?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b7_q_cow",
+          "sw": "Je, John ana ng'ombe?",
+          "en": "Does John have a cow?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b7_q_water",
+          "sw": "Je, mna maji?",
+          "en": "Do you have water?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b7_q_what",
+          "sw": "Una nini?",
+          "en": "What do you have?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_b7_q_who",
+          "sw": "Nani ana kitabu?",
+          "en": "Who has a book?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "stories",
+      "label": {
+        "sw": "C. Hadithi fupi",
+        "en": "C. Short stories"
+      },
+      "phrases": [
+        {
+          "id": "bh_story1_title",
+          "sw": "Ng'ombe Aliyekuja Peke Yake",
+          "en": "The Cow That Came on Its Own",
+          "ctx_sw": "hadithi ya ajabu",
+          "ctx_en": "magical story"
+        },
+        {
+          "id": "bh_story1_body",
+          "sw": "Asubuhi moja Anna alitoka nje ya nyumba yake na kuona ng'ombe amesimama mlangoni mwake. Mzuri, wa rangi ya kahawia nyekundu, mtulivu. Ng'ombe alikuwa peke yake — bila kamba, bila mwenyewe, bila maelezo. Anna hakuwa na ng'ombe. Sasa alikuwa naye. Anna alimpa maji na majani. Jioni hakuna aliyekuja kuchukua ng'ombe. Wiki moja baadaye pia hakuna aliyekuja. Majirani walisema: huyu ni ng'ombe wako. Anna hakuwa na uhakika. Lakini maziwa yalikuwa ya kweli.",
+          "en": "One morning Anna came out of her house and saw a cow standing at her door. Beautiful, reddish-brown, calm. The cow was alone — no rope, no owner, no explanation. Anna didn't have a cow. Now she did. Anna gave it water and hay. In the evening nobody came for the cow. A week later nobody came either. The neighbours said: this is your cow. Anna was not sure. But the milk was real.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_story2_title",
+          "sw": "Mtoto Anayejua Kila Kitu",
+          "en": "The Child Who Knows Everything",
+          "ctx_sw": "hadithi ya ajabu",
+          "ctx_en": "magical story"
+        },
+        {
+          "id": "bh_story2_body",
+          "sw": "Grace ana mpwa. Ana miaka saba na anajua kila kitu. Anajua mvua iko wapi, anajua basi litakuja lini, anajua kwa nini jogoo analia saa tisa usiku hasa. Siku moja Grace alimwuliza: nguo yangu ya buluu iko wapi? Alisema: ilikuwa kwenye kamba. Sasa haipo. Lakini itakuwa kwako kesho asubuhi. Asubuhi nguo ilikuwa imelala mlangoni. Yenye unyevu na safi. Nani alileta — haijulikani.",
+          "en": "Grace has a nephew. He is seven years old and he knows everything. He knows where the rain is, he knows when the bus will come, he knows why the rooster crows at exactly three in the morning. One day Grace asked him: where is my blue cloth? He said: it was on the line. It is not there now. But it will be with you tomorrow morning. In the morning the cloth was lying at the door. Wet and clean. Who brought it — nobody knows.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_story3_title",
+          "sw": "Sufuria Tupu",
+          "en": "The Empty Pot",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "bh_story3_body",
+          "sw": "Grace ana mapishi ya siri ya supu aliyoyarithisha kutoka kwa bibi yake. Tatizo ni kwamba kamwe hana viungo vyote vinavyohitajika wakati mmoja. Leo kuna vitunguu lakini hakuna nyama. Jana kulikuwa na nyama lakini haikuwa na vitunguu. Supu itakuwa. Siku moja.",
+          "en": "Grace has a secret soup recipe she inherited from her grandmother. The problem is that she never has all the ingredients at the same time. Today there is onion but there is no meat. Yesterday there was meat but there was no onion. The soup will happen. Someday.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    }
+  ],
+  "moderator_questions": [
+    {
+      "id": "mq1",
+      "sw": "Swali la 1. Kitenzi kimoja cha \"kuwa\" au vingi",
+      "en": "Question 1. One verb \"to be\" or several",
+      "body": {
+        "sw": "Angalia tafsiri zako za aina tatu za sentensi:\n\n- \"John ni mwalimu\" — ni nani yeye\n- \"John yuko nyumbani\" — yuko wapi\n- \"John amechoka\" — ana hali gani sasa hivi\n\nKatika Kihispania kuna vitenzi viwili tofauti — ser kwa \"John ni mwalimu\" na estar kwa \"John yuko nyumbani\" na \"John amechoka\". Katika Kiswahili pia kuna maneno mawili tofauti — ni kwa utambulisho na yuko kwa mahali.\n\nKatika lugha yako — ni neno moja katika hali zote tatu au maneno tofauti?",
+        "en": "Look at your translations of three types of phrases:\n\n- \"John is a teacher\" — who he is\n- \"John is at home\" — where he is\n- \"John is tired\" — what he is like right now\n\nIn Spanish these are two different verbs — ser for \"John is a teacher\" and estar for \"John is at home\" and \"John is tired\". In Swahili there are also two different words — ni for identity and yuko for location.\n\nIn your language — is it the same word in all three cases or different words?"
+      },
+      "options": {
+        "sw": [
+          "Neno moja kwa hali zote tatu",
+          "Maneno tofauti → mangapi? neno gani kwa hali gani? toa mifano"
+        ],
+        "en": [
+          "One word for all three cases",
+          "Different words → how many? which word for which case? give examples"
+        ]
+      }
+    },
+    {
+      "id": "mq2",
+      "sw": "Swali la 2. Sifa ya kudumu vs hali ya muda",
+      "en": "Question 2. Permanent property vs temporary state",
+      "body": {
+        "sw": "Katika Kihispania \"John es alto\" — John ni mrefu (daima, ni sifa yake) na \"John está cansado\" — John amechoka (sasa hivi, kwa muda) — vitenzi tofauti.\n\nKatika Kirusi na Kiingereza neno moja linafunika hali zote mbili — \"John ni mrefu\" na \"John amechoka\" — hakuna tofauti katika kitenzi.\n\nAngalia tafsiri zako:\n\n- \"John ni mwalimu\" (kudumu)\n- \"John amechoka\" (sasa hivi)\n- \"John ana ugonjwa\" (kwa muda)\n- \"John ni mrefu\" (daima)\n\nKatika lugha yako — je kuna tofauti ya kisarufi kati ya sifa ya kudumu na hali ya muda?",
+        "en": "In Spanish \"John es alto\" — John is tall (always, it is his property) and \"John está cansado\" — John is tired (right now, temporarily) — these are different verbs.\n\nIn Russian and English one word covers both cases — \"John is tall\" and \"John is tired\" — no difference in the verb.\n\nLook at your translations:\n\n- \"John is a teacher\" (permanent)\n- \"John is tired\" (right now)\n- \"John is sick\" (temporary)\n- \"John is tall\" (always)\n\nIn your language — is there a grammatical distinction between a permanent property and a temporary state?"
+      },
+      "options": {
+        "sw": [
+          "Hapana — umbo moja kwa hali zote mbili",
+          "Ndiyo — kuna tofauti → inavyoonyeshwa vipi hasa? toa mifano"
+        ],
+        "en": [
+          "No — one form for both cases",
+          "Yes — there is a distinction → how exactly is it expressed? give examples"
+        ]
+      }
+    },
+    {
+      "id": "mq3",
+      "sw": "Swali la 3. Ukanushi wa \"kuwa\" na \"kuwa na\"",
+      "en": "Question 3. Negation of \"to be\" and \"to have\"",
+      "body": {
+        "sw": "Angalia tafsiri zako za sentensi za ukanushi:\n\n- \"John si mwalimu\"\n- \"John hayuko nyumbani\"\n- \"Sina kitabu\"\n\nKatika baadhi ya lugha ukanushi wa \"kuwa\" unajengwa kwa njia maalum — si tu kuongeza \"si\" mbele ya kitenzi. Katika Kiswahili \"ni\" → \"si\" — neno tofauti kabisa. Katika Kirusi \"у меня есть\" → \"у меня нет\" na nomino inabadilika umbo lake.\n\nKatika lugha yako — ukanushi wa \"kuwa\" na \"kuwa na\" unajengwa kama ukanushi wa kawaida au kuna umbo maalum?",
+        "en": "Look at your translations of the negative phrases:\n\n- \"John is not a teacher\"\n- \"John is not at home\"\n- \"I don't have a book\"\n\nIn some languages negation of \"to be\" is built in a special way — it is not simply a matter of adding \"not\" before the verb. In Swahili \"ni\" → \"si\" — a completely different word. In Russian \"у меня есть\" → \"у меня нет\" and the noun changes its form.\n\nIn your language — is the negation of \"to be\" and \"to have\" built like regular negation or is there a special form?"
+      },
+      "options": {
+        "sw": [
+          "Ukanushi wa kawaida — chembe ya ukanushi inaongezwa tu",
+          "Umbo maalum kwa \"kuwa\" → ni lipi? toa mifano",
+          "Umbo maalum kwa \"kuwa na\" → ni lipi? toa mifano",
+          "Je nomino inabadilika wakati wa ukanushi wa \"kuwa na\" → toa mifano"
+        ],
+        "en": [
+          "Regular negation — a negative particle is simply added",
+          "A special form for \"to be\" → what is it? give examples",
+          "A special form for \"to have\" → what is it? give examples",
+          "Does something change in the noun when negating \"to have\" → give examples"
+        ]
+      }
+    },
+    {
+      "id": "mq4",
+      "sw": "Swali la 4. Uwepo vs umiliki",
+      "en": "Question 4. Existence vs possession",
+      "body": {
+        "sw": "Angalia vikundi hivi viwili vya sentensi:\n\n- \"Nina kitabu\" — kitabu ni changu\n- \"Kuna kitabu ndani ya nyumba\" — kitabu kipo tu ndani ya nyumba, bila mmiliki\n\nKatika baadhi ya lugha hii ni muundo mmoja. Katika nyingine ni tofauti kabisa.\n\nKatika lugha yako — \"nina kitabu\" na \"kuna kitabu ndani ya nyumba\" vinajengwa vivyo hivyo au tofauti?",
+        "en": "Look at these two groups of phrases:\n\n- \"I have a book\" — the book belongs to me\n- \"There is a book in the house\" — the book is simply in the house, without an owner\n\nIn some languages this is the same construction. In others they are completely different.\n\nIn your language — are \"I have a book\" and \"there is a book in the house\" built the same way or differently?"
+      },
+      "options": {
+        "sw": [
+          "Vivyo hivyo — muundo mmoja kwa hali zote mbili",
+          "Tofauti → vinatofautiana vipi hasa? toa mifano yote miwili pamoja"
+        ],
+        "en": [
+          "The same — one construction for both cases",
+          "Differently → how exactly do they differ? give both examples side by side"
+        ]
+      }
+    },
+    {
+      "id": "mq5",
+      "sw": "Swali la 5. \"Kuwa\" katika wakati wa sasa",
+      "en": "Question 5. \"To be\" in the present tense",
+      "body": {
+        "sw": "Katika baadhi ya lugha kitenzi \"kuwa\" katika wakati wa sasa kinatoweka kabisa — \"John ni mwalimu\" ni maneno mawili tu bila kitenzi, kama katika Kirusi ya mazungumzo au Kiarabu.\n\nKatika lugha nyingine kitenzi \"kuwa\" ni lazima daima — kama katika Kiingereza \"John is a teacher\".\n\nAngalia tafsiri zako za sentensi za wakati wa sasa. Je kuna kitenzi \"kuwa\" ndani yake au maneno mawili yanasimama tu pamoja bila kitenzi?",
+        "en": "In some languages the verb \"to be\" disappears completely in the present tense — \"John is a teacher\" is simply two words next to each other with no verb, as in colloquial Russian or in Arabic.\n\nIn other languages the verb \"to be\" is always required — as in English \"John is a teacher\".\n\nLook at your translations of the present tense phrases. Is there a verb \"to be\" in them or do the two words simply stand next to each other without a verb?"
+      },
+      "options": {
+        "sw": [
+          "Kitenzi kipo — ni lazima katika wakati wa sasa",
+          "Hakuna kitenzi — maneno yanasimama pamoja bila kitenzi",
+          "Inategemea aina ya sentensi → eleza katika hali zipi kitenzi kipo na katika zipi hakipo"
+        ],
+        "en": [
+          "The verb is there — it is required in the present tense",
+          "There is no verb — the words stand next to each other without a verb",
+          "It depends on the type of phrase → explain in which cases the verb is present and in which it is not"
+        ]
+      }
+    },
+    {
+      "id": "mq6",
+      "sw": "Swali la 6. Kukusanya kitabu cha sarufi",
+      "en": "Question 6. Building the grammar reference",
+      "body": {
+        "sw": "Kulingana na maudhui yote yaliyotolewa — tafsiri za sentensi na majibu ya maswali hapo juu — tunga kitabu kifupi cha sarufi kuhusu kitenzi \"kuwa\" na muundo \"kuwa na\" katika lugha yako.",
+        "en": "Based on all the content provided — translations of phrases and answers to the questions above — write a short grammar reference on the verb \"to be\" and the construction \"to have\" in your language."
+      },
+      "structure": {
+        "sw": [
+          "Kitenzi \"kuwa\" — je kipo, je kinabadilika kwa nafsi, neno moja au vingi",
+          "Utambulisho, mahali, hali — vivyo hivyo au maumbo tofauti",
+          "Sifa ya kudumu vs hali ya muda — je kuna tofauti",
+          "\"Kuwa\" katika wakati wa kale na kesho — jinsi inavyobadilika",
+          "Ukanushi wa \"kuwa\" — jinsi unavyojengwa",
+          "Umiliki — kitenzi \"kuwa na\" au muundo mwingine",
+          "Ukanushi wa umiliki — jinsi unavyojengwa, je nomino inabadilika",
+          "Uwepo bila mmiliki — sawa na umiliki au tofauti",
+          "Mifano ya sentensi kwa kila kanuni"
+        ],
+        "en": [
+          "The verb \"to be\" — does it exist, does it change by person, one word or several",
+          "Identity, location, state — the same or different forms",
+          "Permanent property vs temporary state — is there a distinction",
+          "\"To be\" in the past and future — how it changes",
+          "Negation of \"to be\" — how it is built",
+          "Possession — verb \"to have\" or construction \"I have\"",
+          "Negation of possession — how it is built, does the noun change",
+          "Existence without an owner — the same as possession or different",
+          "Example sentences for each rule"
+        ]
+      }
+    }
+  ]
+}
