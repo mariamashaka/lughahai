@@ -3,7 +3,7 @@
   "type": "grammar",
   "level": "A1",
   "order": 1,
-  "payment_tzs": 5000,
+  "payment_tzs": 10000,
   "name": {
     "sw": "Viwakilishi (nafsi, kuonyesha, umiliki)",
     "en": "Pronouns (personal, demonstrative, possessive)"
