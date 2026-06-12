@@ -2,5 +2,8 @@
   { "id": "pronouns", "path": "data/topics/a1/grammar/pronouns.json" },
   { "id": "nouns", "path": "data/topics/a1/grammar/nouns.json" },
   { "id": "verb-tenses", "path": "data/topics/a1/grammar/verb-tenses.json" },
+  { "id": "agreement", "path": "data/topics/a1/grammar/agreement.json" },
+  { "id": "being-having", "path": "data/topics/a1/grammar/being-having.json" },
+  { "id": "questions", "path": "data/topics/a1/grammar/questions.json" },
   { "id": "communication-numbers-time", "path": "data/topics/a1/vocabulary/communication-numbers-time.json" }
 ]
