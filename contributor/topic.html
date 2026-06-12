@@ -34,9 +34,81 @@
     .phrase-body { padding:var(--space-lg);display:none;flex-direction:column;gap:var(--space-lg); }
     .phrase-body.open { display:flex; }
     .field-label { font-size:0.78rem;font-weight:500;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-sm); }
+
+    /* === SOURCE PHRASE DISPLAY (shown above audio) === */
+    .phrase-source-display {
+      background:var(--green-mist);
+      border:1px solid var(--green-pale);
+      border-radius:var(--radius-md);
+      padding:var(--space-md) var(--space-lg);
+      margin-bottom:var(--space-sm);
+    }
+    .phrase-source-display__label {
+      font-size:0.7rem;
+      font-weight:500;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+      color:var(--green-deep);
+      margin-bottom:4px;
+    }
+    .phrase-source-display__text {
+      font-size:1rem;
+      font-weight:600;
+      color:var(--green-deep);
+      line-height:1.5;
+    }
+    .phrase-source-display__ctx {
+      font-size:0.75rem;
+      color:var(--text-soft);
+      margin-top:2px;
+    }
+
+    /* === TRANSLATION CONFIRMED DISPLAY === */
+    .translation-confirmed {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:var(--space-md);
+      background:var(--cream);
+      border:1.5px solid var(--green-pale);
+      border-radius:var(--radius-md);
+      padding:var(--space-md) var(--space-lg);
+    }
+    .translation-confirmed__text {
+      font-size:1rem;
+      color:var(--text-dark);
+      font-weight:500;
+      line-height:1.5;
+      flex:1;
+    }
+    .translation-confirmed__edit {
+      background:none;
+      border:none;
+      cursor:pointer;
+      color:var(--text-muted);
+      font-size:0.85rem;
+      padding:2px 6px;
+      border-radius:var(--radius-sm);
+      white-space:nowrap;
+      transition:all var(--transition);
+      flex-shrink:0;
+    }
+    .translation-confirmed__edit:hover {
+      background:var(--cream-dark);
+      color:var(--green-deep);
+    }
+
+    /* === TRANSLATION INPUT === */
     .translation-input { width:100%;padding:0.75rem 1rem;border:1.5px solid var(--cream-border);border-radius:var(--radius-md);background:var(--white);color:var(--text-dark);font-size:1rem;outline:none;font-family:var(--font-body);transition:border-color var(--transition),box-shadow var(--transition); }
     .translation-input:focus { border-color:var(--green-soft);box-shadow:0 0 0 3px rgba(92,140,117,0.15); }
     .translation-input.filled { border-color:var(--green-pale);background:var(--green-mist); }
+
+    /* === CONFIRM TEXT BUTTON === */
+    .btn-confirm-text {
+      margin-top:var(--space-sm);
+      width:100%;
+    }
+
     .audio-controls { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md) var(--space-lg);background:var(--cream);border-radius:var(--radius-md);border:1px solid var(--cream-border); }
     .rec-btn { width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all var(--transition);flex-shrink:0; }
     .rec-btn--record { background:var(--terracotta);color:var(--white); }
@@ -147,6 +219,9 @@
       w6:"Ikiwa hukubaliani na matokeo ya ukaguzi — unaweza kupinga.",
       field_translation:"Tafsiri (lugha yako)", field_translation_ph:"Andika tafsiri yako hapa...",
       field_audio:"Sauti",
+      source_label:"Sentensi ya asili",
+      btn_confirm_text:"Thibitisha tafsiri ✓",
+      btn_edit_text:"✏️ Hariri",
       audio_tip:"Bonyeza 🎙 kurekodi sauti yako",
       audio_saved:"✓ Sauti imehifadhiwa kwenye wingu",
       audio_recording:"⏺ Inarekodi... bonyeza kusimama",
@@ -155,7 +230,7 @@
       checklist_title:"Maendeleo",
       label_translations:"Tafsiri", label_audio:"Sauti", label_done:"Zilizokamilika",
       instructions_title:"Maelekezo",
-      instructions_body:"Kwa kila sentensi: (1) Andika tafsiri kwa lugha yako. (2) Bonyeza 🎙 kurekodi — zungumza polepole na wazi. (3) Bonyeza ⏹ kusimama. (4) Bonyeza 'Imekamilika' ukimaliza.",
+      instructions_body:"Kwa kila sentensi: (1) Andika tafsiri kwa lugha yako. (2) Bonyeza 'Thibitisha tafsiri'. (3) Rekodi sauti — zungumza polepole. (4) Bonyeza 'Imekamilika' ukimaliza.",
       status_inprogress:"Inaendelea",
       save_ok:"✓ Imehifadhiwa!", submit_ok:"✓ Imetumwa kwa ukaguzi! Asante.",
       submit_incomplete:"Tafadhali kamilisha tafsiri zote kabla ya kutuma.",
@@ -176,6 +251,9 @@
       w6:"If you disagree with the review result — you can dispute it.",
       field_translation:"Translation (your language)", field_translation_ph:"Type your translation here...",
       field_audio:"Audio",
+      source_label:"Original phrase",
+      btn_confirm_text:"Confirm translation ✓",
+      btn_edit_text:"✏️ Edit",
       audio_tip:"Click 🎙 to record your voice",
       audio_saved:"✓ Audio saved to cloud",
       audio_recording:"⏺ Recording... click to stop",
@@ -184,7 +262,7 @@
       checklist_title:"Progress",
       label_translations:"Translations", label_audio:"Audio", label_done:"Completed",
       instructions_title:"Instructions",
-      instructions_body:"For each sentence: (1) Write your translation. (2) Click 🎙 to record — speak slowly and clearly. (3) Click ⏹ to stop. (4) Click 'Mark done' when finished.",
+      instructions_body:"For each phrase: (1) Write your translation. (2) Click 'Confirm translation'. (3) Record audio — speak slowly and clearly. (4) Click 'Mark done' when finished.",
       status_inprogress:"In progress",
       save_ok:"✓ Saved!", submit_ok:"✓ Submitted for review! Thank you.",
       submit_incomplete:"Please complete all translations before submitting.",
@@ -225,18 +303,16 @@
     const topicId = params.get('id') || 'pronouns';
     languageId    = params.get('lang') || 'kikurya';
 
-    // Get current user
     const { data: { user } } = await supabase.auth.getUser();
     currentUser = user;
 
-    // Load topic data
     try {
-const indexRes = await fetch('../data/index.json');
-const index    = await indexRes.json();
-const entry    = index.find(t => t.id === topicId);
-if (!entry) throw new Error('Topic not found in index: ' + topicId);
-const res  = await fetch('../' + entry.path);
-topicData  = await res.json();
+      const indexRes = await fetch('../data/index.json');
+      const index    = await indexRes.json();
+      const entry    = index.find(t => t.id === topicId);
+      if (!entry) throw new Error('Topic not found in index: ' + topicId);
+      const res  = await fetch('../' + entry.path);
+      topicData  = await res.json();
       if (!topicData) throw new Error('Topic not found: ' + topicId);
     } catch(e) {
       document.getElementById('mainContainer').innerHTML =
@@ -244,21 +320,25 @@ topicData  = await res.json();
       return;
     }
 
-    // Init phrase state
     topicData.blocks.forEach(block => {
       block.phrases.forEach(p => {
-        phraseState[p.id] = { translation:'', hasAudio:false, audioUrl:null, audioUploading:false, done:false };
+        phraseState[p.id] = {
+          translation: '',
+          translationConfirmed: false,
+          hasAudio: false,
+          audioUrl: null,
+          audioUploading: false,
+          done: false
+        };
       });
     });
 
-    // Load saved data from Supabase if logged in
     if (currentUser) {
       await loadFromSupabase(topicId);
     } else {
-      loadDraft(); // fallback to localStorage
+      loadDraft();
     }
 
-    // Update header
     const t = i18n[currentLang];
     document.getElementById('hdr-type').textContent = topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
     document.getElementById('hdr-title').textContent = topicData.name[currentLang];
@@ -270,7 +350,6 @@ topicData  = await res.json();
   // ── LOAD FROM SUPABASE ────────────────────────────────
   async function loadFromSupabase(topicId) {
     try {
-      // Get or create submission
       const { data: existing } = await supabase
         .from('submissions')
         .select('*')
@@ -281,7 +360,6 @@ topicData  = await res.json();
 
       if (existing) {
         submissionId = existing.id;
-        // Load phrase responses
         const { data: responses } = await supabase
           .from('phrase_responses')
           .select('*')
@@ -290,16 +368,16 @@ topicData  = await res.json();
         if (responses) {
           responses.forEach(r => {
             if (phraseState[r.phrase_id]) {
-              phraseState[r.phrase_id].translation = r.translation || '';
-              phraseState[r.phrase_id].audioUrl    = r.audio_url || null;
-              phraseState[r.phrase_id].hasAudio    = !!r.audio_url;
-              phraseState[r.phrase_id].done        = r.is_done || false;
+              phraseState[r.phrase_id].translation          = r.translation || '';
+              phraseState[r.phrase_id].translationConfirmed = !!(r.translation);
+              phraseState[r.phrase_id].audioUrl             = r.audio_url || null;
+              phraseState[r.phrase_id].hasAudio             = !!r.audio_url;
+              phraseState[r.phrase_id].done                 = r.is_done || false;
               if (r.audio_url) audioLocal[r.phrase_id] = r.audio_url;
             }
           });
         }
       } else {
-        // Create new submission
         const { data: newSub } = await supabase
           .from('submissions')
           .insert({ user_id: currentUser.id, language_id: languageId, topic_id: topicId, status: 'in_progress' })
@@ -309,7 +387,7 @@ topicData  = await res.json();
       }
     } catch(e) {
       console.warn('Supabase load error:', e);
-      loadDraft(); // fallback
+      loadDraft();
     }
   }
 
@@ -342,7 +420,7 @@ topicData  = await res.json();
     document.getElementById('hdr-title').textContent = topicData.name[currentLang];
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     const total = allPhrases.length;
-    const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translation).length;
+    const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translationConfirmed).length;
     const nAud  = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
     const nDone = allPhrases.filter(p => phraseState[p.id]?.done).length;
     const pct   = Math.round(nDone / total * 100);
@@ -368,51 +446,79 @@ topicData  = await res.json();
       const bdone = bp.filter(p => phraseState[p.id]?.done).length;
       html += `<div class="block-header">${block.label[nk]}<span class="block-progress-chip ${bdone===bp.length?'done':''}">${bdone}/${bp.length}</span></div>`;
       bp.forEach(phrase => {
-        const state = phraseState[phrase.id] || {};
-        const isDone = state.done;
-        const isOpen = !isDone;
-        const isRec  = recording[phrase.id];
-        const ctx    = phrase[ck];
+        const state   = phraseState[phrase.id] || {};
+        const isDone  = state.done;
+        const isOpen  = !isDone;
+        const isRec   = recording[phrase.id];
+        const ctx     = phrase[ck];
+        const confirmed = state.translationConfirmed;
+
         let audioStatusText = t.audio_tip;
         let audioStatusClass = '';
         if (isRec) { audioStatusText = t.audio_recording; }
         else if (state.audioUploading) { audioStatusText = t.audio_uploading; audioStatusClass = 'uploading'; }
         else if (state.hasAudio) { audioStatusText = t.audio_saved; audioStatusClass = 'has-rec'; }
 
+        // Translation field: input or confirmed display
+        const translationBlock = confirmed
+          ? `<div>
+               <div class="field-label">${t.field_translation}</div>
+               <div class="translation-confirmed">
+                 <div class="translation-confirmed__text">${escHtml(state.translation)}</div>
+                 <button class="translation-confirmed__edit" onclick="editTranslation('${phrase.id}')">${t.btn_edit_text}</button>
+               </div>
+             </div>`
+          : `<div>
+               <div class="field-label">${t.field_translation}</div>
+               <input type="text" class="translation-input ${state.translation?'filled':''}"
+                 placeholder="${t.field_translation_ph}" value="${escAttr(state.translation||'')}"
+                 oninput="onInput('${phrase.id}', this.value)" id="inp-${phrase.id}" />
+               <button class="btn btn--primary btn--sm btn-confirm-text"
+                 onclick="confirmTranslation('${phrase.id}')"
+                 ${!state.translation ? 'disabled' : ''}>
+                 ${t.btn_confirm_text}
+               </button>
+             </div>`;
+
+        // Audio block: only shown after translation confirmed
+        const audioBlock = confirmed
+          ? `<div>
+               <div class="field-label">${t.field_audio}</div>
+               <div class="phrase-source-display">
+                 <div class="phrase-source-display__label">${t.source_label}</div>
+                 <div class="phrase-source-display__text">${escHtml(phrase[nk])}</div>
+                 ${ctx ? `<div class="phrase-source-display__ctx">${escHtml(ctx)}</div>` : ''}
+               </div>
+               <div class="audio-controls">
+                 <button class="rec-btn rec-btn--record ${isRec?'recording':''}"
+                   onclick="toggleRec('${phrase.id}')" ${state.audioUploading?'disabled':''}>
+                   ${isRec?'⏹':'🎙'}
+                 </button>
+                 <button class="rec-btn rec-btn--play" onclick="playAudio('${phrase.id}')"
+                   ${!state.hasAudio||state.audioUploading?'disabled':''}>▶</button>
+                 <button class="rec-btn rec-btn--delete" onclick="deleteAudio('${phrase.id}')"
+                   ${!state.hasAudio||state.audioUploading?'disabled':''}>🗑</button>
+                 <div class="audio-status ${audioStatusClass}">${audioStatusText}</div>
+               </div>
+             </div>`
+          : '';
+
         html += `
           <div class="phrase-block ${isDone?'done':''}" id="pb-${phrase.id}">
             <div class="phrase-header" onclick="togglePhrase('${phrase.id}')">
               <div class="phrase-num ${isDone?'done':''}">${isDone?'✓':idx}</div>
-              <div class="phrase-source">${phrase[nk]}${ctx?`<span>${ctx}</span>`:''}</div>
+              <div class="phrase-source">${escHtml(phrase[nk])}${ctx?`<span>${escHtml(ctx)}</span>`:''}</div>
               <div class="phrase-chevron ${isOpen?'open':''}" id="chev-${phrase.id}">›</div>
             </div>
             <div class="phrase-body ${isOpen?'open':''}" id="body-${phrase.id}">
-              <div>
-                <div class="field-label">${t.field_translation}</div>
-                <input type="text" class="translation-input ${state.translation?'filled':''}"
-                  placeholder="${t.field_translation_ph}" value="${state.translation||''}"
-                  oninput="onInput('${phrase.id}', this.value)" id="inp-${phrase.id}" />
-              </div>
-              <div>
-                <div class="field-label">${t.field_audio}</div>
-                <div class="audio-controls">
-                  <button class="rec-btn rec-btn--record ${isRec?'recording':''}"
-                    onclick="toggleRec('${phrase.id}')" ${state.audioUploading?'disabled':''}>
-                    ${isRec?'⏹':'🎙'}
-                  </button>
-                  <button class="rec-btn rec-btn--play" onclick="playAudio('${phrase.id}')"
-                    ${!state.hasAudio||state.audioUploading?'disabled':''}>▶</button>
-                  <button class="rec-btn rec-btn--delete" onclick="deleteAudio('${phrase.id}')"
-                    ${!state.hasAudio||state.audioUploading?'disabled':''}>🗑</button>
-                  <div class="audio-status ${audioStatusClass}">${audioStatusText}</div>
-                </div>
-              </div>
-              <div style="display:flex;justify-content:flex-end;">
+              ${translationBlock}
+              ${audioBlock}
+              ${confirmed ? `<div style="display:flex;justify-content:flex-end;">
                 <button class="btn ${isDone?'btn--secondary':'btn--primary'} btn--sm"
                   onclick="markDone('${phrase.id}')">
                   ${isDone ? t.btn_undo : t.btn_done}
                 </button>
-              </div>
+              </div>` : ''}
             </div>
           </div>`;
         idx++;
@@ -463,6 +569,14 @@ topicData  = await res.json();
     document.getElementById('mainContainer').innerHTML = html;
   }
 
+  // ── HELPERS ───────────────────────────────────────────
+  function escHtml(str) {
+    return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escAttr(str) {
+    return (str||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
   // ── INTERACTIONS ──────────────────────────────────────
   window.togglePhrase = function(id) {
     const body = document.getElementById('body-' + id);
@@ -477,7 +591,28 @@ topicData  = await res.json();
     phraseState[id].translation = value;
     const inp = document.getElementById('inp-' + id);
     if (inp) inp.classList.toggle('filled', !!value);
+    // Enable/disable confirm button dynamically
+    const confirmBtn = inp?.parentElement?.querySelector('.btn-confirm-text');
+    if (confirmBtn) confirmBtn.disabled = !value;
     updateChecklist();
+  }
+
+  window.confirmTranslation = async function(id) {
+    if (!phraseState[id]?.translation) return;
+    phraseState[id].translationConfirmed = true;
+    await saveToSupabase(id);
+    render();
+  }
+
+  window.editTranslation = function(id) {
+    if (!phraseState[id]) return;
+    phraseState[id].translationConfirmed = false;
+    render();
+    // Focus input after render
+    requestAnimationFrame(() => {
+      const inp = document.getElementById('inp-' + id);
+      if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+    });
   }
 
   // ── AUDIO ─────────────────────────────────────────────
@@ -500,7 +635,6 @@ topicData  = await res.json();
           phraseState[id].audioUploading = true;
           render();
           try {
-            // Use user ID + phrase ID for unique stable filename
             const userId = currentUser ? currentUser.id.substring(0,8) : 'anon';
             const fileName = userId + '_' + id;
             const fd = new FormData();
@@ -511,7 +645,6 @@ topicData  = await res.json();
             const data = await res.json();
             phraseState[id].audioUrl       = data.secure_url;
             phraseState[id].audioUploading = false;
-            // Save to Supabase immediately
             await saveToSupabase(id);
             showToast(i18n[currentLang].audio_saved, 'success');
           } catch(e) {
@@ -555,8 +688,8 @@ topicData  = await res.json();
     const body = document.getElementById('body-' + id);
     const chev = document.getElementById('chev-' + id);
     if (phraseState[id].done) {
-      if (pb)  pb.classList.add('done');
-      if (num) { num.classList.add('done'); num.textContent = '✓'; }
+      if (pb)   pb.classList.add('done');
+      if (num)  { num.classList.add('done'); num.textContent = '✓'; }
       if (body) body.classList.remove('open');
       if (chev) chev.classList.remove('open');
     } else {
@@ -570,7 +703,7 @@ topicData  = await res.json();
   function updateChecklist() {
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     const total = allPhrases.length;
-    const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translation).length;
+    const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translationConfirmed).length;
     const nAud  = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
     const nDone = allPhrases.filter(p => phraseState[p.id]?.done).length;
     const pct   = Math.round(nDone / total * 100);
@@ -590,20 +723,21 @@ topicData  = await res.json();
   // ── SAVE / SUBMIT ─────────────────────────────────────
   window.saveDraft = async function() {
     if (!currentUser) { showToast(i18n[currentLang].not_logged, 'error'); return; }
-    // Save all phrases to Supabase
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     await Promise.all(allPhrases.map(p => saveToSupabase(p.id)));
     showToast(i18n[currentLang].save_ok, 'success');
   }
 
-  // Fallback localStorage
   function loadDraft() {
     try {
       const raw = localStorage.getItem('lh_draft_' + topicData.id);
       if (raw) {
         const saved = JSON.parse(raw);
         Object.keys(saved).forEach(id => {
-          if (phraseState[id] !== undefined) phraseState[id] = { ...phraseState[id], ...saved[id] };
+          if (phraseState[id] !== undefined) {
+            phraseState[id] = { ...phraseState[id], ...saved[id] };
+            if (phraseState[id].translation) phraseState[id].translationConfirmed = true;
+          }
         });
       }
     } catch(e) {}
@@ -614,9 +748,7 @@ topicData  = await res.json();
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     const allTrl = allPhrases.every(p => phraseState[p.id]?.translation);
     if (!allTrl) { showToast(t.submit_incomplete, 'error'); return; }
-    // Save all to Supabase
     await Promise.all(allPhrases.map(p => saveToSupabase(p.id)));
-    // Update submission status
     if (submissionId) {
       await supabase.from('submissions').update({ status: 'submitted', updated_at: new Date().toISOString() }).eq('id', submissionId);
     }
