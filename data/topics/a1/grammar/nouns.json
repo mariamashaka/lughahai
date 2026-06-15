@@ -1,2023 +1,502 @@
-    {
-      "id": "nouns",
-      "type": "grammar",
-      "level": "A1",
-      "order": 2,
-      "payment_tzs": 7500,
-      "name": {
-        "sw": "Nomino (jinsia, ngeli, idadi, upatanisho)",
-        "en": "Nouns (gender, classes, number, agreement)"
-      },
-      "description": {
-        "sw": "Jinsia na ngeli za nomino, umoja na wingi, upatanisho wa kivumishi na kitenzi, uhai, hali za nomino, utambuzi.",
-        "en": "Noun gender and classes, singular and plural, adjective and verb agreement, animacy, noun cases, definiteness."
-      },
-      "blocks": [
-        {
-          "id": "gender_classes",
-          "label": {
-            "sw": "A. Jinsia na ngeli — nomino tofauti na kivumishi",
-            "en": "A. Gender and classes — different nouns with adjectives"
-          },
-          "phrases": [
-            {
-              "id": "a1",
-              "sw": "Nyumba kubwa",
-              "en": "A big house",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a2",
-              "sw": "Kitabu kikubwa",
-              "en": "A big book",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a3",
-              "sw": "Dirisha kubwa",
-              "en": "A big window",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a4",
-              "sw": "Mti mkubwa",
-              "en": "A big tree",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a5",
-              "sw": "Mto mkubwa",
-              "en": "A big river",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a6",
-              "sw": "Jiwe kubwa",
-              "en": "A big stone",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a7",
-              "sw": "Barabara kubwa",
-              "en": "A big road",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a8",
-              "sw": "Shamba kubwa",
-              "en": "A big field",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "a9",
-              "sw": "Nyumba moja / kitabu kimoja / dirisha moja",
-              "en": "One house / one book / one window",
-              "ctx_sw": "nambari 1",
-              "ctx_en": "number 1"
-            },
-            {
-              "id": "a10",
-              "sw": "Nyumba mbili / vitabu viwili / madirisha mawili",
-              "en": "Two houses / two books / two windows",
-              "ctx_sw": "nambari 2",
-              "ctx_en": "number 2"
-            }
-          ]
-        },
-        {
-          "id": "adjective_agreement",
-          "label": {
-            "sw": "B. Upatanisho wa kivumishi na nomino",
-            "en": "B. Adjective agreement with nouns"
-          },
-          "phrases": [
-            {
-              "id": "b1",
-              "sw": "Nyumba kubwa / kitabu kikubwa / dirisha kubwa",
-              "en": "A big house / a big book / a big window",
-              "ctx_sw": "ukubwa — umoja",
-              "ctx_en": "size — singular"
-            },
-            {
-              "id": "b2",
-              "sw": "Nyumba ndogo / kitabu kidogo / dirisha dogo",
-              "en": "A small house / a small book / a small window",
-              "ctx_sw": "ukubwa — umoja",
-              "ctx_en": "size — singular"
-            },
-            {
-              "id": "b3",
-              "sw": "Nyumba nyekundu / kitabu chekundu / dirisha jekundu",
-              "en": "A red house / a red book / a red window",
-              "ctx_sw": "rangi — umoja",
-              "ctx_en": "colour — singular"
-            },
-            {
-              "id": "b4",
-              "sw": "Nyumba nyeupe / kitabu cheupe / dirisha jeupe",
-              "en": "A white house / a white book / a white window",
-              "ctx_sw": "rangi — umoja",
-              "ctx_en": "colour — singular"
-            },
-            {
-              "id": "b5",
-              "sw": "Nyumba nzuri / kitabu kizuri / dirisha zuri",
-              "en": "A good house / a good book / a good window",
-              "ctx_sw": "ubora — umoja",
-              "ctx_en": "quality — singular"
-            },
-            {
-              "id": "b6",
-              "sw": "Nyumba ya zamani / kitabu cha zamani / dirisha la zamani",
-              "en": "An old house / an old book / an old window",
-              "ctx_sw": "ubora — umoja",
-              "ctx_en": "quality — singular"
-            },
-            {
-              "id": "b7",
-              "sw": "Nyumba mpya / kitabu kipya / dirisha jipya",
-              "en": "A new house / a new book / a new window",
-              "ctx_sw": "ubora — umoja",
-              "ctx_en": "quality — singular"
-            },
-            {
-              "id": "b8",
-              "sw": "Nyumba kubwa / vitabu vikubwa / madirisha makubwa",
-              "en": "Big houses / big books / big windows",
-              "ctx_sw": "ukubwa — wingi",
-              "ctx_en": "size — plural"
-            },
-            {
-              "id": "b9",
-              "sw": "Nyumba nyekundu / vitabu vyekundu / madirisha mekundu",
-              "en": "Red houses / red books / red windows",
-              "ctx_sw": "rangi — wingi",
-              "ctx_en": "colour — plural"
-            },
-            {
-              "id": "b10",
-              "sw": "Mwanaume mrefu / mwanamke mrefu",
-              "en": "A tall man / a tall woman",
-              "ctx_sw": "na watu",
-              "ctx_en": "with people"
-            },
-            {
-              "id": "b11",
-              "sw": "Mwanaume mzee / mwanamke mzee",
-              "en": "An old man / an old woman",
-              "ctx_sw": "na watu",
-              "ctx_en": "with people"
-            },
-            {
-              "id": "b12",
-              "sw": "Mwanaume mdogo / mwanamke mdogo",
-              "en": "A young man / a young woman",
-              "ctx_sw": "na watu",
-              "ctx_en": "with people"
-            },
-            {
-              "id": "b13",
-              "sw": "Ng'ombe mkubwa / mbuzi mdogo",
-              "en": "A big cow / a small goat",
-              "ctx_sw": "na wanyama",
-              "ctx_en": "with animals"
-            },
-            {
-              "id": "b14",
-              "sw": "Mbwa mzee / kuku mdogo",
-              "en": "An old dog / a young chicken",
-              "ctx_sw": "na wanyama",
-              "ctx_en": "with animals"
-            }
-          ]
-        },
-        {
-          "id": "number",
-          "label": {
-            "sw": "C. Umoja na wingi",
-            "en": "C. Singular and plural"
-          },
-          "phrases": [
-            {
-              "id": "c1",
-              "sw": "Mwanaume — wanaume",
-              "en": "Man — men",
-              "ctx_sw": "watu",
-              "ctx_en": "people"
-            },
-            {
-              "id": "c2",
-              "sw": "Mwanamke — wanawake",
-              "en": "Woman — women",
-              "ctx_sw": "watu",
-              "ctx_en": "people"
-            },
-            {
-              "id": "c3",
-              "sw": "Mtoto — watoto",
-              "en": "Child — children",
-              "ctx_sw": "watu",
-              "ctx_en": "people"
-            },
-            {
-              "id": "c4",
-              "sw": "Mzee — wazee",
-              "en": "Elder — elders",
-              "ctx_sw": "watu",
-              "ctx_en": "people"
-            },
-            {
-              "id": "c5",
-              "sw": "Ng'ombe — ng'ombe",
-              "en": "Cow — cows",
-              "ctx_sw": "wanyama",
-              "ctx_en": "animals"
-            },
-            {
-              "id": "c6",
-              "sw": "Mbuzi — mbuzi",
-              "en": "Goat — goats",
-              "ctx_sw": "wanyama",
-              "ctx_en": "animals"
-            },
-            {
-              "id": "c7",
-              "sw": "Mbwa — mbwa",
-              "en": "Dog — dogs",
-              "ctx_sw": "wanyama",
-              "ctx_en": "animals"
-            },
-            {
-              "id": "c8",
-              "sw": "Kuku — kuku",
-              "en": "Chicken — chickens",
-              "ctx_sw": "wanyama",
-              "ctx_en": "animals"
-            },
-            {
-              "id": "c9",
-              "sw": "Nyumba — nyumba",
-              "en": "House — houses",
-              "ctx_sw": "vitu",
-              "ctx_en": "objects"
-            },
-            {
-              "id": "c10",
-              "sw": "Kitabu — vitabu",
-              "en": "Book — books",
-              "ctx_sw": "vitu",
-              "ctx_en": "objects"
-            },
-            {
-              "id": "c11",
-              "sw": "Mti — miti",
-              "en": "Tree — trees",
-              "ctx_sw": "vitu",
-              "ctx_en": "objects"
-            },
-            {
-              "id": "c12",
-              "sw": "Jiwe — mawe",
-              "en": "Stone — stones",
-              "ctx_sw": "vitu",
-              "ctx_en": "objects"
-            },
-            {
-              "id": "c13",
-              "sw": "Barabara — barabara",
-              "en": "Road — roads",
-              "ctx_sw": "vitu",
-              "ctx_en": "objects"
-            },
-            {
-              "id": "c14",
-              "sw": "Shamba — mashamba",
-              "en": "Field — fields",
-              "ctx_sw": "vitu",
-              "ctx_en": "objects"
-            },
-            {
-              "id": "c15",
-              "sw": "Chakula (je, kuna wingi?)",
-              "en": "Food (is there a plural?)",
-              "ctx_sw": "chakula",
-              "ctx_en": "food"
-            },
-            {
-              "id": "c16",
-              "sw": "Maji (je, kuna wingi?)",
-              "en": "Water (is there a plural?)",
-              "ctx_sw": "chakula",
-              "ctx_en": "food"
-            },
-            {
-              "id": "c17",
-              "sw": "Maziwa (je, kuna wingi?)",
-              "en": "Milk (is there a plural?)",
-              "ctx_sw": "chakula",
-              "ctx_en": "food"
-            }
-          ]
-        },
-        {
-          "id": "dual",
-          "label": {
-            "sw": "D. Nambari mbili (двойственное число)",
-            "en": "D. Dual number"
-          },
-          "phrases": [
-            {
-              "id": "d1",
-              "sw": "Nyumba moja / nyumba mbili / nyumba nyingi",
-              "en": "One house / two houses / many houses",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "d2",
-              "sw": "Kitabu kimoja / vitabu viwili / vitabu vingi",
-              "en": "One book / two books / many books",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "d3",
-              "sw": "Mwanaume mmoja / wanaume wawili / wanaume wengi",
-              "en": "One man / two men / many men",
-              "ctx_sw": "",
-              "ctx_en": ""
-            },
-            {
-              "id": "d4",
-              "sw": "Mwanamke mmoja / wanawake wawili / wanawake wengi",
-              "en": "One woman / two women / many women",
-              "ctx_sw": "",
-              "ctx_en": ""
-            }
-          ]
-        },
-        {
-          "id": "verb_agreement",
-          "label": {
-            "sw": "E. Upatanisho wa kitenzi na nomino",
-            "en": "E. Verb agreement with nouns"
-          },
-          "phrases": [
-            {
-              "id": "e1",
-              "sw": "Nyumba inasimama",
-              "en": "The house stands",
-              "ctx_sw": "umoja",
-              "ctx_en": "singular"
-            },
-            {
-              "id": "e2",
-              "sw": "Kitabu kinalala",
-              "en": "The book lies",
-              "ctx_sw": "umoja",
-              "ctx_en": "singular"
-            },
-            {
-              "id": "e3",
-              "sw": "Mti unakua",
-              "en": "The tree grows",
-              "ctx_sw": "umoja",
-              "ctx_en": "singular"
-            },
-            {
-              "id": "e4",
-              "sw": "Mwanaume anaenda",
-              "en": "The man goes",
-              "ctx_sw": "umoja",
-              "ctx_en": "singular"
-            },
-            {
-              "id": "e5",
-              "sw": "Mwanamke anaenda",
-              "en": "The woman goes",
-              "ctx_sw": "umoja",
-              "ctx_en": "singular"
-            },
-            {
-              "id": "e6",
-              "sw": "Nyumba zinasimama",
-              "en": "The houses stand",
-              "ctx_sw": "wingi",
-              "ctx_en": "plural"
-            },
-            {
-              "id": "e7",
-              "sw": "Vitabu vinalala",
-              "en": "The books lie",
-              "ctx_sw": "wingi",
-              "ctx_en": "plural"
-            },
-            {
-              "id": "e8",
-              "sw": "Miti inakua",
-              "en": "The trees grow",
-              "ctx_sw": "wingi",
-              "ctx_en": "plural"
-            },
-            {
-              "id": "e9",
-              "sw": "Watoto wanaenda",
-              "en": "The children go",
-              "ctx_sw": "wingi",
-              "ctx_en": "plural"
-            }
-          ]
-        },
-        {
-          "id": "animacy",
-          "label": {
-            "sw": "F. Uhai (одушевлённость)",
-            "en": "F. Animacy"
-          },
-          "phrases": [
-            {
-              "id": "f1",
-              "sw": "John anamwona Anna",
-              "en": "John sees Anna",
-              "ctx_sw": "(mtu — mtu)",
-              "ctx_en": "(person — person)"
-            },
-            {
-              "id": "f2",
-              "sw": "John anaona nyumba",
-              "en": "John sees a house",
-              "ctx_sw": "(mtu — kitu)",
-              "ctx_en": "(person — object)"
-            },
-            {
-              "id": "f3",
-              "sw": "John anaona ng'ombe",
-              "en": "John sees a cow",
-              "ctx_sw": "(mtu — mnyama)",
-              "ctx_en": "(person — animal)"
-            },
-            {
-              "id": "f4",
-              "sw": "John anaona kitabu",
-              "en": "John sees a book",
-              "ctx_sw": "(mtu — kitu)",
-              "ctx_en": "(person — object)"
-            },
-            {
-              "id": "f5",
-              "sw": "Anna anamtafuta John",
-              "en": "Anna looks for John",
-              "ctx_sw": "(mtu — mtu)",
-              "ctx_en": "(person — person)"
-            },
-            {
-              "id": "f6",
-              "sw": "Anna anatafuta jiwe",
-              "en": "Anna looks for a stone",
-              "ctx_sw": "(mtu — kitu)",
-              "ctx_en": "(person — object)"
-            }
-          ]
-        },
-        {
-          "id": "cases",
-          "label": {
-            "sw": "G. Hali za nomino (падежи)",
-            "en": "G. Noun cases"
-          },
-          "phrases": [
-            {
-              "id": "g1",
-              "sw": "John anaenda nyumbani",
-              "en": "John goes home",
-              "ctx_sw": "mtendaji (субъект)",
-              "ctx_en": "subject"
-            },
-            {
-              "id": "g2",
-              "sw": "Kitabu kipo mezani",
-              "en": "The book is on the table",
-              "ctx_sw": "mtendaji (субъект)",
-              "ctx_en": "subject"
-            },
-            {
-              "id": "g3",
-              "sw": "Anna anamwona John",
-              "en": "Anna sees John",
-              "ctx_sw": "mtendewa wa moja kwa moja (прямой объект)",
-              "ctx_en": "direct object"
-            },
-            {
-              "id": "g4",
-              "sw": "Anna anasoma kitabu",
-              "en": "Anna reads a book",
-              "ctx_sw": "mtendewa wa moja kwa moja (прямой объект)",
-              "ctx_en": "direct object"
-            },
-            {
-              "id": "g5",
-              "sw": "Anna anampea John kitabu",
-              "en": "Anna gives John a book",
-              "ctx_sw": "mtendewa wa pili (косвенный объект)",
-              "ctx_en": "indirect object"
-            },
-            {
-              "id": "g6",
-              "sw": "Anna anaweka kitabu mezani",
-              "en": "Anna puts the book on the table",
-              "ctx_sw": "mtendewa wa pili (косвенный объект)",
-              "ctx_en": "indirect object"
-            },
-            {
-              "id": "g7",
-              "sw": "Hii ni nyumba ya John",
-              "en": "This is John's house",
-              "ctx_sw": "umiliki (принадлежность)",
-              "ctx_en": "possession"
-            },
-            {
-              "id": "g8",
-              "sw": "Hii ni ukurasa wa kitabu",
-              "en": "This is a page of the book",
-              "ctx_sw": "umiliki (принадлежность)",
-              "ctx_en": "possession"
-            },
-            {
-              "id": "g9",
-              "sw": "John anafikiria kuhusu nyumba",
-              "en": "John thinks about the house",
-              "ctx_sw": "baada ya kihusishi (после предлога)",
-              "ctx_en": "after preposition"
-            },
-            {
-              "id": "g10",
-              "sw": "Anna anazungumza kuhusu kitabu",
-              "en": "Anna talks about the book",
-              "ctx_sw": "baada ya kihusishi (после предлога)",
-              "ctx_en": "after preposition"
-            }
-          ]
-        },
-        {
-          "id": "definiteness",
-          "label": {
-            "sw": "H. Utambuzi (определённость)",
-            "en": "H. Definiteness"
-          },
-          "phrases": [
-            {
-              "id": "h1",
-              "sw": "John anaona nyumba",
-              "en": "John sees a house",
-              "ctx_sw": "(nyumba fulani — mara ya kwanza tunaitaja)",
-              "ctx_en": "(some house — mentioning for the first time)"
-            },
-            {
-              "id": "h2",
-              "sw": "John anaingia nyumbani",
-              "en": "John enters the house",
-              "ctx_sw": "(nyumba ile ile — tayari tunajua)",
-              "ctx_en": "(that same house — we already know which one)"
-            },
-            {
-              "id": "h3",
-              "sw": "Anna anasoma kitabu",
-              "en": "Anna reads a book",
-              "ctx_sw": "(kitabu fulani — mara ya kwanza)",
-              "ctx_en": "(some book — first mention)"
-            },
-            {
-              "id": "h4",
-              "sw": "Anna anamaliza kitabu",
-              "en": "Anna finishes the book",
-              "ctx_sw": "(kitabu kile — tayari tunajua)",
-              "ctx_en": "(that same book — already known)"
-            }
-          ]
-        },
-        {
-          "id": "class_list",
-          "label": {
-            "sw": "I. Kubaini ngeli — orodha ya maneno",
-            "en": "I. Establishing classes — word list"
-          },
-          "phrases": [
-            {
-              "id": "i1_sg",
-              "sw": "Mtu",
-              "en": "Person",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i1_pl"
-            },
-            {
-              "id": "i1_pl",
-              "sw": "Watu",
-              "en": "People",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i1_sg"
-            },
-            {
-              "id": "i2_sg",
-              "sw": "Mwanaume",
-              "en": "Man",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i2_pl"
-            },
-            {
-              "id": "i2_pl",
-              "sw": "Wanaume",
-              "en": "Men",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i2_sg"
-            },
-            {
-              "id": "i3_sg",
-              "sw": "Mwanamke",
-              "en": "Woman",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i3_pl"
-            },
-            {
-              "id": "i3_pl",
-              "sw": "Wanawake",
-              "en": "Women",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i3_sg"
-            },
-            {
-              "id": "i4_sg",
-              "sw": "Mtoto",
-              "en": "Child",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i4_pl"
-            },
-            {
-              "id": "i4_pl",
-              "sw": "Watoto",
-              "en": "Children",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i4_sg"
-            },
-            {
-              "id": "i5_sg",
-              "sw": "Mtoto mchanga",
-              "en": "Baby",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i5_pl"
-            },
-            {
-              "id": "i5_pl",
-              "sw": "Watoto wachanga",
-              "en": "Babies",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i5_sg"
-            },
-            {
-              "id": "i6_sg",
-              "sw": "Mzee",
-              "en": "Elder",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i6_pl"
-            },
-            {
-              "id": "i6_pl",
-              "sw": "Wazee",
-              "en": "Elders",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i6_sg"
-            },
-            {
-              "id": "i7_sg",
-              "sw": "Rafiki",
-              "en": "Friend",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i7_pl"
-            },
-            {
-              "id": "i7_pl",
-              "sw": "Marafiki",
-              "en": "Friends",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i7_sg"
-            },
-            {
-              "id": "i8_sg",
-              "sw": "Adui",
-              "en": "Enemy",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i8_pl"
-            },
-            {
-              "id": "i8_pl",
-              "sw": "Maadui",
-              "en": "Enemies",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i8_sg"
-            },
-            {
-              "id": "i9_sg",
-              "sw": "Jirani",
-              "en": "Neighbour",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i9_pl"
-            },
-            {
-              "id": "i9_pl",
-              "sw": "Majirani",
-              "en": "Neighbours",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i9_sg"
-            },
-            {
-              "id": "i10_sg",
-              "sw": "Mgeni",
-              "en": "Guest / stranger",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i10_pl"
-            },
-            {
-              "id": "i10_pl",
-              "sw": "Wageni",
-              "en": "Guests / strangers",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i10_sg"
-            },
-            {
-              "id": "i11_sg",
-              "sw": "Ng'ombe",
-              "en": "Cow",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i11_pl"
-            },
-            {
-              "id": "i11_pl",
-              "sw": "Ng'ombe",
-              "en": "Cows",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i11_sg"
-            },
-            {
-              "id": "i12_sg",
-              "sw": "Mbuzi",
-              "en": "Goat",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i12_pl"
-            },
-            {
-              "id": "i12_pl",
-              "sw": "Mbuzi",
-              "en": "Goats",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i12_sg"
-            },
-            {
-              "id": "i13_sg",
-              "sw": "Mbwa",
-              "en": "Dog",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i13_pl"
-            },
-            {
-              "id": "i13_pl",
-              "sw": "Mbwa",
-              "en": "Dogs",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i13_sg"
-            },
-            {
-              "id": "i14_sg",
-              "sw": "Kuku",
-              "en": "Chicken",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i14_pl"
-            },
-            {
-              "id": "i14_pl",
-              "sw": "Kuku",
-              "en": "Chickens",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i14_sg"
-            },
-            {
-              "id": "i15_sg",
-              "sw": "Tembo",
-              "en": "Elephant",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i15_pl"
-            },
-            {
-              "id": "i15_pl",
-              "sw": "Tembo",
-              "en": "Elephants",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i15_sg"
-            },
-            {
-              "id": "i16_sg",
-              "sw": "Nyoka",
-              "en": "Snake",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i16_pl"
-            },
-            {
-              "id": "i16_pl",
-              "sw": "Nyoka",
-              "en": "Snakes",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i16_sg"
-            },
-            {
-              "id": "i17_sg",
-              "sw": "Samaki",
-              "en": "Fish",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i17_pl"
-            },
-            {
-              "id": "i17_pl",
-              "sw": "Samaki",
-              "en": "Fish (plural)",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i17_sg"
-            },
-            {
-              "id": "i18_sg",
-              "sw": "Ndege",
-              "en": "Bird",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i18_pl"
-            },
-            {
-              "id": "i18_pl",
-              "sw": "Ndege",
-              "en": "Birds",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i18_sg"
-            },
-            {
-              "id": "i19_sg",
-              "sw": "Simba",
-              "en": "Lion",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i19_pl"
-            },
-            {
-              "id": "i19_pl",
-              "sw": "Simba",
-              "en": "Lions",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i19_sg"
-            },
-            {
-              "id": "i20_sg",
-              "sw": "Nyani",
-              "en": "Monkey",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i20_pl"
-            },
-            {
-              "id": "i20_pl",
-              "sw": "Nyani",
-              "en": "Monkeys",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i20_sg"
-            },
-            {
-              "id": "i21_sg",
-              "sw": "Mti",
-              "en": "Tree",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i21_pl"
-            },
-            {
-              "id": "i21_pl",
-              "sw": "Miti",
-              "en": "Trees",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i21_sg"
-            },
-            {
-              "id": "i22_sg",
-              "sw": "Nyasi",
-              "en": "Grass",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i22_pl"
-            },
-            {
-              "id": "i22_pl",
-              "sw": "Nyasi",
-              "en": "Grasses",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i22_sg"
-            },
-            {
-              "id": "i23_sg",
-              "sw": "Ua",
-              "en": "Flower",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i23_pl"
-            },
-            {
-              "id": "i23_pl",
-              "sw": "Maua",
-              "en": "Flowers",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i23_sg"
-            },
-            {
-              "id": "i24_sg",
-              "sw": "Jani",
-              "en": "Leaf",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i24_pl"
-            },
-            {
-              "id": "i24_pl",
-              "sw": "Majani",
-              "en": "Leaves",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i24_sg"
-            },
-            {
-              "id": "i25_sg",
-              "sw": "Tunda",
-              "en": "Fruit",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i25_pl"
-            },
-            {
-              "id": "i25_pl",
-              "sw": "Matunda",
-              "en": "Fruits",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i25_sg"
-            },
-            {
-              "id": "i26_sg",
-              "sw": "Mzizi",
-              "en": "Root",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i26_pl"
-            },
-            {
-              "id": "i26_pl",
-              "sw": "Mizizi",
-              "en": "Roots",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i26_sg"
-            },
-            {
-              "id": "i27_sg",
-              "sw": "Tawi",
-              "en": "Branch",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i27_pl"
-            },
-            {
-              "id": "i27_pl",
-              "sw": "Matawi",
-              "en": "Branches",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i27_sg"
-            },
-            {
-              "id": "i28_sg",
-              "sw": "Kiti",
-              "en": "Chair",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i28_pl"
-            },
-            {
-              "id": "i28_pl",
-              "sw": "Viti",
-              "en": "Chairs",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i28_sg"
-            },
-            {
-              "id": "i29_sg",
-              "sw": "Meza",
-              "en": "Table",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i29_pl"
-            },
-            {
-              "id": "i29_pl",
-              "sw": "Meza",
-              "en": "Tables",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i29_sg"
-            },
-            {
-              "id": "i30_sg",
-              "sw": "Kisu",
-              "en": "Knife",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i30_pl"
-            },
-            {
-              "id": "i30_pl",
-              "sw": "Visu",
-              "en": "Knives",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i30_sg"
-            },
-            {
-              "id": "i31_sg",
-              "sw": "Chungu",
-              "en": "Pot",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i31_pl"
-            },
-            {
-              "id": "i31_pl",
-              "sw": "Vyungu",
-              "en": "Pots",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i31_sg"
-            },
-            {
-              "id": "i32_sg",
-              "sw": "Nguo",
-              "en": "Clothes",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i32_pl"
-            },
-            {
-              "id": "i32_pl",
-              "sw": "Nguo",
-              "en": "Clothes (plural)",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i32_sg"
-            },
-            {
-              "id": "i33_sg",
-              "sw": "Kikapu",
-              "en": "Basket",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i33_pl"
-            },
-            {
-              "id": "i33_pl",
-              "sw": "Vikapu",
-              "en": "Baskets",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i33_sg"
-            },
-            {
-              "id": "i34_sg",
-              "sw": "Taa",
-              "en": "Lamp",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i34_pl"
-            },
-            {
-              "id": "i34_pl",
-              "sw": "Taa",
-              "en": "Lamps",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i34_sg"
-            },
-            {
-              "id": "i35_sg",
-              "sw": "Blanketi",
-              "en": "Blanket",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i35_pl"
-            },
-            {
-              "id": "i35_pl",
-              "sw": "Blanketi",
-              "en": "Blankets",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i35_sg"
-            },
-            {
-              "id": "i36_sg",
-              "sw": "Kamba",
-              "en": "Rope",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i36_pl"
-            },
-            {
-              "id": "i36_pl",
-              "sw": "Kamba",
-              "en": "Ropes",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i36_sg"
-            },
-            {
-              "id": "i37_sg",
-              "sw": "Fimbo",
-              "en": "Stick",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i37_pl"
-            },
-            {
-              "id": "i37_pl",
-              "sw": "Fimbo",
-              "en": "Sticks",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i37_sg"
-            },
-            {
-              "id": "i38_sg",
-              "sw": "Nywele",
-              "en": "Hair",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i38_pl"
-            },
-            {
-              "id": "i38_pl",
-              "sw": "Nywele",
-              "en": "Hairs",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i38_sg"
-            },
-            {
-              "id": "i39_sg",
-              "sw": "Sindano",
-              "en": "Needle",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i39_pl"
-            },
-            {
-              "id": "i39_pl",
-              "sw": "Sindano",
-              "en": "Needles",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i39_sg"
-            },
-            {
-              "id": "i40_sg",
-              "sw": "Chakula",
-              "en": "Food",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i40_pl"
-            },
-            {
-              "id": "i40_pl",
-              "sw": "Chakula (?)",
-              "en": "Food (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i40_sg"
-            },
-            {
-              "id": "i41_sg",
-              "sw": "Maji",
-              "en": "Water",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i41_pl"
-            },
-            {
-              "id": "i41_pl",
-              "sw": "Maji (?)",
-              "en": "Water (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i41_sg"
-            },
-            {
-              "id": "i42_sg",
-              "sw": "Maziwa",
-              "en": "Milk",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i42_pl"
-            },
-            {
-              "id": "i42_pl",
-              "sw": "Maziwa (?)",
-              "en": "Milk (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i42_sg"
-            },
-            {
-              "id": "i43_sg",
-              "sw": "Nyama",
-              "en": "Meat",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i43_pl"
-            },
-            {
-              "id": "i43_pl",
-              "sw": "Nyama (?)",
-              "en": "Meat (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i43_sg"
-            },
-            {
-              "id": "i44_sg",
-              "sw": "Mchele",
-              "en": "Rice",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i44_pl"
-            },
-            {
-              "id": "i44_pl",
-              "sw": "Mchele (?)",
-              "en": "Rice (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i44_sg"
-            },
-            {
-              "id": "i45_sg",
-              "sw": "Chumvi",
-              "en": "Salt",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i45_pl"
-            },
-            {
-              "id": "i45_pl",
-              "sw": "Chumvi (?)",
-              "en": "Salt (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i45_sg"
-            },
-            {
-              "id": "i46_sg",
-              "sw": "Mafuta",
-              "en": "Oil / fat",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i46_pl"
-            },
-            {
-              "id": "i46_pl",
-              "sw": "Mafuta (?)",
-              "en": "Oil / fat (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i46_sg"
-            },
-            {
-              "id": "i47_sg",
-              "sw": "Kijiji",
-              "en": "Village",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i47_pl"
-            },
-            {
-              "id": "i47_pl",
-              "sw": "Vijiji",
-              "en": "Villages",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i47_sg"
-            },
-            {
-              "id": "i48_sg",
-              "sw": "Mji",
-              "en": "Town / city",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i48_pl"
-            },
-            {
-              "id": "i48_pl",
-              "sw": "Miji",
-              "en": "Towns / cities",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i48_sg"
-            },
-            {
-              "id": "i49_sg",
-              "sw": "Nyumba",
-              "en": "House",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i49_pl"
-            },
-            {
-              "id": "i49_pl",
-              "sw": "Nyumba",
-              "en": "Houses",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i49_sg"
-            },
-            {
-              "id": "i50_sg",
-              "sw": "Barabara",
-              "en": "Road",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i50_pl"
-            },
-            {
-              "id": "i50_pl",
-              "sw": "Barabara",
-              "en": "Roads",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i50_sg"
-            },
-            {
-              "id": "i51_sg",
-              "sw": "Mto",
-              "en": "River",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i51_pl"
-            },
-            {
-              "id": "i51_pl",
-              "sw": "Mito",
-              "en": "Rivers",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i51_sg"
-            },
-            {
-              "id": "i52_sg",
-              "sw": "Shamba",
-              "en": "Field",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i52_pl"
-            },
-            {
-              "id": "i52_pl",
-              "sw": "Mashamba",
-              "en": "Fields",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i52_sg"
-            },
-            {
-              "id": "i53_sg",
-              "sw": "Mlima",
-              "en": "Mountain",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i53_pl"
-            },
-            {
-              "id": "i53_pl",
-              "sw": "Milima",
-              "en": "Mountains",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i53_sg"
-            },
-            {
-              "id": "i54_sg",
-              "sw": "Bahari",
-              "en": "Sea / ocean",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i54_pl"
-            },
-            {
-              "id": "i54_pl",
-              "sw": "Bahari",
-              "en": "Seas",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i54_sg"
-            },
-            {
-              "id": "i55_sg",
-              "sw": "Soko",
-              "en": "Market",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i55_pl"
-            },
-            {
-              "id": "i55_pl",
-              "sw": "Masoko",
-              "en": "Markets",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i55_sg"
-            },
-            {
-              "id": "i56_sg",
-              "sw": "Shule",
-              "en": "School",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i56_pl"
-            },
-            {
-              "id": "i56_pl",
-              "sw": "Shule",
-              "en": "Schools",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i56_sg"
-            },
-            {
-              "id": "i57_sg",
-              "sw": "Jicho",
-              "en": "Eye",
-              "ctx_sw": "(umoja — paired)",
-              "ctx_en": "(singular — paired)",
-              "pair": "i57_pl"
-            },
-            {
-              "id": "i57_pl",
-              "sw": "Macho",
-              "en": "Eyes",
-              "ctx_sw": "(wingi — paired)",
-              "ctx_en": "(plural — paired)",
-              "pair": "i57_sg"
-            },
-            {
-              "id": "i58_sg",
-              "sw": "Sikio",
-              "en": "Ear",
-              "ctx_sw": "(umoja — paired)",
-              "ctx_en": "(singular — paired)",
-              "pair": "i58_pl"
-            },
-            {
-              "id": "i58_pl",
-              "sw": "Masikio",
-              "en": "Ears",
-              "ctx_sw": "(wingi — paired)",
-              "ctx_en": "(plural — paired)",
-              "pair": "i58_sg"
-            },
-            {
-              "id": "i59_sg",
-              "sw": "Mkono",
-              "en": "Hand / arm",
-              "ctx_sw": "(umoja — paired)",
-              "ctx_en": "(singular — paired)",
-              "pair": "i59_pl"
-            },
-            {
-              "id": "i59_pl",
-              "sw": "Mikono",
-              "en": "Hands / arms",
-              "ctx_sw": "(wingi — paired)",
-              "ctx_en": "(plural — paired)",
-              "pair": "i59_sg"
-            },
-            {
-              "id": "i60_sg",
-              "sw": "Mguu",
-              "en": "Leg / foot",
-              "ctx_sw": "(umoja — paired)",
-              "ctx_en": "(singular — paired)",
-              "pair": "i60_pl"
-            },
-            {
-              "id": "i60_pl",
-              "sw": "Miguu",
-              "en": "Legs / feet",
-              "ctx_sw": "(wingi — paired)",
-              "ctx_en": "(plural — paired)",
-              "pair": "i60_sg"
-            },
-            {
-              "id": "i61_sg",
-              "sw": "Kichwa",
-              "en": "Head",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i61_pl"
-            },
-            {
-              "id": "i61_pl",
-              "sw": "Vichwa",
-              "en": "Heads",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i61_sg"
-            },
-            {
-              "id": "i62_sg",
-              "sw": "Pua",
-              "en": "Nose",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i62_pl"
-            },
-            {
-              "id": "i62_pl",
-              "sw": "Pua",
-              "en": "Noses",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i62_sg"
-            },
-            {
-              "id": "i63_sg",
-              "sw": "Mdomo",
-              "en": "Mouth",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i63_pl"
-            },
-            {
-              "id": "i63_pl",
-              "sw": "Midomo",
-              "en": "Mouths",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i63_sg"
-            },
-            {
-              "id": "i64_sg",
-              "sw": "Moyo",
-              "en": "Heart",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i64_pl"
-            },
-            {
-              "id": "i64_pl",
-              "sw": "Mioyo",
-              "en": "Hearts",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i64_sg"
-            },
-            {
-              "id": "i65_sg",
-              "sw": "Tumbo",
-              "en": "Stomach",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i65_pl"
-            },
-            {
-              "id": "i65_pl",
-              "sw": "Matumbo",
-              "en": "Stomachs",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i65_sg"
-            },
-            {
-              "id": "i66_sg",
-              "sw": "Mgongo",
-              "en": "Back",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i66_pl"
-            },
-            {
-              "id": "i66_pl",
-              "sw": "Migongo",
-              "en": "Backs",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i66_sg"
-            },
-            {
-              "id": "i67_sg",
-              "sw": "Wakati",
-              "en": "Time",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i67_pl"
-            },
-            {
-              "id": "i67_pl",
-              "sw": "Nyakati",
-              "en": "Times",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i67_sg"
-            },
-            {
-              "id": "i68_sg",
-              "sw": "Kazi",
-              "en": "Work / job",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i68_pl"
-            },
-            {
-              "id": "i68_pl",
-              "sw": "Kazi",
-              "en": "Works / jobs",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i68_sg"
-            },
-            {
-              "id": "i69_sg",
-              "sw": "Neno",
-              "en": "Word",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i69_pl"
-            },
-            {
-              "id": "i69_pl",
-              "sw": "Maneno",
-              "en": "Words",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i69_sg"
-            },
-            {
-              "id": "i70_sg",
-              "sw": "Jina",
-              "en": "Name",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i70_pl"
-            },
-            {
-              "id": "i70_pl",
-              "sw": "Majina",
-              "en": "Names",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i70_sg"
-            },
-            {
-              "id": "i71_sg",
-              "sw": "Uzuri",
-              "en": "Beauty",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i71_pl"
-            },
-            {
-              "id": "i71_pl",
-              "sw": "Uzuri (?)",
-              "en": "Beauty (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i71_sg"
-            },
-            {
-              "id": "i72_sg",
-              "sw": "Nguvu",
-              "en": "Strength",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i72_pl"
-            },
-            {
-              "id": "i72_pl",
-              "sw": "Nguvu",
-              "en": "Strengths",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i72_sg"
-            },
-            {
-              "id": "i73_sg",
-              "sw": "Hekima",
-              "en": "Wisdom",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i73_pl"
-            },
-            {
-              "id": "i73_pl",
-              "sw": "Hekima (?)",
-              "en": "Wisdom (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i73_sg"
-            },
-            {
-              "id": "i74_sg",
-              "sw": "Upendo",
-              "en": "Love",
-              "ctx_sw": "(umoja — je, kuna wingi?)",
-              "ctx_en": "(singular — is there a plural?)",
-              "pair": "i74_pl"
-            },
-            {
-              "id": "i74_pl",
-              "sw": "Upendo (?)",
-              "en": "Love (?)",
-              "ctx_sw": "(wingi — kama upo)",
-              "ctx_en": "(plural — if exists)",
-              "pair": "i74_sg"
-            },
-            {
-              "id": "i75_sg",
-              "sw": "Hofu",
-              "en": "Fear",
-              "ctx_sw": "(umoja)",
-              "ctx_en": "(singular)",
-              "pair": "i75_pl"
-            },
-            {
-              "id": "i75_pl",
-              "sw": "Hofu",
-              "en": "Fears",
-              "ctx_sw": "(wingi)",
-              "ctx_en": "(plural)",
-              "pair": "i75_sg"
-            }
-          ]
-        },
-        {
-  "id": "stories",
-  "label": {
-    "sw": "J. Hadithi fupi",
-    "en": "J. Short stories"
+{
+  "id": "nouns",
+  "type": "grammar",
+  "level": "A1",
+  "order": 2,
+  "payment_tzs": 7500,
+  "name": {
+    "sw": "Nomino (jinsia, ngeli, idadi, upatanisho)",
+    "en": "Nouns (gender, classes, number, agreement)"
   },
-  "phrases": [
+  "description": {
+    "sw": "Jinsia na ngeli za nomino, umoja na wingi, upatanisho wa kivumishi na kitenzi, uhai, hali za nomino, utambuzi.",
+    "en": "Noun gender and classes, singular and plural, adjective and verb agreement, animacy, noun cases, definiteness."
+  },
+  "blocks": [
     {
-      "id": "j1",
-      "sw": "John ana nyumba mpya. Ndogo, lakini nzuri. Anna anasema: 'Nyumba nzuri, John!' John anasema: 'Asante. Ingia.'",
-      "en": "John has a new house. Small, but beautiful. Anna says: 'Beautiful house, John!' John says: 'Thank you. Come in.'",
-      "ctx_sw": "",
-      "ctx_en": ""
+      "id": "gender_classes",
+      "label": {
+        "sw": "A. Jinsia na ngeli — nomino tofauti na kivumishi",
+        "en": "A. Gender and classes — different nouns with adjectives"
+      },
+      "phrases": [
+        { "id": "a1", "sw": "Nyumba kubwa", "en": "A big house", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a2", "sw": "Kitabu kikubwa", "en": "A big book", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a3", "sw": "Dirisha kubwa", "en": "A big window", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a4", "sw": "Mti mkubwa", "en": "A big tree", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a5", "sw": "Mto mkubwa", "en": "A big river", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a6", "sw": "Jiwe kubwa", "en": "A big stone", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a7", "sw": "Barabara kubwa", "en": "A big road", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a8", "sw": "Shamba kubwa", "en": "A big field", "ctx_sw": "", "ctx_en": "" },
+        { "id": "a9", "sw": "Nyumba moja / kitabu kimoja / dirisha moja", "en": "One house / one book / one window", "ctx_sw": "nambari 1", "ctx_en": "number 1" },
+        { "id": "a10", "sw": "Nyumba mbili / vitabu viwili / madirisha mawili", "en": "Two houses / two books / two windows", "ctx_sw": "nambari 2", "ctx_en": "number 2" }
+      ]
     },
     {
-      "id": "j2",
-      "sw": "Anna na Grace wanakaa kando ya mto. Mto mkubwa, maji baridi. Wanakaa kimya. Vizuri.",
-      "en": "Anna and Grace sit by the river. A big river, cold water. They sit in silence. Good.",
-      "ctx_sw": "",
-      "ctx_en": ""
+      "id": "adjective_agreement",
+      "label": {
+        "sw": "B. Upatanisho wa kivumishi na nomino",
+        "en": "B. Adjective agreement with nouns"
+      },
+      "phrases": [
+        { "id": "b1", "sw": "Nyumba kubwa / kitabu kikubwa / dirisha kubwa", "en": "A big house / a big book / a big window", "ctx_sw": "ukubwa — umoja", "ctx_en": "size — singular" },
+        { "id": "b2", "sw": "Nyumba ndogo / kitabu kidogo / dirisha dogo", "en": "A small house / a small book / a small window", "ctx_sw": "ukubwa — umoja", "ctx_en": "size — singular" },
+        { "id": "b3", "sw": "Nyumba nyekundu / kitabu chekundu / dirisha jekundu", "en": "A red house / a red book / a red window", "ctx_sw": "rangi — umoja", "ctx_en": "colour — singular" },
+        { "id": "b4", "sw": "Nyumba nyeupe / kitabu cheupe / dirisha jeupe", "en": "A white house / a white book / a white window", "ctx_sw": "rangi — umoja", "ctx_en": "colour — singular" },
+        { "id": "b5", "sw": "Nyumba nzuri / kitabu kizuri / dirisha zuri", "en": "A good house / a good book / a good window", "ctx_sw": "ubora — umoja", "ctx_en": "quality — singular" },
+        { "id": "b6", "sw": "Nyumba ya zamani / kitabu cha zamani / dirisha la zamani", "en": "An old house / an old book / an old window", "ctx_sw": "ubora — umoja", "ctx_en": "quality — singular" },
+        { "id": "b7", "sw": "Nyumba mpya / kitabu kipya / dirisha jipya", "en": "A new house / a new book / a new window", "ctx_sw": "ubora — umoja", "ctx_en": "quality — singular" },
+        { "id": "b8", "sw": "Nyumba kubwa / vitabu vikubwa / madirisha makubwa", "en": "Big houses / big books / big windows", "ctx_sw": "ukubwa — wingi", "ctx_en": "size — plural" },
+        { "id": "b9", "sw": "Nyumba nyekundu / vitabu vyekundu / madirisha mekundu", "en": "Red houses / red books / red windows", "ctx_sw": "rangi — wingi", "ctx_en": "colour — plural" },
+        { "id": "b10", "sw": "Mwanaume mrefu / mwanamke mrefu", "en": "A tall man / a tall woman", "ctx_sw": "na watu", "ctx_en": "with people" },
+        { "id": "b11", "sw": "Mwanaume mzee / mwanamke mzee", "en": "An old man / an old woman", "ctx_sw": "na watu", "ctx_en": "with people" },
+        { "id": "b12", "sw": "Mwanaume mdogo / mwanamke mdogo", "en": "A young man / a young woman", "ctx_sw": "na watu", "ctx_en": "with people" },
+        { "id": "b13", "sw": "Ng'ombe mkubwa / mbuzi mdogo", "en": "A big cow / a small goat", "ctx_sw": "na wanyama", "ctx_en": "with animals" },
+        { "id": "b14", "sw": "Mbwa mzee / kuku mdogo", "en": "An old dog / a young chicken", "ctx_sw": "na wanyama", "ctx_en": "with animals" }
+      ]
     },
     {
-      "id": "j3",
-      "sw": "Grace alipata jiwe dogo. Jiwe zuri. Jiwe jeupe. Analibeba nyumbani. Jiwe hilo litakuwa chini ya mto wa Grace.",
-      "en": "Grace found a small stone. A beautiful stone. A white stone. She carries it home. That stone will lie under Grace's pillow.",
-      "ctx_sw": "",
-      "ctx_en": ""
+      "id": "number",
+      "label": {
+        "sw": "C. Umoja na wingi",
+        "en": "C. Singular and plural"
+      },
+      "phrases": [
+        { "id": "c1", "sw": "Mwanaume — wanaume", "en": "Man — men", "ctx_sw": "watu", "ctx_en": "people" },
+        { "id": "c2", "sw": "Mwanamke — wanawake", "en": "Woman — women", "ctx_sw": "watu", "ctx_en": "people" },
+        { "id": "c3", "sw": "Mtoto — watoto", "en": "Child — children", "ctx_sw": "watu", "ctx_en": "people" },
+        { "id": "c4", "sw": "Mzee — wazee", "en": "Elder — elders", "ctx_sw": "watu", "ctx_en": "people" },
+        { "id": "c5", "sw": "Ng'ombe — ng'ombe", "en": "Cow — cows", "ctx_sw": "wanyama", "ctx_en": "animals" },
+        { "id": "c6", "sw": "Mbuzi — mbuzi", "en": "Goat — goats", "ctx_sw": "wanyama", "ctx_en": "animals" },
+        { "id": "c7", "sw": "Mbwa — mbwa", "en": "Dog — dogs", "ctx_sw": "wanyama", "ctx_en": "animals" },
+        { "id": "c8", "sw": "Kuku — kuku", "en": "Chicken — chickens", "ctx_sw": "wanyama", "ctx_en": "animals" },
+        { "id": "c9", "sw": "Nyumba — nyumba", "en": "House — houses", "ctx_sw": "vitu", "ctx_en": "objects" },
+        { "id": "c10", "sw": "Kitabu — vitabu", "en": "Book — books", "ctx_sw": "vitu", "ctx_en": "objects" },
+        { "id": "c11", "sw": "Mti — miti", "en": "Tree — trees", "ctx_sw": "vitu", "ctx_en": "objects" },
+        { "id": "c12", "sw": "Jiwe — mawe", "en": "Stone — stones", "ctx_sw": "vitu", "ctx_en": "objects" },
+        { "id": "c13", "sw": "Barabara — barabara", "en": "Road — roads", "ctx_sw": "vitu", "ctx_en": "objects" },
+        { "id": "c14", "sw": "Shamba — mashamba", "en": "Field — fields", "ctx_sw": "vitu", "ctx_en": "objects" },
+        { "id": "c15", "sw": "Chakula (je, kuna wingi?)", "en": "Food (is there a plural?)", "ctx_sw": "chakula", "ctx_en": "food" },
+        { "id": "c16", "sw": "Maji (je, kuna wingi?)", "en": "Water (is there a plural?)", "ctx_sw": "chakula", "ctx_en": "food" },
+        { "id": "c17", "sw": "Maziwa (je, kuna wingi?)", "en": "Milk (is there a plural?)", "ctx_sw": "chakula", "ctx_en": "food" }
+      ]
     },
     {
-      "id": "j4",
-      "sw": "Grace ana mbuzi. Mbuzi anakula vitabu. Kitabu kimoja, vitabu viwili, vitabu vitatu. Grace anasema: 'Simama!' Mbuzi anasema: 'Kimoja kingine.'",
-      "en": "Grace has a goat. The goat eats books. One book, two books, three books. Grace says: 'Stop!' The goat says: 'One more.'",
-      "ctx_sw": "",
-      "ctx_en": ""
+      "id": "dual",
+      "label": {
+        "sw": "D. Nambari mbili (двойственное число)",
+        "en": "D. Dual number"
+      },
+      "phrases": [
+        { "id": "d1", "sw": "Nyumba moja / nyumba mbili / nyumba nyingi", "en": "One house / two houses / many houses", "ctx_sw": "", "ctx_en": "" },
+        { "id": "d2", "sw": "Kitabu kimoja / vitabu viwili / vitabu vingi", "en": "One book / two books / many books", "ctx_sw": "", "ctx_en": "" },
+        { "id": "d3", "sw": "Mwanaume mmoja / wanaume wawili / wanaume wengi", "en": "One man / two men / many men", "ctx_sw": "", "ctx_en": "" },
+        { "id": "d4", "sw": "Mwanamke mmoja / wanawake wawili / wanawake wengi", "en": "One woman / two women / many women", "ctx_sw": "", "ctx_en": "" }
+      ]
     },
     {
-      "id": "j5",
-      "sw": "Anna ana mbwa. Mbwa anavaa miwani na kusoma kitabu. Anna anasema: 'Miwani yangu iko wapi?' Mbwa anamletea miwani, lakini bila miwani yeye haoni chochote. Mbwa anaacha kitabu. Jinsi gani kusoma kitabu bila miwani?",
-      "en": "Anna has a dog. The dog puts on glasses and reads a book. Anna says: 'Where are my glasses?' The dog brings her the glasses, but without glasses she cannot see anything. The dog drops the book. How can you read a book without glasses?",
-      "ctx_sw": "",
-      "ctx_en": ""
-    }
-  ]
-        }
-      ],
-      "moderator_questions": [
+      "id": "verb_agreement",
+      "label": {
+        "sw": "E. Upatanisho wa kitenzi na nomino",
+        "en": "E. Verb agreement with nouns"
+      },
+      "phrases": [
+        { "id": "e1", "sw": "Nyumba inasimama", "en": "The house stands", "ctx_sw": "umoja", "ctx_en": "singular" },
+        { "id": "e2", "sw": "Kitabu kinalala", "en": "The book lies", "ctx_sw": "umoja", "ctx_en": "singular" },
+        { "id": "e3", "sw": "Mti unakua", "en": "The tree grows", "ctx_sw": "umoja", "ctx_en": "singular" },
+        { "id": "e4", "sw": "Mwanaume anaenda", "en": "The man goes", "ctx_sw": "umoja", "ctx_en": "singular" },
+        { "id": "e5", "sw": "Mwanamke anaenda", "en": "The woman goes", "ctx_sw": "umoja", "ctx_en": "singular" },
+        { "id": "e6", "sw": "Nyumba zinasimama", "en": "The houses stand", "ctx_sw": "wingi", "ctx_en": "plural" },
+        { "id": "e7", "sw": "Vitabu vinalala", "en": "The books lie", "ctx_sw": "wingi", "ctx_en": "plural" },
+        { "id": "e8", "sw": "Miti inakua", "en": "The trees grow", "ctx_sw": "wingi", "ctx_en": "plural" },
+        { "id": "e9", "sw": "Watoto wanaenda", "en": "The children go", "ctx_sw": "wingi", "ctx_en": "plural" }
+      ]
+    },
+    {
+      "id": "animacy",
+      "label": {
+        "sw": "F. Uhai (одушевлённость)",
+        "en": "F. Animacy"
+      },
+      "phrases": [
+        { "id": "f1", "sw": "John anamwona Anna", "en": "John sees Anna", "ctx_sw": "(mtu — mtu)", "ctx_en": "(person — person)" },
+        { "id": "f2", "sw": "John anaona nyumba", "en": "John sees a house", "ctx_sw": "(mtu — kitu)", "ctx_en": "(person — object)" },
+        { "id": "f3", "sw": "John anaona ng'ombe", "en": "John sees a cow", "ctx_sw": "(mtu — mnyama)", "ctx_en": "(person — animal)" },
+        { "id": "f4", "sw": "John anaona kitabu", "en": "John sees a book", "ctx_sw": "(mtu — kitu)", "ctx_en": "(person — object)" },
+        { "id": "f5", "sw": "Anna anamtafuta John", "en": "Anna looks for John", "ctx_sw": "(mtu — mtu)", "ctx_en": "(person — person)" },
+        { "id": "f6", "sw": "Anna anatafuta jiwe", "en": "Anna looks for a stone", "ctx_sw": "(mtu — kitu)", "ctx_en": "(person — object)" }
+      ]
+    },
+    {
+      "id": "cases",
+      "label": {
+        "sw": "G. Hali za nomino (падежи)",
+        "en": "G. Noun cases"
+      },
+      "phrases": [
+        { "id": "g1", "sw": "John anaenda nyumbani", "en": "John goes home", "ctx_sw": "mtendaji (субъект)", "ctx_en": "subject" },
+        { "id": "g2", "sw": "Kitabu kipo mezani", "en": "The book is on the table", "ctx_sw": "mtendaji (субъект)", "ctx_en": "subject" },
+        { "id": "g3", "sw": "Anna anamwona John", "en": "Anna sees John", "ctx_sw": "mtendewa wa moja kwa moja (прямой объект)", "ctx_en": "direct object" },
+        { "id": "g4", "sw": "Anna anasoma kitabu", "en": "Anna reads a book", "ctx_sw": "mtendewa wa moja kwa moja (прямой объект)", "ctx_en": "direct object" },
+        { "id": "g5", "sw": "Anna anampea John kitabu", "en": "Anna gives John a book", "ctx_sw": "mtendewa wa pili (косвенный объект)", "ctx_en": "indirect object" },
+        { "id": "g6", "sw": "Anna anaweka kitabu mezani", "en": "Anna puts the book on the table", "ctx_sw": "mtendewa wa pili (косвенный объект)", "ctx_en": "indirect object" },
+        { "id": "g7", "sw": "Hii ni nyumba ya John", "en": "This is John's house", "ctx_sw": "umiliki (принадлежность)", "ctx_en": "possession" },
+        { "id": "g8", "sw": "Hii ni ukurasa wa kitabu", "en": "This is a page of the book", "ctx_sw": "umiliki (принадлежность)", "ctx_en": "possession" },
+        { "id": "g9", "sw": "John anafikiria kuhusu nyumba", "en": "John thinks about the house", "ctx_sw": "baada ya kihusishi (после предлога)", "ctx_en": "after preposition" },
+        { "id": "g10", "sw": "Anna anazungumza kuhusu kitabu", "en": "Anna talks about the book", "ctx_sw": "baada ya kihusishi (после предлога)", "ctx_en": "after preposition" }
+      ]
+    },
+    {
+      "id": "definiteness",
+      "label": {
+        "sw": "H. Utambuzi (определённость)",
+        "en": "H. Definiteness"
+      },
+      "phrases": [
+        { "id": "h1", "sw": "John anaona nyumba", "en": "John sees a house", "ctx_sw": "(nyumba fulani — mara ya kwanza tunaitaja)", "ctx_en": "(some house — mentioning for the first time)" },
+        { "id": "h2", "sw": "John anaingia nyumbani", "en": "John enters the house", "ctx_sw": "(nyumba ile ile — tayari tunajua)", "ctx_en": "(that same house — we already know which one)" },
+        { "id": "h3", "sw": "Anna anasoma kitabu", "en": "Anna reads a book", "ctx_sw": "(kitabu fulani — mara ya kwanza)", "ctx_en": "(some book — first mention)" },
+        { "id": "h4", "sw": "Anna anamaliza kitabu", "en": "Anna finishes the book", "ctx_sw": "(kitabu kile — tayari tunajua)", "ctx_en": "(that same book — already known)" }
+      ]
+    },
+    {
+      "id": "class_list",
+      "label": {
+        "sw": "I. Kubaini ngeli — orodha ya maneno",
+        "en": "I. Establishing classes — word list"
+      },
+      "phrases": [
+        { "id": "i1_sg", "sw": "Mtu", "en": "Person", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i1_pl" },
+        { "id": "i1_pl", "sw": "Watu", "en": "People", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i1_sg" },
+        { "id": "i2_sg", "sw": "Mwanaume", "en": "Man", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i2_pl" },
+        { "id": "i2_pl", "sw": "Wanaume", "en": "Men", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i2_sg" },
+        { "id": "i3_sg", "sw": "Mwanamke", "en": "Woman", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i3_pl" },
+        { "id": "i3_pl", "sw": "Wanawake", "en": "Women", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i3_sg" },
+        { "id": "i4_sg", "sw": "Mtoto", "en": "Child", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i4_pl" },
+        { "id": "i4_pl", "sw": "Watoto", "en": "Children", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i4_sg" },
+        { "id": "i5_sg", "sw": "Mtoto mchanga", "en": "Baby", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i5_pl" },
+        { "id": "i5_pl", "sw": "Watoto wachanga", "en": "Babies", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i5_sg" },
+        { "id": "i6_sg", "sw": "Mzee", "en": "Elder", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i6_pl" },
+        { "id": "i6_pl", "sw": "Wazee", "en": "Elders", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i6_sg" },
+        { "id": "i7_sg", "sw": "Rafiki", "en": "Friend", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i7_pl" },
+        { "id": "i7_pl", "sw": "Marafiki", "en": "Friends", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i7_sg" },
+        { "id": "i8_sg", "sw": "Adui", "en": "Enemy", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i8_pl" },
+        { "id": "i8_pl", "sw": "Maadui", "en": "Enemies", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i8_sg" },
+        { "id": "i9_sg", "sw": "Jirani", "en": "Neighbour", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i9_pl" },
+        { "id": "i9_pl", "sw": "Majirani", "en": "Neighbours", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i9_sg" },
+        { "id": "i10_sg", "sw": "Mgeni", "en": "Guest / stranger", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i10_pl" },
+        { "id": "i10_pl", "sw": "Wageni", "en": "Guests / strangers", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i10_sg" },
+        { "id": "i11_sg", "sw": "Ng'ombe", "en": "Cow", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i11_pl" },
+        { "id": "i11_pl", "sw": "Ng'ombe", "en": "Cows", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i11_sg" },
+        { "id": "i12_sg", "sw": "Mbuzi", "en": "Goat", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i12_pl" },
+        { "id": "i12_pl", "sw": "Mbuzi", "en": "Goats", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i12_sg" },
+        { "id": "i13_sg", "sw": "Mbwa", "en": "Dog", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i13_pl" },
+        { "id": "i13_pl", "sw": "Mbwa", "en": "Dogs", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i13_sg" },
+        { "id": "i14_sg", "sw": "Kuku", "en": "Chicken", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i14_pl" },
+        { "id": "i14_pl", "sw": "Kuku", "en": "Chickens", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i14_sg" },
+        { "id": "i15_sg", "sw": "Tembo", "en": "Elephant", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i15_pl" },
+        { "id": "i15_pl", "sw": "Tembo", "en": "Elephants", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i15_sg" },
+        { "id": "i16_sg", "sw": "Nyoka", "en": "Snake", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i16_pl" },
+        { "id": "i16_pl", "sw": "Nyoka", "en": "Snakes", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i16_sg" },
+        { "id": "i17_sg", "sw": "Samaki", "en": "Fish", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i17_pl" },
+        { "id": "i17_pl", "sw": "Samaki", "en": "Fish (plural)", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i17_sg" },
+        { "id": "i18_sg", "sw": "Ndege", "en": "Bird", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i18_pl" },
+        { "id": "i18_pl", "sw": "Ndege", "en": "Birds", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i18_sg" },
+        { "id": "i19_sg", "sw": "Simba", "en": "Lion", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i19_pl" },
+        { "id": "i19_pl", "sw": "Simba", "en": "Lions", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i19_sg" },
+        { "id": "i20_sg", "sw": "Nyani", "en": "Monkey", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i20_pl" },
+        { "id": "i20_pl", "sw": "Nyani", "en": "Monkeys", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i20_sg" },
+        { "id": "i21_sg", "sw": "Mti", "en": "Tree", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i21_pl" },
+        { "id": "i21_pl", "sw": "Miti", "en": "Trees", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i21_sg" },
+        { "id": "i22_sg", "sw": "Nyasi", "en": "Grass", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i22_pl" },
+        { "id": "i22_pl", "sw": "Nyasi", "en": "Grasses", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i22_sg" },
+        { "id": "i23_sg", "sw": "Ua", "en": "Flower", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i23_pl" },
+        { "id": "i23_pl", "sw": "Maua", "en": "Flowers", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i23_sg" },
+        { "id": "i24_sg", "sw": "Jani", "en": "Leaf", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i24_pl" },
+        { "id": "i24_pl", "sw": "Majani", "en": "Leaves", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i24_sg" },
+        { "id": "i25_sg", "sw": "Tunda", "en": "Fruit", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i25_pl" },
+        { "id": "i25_pl", "sw": "Matunda", "en": "Fruits", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i25_sg" },
+        { "id": "i26_sg", "sw": "Mzizi", "en": "Root", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i26_pl" },
+        { "id": "i26_pl", "sw": "Mizizi", "en": "Roots", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i26_sg" },
+        { "id": "i27_sg", "sw": "Tawi", "en": "Branch", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i27_pl" },
+        { "id": "i27_pl", "sw": "Matawi", "en": "Branches", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i27_sg" },
+        { "id": "i28_sg", "sw": "Kiti", "en": "Chair", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i28_pl" },
+        { "id": "i28_pl", "sw": "Viti", "en": "Chairs", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i28_sg" },
+        { "id": "i29_sg", "sw": "Meza", "en": "Table", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i29_pl" },
+        { "id": "i29_pl", "sw": "Meza", "en": "Tables", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i29_sg" },
+        { "id": "i30_sg", "sw": "Kisu", "en": "Knife", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i30_pl" },
+        { "id": "i30_pl", "sw": "Visu", "en": "Knives", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i30_sg" },
+        { "id": "i31_sg", "sw": "Chungu", "en": "Pot", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i31_pl" },
+        { "id": "i31_pl", "sw": "Vyungu", "en": "Pots", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i31_sg" },
+        { "id": "i32_sg", "sw": "Nguo", "en": "Clothes", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i32_pl" },
+        { "id": "i32_pl", "sw": "Nguo", "en": "Clothes (plural)", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i32_sg" },
+        { "id": "i33_sg", "sw": "Kikapu", "en": "Basket", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i33_pl" },
+        { "id": "i33_pl", "sw": "Vikapu", "en": "Baskets", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i33_sg" },
+        { "id": "i34_sg", "sw": "Taa", "en": "Lamp", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i34_pl" },
+        { "id": "i34_pl", "sw": "Taa", "en": "Lamps", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i34_sg" },
+        { "id": "i35_sg", "sw": "Blanketi", "en": "Blanket", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i35_pl" },
+        { "id": "i35_pl", "sw": "Blanketi", "en": "Blankets", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i35_sg" },
+        { "id": "i36_sg", "sw": "Kamba", "en": "Rope", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i36_pl" },
+        { "id": "i36_pl", "sw": "Kamba", "en": "Ropes", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i36_sg" },
+        { "id": "i37_sg", "sw": "Fimbo", "en": "Stick", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i37_pl" },
+        { "id": "i37_pl", "sw": "Fimbo", "en": "Sticks", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i37_sg" },
+        { "id": "i38_sg", "sw": "Nywele", "en": "Hair", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i38_pl" },
+        { "id": "i38_pl", "sw": "Nywele", "en": "Hairs", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i38_sg" },
+        { "id": "i39_sg", "sw": "Sindano", "en": "Needle", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i39_pl" },
+        { "id": "i39_pl", "sw": "Sindano", "en": "Needles", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i39_sg" },
+        { "id": "i40_sg", "sw": "Chakula", "en": "Food", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i40_pl" },
+        { "id": "i40_pl", "sw": "Chakula (?)", "en": "Food (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i40_sg" },
+        { "id": "i41_sg", "sw": "Maji", "en": "Water", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i41_pl" },
+        { "id": "i41_pl", "sw": "Maji (?)", "en": "Water (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i41_sg" },
+        { "id": "i42_sg", "sw": "Maziwa", "en": "Milk", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i42_pl" },
+        { "id": "i42_pl", "sw": "Maziwa (?)", "en": "Milk (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i42_sg" },
+        { "id": "i43_sg", "sw": "Nyama", "en": "Meat", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i43_pl" },
+        { "id": "i43_pl", "sw": "Nyama (?)", "en": "Meat (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i43_sg" },
+        { "id": "i44_sg", "sw": "Mchele", "en": "Rice", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i44_pl" },
+        { "id": "i44_pl", "sw": "Mchele (?)", "en": "Rice (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i44_sg" },
+        { "id": "i45_sg", "sw": "Chumvi", "en": "Salt", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i45_pl" },
+        { "id": "i45_pl", "sw": "Chumvi (?)", "en": "Salt (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i45_sg" },
+        { "id": "i46_sg", "sw": "Mafuta", "en": "Oil / fat", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i46_pl" },
+        { "id": "i46_pl", "sw": "Mafuta (?)", "en": "Oil / fat (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i46_sg" },
+        { "id": "i47_sg", "sw": "Kijiji", "en": "Village", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i47_pl" },
+        { "id": "i47_pl", "sw": "Vijiji", "en": "Villages", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i47_sg" },
+        { "id": "i48_sg", "sw": "Mji", "en": "Town / city", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i48_pl" },
+        { "id": "i48_pl", "sw": "Miji", "en": "Towns / cities", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i48_sg" },
+        { "id": "i49_sg", "sw": "Nyumba", "en": "House", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i49_pl" },
+        { "id": "i49_pl", "sw": "Nyumba", "en": "Houses", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i49_sg" },
+        { "id": "i50_sg", "sw": "Barabara", "en": "Road", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i50_pl" },
+        { "id": "i50_pl", "sw": "Barabara", "en": "Roads", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i50_sg" },
+        { "id": "i51_sg", "sw": "Mto", "en": "River", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i51_pl" },
+        { "id": "i51_pl", "sw": "Mito", "en": "Rivers", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i51_sg" },
+        { "id": "i52_sg", "sw": "Shamba", "en": "Field", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i52_pl" },
+        { "id": "i52_pl", "sw": "Mashamba", "en": "Fields", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i52_sg" },
+        { "id": "i53_sg", "sw": "Mlima", "en": "Mountain", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i53_pl" },
+        { "id": "i53_pl", "sw": "Milima", "en": "Mountains", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i53_sg" },
+        { "id": "i54_sg", "sw": "Bahari", "en": "Sea / ocean", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i54_pl" },
+        { "id": "i54_pl", "sw": "Bahari", "en": "Seas", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i54_sg" },
+        { "id": "i55_sg", "sw": "Soko", "en": "Market", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i55_pl" },
+        { "id": "i55_pl", "sw": "Masoko", "en": "Markets", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i55_sg" },
+        { "id": "i56_sg", "sw": "Shule", "en": "School", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i56_pl" },
+        { "id": "i56_pl", "sw": "Shule", "en": "Schools", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i56_sg" },
+        { "id": "i57_sg", "sw": "Jicho", "en": "Eye", "ctx_sw": "(umoja — paired)", "ctx_en": "(singular — paired)", "pair": "i57_pl" },
+        { "id": "i57_pl", "sw": "Macho", "en": "Eyes", "ctx_sw": "(wingi — paired)", "ctx_en": "(plural — paired)", "pair": "i57_sg" },
+        { "id": "i58_sg", "sw": "Sikio", "en": "Ear", "ctx_sw": "(umoja — paired)", "ctx_en": "(singular — paired)", "pair": "i58_pl" },
+        { "id": "i58_pl", "sw": "Masikio", "en": "Ears", "ctx_sw": "(wingi — paired)", "ctx_en": "(plural — paired)", "pair": "i58_sg" },
+        { "id": "i59_sg", "sw": "Mkono", "en": "Hand / arm", "ctx_sw": "(umoja — paired)", "ctx_en": "(singular — paired)", "pair": "i59_pl" },
+        { "id": "i59_pl", "sw": "Mikono", "en": "Hands / arms", "ctx_sw": "(wingi — paired)", "ctx_en": "(plural — paired)", "pair": "i59_sg" },
+        { "id": "i60_sg", "sw": "Mguu", "en": "Leg / foot", "ctx_sw": "(umoja — paired)", "ctx_en": "(singular — paired)", "pair": "i60_pl" },
+        { "id": "i60_pl", "sw": "Miguu", "en": "Legs / feet", "ctx_sw": "(wingi — paired)", "ctx_en": "(plural — paired)", "pair": "i60_sg" },
+        { "id": "i61_sg", "sw": "Kichwa", "en": "Head", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i61_pl" },
+        { "id": "i61_pl", "sw": "Vichwa", "en": "Heads", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i61_sg" },
+        { "id": "i62_sg", "sw": "Pua", "en": "Nose", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i62_pl" },
+        { "id": "i62_pl", "sw": "Pua", "en": "Noses", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i62_sg" },
+        { "id": "i63_sg", "sw": "Mdomo", "en": "Mouth", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i63_pl" },
+        { "id": "i63_pl", "sw": "Midomo", "en": "Mouths", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i63_sg" },
+        { "id": "i64_sg", "sw": "Moyo", "en": "Heart", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i64_pl" },
+        { "id": "i64_pl", "sw": "Mioyo", "en": "Hearts", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i64_sg" },
+        { "id": "i65_sg", "sw": "Tumbo", "en": "Stomach", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i65_pl" },
+        { "id": "i65_pl", "sw": "Matumbo", "en": "Stomachs", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i65_sg" },
+        { "id": "i66_sg", "sw": "Mgongo", "en": "Back", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i66_pl" },
+        { "id": "i66_pl", "sw": "Migongo", "en": "Backs", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i66_sg" },
+        { "id": "i67_sg", "sw": "Wakati", "en": "Time", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i67_pl" },
+        { "id": "i67_pl", "sw": "Nyakati", "en": "Times", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i67_sg" },
+        { "id": "i68_sg", "sw": "Kazi", "en": "Work / job", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i68_pl" },
+        { "id": "i68_pl", "sw": "Kazi", "en": "Works / jobs", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i68_sg" },
+        { "id": "i69_sg", "sw": "Neno", "en": "Word", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i69_pl" },
+        { "id": "i69_pl", "sw": "Maneno", "en": "Words", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i69_sg" },
+        { "id": "i70_sg", "sw": "Jina", "en": "Name", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i70_pl" },
+        { "id": "i70_pl", "sw": "Majina", "en": "Names", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i70_sg" },
+        { "id": "i71_sg", "sw": "Uzuri", "en": "Beauty", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i71_pl" },
+        { "id": "i71_pl", "sw": "Uzuri (?)", "en": "Beauty (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i71_sg" },
+        { "id": "i72_sg", "sw": "Nguvu", "en": "Strength", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i72_pl" },
+        { "id": "i72_pl", "sw": "Nguvu", "en": "Strengths", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i72_sg" },
+        { "id": "i73_sg", "sw": "Hekima", "en": "Wisdom", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i73_pl" },
+        { "id": "i73_pl", "sw": "Hekima (?)", "en": "Wisdom (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i73_sg" },
+        { "id": "i74_sg", "sw": "Upendo", "en": "Love", "ctx_sw": "(umoja — je, kuna wingi?)", "ctx_en": "(singular — is there a plural?)", "pair": "i74_pl" },
+        { "id": "i74_pl", "sw": "Upendo (?)", "en": "Love (?)", "ctx_sw": "(wingi — kama upo)", "ctx_en": "(plural — if exists)", "pair": "i74_sg" },
+        { "id": "i75_sg", "sw": "Hofu", "en": "Fear", "ctx_sw": "(umoja)", "ctx_en": "(singular)", "pair": "i75_pl" },
+        { "id": "i75_pl", "sw": "Hofu", "en": "Fears", "ctx_sw": "(wingi)", "ctx_en": "(plural)", "pair": "i75_sg" }
+      ]
+    },
+    {
+      "id": "stories",
+      "label": {
+        "sw": "J. Hadithi fupi",
+        "en": "J. Short stories"
+      },
+      "phrases": [
         {
-          "id": "mq1",
-          "sw": "Swali 1: Jinsia",
-          "en": "Question 1: Gender",
-          "body": {
-            "sw": "Katika Kiswahili na Kiingereza hakuna jinsia — nyumba ni nyumba, kitabu ni kitabu, hakuna tofauti yoyote ya kisarufi. Kivumishi 'kubwa' haibadiliki. Katika Kihispania na Kifaransa kuna jinsia mbili — ya kiume na ya kike. Katika Kirusi na Kijerumani kuna jinsia tatu. Angalia sentensi zilizoingizwa na msemaji. Je, kivumishi kinabadilika kulingana na nomino?",
-            "en": "In Swahili and English there is no gender — a house is just a house, a book is just a book, no grammatical difference. The adjective 'big' never changes. In Spanish and French there are two genders. In Russian and German there are three genders. Look at the phrases entered by the speaker. Does the adjective change depending on the noun?"
-          },
-          "options": {
-            "sw": [
-              "Haibadiliki — hakuna jinsia",
-              "Inabadilika → jinsia ngapi? zipi? jinsi ya kujua jinsia ya nomino — kwa mwisho wa neno, kwa maana, au lazima kukumbuka?"
-            ],
-            "en": [
-              "Does not change — no gender",
-              "Changes → how many genders? what are they? how to determine gender — by ending, by meaning, or must be memorized?"
-            ]
-          },
-          "if_yes": {
-            "sw": "Tunga mfano mmoja wa nomino ya kila jinsia na utoe tafsiri kwa Kiswahili na Kiingereza.",
-            "en": "Give one example noun for each gender and provide its translation in Swahili and English."
-          }
+          "id": "j1",
+          "sw": "John ana nyumba mpya. Ndogo, lakini nzuri. Anna anasema: 'Nyumba nzuri, John!' John anasema: 'Asante. Ingia.'",
+          "en": "John has a new house. Small, but beautiful. Anna says: 'Beautiful house, John!' John says: 'Thank you. Come in.'",
+          "ctx_sw": "", "ctx_en": ""
         },
         {
-          "id": "mq2",
-          "sw": "Swali 2: Ngeli",
-          "en": "Question 2: Noun classes",
-          "body": {
-            "sw": "Katika lugha za Kibantu — Kiswahili, Kikurya, na nyingine nyingi — nomino zimegawanywa katika ngeli, si jinsia. Ngeli zinaweza kuwa nyingi — katika Kiswahili kuna karibu 15. Kila ngeli ina kiambishi chake. Kwa mfano: mtu — watu (m-/wa-), kitabu — vitabu (ki-/vi-), mti — miti (m-/mi-). Na kivumishi na kitenzi vinabadilika kulingana na ngeli. Angalia sentensi za msemaji. Je, kuna ngeli kama hizo katika lugha yako?",
-            "en": "In Bantu languages — Swahili, Kikurya, and many others — nouns are divided into classes, not genders. There can be many classes — Swahili has about 15. Each class has its own prefix. For example: mtu — watu (m-/wa-), kitabu — vitabu (ki-/vi-), mti — miti (m-/mi-). Both adjectives and verbs change according to class. Look at the speaker's phrases. Are there such classes in your language?"
-          },
-          "options": {
-            "sw": [
-              "Hakuna ngeli",
-              "Ndiyo → ngeli ngapi? viambishi gani vya umoja na wingi? tunga jedwali la ngeli na mifano na tafsiri"
-            ],
-            "en": [
-              "No classes",
-              "Yes → how many classes? what are the singular and plural prefixes? write a table of classes with examples and translations"
-            ]
-          }
+          "id": "j2",
+          "sw": "Anna na Grace wanakaa kando ya mto. Mto mkubwa, maji baridi. Wanakaa kimya. Vizuri.",
+          "en": "Anna and Grace sit by the river. A big river, cold water. They sit in silence. Good.",
+          "ctx_sw": "", "ctx_en": ""
         },
         {
-          "id": "mq3",
-          "sw": "Swali 3: Wingi",
-          "en": "Question 3: Plural",
-          "body": {
-            "sw": "Angalia sentensi za msemaji — jinsi gani wingi huundwa katika lugha yako? Je, kuna nomino ambazo hazina wingi (kama maji, maziwa, chakula katika lugha nyingi)? Je, kuna nomino ambazo zipo katika wingi tu?",
-            "en": "Look at the speaker's phrases — how is the plural formed in your language? Are there nouns with no plural (like water, milk, food in many languages)? Are there nouns that exist only in plural?"
-          },
-          "options": {
-            "sw": [
-              "Kwa kiambishi awali (kama Kiswahili)",
-              "Kwa kiambishi tamati (kama Kiingereza)",
-              "Kwa kubadilisha mzizi (kama Kirusi)",
-              "Kwa neno tofauti",
-              "Haibadiliki kabisa",
-              "Mchanganyiko → eleza na toa mifano"
-            ],
-            "en": [
-              "By prefix (like Swahili)",
-              "By suffix (like English)",
-              "By changing the root (like Russian)",
-              "By a separate word",
-              "Does not change at all",
-              "Combination → describe and give examples"
-            ]
-          }
+          "id": "j3",
+          "sw": "Grace alipata jiwe dogo. Jiwe zuri. Jiwe jeupe. Analibeba nyumbani. Jiwe hilo litakuwa chini ya mto wa Grace.",
+          "en": "Grace found a small stone. A beautiful stone. A white stone. She carries it home. That stone will lie under Grace's pillow.",
+          "ctx_sw": "", "ctx_en": ""
         },
         {
-          "id": "mq4",
-          "sw": "Swali 4: Uhai",
-          "en": "Question 4: Animacy",
-          "body": {
-            "sw": "Angalia sentensi ambapo John anamwona Anna na John anaona nyumba. Je, kuna tofauti katika umbo la neno 'Anna' na 'nyumba' katika sentensi hizi?",
-            "en": "Look at the phrases where John sees Anna and John sees a house. Is there a difference in the form of the word 'Anna' and 'house' in these sentences?"
-          },
-          "options": {
-            "sw": [
-              "Hakuna tofauti — uhai haujatofautishwa kisarufi",
-              "Ndiyo kuna tofauti → eleza kanuni na toa mifano na tafsiri"
-            ],
-            "en": [
-              "No difference — animacy is not distinguished grammatically",
-              "Yes there is a difference → describe the rule and give examples with translations"
-            ]
-          }
+          "id": "j4",
+          "sw": "Grace ana mbuzi. Mbuzi anakula vitabu. Kitabu kimoja, vitabu viwili, vitabu vitatu. Grace anasema: 'Simama!' Mbuzi anasema: 'Kimoja kingine.'",
+          "en": "Grace has a goat. The goat eats books. One book, two books, three books. Grace says: 'Stop!' The goat says: 'One more.'",
+          "ctx_sw": "", "ctx_en": ""
         },
         {
-          "id": "mq5",
-          "sw": "Swali 5: Hali za nomino (падежи)",
-          "en": "Question 5: Noun cases",
-          "body": {
-            "sw": "Angalia sentensi ambapo nomino moja ipo katika nafasi tofauti — mtendaji, mtendewa, umiliki, baada ya kihusishi. Je, umbo la nomino linabadilika? Katika Kiswahili John daima ni John. Katika Kirusi — Джон / Джона / Джону / о Джоне — inabadilika kila wakati.",
-            "en": "Look at the phrases where the same noun appears in different roles — subject, object, possession, after a preposition. Does the form of the noun change? In Swahili John is always John. In Russian — Джон / Джона / Джону / о Джоне — it changes every time."
-          },
-          "options": {
-            "sw": [
-              "Haibadiliki — hakuna hali",
-              "Inabadilika → hali ngapi? tunga jedwali na mifano na tafsiri"
-            ],
-            "en": [
-              "Does not change — no cases",
-              "Changes → how many cases? write a table with examples and translations"
-            ]
-          }
-        },
-        {
-          "id": "mq6",
-          "sw": "Swali 6: Utambuzi",
-          "en": "Question 6: Definiteness",
-          "body": {
-            "sw": "Angalia sentensi ambapo John anaona nyumba mara ya kwanza na John anaingia nyumba ile ile. Je, kuna tofauti katika lugha yako kati ya 'nyumba fulani' na 'nyumba ile ile tunayoijua'? Katika Kiingereza: a house / the house. Katika Kiswahili na Kirusi hakuna viwakilishi vya utambuzi — utambuzi unaonyeshwa kwa muktadha.",
-            "en": "Look at the phrases where John sees a house for the first time and John enters that same house. Is there a difference in your language between 'some house' and 'that same house we already know'? In English: a house / the house. In Swahili and Russian there are no articles — definiteness is shown by context."
-          },
-          "options": {
-            "sw": [
-              "Hakuna viwakilishi — utambuzi unaonyeshwa kwa muktadha",
-              "Kuna viwakilishi → vipi? vinabadilika vipi kulingana na jinsia/ngeli?",
-              "Utambuzi unaonyeshwa kwa njia nyingine → eleza na toa mifano"
-            ],
-            "en": [
-              "No articles — definiteness shown by context",
-              "There are articles → what are they? how do they change by gender/class?",
-              "Definiteness expressed another way → describe and give examples"
-            ]
-          }
-        },
-        {
-          "id": "mq7",
-          "sw": "Swali 7: Kukusanya kitabu cha sarufi",
-          "en": "Question 7: Building the grammar reference",
-          "body": {
-            "sw": "Kulingana na maudhui yote yaliyoingizwa — sentensi za wasemaji na majibu ya maswali hapo juu — tunga kitabu cha sarufi kuhusu nomino katika lugha yako.",
-            "en": "Based on all content provided — speakers' phrases and answers to the questions above — write a grammar reference on nouns in your language."
-          },
-          "structure": {
-            "sw": [
-              "Jinsia — ngapi, zipi, jinsi ya kujua",
-              "Ngeli — ngapi, jedwali la viambishi na mifano",
-              "Wingi — jinsi unavyoundwa, vighairi",
-              "Upatanisho wa kivumishi — jedwali kulingana na jinsia/ngeli",
-              "Upatanisho wa kitenzi — jedwali kulingana na jinsia/ngeli",
-              "Uhai — je, kuna tofauti",
-              "Hali za nomino — jedwali kama zipo",
-              "Utambuzi — viwakilishi au njia nyingine",
-              "Mifano ya sentensi kwa kila kanuni"
-            ],
-            "en": [
-              "Gender — how many, what are they, how to determine",
-              "Classes — how many, table of prefixes with examples",
-              "Plural — how it is formed, exceptions",
-              "Adjective agreement — table by gender/class",
-              "Verb agreement — table by gender/class",
-              "Animacy — is there a distinction",
-              "Noun cases — table if they exist",
-              "Definiteness — articles or other method",
-              "Example sentences for each rule"
-            ]
-          }
+          "id": "j5",
+          "sw": "Anna ana mbwa. Mbwa anavaa miwani na kusoma kitabu. Anna anasema: 'Miwani yangu iko wapi?' Mbwa anamletea miwani, lakini bila miwani yeye haoni chochote. Mbwa anaacha kitabu. Jinsi gani kusoma kitabu bila miwani?",
+          "en": "Anna has a dog. The dog puts on glasses and reads a book. Anna says: 'Where are my glasses?' The dog brings her the glasses, but without glasses she cannot see anything. The dog drops the book. How can you read a book without glasses?",
+          "ctx_sw": "", "ctx_en": ""
         }
       ]
+    },
+    {
+      "id": "diminutive_augmentative",
+      "label": {
+        "sw": "K. Udogo na ukubwa — kama vile Kirusi 'domik' (nyumba ndogo ndogo, ya kupendeza) na 'domishche' (nyumba kubwa sana, ya kutisha). Tafsiri sentensi hizi kwa njia yoyote inayofaa lugha yako.",
+        "en": "K. Diminutive and augmentative — like Russian 'domik' (cute little house) and 'domishche' (huge imposing house). Translate these sentences in whatever way your language expresses this."
+      },
+      "phrases": [
+        { "id": "k1", "sw": "Hii ni nyumba", "en": "This is a house", "ctx_sw": "(kawaida — hakuna udogo wala ukubwa)", "ctx_en": "(neutral — no diminutive or augmentative)" },
+        { "id": "k2", "sw": "Hii ni nyumba ndogo ndogo — ndogo na ya kupendeza", "en": "This is a tiny little house — small and charming", "ctx_sw": "(udogo — ndogo, ya kupendeza)", "ctx_en": "(diminutive — small, endearing)" },
+        { "id": "k3", "sw": "Hii ni nyumba kubwa sana — kubwa na ya kutisha", "en": "This is a huge house — big and imposing", "ctx_sw": "(ukubwa — kubwa, ya kutisha)", "ctx_en": "(augmentative — big, impressive)" },
+        { "id": "k4", "sw": "Hii ni mti", "en": "This is a tree", "ctx_sw": "(kawaida)", "ctx_en": "(neutral)" },
+        { "id": "k5", "sw": "Hii ni mti mdogo mdogo — mche mdogo wa kupendeza", "en": "This is a tiny little tree — a small charming sapling", "ctx_sw": "(udogo — mdogo, wa kupendeza)", "ctx_en": "(diminutive — small, endearing)" },
+        { "id": "k6", "sw": "Hii ni mti mkubwa sana — mkubwa na wa kutisha", "en": "This is a huge tree — big and imposing", "ctx_sw": "(ukubwa — mkubwa, wa kutisha)", "ctx_en": "(augmentative — big, impressive)" }
+      ]
+    },
+    {
+      "id": "alienable_inalienable",
+      "label": {
+        "sw": "L. Umiliki — unaoweza kuhamishwa na usioweza (mkono wangu siwezi kutoa; kitabu changu naweza kutoa)",
+        "en": "L. Possession — alienable and inalienable (my hand cannot be given away; my book can)"
+      },
+      "phrases": [
+        { "id": "l1", "sw": "Hii ni mkono wangu", "en": "This is my hand", "ctx_sw": "(sehemu ya mwili — haiwezi kuhamishwa)", "ctx_en": "(body part — cannot be separated from me)" },
+        { "id": "l2", "sw": "Hii ni kitabu changu", "en": "This is my book", "ctx_sw": "(kitu — kinaweza kuhamishwa, ninaweza kukitoa)", "ctx_en": "(object — can be given away)" },
+        { "id": "l3", "sw": "Hii ni mguu wake", "en": "This is his leg", "ctx_sw": "(sehemu ya mwili — haiwezi kuhamishwa)", "ctx_en": "(body part — inalienable)" },
+        { "id": "l4", "sw": "Hii ni ng'ombe wake", "en": "This is his cow", "ctx_sw": "(mali — inaweza kuhamishwa)", "ctx_en": "(property — alienable)" },
+        { "id": "l5", "sw": "Hili ni jina lake", "en": "This is her name", "ctx_sw": "(usioweza kuhamishwa — jina ni sehemu ya mtu)", "ctx_en": "(inalienable — a name is part of a person)" },
+        { "id": "l6", "sw": "Hiki ni kijiji chake", "en": "This is her village", "ctx_sw": "(mahali — inaweza kuwa ya aina mbili kulingana na lugha)", "ctx_en": "(place — may be treated differently depending on the language)" }
+      ]
+    },
+    {
+      "id": "locative",
+      "label": {
+        "sw": "M. Hali za mahali — ndani, kutoka, kuelekea",
+        "en": "M. Locative forms — inside, from, toward"
+      },
+      "phrases": [
+        { "id": "m1", "sw": "John yuko ndani ya nyumba", "en": "John is inside the house", "ctx_sw": "(mahali — kukaa ndani)", "ctx_en": "(location — being inside)" },
+        { "id": "m2", "sw": "John anatoka nyumbani", "en": "John comes out of the house", "ctx_sw": "(kutoka mahali — harakati kutoka ndani)", "ctx_en": "(movement away from — out of)" },
+        { "id": "m3", "sw": "John anakwenda nyumbani", "en": "John is going to the house", "ctx_sw": "(kwenda mahali — harakati kuelekea)", "ctx_en": "(movement toward — going to)" },
+        { "id": "m4", "sw": "Kitabu kipo juu ya meza", "en": "The book is on the table", "ctx_sw": "(mahali — juu ya uso)", "ctx_en": "(location — on a surface)" },
+        { "id": "m5", "sw": "Kitabu kilianguka kutoka mezani", "en": "The book fell off the table", "ctx_sw": "(kutoka mahali — kitu kilianguka)", "ctx_en": "(movement away from — fell from)" }
+      ]
     }
+  ],
+  "moderator_questions": [
+    {
+      "id": "mq1",
+      "sw": "Swali 1: Jinsia",
+      "en": "Question 1: Gender",
+      "body": {
+        "sw": "Katika Kiswahili na Kiingereza hakuna jinsia — nyumba ni nyumba, kitabu ni kitabu, hakuna tofauti yoyote ya kisarufi. Kivumishi 'kubwa' haibadiliki. Katika Kihispania na Kifaransa kuna jinsia mbili — ya kiume na ya kike. Katika Kirusi na Kijerumani kuna jinsia tatu. Angalia sentensi zilizoingizwa na msemaji. Je, kivumishi kinabadilika kulingana na nomino?",
+        "en": "In Swahili and English there is no gender — a house is just a house, a book is just a book, no grammatical difference. The adjective 'big' never changes. In Spanish and French there are two genders. In Russian and German there are three genders. Look at the phrases entered by the speaker. Does the adjective change depending on the noun?"
+      },
+      "options": {
+        "sw": ["Haibadiliki — hakuna jinsia", "Inabadilika → jinsia ngapi? zipi? jinsi ya kujua jinsia ya nomino — kwa mwisho wa neno, kwa maana, au lazima kukumbuka?"],
+        "en": ["Does not change — no gender", "Changes → how many genders? what are they? how to determine gender — by ending, by meaning, or must be memorized?"]
+      },
+      "if_yes": {
+        "sw": "Tunga mfano mmoja wa nomino ya kila jinsia na utoe tafsiri kwa Kiswahili na Kiingereza.",
+        "en": "Give one example noun for each gender and provide its translation in Swahili and English."
+      }
+    },
+    {
+      "id": "mq2",
+      "sw": "Swali 2: Ngeli",
+      "en": "Question 2: Noun classes",
+      "body": {
+        "sw": "Katika lugha za Kibantu — Kiswahili, Kikurya, na nyingine nyingi — nomino zimegawanywa katika ngeli, si jinsia. Ngeli zinaweza kuwa nyingi — katika Kiswahili kuna karibu 15. Kila ngeli ina kiambishi chake. Kwa mfano: mtu — watu (m-/wa-), kitabu — vitabu (ki-/vi-), mti — miti (m-/mi-). Na kivumishi na kitenzi vinabadilika kulingana na ngeli. Angalia sentensi za msemaji. Je, kuna ngeli kama hizo katika lugha yako?",
+        "en": "In Bantu languages — Swahili, Kikurya, and many others — nouns are divided into classes, not genders. There can be many classes — Swahili has about 15. Each class has its own prefix. For example: mtu — watu (m-/wa-), kitabu — vitabu (ki-/vi-), mti — miti (m-/mi-). Both adjectives and verbs change according to class. Look at the speaker's phrases. Are there such classes in your language?"
+      },
+      "options": {
+        "sw": ["Hakuna ngeli", "Ndiyo → ngeli ngapi? viambishi gani vya umoja na wingi? tunga jedwali la ngeli na mifano na tafsiri"],
+        "en": ["No classes", "Yes → how many classes? what are the singular and plural prefixes? write a table of classes with examples and translations"]
+      }
+    },
+    {
+      "id": "mq3",
+      "sw": "Swali 3: Wingi",
+      "en": "Question 3: Plural",
+      "body": {
+        "sw": "Angalia sentensi za msemaji — jinsi gani wingi huundwa katika lugha yako? Je, kuna nomino ambazo hazina wingi (kama maji, maziwa, chakula katika lugha nyingi)? Je, kuna nomino ambazo zipo katika wingi tu?",
+        "en": "Look at the speaker's phrases — how is the plural formed in your language? Are there nouns with no plural (like water, milk, food in many languages)? Are there nouns that exist only in plural?"
+      },
+      "options": {
+        "sw": ["Kwa kiambishi awali (kama Kiswahili)", "Kwa kiambishi tamati (kama Kiingereza)", "Kwa kubadilisha mzizi (kama Kirusi)", "Kwa neno tofauti", "Haibadiliki kabisa", "Mchanganyiko → eleza na toa mifano"],
+        "en": ["By prefix (like Swahili)", "By suffix (like English)", "By changing the root (like Russian)", "By a separate word", "Does not change at all", "Combination → describe and give examples"]
+      }
+    },
+    {
+      "id": "mq4",
+      "sw": "Swali 4: Uhai",
+      "en": "Question 4: Animacy",
+      "body": {
+        "sw": "Angalia sentensi ambapo John anamwona Anna na John anaona nyumba. Je, kuna tofauti katika umbo la neno 'Anna' na 'nyumba' katika sentensi hizi?",
+        "en": "Look at the phrases where John sees Anna and John sees a house. Is there a difference in the form of the word 'Anna' and 'house' in these sentences?"
+      },
+      "options": {
+        "sw": ["Hakuna tofauti — uhai haujatofautishwa kisarufi", "Ndiyo kuna tofauti → eleza kanuni na toa mifano na tafsiri"],
+        "en": ["No difference — animacy is not distinguished grammatically", "Yes there is a difference → describe the rule and give examples with translations"]
+      }
+    },
+    {
+      "id": "mq5",
+      "sw": "Swali 5: Hali za nomino (падежи)",
+      "en": "Question 5: Noun cases",
+      "body": {
+        "sw": "Angalia sentensi ambapo nomino moja ipo katika nafasi tofauti — mtendaji, mtendewa, umiliki, baada ya kihusishi. Je, umbo la nomino linabadilika? Katika Kiswahili John daima ni John. Katika Kirusi — Джон / Джона / Джону / о Джоне — inabadilika kila wakati.",
+        "en": "Look at the phrases where the same noun appears in different roles — subject, object, possession, after a preposition. Does the form of the noun change? In Swahili John is always John. In Russian — Джон / Джона / Джону / о Джоне — it changes every time."
+      },
+      "options": {
+        "sw": ["Haibadiliki — hakuna hali", "Inabadilika → hali ngapi? tunga jedwali na mifano na tafsiri"],
+        "en": ["Does not change — no cases", "Changes → how many cases? write a table with examples and translations"]
+      }
+    },
+    {
+      "id": "mq6",
+      "sw": "Swali 6: Utambuzi",
+      "en": "Question 6: Definiteness",
+      "body": {
+        "sw": "Angalia sentensi ambapo John anaona nyumba mara ya kwanza na John anaingia nyumba ile ile. Je, kuna tofauti katika lugha yako kati ya 'nyumba fulani' na 'nyumba ile ile tunayoijua'? Katika Kiingereza: a house / the house. Katika Kiswahili na Kirusi hakuna viwakilishi vya utambuzi — utambuzi unaonyeshwa kwa muktadha.",
+        "en": "Look at the phrases where John sees a house for the first time and John enters that same house. Is there a difference in your language between 'some house' and 'that same house we already know'? In English: a house / the house. In Swahili and Russian there are no articles — definiteness is shown by context."
+      },
+      "options": {
+        "sw": ["Hakuna viwakilishi — utambuzi unaonyeshwa kwa muktadha", "Kuna viwakilishi → vipi? vinabadilika vipi kulingana na jinsia/ngeli?", "Utambuzi unaonyeshwa kwa njia nyingine → eleza na toa mifano"],
+        "en": ["No articles — definiteness shown by context", "There are articles → what are they? how do they change by gender/class?", "Definiteness expressed another way → describe and give examples"]
+      }
+    },
+    {
+      "id": "mq7",
+      "sw": "Swali 7: Kukusanya kitabu cha sarufi",
+      "en": "Question 7: Building the grammar reference",
+      "body": {
+        "sw": "Kulingana na maudhui yote yaliyoingizwa — sentensi za wasemaji na majibu ya maswali hapo juu — tunga kitabu cha sarufi kuhusu nomino katika lugha yako.",
+        "en": "Based on all content provided — speakers' phrases and answers to the questions above — write a grammar reference on nouns in your language."
+      },
+      "structure": {
+        "sw": ["Jinsia — ngapi, zipi, jinsi ya kujua", "Ngeli — ngapi, jedwali la viambishi na mifano", "Wingi — jinsi unavyoundwa, vighairi", "Upatanisho wa kivumishi — jedwali kulingana na jinsia/ngeli", "Upatanisho wa kitenzi — jedwali kulingana na jinsia/ngeli", "Uhai — je, kuna tofauti", "Hali za nomino — jedwali kama zipo", "Utambuzi — viwakilishi au njia nyingine", "Mifano ya sentensi kwa kila kanuni"],
+        "en": ["Gender — how many, what are they, how to determine", "Classes — how many, table of prefixes with examples", "Plural — how it is formed, exceptions", "Adjective agreement — table by gender/class", "Verb agreement — table by gender/class", "Animacy — is there a distinction", "Noun cases — table if they exist", "Definiteness — articles or other method", "Example sentences for each rule"]
+      }
+    }
+  ]
+}
