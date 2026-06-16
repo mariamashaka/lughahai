@@ -4485,7 +4485,157 @@
               "ctx_en": ""
             }
           ]
-        }
+        },
+{
+  "id": "incl_excl_we",
+  "label": {
+    "sw": "F. Sisi pamoja nawe / sisi bila wewe (инклюзивное/эксклюзивное мы)",
+    "en": "F. We including you / we excluding you"
+  },
+  "phrases": [
+    {
+      "id": "f_incl",
+      "sw": "Sisi sote tunaenda nyumbani (mimi, wewe na wengine — wote pamoja)",
+      "en": "We are all going home (me, you and others — all together)",
+      "ctx_sw": "(sisi pamoja nawe — инклюзивное)",
+      "ctx_en": "(we including you — inclusive)"
+    },
+    {
+      "id": "f_excl",
+      "sw": "Sisi tunaenda nyumbani (mimi na wengine — lakini si wewe)",
+      "en": "We are going home (me and others — but not you)",
+      "ctx_sw": "(sisi bila wewe — эксклюзивное)",
+      "ctx_en": "(we excluding you — exclusive)"
+    }
+  ]
+},
+{
+  "id": "causative",
+  "label": {
+    "sw": "G. Unyambulishaji wa kusababisha — kumfanya mtu afanye kitu (каузативный залог)",
+    "en": "G. Causative — making someone do something"
+  },
+  "phrases": [
+    {
+      "id": "g_caus1",
+      "sw": "John alimfanya Anna aende nyumbani",
+      "en": "John made Anna go home",
+      "ctx_sw": "(kusababisha mtu aende — каузатив движения)",
+      "ctx_en": "(causing someone to go — causative of movement)"
+    },
+    {
+      "id": "g_caus2",
+      "sw": "Anna alimfanya John ale chakula",
+      "en": "Anna made John eat the food",
+      "ctx_sw": "(kusababisha mtu ale — каузатив действия)",
+      "ctx_en": "(causing someone to eat — causative of action)"
+    },
+    {
+      "id": "g_caus3",
+      "sw": "Grace alimfanya mtoto alale",
+      "en": "Grace made the child sleep",
+      "ctx_sw": "(kusababisha mtu alale — каузатив состояния)",
+      "ctx_en": "(causing someone to sleep — causative of state)"
+    }
+  ]
+},
+{
+  "id": "applicative",
+  "label": {
+    "sw": "H. Unyambulishaji wa manufaa — kufanya kitu kwa ajili ya mtu (аппликативный залог)",
+    "en": "H. Applicative — doing something for someone"
+  },
+  "phrases": [
+    {
+      "id": "h_appl1",
+      "sw": "John alimpikia Anna chakula",
+      "en": "John cooked food for Anna",
+      "ctx_sw": "(kufanya kitu kwa ajili ya mtu — аппликатив)",
+      "ctx_en": "(doing something for someone — applicative)"
+    },
+    {
+      "id": "h_appl2",
+      "sw": "Anna alimletea John maji",
+      "en": "Anna brought water for John",
+      "ctx_sw": "(kuleta kitu kwa ajili ya mtu — аппликатив)",
+      "ctx_en": "(bringing something for someone — applicative)"
+    },
+    {
+      "id": "h_appl3",
+      "sw": "Grace alimununulia Daniel kitabu",
+      "en": "Grace bought a book for Daniel",
+      "ctx_sw": "(kununua kitu kwa ajili ya mtu — аппликатив)",
+      "ctx_en": "(buying something for someone — applicative)"
+    }
+  ]
+},
+{
+  "id": "temporal_distance",
+  "label": {
+    "sw": "I. Umbali wa wakati uliopita — leo / jana / zamani (временная дистанция прошлого)",
+    "en": "I. Temporal distance in the past — today / yesterday / long ago"
+  },
+  "phrases": [
+    {
+      "id": "i_td1",
+      "sw": "Nilikula asubuhi ya leo",
+      "en": "I ate this morning",
+      "ctx_sw": "(leo — прошедшее сегодня)",
+      "ctx_en": "(today — past today)"
+    },
+    {
+      "id": "i_td2",
+      "sw": "Nilikula jana",
+      "en": "I ate yesterday",
+      "ctx_sw": "(jana — прошедшее вчера)",
+      "ctx_en": "(yesterday — past yesterday)"
+    },
+    {
+      "id": "i_td3",
+      "sw": "Nilikula miaka mingi iliyopita",
+      "en": "I ate many years ago",
+      "ctx_sw": "(zamani sana — давнее прошлое)",
+      "ctx_en": "(long ago — distant past)"
+    }
+  ]
+},
+{
+  "id": "directional",
+  "label": {
+    "sw": "J. Mwelekeo — kuja hapa / kwenda huko (направленность глагола)",
+    "en": "J. Directionality — coming here / going there"
+  },
+  "phrases": [
+    {
+      "id": "j_dir1",
+      "sw": "John, njoo hapa! (mwelekeo kwa msemaji)",
+      "en": "John, come here! (movement toward the speaker)",
+      "ctx_sw": "(kuja kwa msemaji — движение к говорящему)",
+      "ctx_en": "(coming to speaker — toward speaker)"
+    },
+    {
+      "id": "j_dir2",
+      "sw": "John, nenda huko! (mwelekeo mbali na msemaji)",
+      "en": "John, go there! (movement away from the speaker)",
+      "ctx_sw": "(kwenda mbali na msemaji — движение от говорящего)",
+      "ctx_en": "(going away from speaker — away from speaker)"
+    },
+    {
+      "id": "j_dir3",
+      "sw": "Anna alikuja (alikuja hapa, kwangu)",
+      "en": "Anna came (she came here, to me)",
+      "ctx_sw": "(kuja — движение к говорящему)",
+      "ctx_en": "(came — toward speaker)"
+    },
+    {
+      "id": "j_dir4",
+      "sw": "Anna alienda (aliondoka, mbali nami)",
+      "en": "Anna went (she left, away from me)",
+      "ctx_sw": "(kwenda — движение от говорящего)",
+      "ctx_en": "(went — away from speaker)"
+    }
+  ]
+}
       ],
       "moderator_questions": [
         {
