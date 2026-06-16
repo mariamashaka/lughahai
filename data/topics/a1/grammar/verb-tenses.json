@@ -4829,45 +4829,56 @@
             ]
           }
         },
-        {
+{
           "id": "mq5",
-          "sw": "Swali 5: Kukusanya kitabu cha sarufi",
-          "en": "Question 5: Building the grammar reference",
+          "sw": "Swali 5: Unyambulishaji wa kusababisha na manufaa",
+          "en": "Question 5: Causative and applicative",
+          "body": {
+            "sw": "Angalia sentensi katika bloku G na H. Katika Kiswahili kuna viambishi maalum — '-isha' kwa kusababisha (kumfanya mtu afanye kitu) na '-ia' kwa manufaa (kufanya kitu kwa ajili ya mtu). Je, katika lugha yako kuna mabadiliko kama hayo ya kitenzi?",
+            "en": "Look at the phrases in blocks G and H. In Swahili there are special suffixes — '-isha' for causative (making someone do something) and '-ia' for applicative (doing something for someone). Are there such verb modifications in your language?"
+          },
+          "options": {
+            "sw": ["Hakuna mabadiliko — tunasema tu 'alimfanya ale' kwa maneno mawili tofauti", "Kuna kiambishi cha kusababisha → toa mifano kadhaa na tafsiri", "Kuna kiambishi cha manufaa → toa mifano kadhaa na tafsiri", "Kuna vyote viwili → toa mifano ya kila kimoja"],
+            "en": ["No modification — we just say 'he made him eat' with separate words", "There is a causative suffix → give several examples with translations", "There is an applicative suffix → give several examples with translations", "Both exist → give examples of each"]
+          }
+        },
+        {
+          "id": "mq6",
+          "sw": "Swali 6: Umbali wa wakati uliopita",
+          "en": "Question 6: Temporal distance in the past",
+          "body": {
+            "sw": "Angalia sentensi katika bloku I — 'nilikula asubuhi ya leo', 'nilikula jana', 'nilikula miaka mingi iliyopita'. Katika Kiswahili kitenzi ni sawa katika hali zote tatu. Lakini katika baadhi ya lugha za Afrika kitenzi chenyewe hubadilika kulingana na umbali wa wakati. Je, katika lugha yako kitenzi kibadilika kulingana na ni lini jambo lilitokea?",
+            "en": "Look at the phrases in block I — 'I ate this morning', 'I ate yesterday', 'I ate many years ago'. In Swahili the verb is the same in all three cases. But in some African languages the verb itself changes depending on temporal distance. In your language does the verb change depending on when something happened?"
+          },
+          "options": {
+            "sw": ["Haibadiliki — wakati unaonyeshwa na maneno ya wakati tu", "Ndiyo, kitenzi kibadilika → viwango vingapi vya umbali? toa jedwali na mifano na tafsiri"],
+            "en": ["Does not change — time shown by time words only", "Yes, the verb changes → how many distance levels? give a table with examples and translations"]
+          }
+        },
+        {
+          "id": "mq7",
+          "sw": "Swali 7: Mwelekeo wa kitenzi",
+          "en": "Question 7: Verb directionality",
+          "body": {
+            "sw": "Angalia sentensi katika bloku J — 'njoo hapa' na 'nenda huko'. Katika baadhi ya lugha kitenzi kinaweza kuonyesha mwelekeo kwa kiambishi — yaani kitenzi kimoja kinaweza kuwa na fomu mbili: kwenda-hapa na kwenda-huko. Je, katika lugha yako kitenzi kinaonyesha mwelekeo kwa kiambishi au kwa kitenzi tofauti?",
+            "en": "Look at the phrases in block J — 'come here' and 'go there'. In some languages a verb can show direction through a suffix — one verb can have two forms: go-here and go-there. In your language does the verb show direction through a suffix or through a different verb?"
+          },
+          "options": {
+            "sw": ["Vitenzi tofauti kwa kuja na kwenda — hakuna kiambishi cha mwelekeo", "Kuna kiambishi cha mwelekeo katika kitenzi → toa mifano kadhaa na tafsiri"],
+            "en": ["Different verbs for coming and going — no directional suffix", "There is a directional suffix in the verb → give several examples with translations"]
+          }
+        },
+        {
+          "id": "mq8",
+          "sw": "Swali 8: Kukusanya kitabu cha sarufi",
+          "en": "Question 8: Building the grammar reference",
           "body": {
             "sw": "Kulingana na maudhui yote yaliyoingizwa — jedwali la kitenzi 'kula', sentensi za wasemaji na majibu ya maswali hapo juu — tunga kitabu cha sarufi kuhusu kitenzi katika lugha yako.",
             "en": "Based on all content provided — the table of 'to eat', speakers' sentences and answers to the questions above — write a grammar reference on verbs in your language."
           },
           "structure": {
-            "sw": [
-              "Aina za unyambulishaji — ngapi, jinsi zinavyotofautiana, jinsi ya kujua kikundi",
-              "Nyakati — orodha na maelezo ya kila wakati",
-              "Jinsi ya kuunda kila wakati — kiambishi awali/tamati/neno la msaada",
-              "Lichi na nambari — je, kitenzi kinabadilika kulingana na nafsi/jinsia/ngeli",
-              "Mwonekano — kama upo",
-              "Ukanushi — jinsi unavyoundwa",
-              "Ukanushi mara mbili — kama upo",
-              "Nambari mbili — kama ipo",
-              "Amri — jinsi inavyoundwa, amri ya heshima",
-              "Kitenzi asili — jinsi kinavyotumika",
-              "Vitenzi vya msaada — kama vipo",
-              "Vitenzi vya uwezo/hamu/wajibu — jinsi vinavyofanya kazi",
-              "Mifano ya sentensi kwa kila kanuni"
-            ],
-            "en": [
-              "Conjugation types — how many, how they differ, how to determine group",
-              "Tenses — list and explanation of each tense",
-              "How each tense is formed — prefix/suffix/auxiliary word",
-              "Person and number — does the verb change by person/gender/class",
-              "Aspect — if it exists",
-              "Negation — how it is formed",
-              "Double negation — if it exists",
-              "Dual number — if it exists",
-              "Imperative — how it is formed, polite form",
-              "Infinitive — how it is used",
-              "Auxiliary verbs — if they exist",
-              "Modal verbs — how they work",
-              "Example sentences for each rule"
-            ]
+            "sw": ["Aina za unyambulishaji — ngapi, jinsi zinavyotofautiana, jinsi ya kujua kikundi", "Nyakati — orodha na maelezo ya kila wakati", "Jinsi ya kuunda kila wakati — kiambishi awali/tamati/neno la msaada", "Lichi na nambari — je, kitenzi kinabadilika kulingana na nafsi/jinsia/ngeli", "Mwonekano — kama upo", "Ukanushi — jinsi unavyoundwa", "Ukanushi mara mbili — kama upo", "Nambari mbili — kama ipo", "Unyambulishaji wa kusababisha — kama upo", "Unyambulishaji wa manufaa — kama upo", "Umbali wa wakati uliopita — viwango vingapi", "Mwelekeo — kiambishi au kitenzi tofauti", "Amri — jinsi inavyoundwa, amri ya heshima", "Kitenzi asili — jinsi kinavyotumika", "Vitenzi vya msaada — kama vipo", "Vitenzi vya uwezo/hamu/wajibu — jinsi vinavyofanya kazi", "Mifano ya sentensi kwa kila kanuni"],
+            "en": ["Conjugation types — how many, how they differ, how to determine group", "Tenses — list and explanation of each tense", "How each tense is formed — prefix/suffix/auxiliary word", "Person and number — does the verb change by person/gender/class", "Aspect — if it exists", "Negation — how it is formed", "Double negation — if it exists", "Dual number — if it exists", "Causative — if it exists", "Applicative — if it exists", "Temporal distance in the past — how many levels", "Directionality — suffix or different verb", "Imperative — how it is formed, polite form", "Infinitive — how it is used", "Auxiliary verbs — if they exist", "Modal verbs — how they work", "Example sentences for each rule"]
           }
         }
       ]
