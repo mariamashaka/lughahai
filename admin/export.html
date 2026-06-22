@@ -168,19 +168,28 @@
   let profilesCache = {};
 
   // Load topics for dropdown
-  async function loadTopics() {
-    const res  = await fetch('../data/topics.json');
-    const data = await res.json();
-    topicsData = data.topics;
-    const sel  = document.getElementById('selTopic');
-    topicsData.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t.id;
-      opt.textContent = t.name.sw + ' / ' + t.name.en;
-      sel.appendChild(opt);
-    });
-  }
+async function loadTopics() {
+  const indexRes = await fetch('../data/index.json');
+  const indexList = await indexRes.json();
 
+  topicsData = [];
+  const sel = document.getElementById('selTopic');
+
+  for (const entry of indexList) {
+    try {
+      const res = await fetch('../' + entry.path);
+      const topic = await res.json();
+      topicsData.push(topic);
+
+      const opt = document.createElement('option');
+      opt.value = topic.id;
+      opt.textContent = topic.name.sw + ' / ' + topic.name.en;
+      sel.appendChild(opt);
+    } catch (e) {
+      console.warn('Could not load topic:', entry.id, e);
+    }
+  }
+}
   // Load contributors for selected language
   document.getElementById('selLanguage').addEventListener('change', async function() {
     const langId = this.value;
