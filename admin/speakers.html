@@ -1,1 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Admin · Wasemaji</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
+    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
+    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
+    .admin-layout { display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px); }
+    .admin-sidebar { background:var(--green-deep);padding:var(--space-lg) 0;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto; }
+    .admin-sidebar__section { padding:var(--space-sm) var(--space-lg);font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-pale);margin-top:var(--space-md); }
+    .admin-nav-link { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) var(--space-lg);font-size:0.88rem;color:var(--green-pale);transition:all var(--transition);cursor:pointer;border-left:3px solid transparent;text-decoration:none; }
+    .admin-nav-link:hover { background:rgba(255,255,255,0.06);color:var(--cream); }
+    .admin-nav-link.active { background:rgba(255,255,255,0.10);color:var(--cream);border-left-color:var(--terracotta); }
+    .admin-nav-link__icon { font-size:1rem;width:20px;text-align:center; }
+    .admin-content { padding:var(--space-xl);background:var(--cream); }
+    .admin-page-title { font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-xl); }
 
+    /* Speaker card */
+    .speaker-card {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      padding:var(--space-lg);
+      box-shadow:0 2px 8px var(--shadow-warm);
+      margin-bottom:var(--space-md);
+      transition:all var(--transition);
+    }
+    .speaker-card:hover { box-shadow:0 6px 20px var(--shadow-deep); }
+    .speaker-card__top { display:flex;align-items:flex-start;gap:var(--space-lg);flex-wrap:wrap; }
+    .speaker-avatar {
+      width:52px;height:52px;border-radius:50%;
+      background:var(--green-deep);color:var(--cream);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.1rem;font-weight:600;flex-shrink:0;
+    }
+    .speaker-card__info { flex:1;min-width:200px; }
+    .speaker-card__name { font-weight:600;color:var(--green-deep);margin-bottom:4px;font-size:1rem; }
+    .speaker-card__sub { font-size:0.8rem;color:var(--text-muted);margin-bottom:var(--space-sm); }
+    .speaker-card__tags { display:flex;gap:var(--space-sm);flex-wrap:wrap; }
+    .speaker-card__actions { display:flex;gap:var(--space-sm);align-items:center;flex-shrink:0; }
+
+    /* Payment status */
+    .payment-badge { padding:3px 10px;border-radius:99px;font-size:0.72rem;font-weight:500; }
+    .payment--paid { background:#e8f5e9;color:#2e7d32; }
+    .payment--partial { background:#fff8e1;color:#f57f17; }
+    .payment--unpaid { background:#fce4ec;color:#c62828; }
+
+    /* Assistant badge */
+    .assistant-badge { background:var(--cream-dark);color:var(--text-mid);padding:2px 8px;border-radius:99px;font-size:0.68rem; }
+
+    /* Notes section */
+    .speaker-card__notes {
+      margin-top:var(--space-md);
+      padding-top:var(--space-md);
+      border-top:1px solid var(--cream-border);
+      font-size:0.8rem;color:var(--text-muted);
+    }
+
+    /* Add form */
+    .add-panel {
+      background:var(--white);
+      border:1px solid var(--cream-border);
+      border-radius:var(--radius-lg);
+      box-shadow:0 2px 8px var(--shadow-warm);
+      overflow:hidden;
+      margin-bottom:var(--space-xl);
+    }
+    .add-panel__header {
+      padding:var(--space-md) var(--space-lg);
+      border-bottom:1px solid var(--cream-border);
+      font-weight:600;color:var(--green-deep);
+      display:flex;align-items:center;justify-content:space-between;cursor:pointer;
+    }
+    .add-panel__body {
+      padding:var(--space-lg);
+      display:none;
+    }
+    .add-panel__body.open { display:block; }
+    .form-section-title {
+      font-size:0.72rem;font-weight:600;text-transform:uppercase;
+      letter-spacing:0.08em;color:var(--text-muted);
+      margin:var(--space-lg) 0 var(--space-sm);
+    }
+    .form-section-title:first-child { margin-top:0; }
+    .form-grid-2 { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md); }
+    .form-grid-3 { display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-md); }
+    .form-full { grid-column:1/-1; }
+
+    /* Loading / empty */
+    .loading-state { text-align:center;padding:var(--space-2xl);color:var(--text-muted); }
+
+    @media(max-width:900px) {
+      .admin-layout { grid-template-columns:1fr; }
+      .admin-sidebar { position:static;height:auto; }
+      .form-grid-2,.form-grid-3 { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container" style="max-width:100%;padding:0 var(--space-lg);">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+        <div style="display:flex;align-items:center;gap:var(--space-md);">
+          <span style="font-size:0.78rem;color:var(--text-muted);">Msimamizi Mkuu</span>
+          <div class="lang-switcher">
+            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
+            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm">Toka</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar__section">MUHTASARI</div>
+      <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span>Dashibodi</span></a>
+      <div class="admin-sidebar__section">MAUDHUI</div>
+      <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span>Lugha</span></a>
+      <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span>Watumiaji</span></a>
+      <a href="speakers.html" class="admin-nav-link active"><span class="admin-nav-link__icon">🎙️</span><span>Wasemaji</span></a>
+      <a href="topics.html" class="admin-nav-link"><span class="admin-nav-link__icon">📚</span><span>Mada na Bei</span></a>
+      <a href="disputes.html" class="admin-nav-link"><span class="admin-nav-link__icon">⚠️</span><span>Pingamizi</span></a>
+      <div class="admin-sidebar__section">DATA</div>
+      <a href="export.html" class="admin-nav-link"><span class="admin-nav-link__icon">⬇️</span><span>Hamisha data</span></a>
+      <div class="admin-sidebar__section">FEDHA</div>
+      <a href="#" class="admin-nav-link"><span class="admin-nav-link__icon">💰</span><span>Malipo</span></a>
+      <div style="padding:var(--space-lg);"><a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);">← Angalia tovuti</a></div>
+    </div>
+
+    <div class="admin-content">
+      <div class="flex-between mb-xl">
+        <div class="admin-page-title">🎙️ Wasemaji</div>
+        <div style="display:flex;gap:var(--space-sm);">
+          <select class="form-select" style="width:180px;" id="langFilter" onchange="loadSpeakers()">
+            <option value="">Lugha zote</option>
+          </select>
+          <button class="btn btn--primary" onclick="toggleAddForm()">+ Ongeza msemaji</button>
+        </div>
+      </div>
+
+      <!-- ADD FORM -->
+      <div class="add-panel" id="addPanel">
+        <div class="add-panel__header" onclick="toggleAddForm()">
+          <span>+ Ongeza msemaji mpya</span>
+          <span id="addToggleIcon">▼</span>
+        </div>
+        <div class="add-panel__body" id="addPanelBody">
+
+          <div class="form-section-title">Taarifa za lazima</div>
+          <div class="form-grid-3">
+            <div class="form-group form-full">
+              <label class="form-label">Jina kamili (majina matatu) *</label>
+              <input type="text" class="form-input" id="f_name" placeholder="Revina Helena Isaya" />
+            </div>
+          </div>
+
+          <div class="form-section-title">Taarifa za kibinafsi</div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Jinsia</label>
+              <select class="form-select" id="f_gender">
+                <option value="">—</option>
+                <option value="female">Mwanamke</option>
+                <option value="male">Mwanaume</option>
+                <option value="other">Nyingine</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tarehe ya kuzaliwa</label>
+              <input type="date" class="form-input" id="f_dob" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Simu</label>
+              <input type="text" class="form-input" id="f_phone" placeholder="+255..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Anaishi wapi sasa</label>
+              <input type="text" class="form-input" id="f_location" placeholder="Dodoma" />
+            </div>
+          </div>
+
+          <div class="form-section-title">Wasifu wa lugha</div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Lugha anazozijua</label>
+              <input type="text" class="form-input" id="f_languages" placeholder="Kigogo, Kiswahili..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kabila la mama</label>
+              <input type="text" class="form-input" id="f_tribe_mother" placeholder="Wagogo" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kabila la baba</label>
+              <input type="text" class="form-input" id="f_tribe_father" placeholder="Wagogo" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Alizaliwa wapi</label>
+              <input type="text" class="form-input" id="f_birthplace" placeholder="Kijiji, Wilaya" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Alikua wapi</label>
+              <input type="text" class="form-input" id="f_raised" placeholder="Dodoma" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Alipata lugha kutoka</label>
+              <input type="text" class="form-input" id="f_source" placeholder="Bibi, Mama, Kijijini..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lahaja</label>
+              <input type="text" class="form-input" id="f_dialect" placeholder="kama inajulikana" />
+            </div>
+          </div>
+
+          <div class="form-section-title">Mfumo wa kazi</div>
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Lugha anayofanyia kazi</label>
+              <select class="form-select" id="f_working_lang">
+                <option value="">— chagua —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Msaidizi (anayeweka data)</label>
+              <select class="form-select" id="f_assistant">
+                <option value="">Anaweka mwenyewe</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hali ya malipo</label>
+              <select class="form-select" id="f_payment">
+                <option value="unpaid">Haijalipiwa</option>
+                <option value="partial">Sehemu</option>
+                <option value="paid">Imelipwa</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-section-title">Maelezo ya ziada</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Ubora wa kazi</label>
+              <select class="form-select" id="f_quality">
+                <option value="">—</option>
+                <option value="high">Nzuri sana</option>
+                <option value="medium">Wastani</option>
+                <option value="low">Inahitaji mwongozo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Anahitaji msaada wa kiufundi?</label>
+              <select class="form-select" id="f_tech">
+                <option value="false">Hapana</option>
+                <option value="true">Ndiyo</option>
+              </select>
+            </div>
+            <div class="form-group form-full">
+              <label class="form-label">Maelezo / Vidokezo</label>
+              <textarea class="form-input" id="f_notes" rows="3" placeholder="Anakuja ofisini Ijumaa, anafahamu vizuri lahaja ya kaskazini..."></textarea>
+            </div>
+            <div class="form-group form-full">
+              <label class="form-label">Sababu ya kuacha (kama imetokea)</label>
+              <input type="text" class="form-input" id="f_stop" placeholder="—" />
+            </div>
+          </div>
+
+          <div style="display:flex;gap:var(--space-md);margin-top:var(--space-lg);">
+            <button class="btn btn--primary" onclick="saveSpeaker()">💾 Hifadhi</button>
+            <button class="btn btn--ghost" onclick="toggleAddForm()">Ghairi</button>
+          </div>
+          <div id="saveMsg" style="margin-top:var(--space-sm);font-size:0.85rem;color:var(--green-deep);display:none;"></div>
+        </div>
+      </div>
+
+      <!-- SPEAKERS LIST -->
+      <div id="speakersList">
+        <div class="loading-state">⏳ Inapakia wasemaji...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const supabase = createClient(
+    'https://geogbanccumdcaymhkdb.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+  );
+
+  // Load languages for filter and form
+  async function loadLanguages() {
+    const res = await fetch('../data/languages.json');
+    const data = await res.json();
+    const langs = data.languages;
+
+    const filter = document.getElementById('langFilter');
+    const formLang = document.getElementById('f_working_lang');
+    langs.forEach(l => {
+      [filter, formLang].forEach(sel => {
+        const opt = document.createElement('option');
+        opt.value = l.id;
+        opt.textContent = l.name;
+        sel.appendChild(opt);
+      });
+    });
+  }
+
+  // Load admin users for assistant dropdown
+  async function loadAssistants() {
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, full_name')
+      .order('full_name');
+    if (!profiles) return;
+    const sel = document.getElementById('f_assistant');
+    profiles.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = p.full_name || p.id.substring(0,8);
+      sel.appendChild(opt);
+    });
+  }
+
+  // Load speakers
+  window.loadSpeakers = async function() {
+    const langFilter = document.getElementById('langFilter').value;
+    let query = supabase.from('speakers').select('*').order('created_at', { ascending: false });
+    if (langFilter) query = query.contains('language_ids', [langFilter]);
+
+    const { data: speakers, error } = await query;
+    const list = document.getElementById('speakersList');
+
+    if (error || !speakers || !speakers.length) {
+      list.innerHTML = `<div class="loading-state">😔 Hakuna wasemaji bado. Ongeza msemaji wa kwanza!</div>`;
+      return;
+    }
+
+    const paymentLabel = { paid:'Imelipwa', partial:'Sehemu', unpaid:'Haijalipiwa' };
+    const paymentClass = { paid:'payment--paid', partial:'payment--partial', unpaid:'payment--unpaid' };
+
+    list.innerHTML = speakers.map(s => {
+      const initials = s.full_name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+      const langs = (s.language_ids || []).join(', ') || '—';
+      const location = [s.village, s.district, s.region].filter(Boolean).join(', ') || s.current_location || '—';
+
+      return `
+        <div class="speaker-card">
+          <div class="speaker-card__top">
+            <div class="speaker-avatar">${initials}</div>
+            <div class="speaker-card__info">
+              <div class="speaker-card__name">${s.full_name}</div>
+              <div class="speaker-card__sub">
+                ${s.date_of_birth ? `Mwaka: ${new Date(s.date_of_birth).getFullYear()} · ` : ''}
+                ${location}
+                ${s.phone ? ` · 📞 ${s.phone}` : ''}
+              </div>
+              <div class="speaker-card__tags">
+                <span class="badge badge--not-started" style="font-size:0.72rem;">🗣 ${langs}</span>
+                ${s.assistant_user_id ? `<span class="assistant-badge">📋 Msaidizi</span>` : `<span class="assistant-badge">✍️ Anaweka mwenyewe</span>`}
+                <span class="payment-badge ${paymentClass[s.payment_status]||'payment--unpaid'}">
+                  💰 ${paymentLabel[s.payment_status]||'Haijalipiwa'}
+                </span>
+              </div>
+            </div>
+            <div class="speaker-card__actions">
+              <button class="btn btn--secondary btn--sm" onclick="editSpeaker('${s.id}')">✏️ Hariri</button>
+              <button class="btn btn--ghost btn--sm" style="color:var(--terracotta);" onclick="deleteSpeaker('${s.id}')">🗑</button>
+            </div>
+          </div>
+          ${s.notes ? `<div class="speaker-card__notes">📝 ${s.notes}</div>` : ''}
+          ${s.stop_reason ? `<div class="speaker-card__notes" style="color:var(--terracotta);">⛔ ${s.stop_reason}</div>` : ''}
+        </div>`;
+    }).join('');
+  }
+
+  // Toggle add form
+  window.toggleAddForm = function() {
+    const body = document.getElementById('addPanelBody');
+    const icon = document.getElementById('addToggleIcon');
+    body.classList.toggle('open');
+    icon.textContent = body.classList.contains('open') ? '▲' : '▼';
+  }
+
+  // Save speaker
+  window.saveSpeaker = async function() {
+    const name = document.getElementById('f_name').value.trim();
+    if (!name) { alert('Jina la lazima!'); return; }
+
+    const langs = document.getElementById('f_languages').value
+      .split(',').map(s=>s.trim()).filter(Boolean);
+
+    const workingLang = document.getElementById('f_working_lang').value;
+    if (workingLang && !langs.includes(workingLang)) langs.push(workingLang);
+
+    const assistant = document.getElementById('f_assistant').value || null;
+
+    const payload = {
+      full_name:          name,
+      gender:             document.getElementById('f_gender').value || null,
+      date_of_birth:      document.getElementById('f_dob').value || null,
+      phone:              document.getElementById('f_phone').value || null,
+      current_location:   document.getElementById('f_location').value || null,
+      language_ids:       langs,
+      tribe_mother:       document.getElementById('f_tribe_mother').value || null,
+      tribe_father:       document.getElementById('f_tribe_father').value || null,
+      birthplace:         document.getElementById('f_birthplace').value || null,
+      raised_in:          document.getElementById('f_raised').value || null,
+      language_source:    document.getElementById('f_source').value || null,
+      dialect:            document.getElementById('f_dialect').value || null,
+      assistant_user_id:  assistant,
+      payment_status:     document.getElementById('f_payment').value,
+      work_quality:       document.getElementById('f_quality').value || null,
+      needs_tech_help:    document.getElementById('f_tech').value === 'true',
+      notes:              document.getElementById('f_notes').value || null,
+      stop_reason:        document.getElementById('f_stop').value || null,
+    };
+
+    const { error } = await supabase.from('speakers').insert(payload);
+
+    const msg = document.getElementById('saveMsg');
+    if (error) {
+      msg.style.color = 'var(--terracotta)';
+      msg.textContent = '❌ Hitilafu: ' + error.message;
+    } else {
+      msg.style.color = 'var(--green-deep)';
+      msg.textContent = '✅ Msemaji amehifadhiwa!';
+      setTimeout(() => {
+        toggleAddForm();
+        loadSpeakers();
+        // Reset form
+        ['f_name','f_gender','f_dob','f_phone','f_location','f_languages',
+         'f_tribe_mother','f_tribe_father','f_birthplace','f_raised','f_source',
+         'f_dialect','f_assistant','f_payment','f_quality','f_tech','f_notes','f_stop']
+          .forEach(id => { document.getElementById(id).value = ''; });
+        msg.textContent = '';
+      }, 1500);
+    }
+    msg.style.display = 'block';
+  }
+
+  // Delete speaker
+  window.deleteSpeaker = async function(id) {
+    if (!confirm('Futa msemaji huyu?')) return;
+    await supabase.from('speakers').delete().eq('id', id);
+    loadSpeakers();
+  }
+
+  // Edit — simple alert for now
+  window.editSpeaker = function(id) {
+    alert('Hariri: ' + id + '\n(Kazi inaendelea — hivi karibuni)');
+  }
+
+  // Lang switcher
+  document.getElementById('btn-sw').addEventListener('click', () => {
+    document.getElementById('btn-sw').classList.add('active');
+    document.getElementById('btn-en').classList.remove('active');
+  });
+  document.getElementById('btn-en').addEventListener('click', () => {
+    document.getElementById('btn-en').classList.add('active');
+    document.getElementById('btn-sw').classList.remove('active');
+  });
+
+  // Init
+  await loadLanguages();
+  await loadAssistants();
+  loadSpeakers();
+  </script>
+</body>
+</html>
