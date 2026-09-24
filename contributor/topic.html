@@ -3,774 +3,498 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lugha Hai — Mada</title>
+  <title>Lugha Hai — Ingiza mada</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .lang-switcher { display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px; }
-    .lang-switcher__btn { padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition); }
-    .lang-switcher__btn.active { background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm); }
-    .topic-header { background:var(--white);border-bottom:1px solid var(--cream-border);padding:var(--space-lg) 0;margin-bottom:var(--space-xl); }
-    .topic-header__inner { display:flex;align-items:center;justify-content:space-between;gap:var(--space-lg);flex-wrap:wrap; }
-    .topic-header__breadcrumb { font-size:0.78rem;color:var(--text-muted);margin-bottom:var(--space-xs); }
-    .topic-header__breadcrumb a { color:var(--text-muted); }
-    .topic-header__title { font-size:1.3rem;font-weight:600;color:var(--green-deep); }
-    .topic-header__payment { display:flex;align-items:center;gap:var(--space-sm);background:var(--green-mist);border-radius:var(--radius-xl);padding:6px 16px;font-size:0.85rem;color:var(--green-deep);font-weight:500; }
-    .warning-block { background:#fffbf0;border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:var(--radius-md);padding:var(--space-lg);margin-bottom:var(--space-xl); }
-    .warning-block__title { font-weight:600;color:#7a5c00;margin-bottom:var(--space-md);font-size:0.95rem; }
-    .warning-block__item { display:flex;align-items:flex-start;gap:var(--space-sm);font-size:0.85rem;color:#5a4000;line-height:1.6;margin-bottom:var(--space-sm); }
-    .block-header { font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--green-deep);margin:var(--space-xl) 0 var(--space-md);padding-bottom:var(--space-sm);border-bottom:2px solid var(--green-mist);display:flex;align-items:center;gap:var(--space-md); }
-    .block-progress-chip { font-size:0.7rem;font-weight:500;padding:2px 10px;border-radius:99px;background:var(--cream-dark);color:var(--text-muted); }
-    .block-progress-chip.done { background:var(--green-mist);color:var(--green-deep); }
-    .phrase-block { background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:var(--space-md);box-shadow:0 2px 8px var(--shadow-warm); }
-    .phrase-block.done { border-color:var(--green-pale); }
-    .phrase-header { display:flex;align-items:center;justify-content:space-between;padding:var(--space-md) var(--space-lg);background:var(--cream);border-bottom:1px solid var(--cream-border);cursor:pointer;gap:var(--space-md); }
-    .phrase-header:hover { background:var(--cream-dark); }
-    .phrase-num { width:28px;height:28px;border-radius:50%;background:var(--green-deep);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;flex-shrink:0; }
-    .phrase-num.done { background:var(--green-soft); }
-    .phrase-source { flex:1;font-size:0.9rem;color:var(--text-dark);font-weight:500; }
-    .phrase-source span { display:block;font-size:0.75rem;color:var(--text-muted);font-weight:400;margin-top:2px; }
-    .phrase-chevron { color:var(--text-muted);transition:transform var(--transition);font-size:1rem; }
-    .phrase-chevron.open { transform:rotate(90deg); }
-    .phrase-body { padding:var(--space-lg);display:none;flex-direction:column;gap:var(--space-lg); }
-    .phrase-body.open { display:flex; }
-    .field-label { font-size:0.78rem;font-weight:500;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-sm); }
+    .step-bar { display:flex; gap:0; margin-bottom:var(--space-xl); }
+    .step { flex:1; padding:10px; text-align:center; font-size:0.78rem; font-weight:500; background:var(--cream-dark); color:var(--text-muted); border-right:1px solid var(--cream-border); }
+    .step:last-child { border-right:none; }
+    .step.active { background:var(--green-deep); color:var(--cream); }
+    .step.done { background:var(--green-mid); color:var(--cream); }
 
-    /* === SOURCE PHRASE DISPLAY (shown above audio) === */
-    .phrase-source-display {
-      background:var(--green-mist);
-      border:1px solid var(--green-pale);
-      border-radius:var(--radius-md);
-      padding:var(--space-md) var(--space-lg);
-      margin-bottom:var(--space-sm);
-    }
-    .phrase-source-display__label {
-      font-size:0.7rem;
-      font-weight:500;
-      text-transform:uppercase;
-      letter-spacing:0.06em;
-      color:var(--green-deep);
-      margin-bottom:4px;
-    }
-    .phrase-source-display__text {
-      font-size:1rem;
-      font-weight:600;
-      color:var(--green-deep);
-      line-height:1.5;
-    }
-    .phrase-source-display__ctx {
-      font-size:0.75rem;
-      color:var(--text-soft);
-      margin-top:2px;
-    }
+    .select-card { background:var(--white); border:1px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-xl); box-shadow:0 2px 8px var(--shadow-warm); margin-bottom:var(--space-xl); }
+    .select-card h2 { font-size:1.1rem; color:var(--green-deep); margin-bottom:var(--space-lg); }
 
-    /* === TRANSLATION CONFIRMED DISPLAY === */
-    .translation-confirmed {
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:var(--space-md);
-      background:var(--cream);
-      border:1.5px solid var(--green-pale);
-      border-radius:var(--radius-md);
-      padding:var(--space-md) var(--space-lg);
-    }
-    .translation-confirmed__text {
-      font-size:1rem;
-      color:var(--text-dark);
-      font-weight:500;
-      line-height:1.5;
-      flex:1;
-    }
-    .translation-confirmed__edit {
-      background:none;
-      border:none;
-      cursor:pointer;
-      color:var(--text-muted);
-      font-size:0.85rem;
-      padding:2px 6px;
-      border-radius:var(--radius-sm);
-      white-space:nowrap;
-      transition:all var(--transition);
-      flex-shrink:0;
-    }
-    .translation-confirmed__edit:hover {
-      background:var(--cream-dark);
-      color:var(--green-deep);
-    }
+    .speaker-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:var(--space-md); margin-top:var(--space-md); }
+    .speaker-option { border:2px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-md); cursor:pointer; transition:all var(--transition); background:var(--white); text-align:left; }
+    .speaker-option:hover { border-color:var(--green-mid); }
+    .speaker-option.selected { border-color:var(--green-deep); background:var(--cream); }
+    .speaker-option__name { font-weight:600; color:var(--green-deep); margin-bottom:4px; }
+    .speaker-option__langs { font-size:0.75rem; color:var(--text-muted); }
+    .speaker-option__self { font-size:0.72rem; color:var(--terracotta); margin-top:2px; }
 
-    /* === TRANSLATION INPUT === */
-    .translation-input { width:100%;padding:0.75rem 1rem;border:1.5px solid var(--cream-border);border-radius:var(--radius-md);background:var(--white);color:var(--text-dark);font-size:1rem;outline:none;font-family:var(--font-body);transition:border-color var(--transition),box-shadow var(--transition); }
-    .translation-input:focus { border-color:var(--green-soft);box-shadow:0 0 0 3px rgba(92,140,117,0.15); }
-    .translation-input.filled { border-color:var(--green-pale);background:var(--green-mist); }
+    .phrase-card { background:var(--white); border:1px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-lg); margin-bottom:var(--space-md); box-shadow:0 1px 4px var(--shadow-warm); }
+    .phrase-card__sw { font-size:0.9rem; color:var(--text-mid); margin-bottom:4px; }
+    .phrase-card__en { font-size:0.8rem; color:var(--text-muted); margin-bottom:var(--space-md); font-style:italic; }
+    .phrase-card__ctx { font-size:0.72rem; color:var(--terracotta); margin-bottom:var(--space-sm); }
+    .phrase-card__input { width:100%; margin-bottom:var(--space-sm); }
+    .phrase-card__audio { display:flex; gap:var(--space-sm); align-items:center; flex-wrap:wrap; }
+    .phrase-card__status { font-size:0.72rem; padding:2px 8px; border-radius:99px; }
+    .status--done { background:#e8f5e9; color:#2e7d32; }
+    .status--pending { background:#fff8e1; color:#f57f17; }
 
-    /* === CONFIRM TEXT BUTTON === */
-    .btn-confirm-text {
-      margin-top:var(--space-sm);
-      width:100%;
-    }
+    .rec-btn { display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:99px; border:none; cursor:pointer; font-size:0.8rem; font-weight:500; transition:all var(--transition); }
+    .rec-btn--start { background:var(--terracotta); color:white; }
+    .rec-btn--stop { background:#c62828; color:white; }
+    .rec-btn--play { background:var(--green-mid); color:white; }
 
-    .audio-controls { display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md) var(--space-lg);background:var(--cream);border-radius:var(--radius-md);border:1px solid var(--cream-border); }
-    .rec-btn { width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all var(--transition);flex-shrink:0; }
-    .rec-btn--record { background:var(--terracotta);color:var(--white); }
-    .rec-btn--record:hover { background:#b05e38;transform:scale(1.05); }
-    .rec-btn--record.recording { background:#922b21;animation:pulse 1.2s infinite; }
-    .rec-btn--play { background:var(--green-mid);color:var(--white); }
-    .rec-btn--play:hover { background:var(--green-deep);transform:scale(1.05); }
-    .rec-btn--play:disabled { opacity:0.35;cursor:not-allowed;transform:none; }
-    .rec-btn--delete { background:var(--cream-dark);color:var(--text-soft); }
-    .rec-btn--delete:hover { background:#fdecea;color:#922b21; }
-    .rec-btn--delete:disabled { opacity:0.3;cursor:not-allowed; }
-    .audio-status { flex:1;font-size:0.82rem;color:var(--text-soft); }
-    .audio-status.has-rec { color:var(--green-mid);font-weight:500; }
-    .audio-status.uploading { color:var(--gold);font-weight:500; }
-    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(146,43,33,0.4);}50%{box-shadow:0 0 0 8px rgba(146,43,33,0);} }
-    .sidebar-card { background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);padding:var(--space-lg);box-shadow:0 2px 8px var(--shadow-warm);margin-bottom:var(--space-md); }
-    .sidebar-card__title { font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md);padding-bottom:var(--space-sm);border-bottom:1px solid var(--cream-border); }
-    .mini-check { width:18px;height:18px;border-radius:50%;border:1.5px solid var(--cream-border);display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;color:transparent; }
-    .mini-check.done { background:var(--green-soft);border-color:var(--green-soft);color:var(--white); }
-    .status-path { display:flex;flex-wrap:wrap;gap:var(--space-sm);align-items:center;margin-bottom:var(--space-xl); }
-    .status-step { font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:5px; }
-    .status-step.current { color:var(--green-deep);font-weight:600; }
-    .status-step__dot { width:8px;height:8px;border-radius:50%;background:var(--cream-border); }
-    .status-step.current .status-step__dot { background:var(--green-soft); }
-    .status-arrow { color:var(--text-muted);font-size:0.75rem; }
-    .loading { text-align:center;padding:var(--space-2xl);color:var(--text-muted); }
-    @media(max-width:900px) { .topic-grid { grid-template-columns:1fr !important; } .topic-sidebar { position:static !important; } }
+    .progress-bar { background:var(--cream-dark); border-radius:99px; height:8px; margin-bottom:var(--space-lg); overflow:hidden; }
+    .progress-bar__fill { height:100%; background:var(--green-deep); border-radius:99px; transition:width 0.3s; }
+
+    .speaker-banner { background:var(--green-deep); color:var(--cream); border-radius:var(--radius-lg); padding:var(--space-md) var(--space-lg); margin-bottom:var(--space-lg); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-sm); }
+    .speaker-banner__name { font-weight:600; font-size:1rem; }
+    .speaker-banner__sub { font-size:0.78rem; opacity:0.8; }
+
+    .hidden { display:none !important; }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="container">
-      <div class="nav__inner">
-        <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
-        <div class="nav__links">
-          <a href="index.html" class="nav__link" data-i18n="nav_dashboard">Dashibodi</a>
-        </div>
-        <div class="nav__actions">
-          <div class="lang-switcher">
-            <button class="lang-switcher__btn active" onclick="setLang('sw')" id="btn-sw">SW</button>
-            <button class="lang-switcher__btn" onclick="setLang('en')" id="btn-en">EN</button>
-          </div>
-          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
-        </div>
+
+<nav class="nav">
+  <div class="container" style="max-width:100%;padding:0 var(--space-lg);">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+      <div style="display:flex;align-items:center;gap:var(--space-md);">
+        <span id="navUserName" style="font-size:0.8rem;color:var(--text-muted);"></span>
+        <a href="../auth/login.html" class="btn btn--ghost btn--sm">Toka</a>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <div class="topic-header">
-    <div class="container">
-      <div class="topic-header__inner">
-        <div>
-          <div class="topic-header__breadcrumb">
-            <a href="index.html" data-i18n="nav_dashboard">Dashibodi</a> ›
-            <span id="hdr-lang">A1</span> ›
-            <span id="hdr-type"></span>
-          </div>
-          <div class="topic-header__title" id="hdr-title">...</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap;">
-          <div class="topic-header__payment" id="hdr-payment">
-            💰 <span id="hdr-payment-amount">5,000 TZS</span>
-          </div>
-          <button class="btn btn--ghost btn--sm" onclick="saveDraft()" data-i18n="btn_save">Hifadhi</button>
-          <button class="btn btn--primary" onclick="submitTopic()" data-i18n="btn_submit">Tuma kwa ukaguzi</button>
-        </div>
+<div class="container" style="max-width:780px;padding:var(--space-xl) var(--space-lg);">
+
+  <!-- STEP BAR -->
+  <div class="step-bar">
+    <div class="step active" id="step1label">1. Msemaji</div>
+    <div class="step" id="step2label">2. Lugha</div>
+    <div class="step" id="step3label">3. Mada</div>
+    <div class="step" id="step4label">4. Ingiza</div>
+  </div>
+
+  <!-- STEP 1: CHOOSE SPEAKER -->
+  <div id="step1">
+    <div class="select-card">
+      <h2>🎙️ Unaweka data kwa ajili ya nani?</h2>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-lg);">Chagua msemaji. Kama unaweka data yako mwenyewe — chagua jina lako.</p>
+      <div class="speaker-grid" id="speakerGrid">
+        <div style="color:var(--text-muted);font-size:0.85rem;">⏳ Inapakia...</div>
+      </div>
+      <div style="margin-top:var(--space-lg);">
+        <button class="btn btn--primary" id="step1next" onclick="goStep2()" disabled>Endelea →</button>
       </div>
     </div>
   </div>
 
-  <div class="container" id="mainContainer">
-    <div class="loading">⏳ <span data-i18n="loading">Inapakia...</span></div>
-  </div>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__logo">Lugha Hai</div>
-      <p class="footer__tagline" data-i18n="footer_tagline">Lugha hai, zilizohifadhiwa kwa vizazi.</p>
-      <div class="footer__bottom">
-        <span>© 2026 Lugha Hai.</span>
-        <span style="color:var(--green-pale);font-size:0.8rem;">Created by Mariia Rukavishnikova · Built with ♥ in Tanzania</span>
+  <!-- STEP 2: CHOOSE LANGUAGE -->
+  <div id="step2" class="hidden">
+    <div class="select-card">
+      <h2>🌍 Chagua lugha</h2>
+      <div id="langGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--space-md);margin-top:var(--space-md);"></div>
+      <div style="margin-top:var(--space-lg);display:flex;gap:var(--space-sm);">
+        <button class="btn btn--ghost" onclick="goStep1()">← Rudi</button>
+        <button class="btn btn--primary" id="step2next" onclick="goStep3()" disabled>Endelea →</button>
       </div>
     </div>
-  </footer>
+  </div>
 
-  <script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+  <!-- STEP 3: CHOOSE TOPIC -->
+  <div id="step3" class="hidden">
+    <div class="select-card">
+      <h2>📚 Chagua mada</h2>
+      <div id="topicGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--space-md);margin-top:var(--space-md);"></div>
+      <div style="margin-top:var(--space-lg);display:flex;gap:var(--space-sm);">
+        <button class="btn btn--ghost" onclick="goStep2()">← Rudi</button>
+        <button class="btn btn--primary" id="step3next" onclick="goStep4()" disabled>Endelea →</button>
+      </div>
+    </div>
+  </div>
 
-  const supabase = createClient(
-    'https://geogbanccumdcaymhkdb.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
-  );
+  <!-- STEP 4: ENTER PHRASES -->
+  <div id="step4" class="hidden">
 
-  const CLOUDINARY_CLOUD  = 'diwfef3hg';
-  const CLOUDINARY_PRESET = 'lughahai_audio';
+    <div class="speaker-banner">
+      <div>
+        <div class="speaker-banner__name" id="bannerSpeaker"></div>
+        <div class="speaker-banner__sub" id="bannerLangTopic"></div>
+      </div>
+      <button class="btn btn--ghost btn--sm" style="color:var(--cream);border-color:rgba(255,255,255,0.3);" onclick="goStep1()">Badilisha</button>
+    </div>
 
-  const i18n = {
-    sw: {
-      nav_dashboard:"Dashibodi", nav_signout:"Toka", loading:"Inapakia...",
-      btn_save:"Hifadhi", btn_submit:"Tuma kwa ukaguzi",
-      type_grammar:"Sarufi", type_vocabulary:"Msamiati",
-      warning_title:"⚠️ Muhimu kujua",
-      w1:"Malipo yanafanywa baada ya ukaguzi wa msimamizi na uthibitisho wa msimamizi mkuu.",
-      w2:"Mfumo unakokotoa kiotomatiki asilimia ya makosa baada ya ukaguzi na kupunguza kiasi hicho kutoka malipo yako.",
-      w3:"Lahaja si kosa. Ikiwa tofauti na msemaji mwingine ni ya lahaja — utapata malipo kamili.",
-      w4:"Ikiwa makosa yanazidi asilimia 20 — swali la kuendelea kufanya kazi linaenda kwa msimamizi mkuu.",
-      w5:"Unaweza kuhifadhi kazi yako wakati wowote na kurudi baadaye.",
-      w6:"Ikiwa hukubaliani na matokeo ya ukaguzi — unaweza kupinga.",
-      field_translation:"Tafsiri (lugha yako)", field_translation_ph:"Andika tafsiri yako hapa...",
-      field_audio:"Sauti",
-      source_label:"Sentensi ya asili",
-      btn_confirm_text:"Thibitisha tafsiri ✓",
-      btn_edit_text:"✏️ Hariri",
-      audio_tip:"Bonyeza 🎙 kurekodi sauti yako",
-      audio_saved:"✓ Sauti imehifadhiwa kwenye wingu",
-      audio_recording:"⏺ Inarekodi... bonyeza kusimama",
-      audio_uploading:"⏳ Inapakia sauti...",
-      btn_done:"Imekamilika ✓", btn_undo:"↩ Rudi",
-      checklist_title:"Maendeleo",
-      label_translations:"Tafsiri", label_audio:"Sauti", label_done:"Zilizokamilika",
-      instructions_title:"Maelekezo",
-      instructions_body:"Kwa kila sentensi: (1) Andika tafsiri kwa lugha yako. (2) Bonyeza 'Thibitisha tafsiri'. (3) Rekodi sauti — zungumza polepole. (4) Bonyeza 'Imekamilika' ukimaliza.",
-      status_inprogress:"Inaendelea",
-      save_ok:"✓ Imehifadhiwa!", submit_ok:"✓ Imetumwa kwa ukaguzi! Asante.",
-      submit_incomplete:"Tafadhali kamilisha tafsiri zote kabla ya kutuma.",
-      mic_error:"Ruhusa ya maikrofoni inahitajika",
-      not_logged:"Tafadhali ingia kwanza",
-      footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi."
-    },
-    en: {
-      nav_dashboard:"Dashboard", nav_signout:"Sign out", loading:"Loading...",
-      btn_save:"Save", btn_submit:"Submit for review",
-      type_grammar:"Grammar", type_vocabulary:"Vocabulary",
-      warning_title:"⚠️ Important to know",
-      w1:"Payment is made after moderator review and admin confirmation.",
-      w2:"The system automatically calculates the error percentage after review and deducts that amount from your payment.",
-      w3:"Dialects are not errors. If a difference is due to dialect — you will receive full payment.",
-      w4:"If errors exceed 20% — the question of continuing work is referred to the admin.",
-      w5:"You can save your work at any time and come back later.",
-      w6:"If you disagree with the review result — you can dispute it.",
-      field_translation:"Translation (your language)", field_translation_ph:"Type your translation here...",
-      field_audio:"Audio",
-      source_label:"Original phrase",
-      btn_confirm_text:"Confirm translation ✓",
-      btn_edit_text:"✏️ Edit",
-      audio_tip:"Click 🎙 to record your voice",
-      audio_saved:"✓ Audio saved to cloud",
-      audio_recording:"⏺ Recording... click to stop",
-      audio_uploading:"⏳ Uploading audio...",
-      btn_done:"Mark done ✓", btn_undo:"↩ Undo",
-      checklist_title:"Progress",
-      label_translations:"Translations", label_audio:"Audio", label_done:"Completed",
-      instructions_title:"Instructions",
-      instructions_body:"For each phrase: (1) Write your translation. (2) Click 'Confirm translation'. (3) Record audio — speak slowly and clearly. (4) Click 'Mark done' when finished.",
-      status_inprogress:"In progress",
-      save_ok:"✓ Saved!", submit_ok:"✓ Submitted for review! Thank you.",
-      submit_incomplete:"Please complete all translations before submitting.",
-      mic_error:"Microphone permission required",
-      not_logged:"Please sign in first",
-      footer_tagline:"Living languages, preserved for generations."
-    }
+    <div class="progress-bar">
+      <div class="progress-bar__fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:var(--space-lg);" id="progressText"></div>
+
+    <div id="phrasesList"></div>
+
+    <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);">
+      <button class="btn btn--primary" onclick="saveAll()" id="saveBtn">💾 Hifadhi zote</button>
+      <button class="btn btn--ghost" onclick="goStep1()">← Rudi mwanzo</button>
+    </div>
+    <div id="saveMsg" style="margin-top:var(--space-md);font-size:0.85rem;display:none;"></div>
+
+  </div>
+
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const supabase = createClient(
+  'https://geogbanccumdcaymhkdb.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+);
+
+// STATE
+let currentUser = null;
+let selectedSpeaker = null;
+let selectedLang = null;
+let selectedTopic = null;
+let topicData = null;
+let submissionId = null;
+let existingResponses = {};
+let mediaRecorder = null;
+let audioChunks = [];
+let recordingPhraseId = null;
+
+// INIT
+const { data: { user } } = await supabase.auth.getUser();
+if (!user) { window.location.href = '../auth/login.html'; }
+currentUser = user;
+document.getElementById('navUserName').textContent = user.user_metadata?.full_name || user.email;
+
+// Load speakers (self + assigned)
+async function loadSpeakers() {
+  const grid = document.getElementById('speakerGrid');
+
+  // Get current user profile
+  const { data: profile } = await supabase
+    .from('profiles').select('full_name').eq('id', user.id).single();
+
+  // Get speakers where assistant = current user OR user_id = current user
+  const { data: speakers } = await supabase
+    .from('speakers')
+    .select('*')
+    .or(`assistant_user_id.eq.${user.id},user_id.eq.${user.id}`)
+    .order('full_name');
+
+  grid.innerHTML = '';
+
+  // Add self option
+  const selfDiv = document.createElement('div');
+  selfDiv.className = 'speaker-option';
+  selfDiv.dataset.id = 'self';
+  selfDiv.dataset.name = profile?.full_name || user.email;
+  selfDiv.dataset.langs = JSON.stringify([]);
+  selfDiv.innerHTML = `
+    <div class="speaker-option__name">✍️ ${profile?.full_name || user.email}</div>
+    <div class="speaker-option__self">Naweka data zangu mwenyewe</div>`;
+  selfDiv.onclick = () => selectSpeaker(selfDiv);
+  grid.appendChild(selfDiv);
+
+  // Add speakers
+  if (speakers && speakers.length) {
+    speakers.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'speaker-option';
+      div.dataset.id = s.id;
+      div.dataset.name = s.full_name;
+      div.dataset.langs = JSON.stringify(s.language_ids || []);
+      div.innerHTML = `
+        <div class="speaker-option__name">🎙️ ${s.full_name}</div>
+        <div class="speaker-option__langs">${(s.language_ids||[]).join(', ') || '—'}</div>`;
+      div.onclick = () => selectSpeaker(div);
+      grid.appendChild(div);
+    });
+  }
+}
+
+window.selectSpeaker = function(el) {
+  document.querySelectorAll('.speaker-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSpeaker = {
+    id: el.dataset.id,
+    name: el.dataset.name,
+    langs: JSON.parse(el.dataset.langs)
   };
+  document.getElementById('step1next').disabled = false;
+}
 
-  let currentLang    = localStorage.getItem('lh_lang') || 'sw';
-  let topicData      = null;
-  let phraseState    = {};
-  let recording      = {};
-  let mediaRecorder  = null;
-  let audioChunks    = {};
-  let audioLocal     = {};
-  let currentUser    = null;
-  let submissionId   = null;
-  let languageId     = null;
+window.goStep1 = function() {
+  selectedSpeaker = null; selectedLang = null; selectedTopic = null;
+  show('step1'); setActive(1);
+  document.getElementById('step1next').disabled = true;
+  document.querySelectorAll('.speaker-option').forEach(e => e.classList.remove('selected'));
+}
 
-  // ── LANG ──────────────────────────────────────────────
-  window.setLang = function(lang) {
-    currentLang = lang;
-    localStorage.setItem('lh_lang', lang);
-    document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    const t = i18n[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.textContent = t[key];
-    });
-    if (topicData) render();
+window.goStep2 = async function() {
+  if (!selectedSpeaker) return;
+  show('step2'); setActive(2);
+
+  const grid = document.getElementById('langGrid');
+  grid.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;">⏳ Inapakia...</div>';
+
+  // Get languages
+  let langs = [];
+  if (selectedSpeaker.id === 'self') {
+    const { data: roles } = await supabase
+      .from('user_roles').select('language_id').eq('user_id', user.id).eq('status','approved');
+    langs = (roles || []).map(r => r.language_id);
+  } else {
+    langs = selectedSpeaker.langs;
   }
 
-  // ── INIT ──────────────────────────────────────────────
-  async function init() {
-    const params  = new URLSearchParams(window.location.search);
-    const topicId = params.get('id') || 'pronouns';
-    languageId    = params.get('lang') || 'kikurya';
+  const res = await fetch('../data/languages.json');
+  const data = await res.json();
+  const allLangs = data.languages;
 
-    const { data: { user } } = await supabase.auth.getUser();
-    currentUser = user;
+  grid.innerHTML = '';
+  const filtered = langs.length ? allLangs.filter(l => langs.includes(l.id)) : allLangs;
 
+  filtered.forEach(l => {
+    const div = document.createElement('div');
+    div.className = 'speaker-option';
+    div.dataset.id = l.id;
+    div.dataset.name = l.name;
+    div.dataset.langs = '[]';
+    div.innerHTML = `<div class="speaker-option__name">🌍 ${l.name}</div>`;
+    div.onclick = () => {
+      document.querySelectorAll('#langGrid .speaker-option').forEach(e => e.classList.remove('selected'));
+      div.classList.add('selected');
+      selectedLang = { id: l.id, name: l.name };
+      document.getElementById('step2next').disabled = false;
+    };
+    grid.appendChild(div);
+  });
+
+  document.getElementById('step2next').disabled = true;
+}
+
+window.goStep3 = async function() {
+  if (!selectedLang) return;
+  show('step3'); setActive(3);
+
+  const grid = document.getElementById('topicGrid');
+  grid.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;">⏳ Inapakia...</div>';
+
+  const res = await fetch('../data/index.json');
+  const index = await res.json();
+  grid.innerHTML = '';
+
+  for (const entry of index) {
     try {
-      const indexRes = await fetch('../data/index.json');
-      const index    = await indexRes.json();
-      const entry    = index.find(t => t.id === topicId);
-      if (!entry) throw new Error('Topic not found in index: ' + topicId);
-      const res  = await fetch('../' + entry.path);
-      topicData  = await res.json();
-      if (!topicData) throw new Error('Topic not found: ' + topicId);
-    } catch(e) {
-      document.getElementById('mainContainer').innerHTML =
-        `<div class="loading" style="color:var(--terracotta);">Hitilafu: ${e.message}</div>`;
-      return;
-    }
+      const tr = await fetch('../' + entry.path);
+      const topic = await tr.json();
+      const phraseCount = (topic.blocks || []).reduce((n,b) => n + (b.phrases||[]).length, 0);
 
-    topicData.blocks.forEach(block => {
-      block.phrases.forEach(p => {
-        phraseState[p.id] = {
-          translation: '',
-          translationConfirmed: false,
-          hasAudio: false,
-          audioUrl: null,
-          audioUploading: false,
-          done: false
-        };
-      });
-    });
+      const div = document.createElement('div');
+      div.className = 'speaker-option';
+      div.dataset.id = topic.id;
+      div.dataset.path = entry.path;
+      div.dataset.name = topic.name?.sw || topic.id;
+      div.innerHTML = `
+        <div class="speaker-option__name">${topic.name?.sw || topic.id}</div>
+        <div class="speaker-option__langs">${topic.name?.en || ''}</div>
+        <div class="speaker-option__self">${phraseCount} misemo · ${topic.payment_tzs || 0} TZS</div>`;
+      div.onclick = () => {
+        document.querySelectorAll('#topicGrid .speaker-option').forEach(e => e.classList.remove('selected'));
+        div.classList.add('selected');
+        selectedTopic = { id: topic.id, path: entry.path, name: topic.name?.sw || topic.id };
+        topicData = topic;
+        document.getElementById('step3next').disabled = false;
+      };
+      grid.appendChild(div);
+    } catch(e) { console.warn(e); }
+  }
 
-    if (currentUser) {
-      await loadFromSupabase(topicId);
+  document.getElementById('step3next').disabled = true;
+}
+
+window.goStep4 = async function() {
+  if (!selectedTopic) return;
+  show('step4'); setActive(4);
+
+  document.getElementById('bannerSpeaker').textContent = '🎙️ ' + selectedSpeaker.name;
+  document.getElementById('bannerLangTopic').textContent = selectedLang.name + ' · ' + selectedTopic.name;
+
+  // Create or find submission
+  const speakerId = selectedSpeaker.id === 'self' ? null : selectedSpeaker.id;
+
+  const { data: existing } = await supabase
+    .from('submissions')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('language_id', selectedLang.id)
+    .eq('topic_id', selectedTopic.id)
+    .maybeSingle();
+
+  if (existing) {
+    submissionId = existing.id;
+  } else {
+    const payload = {
+      user_id: user.id,
+      language_id: selectedLang.id,
+      topic_id: selectedTopic.id,
+      status: 'in_progress',
+      speaker_id: speakerId
+    };
+    const { data: newSub } = await supabase.from('submissions').insert(payload).select().single();
+    submissionId = newSub?.id;
+  }
+
+  // Load existing responses
+  const { data: responses } = await supabase
+    .from('phrase_responses')
+    .select('phrase_id, translation, audio_url')
+    .eq('submission_id', submissionId);
+
+  existingResponses = {};
+  (responses || []).forEach(r => { existingResponses[r.phrase_id] = r; });
+
+  renderPhrases();
+}
+
+function renderPhrases() {
+  const list = document.getElementById('phrasesList');
+  list.innerHTML = '';
+
+  const allPhrases = [];
+  (topicData.blocks || []).forEach(block => {
+    (block.phrases || []).forEach(p => allPhrases.push(p));
+  });
+
+  const done = allPhrases.filter(p => existingResponses[p.id]?.translation).length;
+  const pct = Math.round(done / allPhrases.length * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done} / ${allPhrases.length} misemo imekamilika`;
+
+  allPhrases.forEach(p => {
+    const existing = existingResponses[p.id];
+    const card = document.createElement('div');
+    card.className = 'phrase-card';
+    card.id = 'card_' + p.id;
+
+    const ctx = p.ctx_sw ? `<div class="phrase-card__ctx">${p.ctx_sw}</div>` : '';
+    const audioHtml = existing?.audio_url
+      ? `<audio controls src="${existing.audio_url}" style="height:32px;"></audio>`
+      : '';
+    const status = existing?.translation
+      ? `<span class="phrase-card__status status--done">✓ Imekamilika</span>`
+      : `<span class="phrase-card__status status--pending">○ Inasubiri</span>`;
+
+    card.innerHTML = `
+      <div class="phrase-card__sw">${p.sw}</div>
+      <div class="phrase-card__en">${p.en}</div>
+      ${ctx}
+      <input type="text" class="form-input phrase-card__input" id="trans_${p.id}"
+        placeholder="Tafsiri hapa..." value="${existing?.translation || ''}" />
+      <div class="phrase-card__audio">
+        <button class="rec-btn rec-btn--start" id="recbtn_${p.id}" onclick="startRec('${p.id}')">🎙 Rekodi</button>
+        <div id="audio_${p.id}">${audioHtml}</div>
+        ${status}
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+// RECORDING
+window.startRec = async function(phraseId) {
+  if (recordingPhraseId) { stopRec(); return; }
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  audioChunks = [];
+  mediaRecorder = new MediaRecorder(stream);
+  mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+  mediaRecorder.onstop = () => uploadAudio(phraseId);
+  mediaRecorder.start();
+  recordingPhraseId = phraseId;
+
+  const btn = document.getElementById('recbtn_' + phraseId);
+  btn.className = 'rec-btn rec-btn--stop';
+  btn.innerHTML = '⏹ Simama';
+  btn.onclick = () => stopRec();
+}
+
+function stopRec() {
+  if (mediaRecorder) { mediaRecorder.stop(); mediaRecorder.stream.getTracks().forEach(t => t.stop()); }
+  mediaRecorder = null;
+  recordingPhraseId = null;
+}
+
+async function uploadAudio(phraseId) {
+  const blob = new Blob(audioChunks, { type: 'audio/webm' });
+  const fileName = `${submissionId}_${phraseId}_${Date.now()}.webm`;
+
+  const { data, error } = await supabase.storage
+    .from('audio').upload(fileName, blob, { contentType: 'audio/webm', upsert: true });
+
+  const btn = document.getElementById('recbtn_' + phraseId);
+  btn.className = 'rec-btn rec-btn--start';
+  btn.innerHTML = '🎙 Rekodi tena';
+  btn.onclick = () => startRec(phraseId);
+
+  if (!error) {
+    const { data: urlData } = supabase.storage.from('audio').getPublicUrl(fileName);
+    const url = urlData.publicUrl;
+    document.getElementById('audio_' + phraseId).innerHTML =
+      `<audio controls src="${url}" style="height:32px;"></audio>`;
+    if (!existingResponses[phraseId]) existingResponses[phraseId] = {};
+    existingResponses[phraseId].audio_url = url;
+  }
+}
+
+// SAVE ALL
+window.saveAll = async function() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true; btn.textContent = '⏳ Inahifadhi...';
+
+  const allPhrases = [];
+  (topicData.blocks || []).forEach(b => (b.phrases||[]).forEach(p => allPhrases.push(p)));
+
+  const speakerId = selectedSpeaker.id === 'self' ? null : selectedSpeaker.id;
+
+  for (const p of allPhrases) {
+    const trans = document.getElementById('trans_' + p.id)?.value?.trim();
+    if (!trans) continue;
+    const audioUrl = existingResponses[p.id]?.audio_url || null;
+
+    if (existingResponses[p.id]?.translation !== undefined) {
+      await supabase.from('phrase_responses')
+        .update({ translation: trans, audio_url: audioUrl, speaker_id: speakerId })
+        .eq('submission_id', submissionId).eq('phrase_id', p.id);
     } else {
-      loadDraft();
+      await supabase.from('phrase_responses')
+        .insert({ submission_id: submissionId, phrase_id: p.id, translation: trans, audio_url: audioUrl, speaker_id: speakerId });
     }
-
-    const t = i18n[currentLang];
-    document.getElementById('hdr-type').textContent = topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
-    document.getElementById('hdr-title').textContent = topicData.name[currentLang];
-    document.getElementById('hdr-payment-amount').textContent = topicData.payment_tzs.toLocaleString() + ' TZS';
-
-    render();
+    if (!existingResponses[p.id]) existingResponses[p.id] = {};
+    existingResponses[p.id].translation = trans;
   }
 
-  // ── LOAD FROM SUPABASE ────────────────────────────────
-  async function loadFromSupabase(topicId) {
-    try {
-      const { data: existing } = await supabase
-        .from('submissions')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .eq('language_id', languageId)
-        .eq('topic_id', topicId)
-        .single();
+  await supabase.from('submissions').update({ status: 'submitted' }).eq('id', submissionId);
 
-      if (existing) {
-        submissionId = existing.id;
-        const { data: responses } = await supabase
-          .from('phrase_responses')
-          .select('*')
-          .eq('submission_id', submissionId);
+  btn.disabled = false; btn.textContent = '💾 Hifadhi zote';
+  const msg = document.getElementById('saveMsg');
+  msg.style.display = 'block';
+  msg.style.color = 'var(--green-deep)';
+  msg.textContent = '✅ Imehifadhiwa! Asante kwa mchango wako.';
+  renderPhrases();
+}
 
-        if (responses) {
-          responses.forEach(r => {
-            if (phraseState[r.phrase_id]) {
-              phraseState[r.phrase_id].translation          = r.translation || '';
-              phraseState[r.phrase_id].translationConfirmed = !!(r.translation);
-              phraseState[r.phrase_id].audioUrl             = r.audio_url || null;
-              phraseState[r.phrase_id].hasAudio             = !!r.audio_url;
-              phraseState[r.phrase_id].done                 = r.is_done || false;
-              if (r.audio_url) audioLocal[r.phrase_id] = r.audio_url;
-            }
-          });
-        }
-      } else {
-        const { data: newSub } = await supabase
-          .from('submissions')
-          .insert({ user_id: currentUser.id, language_id: languageId, topic_id: topicId, status: 'in_progress' })
-          .select()
-          .single();
-        if (newSub) submissionId = newSub.id;
-      }
-    } catch(e) {
-      console.warn('Supabase load error:', e);
-      loadDraft();
-    }
+// HELPERS
+function show(id) {
+  ['step1','step2','step3','step4'].forEach(s => {
+    document.getElementById(s).classList.toggle('hidden', s !== id);
+  });
+}
+
+function setActive(n) {
+  for (let i=1;i<=4;i++) {
+    const el = document.getElementById('step'+i+'label');
+    el.className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
   }
+}
 
-  // ── SAVE TO SUPABASE ──────────────────────────────────
-  async function saveToSupabase(phraseId) {
-    if (!submissionId || !currentUser) return;
-    const state = phraseState[phraseId];
-    try {
-      await supabase
-        .from('phrase_responses')
-        .upsert({
-          submission_id: submissionId,
-          phrase_id:     phraseId,
-          translation:   state.translation || null,
-          audio_url:     state.audioUrl    || null,
-          is_done:       state.done        || false,
-          updated_at:    new Date().toISOString()
-        }, { onConflict: 'submission_id,phrase_id' });
-    } catch(e) {
-      console.warn('Save error:', e);
-    }
-  }
-
-  // ── RENDER ────────────────────────────────────────────
-  function render() {
-    const t  = i18n[currentLang];
-    const nk = currentLang;
-    const ck = 'ctx_' + currentLang;
-    document.getElementById('hdr-type').textContent = topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
-    document.getElementById('hdr-title').textContent = topicData.name[currentLang];
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    const total = allPhrases.length;
-    const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translationConfirmed).length;
-    const nAud  = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
-    const nDone = allPhrases.filter(p => phraseState[p.id]?.done).length;
-    const pct   = Math.round(nDone / total * 100);
-
-    let html = `
-      <div class="status-path">
-        <div class="status-step current"><div class="status-step__dot"></div>${t.status_inprogress}</div>
-        <div class="status-arrow">›</div>
-        <div class="status-step"><div class="status-step__dot"></div>${nk==='sw'?'Ukaguzi wa msimamizi':'Moderator review'}</div>
-        <div class="status-arrow">›</div>
-        <div class="status-step"><div class="status-step__dot"></div>${nk==='sw'?'Malipo':'Payment'}</div>
-      </div>
-      <div class="warning-block">
-        <div class="warning-block__title">${t.warning_title}</div>
-        ${['w1','w2','w3','w4','w5','w6'].map(k=>`<div class="warning-block__item"><span>•</span><span>${t[k]}</span></div>`).join('')}
-      </div>
-      <div class="topic-grid" style="display:grid;grid-template-columns:1fr 280px;gap:var(--space-xl);align-items:start;">
-        <div id="phraseArea">`;
-
-    let idx = 1;
-    topicData.blocks.forEach(block => {
-      const bp    = block.phrases;
-      const bdone = bp.filter(p => phraseState[p.id]?.done).length;
-      html += `<div class="block-header">${block.label[nk]}<span class="block-progress-chip ${bdone===bp.length?'done':''}">${bdone}/${bp.length}</span></div>`;
-      bp.forEach(phrase => {
-        const state   = phraseState[phrase.id] || {};
-        const isDone  = state.done;
-        const isOpen  = !isDone;
-        const isRec   = recording[phrase.id];
-        const ctx     = phrase[ck];
-        const confirmed = state.translationConfirmed;
-
-        let audioStatusText = t.audio_tip;
-        let audioStatusClass = '';
-        if (isRec) { audioStatusText = t.audio_recording; }
-        else if (state.audioUploading) { audioStatusText = t.audio_uploading; audioStatusClass = 'uploading'; }
-        else if (state.hasAudio) { audioStatusText = t.audio_saved; audioStatusClass = 'has-rec'; }
-
-        // Translation field: input or confirmed display
-        const translationBlock = confirmed
-          ? `<div>
-               <div class="field-label">${t.field_translation}</div>
-               <div class="translation-confirmed">
-                 <div class="translation-confirmed__text">${escHtml(state.translation)}</div>
-                 <button class="translation-confirmed__edit" onclick="editTranslation('${phrase.id}')">${t.btn_edit_text}</button>
-               </div>
-             </div>`
-          : `<div>
-               <div class="field-label">${t.field_translation}</div>
-               <input type="text" class="translation-input ${state.translation?'filled':''}"
-                 placeholder="${t.field_translation_ph}" value="${escAttr(state.translation||'')}"
-                 oninput="onInput('${phrase.id}', this.value)" id="inp-${phrase.id}" />
-               <button class="btn btn--primary btn--sm btn-confirm-text"
-                 onclick="confirmTranslation('${phrase.id}')"
-                 ${!state.translation ? 'disabled' : ''}>
-                 ${t.btn_confirm_text}
-               </button>
-             </div>`;
-
-        // Audio block: only shown after translation confirmed
-        const audioBlock = confirmed
-          ? `<div>
-               <div class="field-label">${t.field_audio}</div>
-               <div class="phrase-source-display">
-                 <div class="phrase-source-display__label">${t.source_label}</div>
-                 <div class="phrase-source-display__text">${escHtml(phrase[nk])}</div>
-                 ${ctx ? `<div class="phrase-source-display__ctx">${escHtml(ctx)}</div>` : ''}
-               </div>
-               <div class="audio-controls">
-                 <button class="rec-btn rec-btn--record ${isRec?'recording':''}"
-                   onclick="toggleRec('${phrase.id}')" ${state.audioUploading?'disabled':''}>
-                   ${isRec?'⏹':'🎙'}
-                 </button>
-                 <button class="rec-btn rec-btn--play" onclick="playAudio('${phrase.id}')"
-                   ${!state.hasAudio||state.audioUploading?'disabled':''}>▶</button>
-                 <button class="rec-btn rec-btn--delete" onclick="deleteAudio('${phrase.id}')"
-                   ${!state.hasAudio||state.audioUploading?'disabled':''}>🗑</button>
-                 <div class="audio-status ${audioStatusClass}">${audioStatusText}</div>
-               </div>
-             </div>`
-          : '';
-
-        html += `
-          <div class="phrase-block ${isDone?'done':''}" id="pb-${phrase.id}">
-            <div class="phrase-header" onclick="togglePhrase('${phrase.id}')">
-              <div class="phrase-num ${isDone?'done':''}">${isDone?'✓':idx}</div>
-              <div class="phrase-source">${escHtml(phrase[nk])}${ctx?`<span>${escHtml(ctx)}</span>`:''}</div>
-              <div class="phrase-chevron ${isOpen?'open':''}" id="chev-${phrase.id}">›</div>
-            </div>
-            <div class="phrase-body ${isOpen?'open':''}" id="body-${phrase.id}">
-              ${translationBlock}
-              ${audioBlock}
-              ${confirmed ? `<div style="display:flex;justify-content:flex-end;">
-                <button class="btn ${isDone?'btn--secondary':'btn--primary'} btn--sm"
-                  onclick="markDone('${phrase.id}')">
-                  ${isDone ? t.btn_undo : t.btn_done}
-                </button>
-              </div>` : ''}
-            </div>
-          </div>`;
-        idx++;
-      });
-    });
-
-    html += `</div>
-        <div class="topic-sidebar" style="position:sticky;top:80px;">
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">${t.checklist_title}</div>
-            <div style="display:flex;flex-direction:column;gap:var(--space-sm);margin-bottom:var(--space-md);">
-              <div style="display:flex;align-items:center;gap:var(--space-sm);">
-                <div class="mini-check ${nTrl===total?'done':''}">✓</div>
-                <span style="font-size:0.82rem;color:var(--text-mid);">${t.label_translations}: ${nTrl}/${total}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:var(--space-sm);">
-                <div class="mini-check ${nAud===total?'done':''}">✓</div>
-                <span style="font-size:0.82rem;color:var(--text-mid);">${t.label_audio}: ${nAud}/${total}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:var(--space-sm);">
-                <div class="mini-check ${nDone===total?'done':''}">✓</div>
-                <span style="font-size:0.82rem;color:var(--text-mid);">${t.label_done}: ${nDone}/${total}</span>
-              </div>
-            </div>
-            <div class="flex-between" style="margin-bottom:6px;">
-              <span style="font-size:0.78rem;color:var(--text-soft);">${nDone}/${total}</span>
-              <span style="font-size:0.78rem;font-weight:500;color:var(--green-deep);">${pct}%</span>
-            </div>
-            <div class="progress"><div class="progress__fill" style="width:${pct}%;"></div></div>
-          </div>
-          <div class="sidebar-card">
-            <div class="sidebar-card__title">${t.instructions_title}</div>
-            <div style="font-size:0.82rem;color:var(--text-mid);line-height:1.75;">${t.instructions_body}</div>
-          </div>
-          <div class="sidebar-card" style="background:var(--green-mist);border-color:var(--green-pale);">
-            <div class="sidebar-card__title" style="color:var(--green-deep);">${nk==='sw'?'Malipo ya mada hii':'Payment for this topic'}</div>
-            <div style="font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:4px;">${topicData.payment_tzs.toLocaleString()} TZS</div>
-            <div style="font-size:0.78rem;color:var(--text-mid);">${nk==='sw'?'Baada ya ukaguzi na uthibitisho':'After review and admin confirmation'}</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
-            <button class="btn btn--primary w-full" style="justify-content:center;" onclick="submitTopic()">${t.btn_submit}</button>
-            <button class="btn btn--ghost w-full" style="justify-content:center;" onclick="saveDraft()">${t.btn_save}</button>
-          </div>
-        </div>
-      </div>
-      <div style="height:var(--space-2xl);"></div>`;
-
-    document.getElementById('mainContainer').innerHTML = html;
-  }
-
-  // ── HELPERS ───────────────────────────────────────────
-  function escHtml(str) {
-    return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-  function escAttr(str) {
-    return (str||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-
-  // ── INTERACTIONS ──────────────────────────────────────
-  window.togglePhrase = function(id) {
-    const body = document.getElementById('body-' + id);
-    const chev = document.getElementById('chev-' + id);
-    if (!body) return;
-    const open = body.classList.toggle('open');
-    chev.classList.toggle('open', open);
-  }
-
-  window.onInput = function(id, value) {
-    if (!phraseState[id]) phraseState[id] = {};
-    phraseState[id].translation = value;
-    const inp = document.getElementById('inp-' + id);
-    if (inp) inp.classList.toggle('filled', !!value);
-    // Enable/disable confirm button dynamically
-    const confirmBtn = inp?.parentElement?.querySelector('.btn-confirm-text');
-    if (confirmBtn) confirmBtn.disabled = !value;
-    updateChecklist();
-  }
-
-  window.confirmTranslation = async function(id) {
-    if (!phraseState[id]?.translation) return;
-    phraseState[id].translationConfirmed = true;
-    await saveToSupabase(id);
-    render();
-  }
-
-  window.editTranslation = function(id) {
-    if (!phraseState[id]) return;
-    phraseState[id].translationConfirmed = false;
-    render();
-    // Focus input after render
-    requestAnimationFrame(() => {
-      const inp = document.getElementById('inp-' + id);
-      if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
-    });
-  }
-
-  // ── AUDIO ─────────────────────────────────────────────
-  window.toggleRec = async function(id) {
-    if (recording[id]) {
-      if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-      recording[id] = false;
-    } else {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioChunks[id] = [];
-        mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks[id].push(e.data); };
-        mediaRecorder.onstop = async () => {
-          stream.getTracks().forEach(t => t.stop());
-          const blob = new Blob(audioChunks[id], { type: 'audio/webm' });
-          audioLocal[id] = URL.createObjectURL(blob);
-          if (!phraseState[id]) phraseState[id] = {};
-          phraseState[id].hasAudio = true;
-          phraseState[id].audioUploading = true;
-          render();
-          try {
-            const userId = currentUser ? currentUser.id.substring(0,8) : 'anon';
-            const fileName = userId + '_' + id;
-            const fd = new FormData();
-            fd.append('file', blob, fileName + '.webm');
-            fd.append('upload_preset', CLOUDINARY_PRESET);
-            fd.append('public_id', 'lughahai/audio/' + fileName);
-            const res  = await fetch('https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/video/upload', { method:'POST', body:fd });
-            const data = await res.json();
-            phraseState[id].audioUrl       = data.secure_url;
-            phraseState[id].audioUploading = false;
-            await saveToSupabase(id);
-            showToast(i18n[currentLang].audio_saved, 'success');
-          } catch(e) {
-            phraseState[id].audioUploading = false;
-            showToast('Upload failed', 'error');
-          }
-          render();
-        };
-        mediaRecorder.start();
-        recording[id] = true;
-      } catch(e) {
-        showToast(i18n[currentLang].mic_error, 'error');
-        return;
-      }
-    }
-    render();
-  }
-
-  window.playAudio = function(id) {
-    const url = audioLocal[id] || phraseState[id]?.audioUrl;
-    if (!url) return;
-    new Audio(url).play();
-  }
-
-  window.deleteAudio = async function(id) {
-    if (!phraseState[id]) phraseState[id] = {};
-    phraseState[id].hasAudio = false;
-    phraseState[id].audioUrl = null;
-    phraseState[id].audioUploading = false;
-    delete audioLocal[id];
-    recording[id] = false;
-    await saveToSupabase(id);
-    render();
-  }
-
-  window.markDone = async function(id) {
-    if (!phraseState[id]) phraseState[id] = {};
-    phraseState[id].done = !phraseState[id].done;
-    const pb   = document.getElementById('pb-' + id);
-    const num  = pb?.querySelector('.phrase-num');
-    const body = document.getElementById('body-' + id);
-    const chev = document.getElementById('chev-' + id);
-    if (phraseState[id].done) {
-      if (pb)   pb.classList.add('done');
-      if (num)  { num.classList.add('done'); num.textContent = '✓'; }
-      if (body) body.classList.remove('open');
-      if (chev) chev.classList.remove('open');
-    } else {
-      if (pb) pb.classList.remove('done');
-    }
-    await saveToSupabase(id);
-    updateChecklist();
-  }
-
-  // ── CHECKLIST ─────────────────────────────────────────
-  function updateChecklist() {
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    const total = allPhrases.length;
-    const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translationConfirmed).length;
-    const nAud  = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
-    const nDone = allPhrases.filter(p => phraseState[p.id]?.done).length;
-    const pct   = Math.round(nDone / total * 100);
-    const t     = i18n[currentLang];
-    const checks = document.querySelectorAll('.mini-check');
-    if (checks[0]) checks[0].classList.toggle('done', nTrl === total);
-    if (checks[1]) checks[1].classList.toggle('done', nAud === total);
-    if (checks[2]) checks[2].classList.toggle('done', nDone === total);
-    const spans = document.querySelectorAll('.sidebar-card span[style*="text-mid"]');
-    if (spans[0]) spans[0].textContent = t.label_translations + ': ' + nTrl + '/' + total;
-    if (spans[1]) spans[1].textContent = t.label_audio + ': ' + nAud + '/' + total;
-    if (spans[2]) spans[2].textContent = t.label_done + ': ' + nDone + '/' + total;
-    const bar = document.querySelector('.progress__fill');
-    if (bar) bar.style.width = pct + '%';
-  }
-
-  // ── SAVE / SUBMIT ─────────────────────────────────────
-  window.saveDraft = async function() {
-    if (!currentUser) { showToast(i18n[currentLang].not_logged, 'error'); return; }
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    await Promise.all(allPhrases.map(p => saveToSupabase(p.id)));
-    showToast(i18n[currentLang].save_ok, 'success');
-  }
-
-  function loadDraft() {
-    try {
-      const raw = localStorage.getItem('lh_draft_' + topicData.id);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        Object.keys(saved).forEach(id => {
-          if (phraseState[id] !== undefined) {
-            phraseState[id] = { ...phraseState[id], ...saved[id] };
-            if (phraseState[id].translation) phraseState[id].translationConfirmed = true;
-          }
-        });
-      }
-    } catch(e) {}
-  }
-
-  window.submitTopic = async function() {
-    const t = i18n[currentLang];
-    const allPhrases = topicData.blocks.flatMap(b => b.phrases);
-    const allTrl = allPhrases.every(p => phraseState[p.id]?.translation);
-    if (!allTrl) { showToast(t.submit_incomplete, 'error'); return; }
-    await Promise.all(allPhrases.map(p => saveToSupabase(p.id)));
-    if (submissionId) {
-      await supabase.from('submissions').update({ status: 'submitted', updated_at: new Date().toISOString() }).eq('id', submissionId);
-    }
-    showToast(t.submit_ok, 'success');
-    setTimeout(() => window.location.href = 'index.html', 2000);
-  }
-
-  // ── TOAST ─────────────────────────────────────────────
-  function showToast(msg, type) {
-    const colors = { success:{bg:'var(--green-deep)',color:'var(--cream)'}, error:{bg:'var(--terracotta)',color:'var(--white)'}, info:{bg:'#1A5276',color:'var(--white)'} };
-    const c = colors[type] || colors.success;
-    const el = document.createElement('div');
-    el.textContent = msg;
-    Object.assign(el.style, { position:'fixed', bottom:'24px', right:'24px', background:c.bg, color:c.color, padding:'12px 20px', borderRadius:'12px', fontSize:'0.875rem', fontFamily:'var(--font-body)', fontWeight:'500', boxShadow:'0 4px 16px rgba(0,0,0,0.18)', zIndex:'9999', opacity:'0', transform:'translateY(8px)', transition:'all 0.25s ease', maxWidth:'320px' });
-    document.body.appendChild(el);
-    requestAnimationFrame(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; });
-    setTimeout(() => { el.style.opacity='0'; el.style.transform='translateY(8px)'; setTimeout(() => el.remove(), 300); }, 2800);
-  }
-
-  // ── START ─────────────────────────────────────────────
-  window.setLang(currentLang);
-  init();
-  </script>
+await loadSpeakers();
+</script>
 </body>
 </html>
