@@ -6,44 +6,35 @@
   <title>Lugha Hai — Ingiza mada</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .step-bar { display:flex; gap:0; margin-bottom:var(--space-xl); }
-    .step { flex:1; padding:10px; text-align:center; font-size:0.78rem; font-weight:500; background:var(--cream-dark); color:var(--text-muted); border-right:1px solid var(--cream-border); }
-    .step:last-child { border-right:none; }
-    .step.active { background:var(--green-deep); color:var(--cream); }
-    .step.done { background:var(--green-mid); color:var(--cream); }
-
-    .select-card { background:var(--white); border:1px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-xl); box-shadow:0 2px 8px var(--shadow-warm); margin-bottom:var(--space-xl); }
-    .select-card h2 { font-size:1.1rem; color:var(--green-deep); margin-bottom:var(--space-lg); }
-
-    .speaker-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:var(--space-md); margin-top:var(--space-md); }
-    .speaker-option { border:2px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-md); cursor:pointer; transition:all var(--transition); background:var(--white); text-align:left; }
-    .speaker-option:hover { border-color:var(--green-mid); }
-    .speaker-option.selected { border-color:var(--green-deep); background:var(--cream); }
-    .speaker-option__name { font-weight:600; color:var(--green-deep); margin-bottom:4px; }
-    .speaker-option__langs { font-size:0.75rem; color:var(--text-muted); }
-    .speaker-option__self { font-size:0.72rem; color:var(--terracotta); margin-top:2px; }
-
-    .phrase-card { background:var(--white); border:1px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-lg); margin-bottom:var(--space-md); box-shadow:0 1px 4px var(--shadow-warm); }
-    .phrase-card__sw { font-size:0.9rem; color:var(--text-mid); margin-bottom:4px; }
-    .phrase-card__en { font-size:0.8rem; color:var(--text-muted); margin-bottom:var(--space-md); font-style:italic; }
-    .phrase-card__ctx { font-size:0.72rem; color:var(--terracotta); margin-bottom:var(--space-sm); }
-    .phrase-card__input { width:100%; margin-bottom:var(--space-sm); }
-    .phrase-card__audio { display:flex; gap:var(--space-sm); align-items:center; flex-wrap:wrap; }
-    .phrase-card__status { font-size:0.72rem; padding:2px 8px; border-radius:99px; }
-    .status--done { background:#e8f5e9; color:#2e7d32; }
-    .status--pending { background:#fff8e1; color:#f57f17; }
-
-    .rec-btn { display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:99px; border:none; cursor:pointer; font-size:0.8rem; font-weight:500; transition:all var(--transition); }
-    .rec-btn--start { background:var(--terracotta); color:white; }
-    .rec-btn--stop { background:#c62828; color:white; }
-    .rec-btn--play { background:var(--green-mid); color:white; }
-
     .progress-bar { background:var(--cream-dark); border-radius:99px; height:8px; margin-bottom:var(--space-lg); overflow:hidden; }
     .progress-bar__fill { height:100%; background:var(--green-deep); border-radius:99px; transition:width 0.3s; }
 
     .speaker-banner { background:var(--green-deep); color:var(--cream); border-radius:var(--radius-lg); padding:var(--space-md) var(--space-lg); margin-bottom:var(--space-lg); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-sm); }
     .speaker-banner__name { font-weight:600; font-size:1rem; }
     .speaker-banner__sub { font-size:0.78rem; opacity:0.8; }
+
+    .speaker-pick { background:var(--white); border:1px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-xl); box-shadow:0 2px 8px var(--shadow-warm); margin-bottom:var(--space-xl); }
+    .speaker-pick h2 { font-size:1.1rem; color:var(--green-deep); margin-bottom:var(--space-lg); }
+    .speaker-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:var(--space-md); }
+    .speaker-option { border:2px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-md); cursor:pointer; transition:all var(--transition); background:var(--white); text-align:left; width:100%; }
+    .speaker-option:hover { border-color:var(--green-mid); }
+    .speaker-option.selected { border-color:var(--green-deep); background:var(--cream); }
+    .speaker-option__name { font-weight:600; color:var(--green-deep); margin-bottom:3px; font-size:0.9rem; }
+    .speaker-option__sub { font-size:0.72rem; color:var(--text-muted); }
+
+    .phrase-card { background:var(--white); border:1px solid var(--cream-border); border-radius:var(--radius-lg); padding:var(--space-lg); margin-bottom:var(--space-md); box-shadow:0 1px 4px var(--shadow-warm); }
+    .phrase-card__sw { font-size:0.9rem; color:var(--text-mid); margin-bottom:4px; }
+    .phrase-card__en { font-size:0.8rem; color:var(--text-muted); margin-bottom:var(--space-sm); font-style:italic; }
+    .phrase-card__ctx { font-size:0.72rem; color:var(--terracotta); margin-bottom:var(--space-sm); }
+    .phrase-card__input { width:100%; margin-bottom:var(--space-sm); }
+    .phrase-card__audio { display:flex; gap:var(--space-sm); align-items:center; flex-wrap:wrap; }
+    .phrase-status { font-size:0.72rem; padding:2px 8px; border-radius:99px; }
+    .status--done { background:#e8f5e9; color:#2e7d32; }
+    .status--pending { background:#fff8e1; color:#f57f17; }
+
+    .rec-btn { display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:99px; border:none; cursor:pointer; font-size:0.8rem; font-weight:500; transition:all var(--transition); }
+    .rec-btn--start { background:var(--terracotta); color:white; }
+    .rec-btn--stop { background:#c62828; color:white; }
 
     .hidden { display:none !important; }
   </style>
@@ -64,61 +55,26 @@
 
 <div class="container" style="max-width:780px;padding:var(--space-xl) var(--space-lg);">
 
-  <!-- STEP BAR -->
-  <div class="step-bar">
-    <div class="step active" id="step1label">1. Msemaji</div>
-    <div class="step" id="step2label">2. Lugha</div>
-    <div class="step" id="step3label">3. Mada</div>
-    <div class="step" id="step4label">4. Ingiza</div>
-  </div>
-
-  <!-- STEP 1: CHOOSE SPEAKER -->
-  <div id="step1">
-    <div class="select-card">
-      <h2>🎙️ Unaweka data kwa ajili ya nani?</h2>
-      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-lg);">Chagua msemaji. Kama unaweka data yako mwenyewe — chagua jina lako.</p>
-      <div class="speaker-grid" id="speakerGrid">
-        <div style="color:var(--text-muted);font-size:0.85rem;">⏳ Inapakia...</div>
-      </div>
+  <!-- SPEAKER PICK (shown only for assistants) -->
+  <div id="speakerPickSection" class="hidden">
+    <div class="speaker-pick">
+      <h2>🎙️ Unaweka data kwa ajili ya nani leo?</h2>
+      <div class="speaker-grid" id="speakerGrid"></div>
       <div style="margin-top:var(--space-lg);">
-        <button class="btn btn--primary" id="step1next" onclick="goStep2()" disabled>Endelea →</button>
+        <button class="btn btn--primary" id="confirmSpeakerBtn" onclick="confirmSpeaker()" disabled>Endelea →</button>
       </div>
     </div>
   </div>
 
-  <!-- STEP 2: CHOOSE LANGUAGE -->
-  <div id="step2" class="hidden">
-    <div class="select-card">
-      <h2>🌍 Chagua lugha</h2>
-      <div id="langGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--space-md);margin-top:var(--space-md);"></div>
-      <div style="margin-top:var(--space-lg);display:flex;gap:var(--space-sm);">
-        <button class="btn btn--ghost" onclick="goStep1()">← Rudi</button>
-        <button class="btn btn--primary" id="step2next" onclick="goStep3()" disabled>Endelea →</button>
-      </div>
-    </div>
-  </div>
+  <!-- MAIN CONTENT -->
+  <div id="mainContent" class="hidden">
 
-  <!-- STEP 3: CHOOSE TOPIC -->
-  <div id="step3" class="hidden">
-    <div class="select-card">
-      <h2>📚 Chagua mada</h2>
-      <div id="topicGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--space-md);margin-top:var(--space-md);"></div>
-      <div style="margin-top:var(--space-lg);display:flex;gap:var(--space-sm);">
-        <button class="btn btn--ghost" onclick="goStep2()">← Rudi</button>
-        <button class="btn btn--primary" id="step3next" onclick="goStep4()" disabled>Endelea →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 4: ENTER PHRASES -->
-  <div id="step4" class="hidden">
-
-    <div class="speaker-banner">
+    <div class="speaker-banner" id="speakerBanner">
       <div>
-        <div class="speaker-banner__name" id="bannerSpeaker"></div>
-        <div class="speaker-banner__sub" id="bannerLangTopic"></div>
+        <div class="speaker-banner__name" id="bannerName"></div>
+        <div class="speaker-banner__sub" id="bannerSub"></div>
       </div>
-      <button class="btn btn--ghost btn--sm" style="color:var(--cream);border-color:rgba(255,255,255,0.3);" onclick="goStep1()">Badilisha</button>
+      <button class="btn btn--ghost btn--sm" style="color:var(--cream);border-color:rgba(255,255,255,0.3);" id="changeSpeakerBtn" onclick="showSpeakerPick()" class="hidden">Badilisha msemaji</button>
     </div>
 
     <div class="progress-bar">
@@ -130,7 +86,6 @@
 
     <div style="display:flex;gap:var(--space-md);margin-top:var(--space-xl);">
       <button class="btn btn--primary" onclick="saveAll()" id="saveBtn">💾 Hifadhi zote</button>
-      <button class="btn btn--ghost" onclick="goStep1()">← Rudi mwanzo</button>
     </div>
     <div id="saveMsg" style="margin-top:var(--space-md);font-size:0.85rem;display:none;"></div>
 
@@ -148,15 +103,17 @@ const supabase = createClient(
 
 // STATE
 let currentUser = null;
-let selectedSpeaker = null;
-let selectedLang = null;
-let selectedTopic = null;
+let selectedSpeaker = null; // { id, name } or null = self
 let topicData = null;
 let submissionId = null;
 let existingResponses = {};
 let mediaRecorder = null;
 let audioChunks = [];
-let recordingPhraseId = null;
+
+// Get lang and topic from URL
+const params = new URLSearchParams(window.location.search);
+const langId = params.get('lang');
+const topicId = params.get('topic');
 
 // INIT
 const { data: { user } } = await supabase.auth.getUser();
@@ -164,182 +121,101 @@ if (!user) { window.location.href = '../auth/login.html'; }
 currentUser = user;
 document.getElementById('navUserName').textContent = user.user_metadata?.full_name || user.email;
 
-// Load speakers (self + assigned)
-async function loadSpeakers() {
+// Check if user has speakers to assist
+const { data: mySpeakers } = await supabase
+  .from('speakers')
+  .select('id, full_name, language_ids')
+  .eq('assistant_user_id', user.id)
+  .order('full_name');
+
+if (mySpeakers && mySpeakers.length > 0) {
+  // Show speaker picker
+  showSpeakerPick();
+} else {
+  // No assistants — go straight to phrases as self
+  selectedSpeaker = null;
+  await loadAndShow();
+}
+
+window.showSpeakerPick = function() {
+  document.getElementById('speakerPickSection').classList.remove('hidden');
+  document.getElementById('mainContent').classList.add('hidden');
+
   const grid = document.getElementById('speakerGrid');
-
-  // Get current user profile
-  const { data: profile } = await supabase
-    .from('profiles').select('full_name').eq('id', user.id).single();
-
-  // Get speakers where assistant = current user OR user_id = current user
-  const { data: speakers } = await supabase
-    .from('speakers')
-    .select('*')
-    .or(`assistant_user_id.eq.${user.id},user_id.eq.${user.id}`)
-    .order('full_name');
-
   grid.innerHTML = '';
 
-  // Add self option
-  const selfDiv = document.createElement('div');
-  selfDiv.className = 'speaker-option';
-  selfDiv.dataset.id = 'self';
-  selfDiv.dataset.name = profile?.full_name || user.email;
-  selfDiv.dataset.langs = JSON.stringify([]);
-  selfDiv.innerHTML = `
-    <div class="speaker-option__name">✍️ ${profile?.full_name || user.email}</div>
-    <div class="speaker-option__self">Naweka data zangu mwenyewe</div>`;
-  selfDiv.onclick = () => selectSpeaker(selfDiv);
-  grid.appendChild(selfDiv);
-
-  // Add speakers
-  if (speakers && speakers.length) {
-    speakers.forEach(s => {
-      const div = document.createElement('div');
-      div.className = 'speaker-option';
-      div.dataset.id = s.id;
-      div.dataset.name = s.full_name;
-      div.dataset.langs = JSON.stringify(s.language_ids || []);
-      div.innerHTML = `
-        <div class="speaker-option__name">🎙️ ${s.full_name}</div>
-        <div class="speaker-option__langs">${(s.language_ids||[]).join(', ') || '—'}</div>`;
-      div.onclick = () => selectSpeaker(div);
-      grid.appendChild(div);
-    });
-  }
-}
-
-window.selectSpeaker = function(el) {
-  document.querySelectorAll('.speaker-option').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedSpeaker = {
-    id: el.dataset.id,
-    name: el.dataset.name,
-    langs: JSON.parse(el.dataset.langs)
+  // Self option
+  const selfBtn = document.createElement('button');
+  selfBtn.className = 'speaker-option';
+  selfBtn.innerHTML = `
+    <div class="speaker-option__name">✍️ Mimi mwenyewe</div>
+    <div class="speaker-option__sub">Naweka data zangu</div>`;
+  selfBtn.onclick = () => {
+    document.querySelectorAll('.speaker-option').forEach(e => e.classList.remove('selected'));
+    selfBtn.classList.add('selected');
+    selectedSpeaker = null;
+    document.getElementById('confirmSpeakerBtn').disabled = false;
   };
-  document.getElementById('step1next').disabled = false;
-}
+  grid.appendChild(selfBtn);
 
-window.goStep1 = function() {
-  selectedSpeaker = null; selectedLang = null; selectedTopic = null;
-  show('step1'); setActive(1);
-  document.getElementById('step1next').disabled = true;
-  document.querySelectorAll('.speaker-option').forEach(e => e.classList.remove('selected'));
-}
-
-window.goStep2 = async function() {
-  if (!selectedSpeaker) return;
-  show('step2'); setActive(2);
-
-  const grid = document.getElementById('langGrid');
-  grid.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;">⏳ Inapakia...</div>';
-
-  // Get languages
-  let langs = [];
-  if (selectedSpeaker.id === 'self') {
-    const { data: roles } = await supabase
-      .from('user_roles').select('language_id').eq('user_id', user.id).eq('status','approved');
-    langs = (roles || []).map(r => r.language_id);
-  } else {
-    langs = selectedSpeaker.langs;
-  }
-
-  const res = await fetch('../data/languages.json');
-  const data = await res.json();
-  const allLangs = data.languages;
-
-  grid.innerHTML = '';
-  const filtered = langs.length ? allLangs.filter(l => langs.includes(l.id)) : allLangs;
-
-  filtered.forEach(l => {
-    const div = document.createElement('div');
-    div.className = 'speaker-option';
-    div.dataset.id = l.id;
-    div.dataset.name = l.name;
-    div.dataset.langs = '[]';
-    div.innerHTML = `<div class="speaker-option__name">🌍 ${l.name}</div>`;
-    div.onclick = () => {
-      document.querySelectorAll('#langGrid .speaker-option').forEach(e => e.classList.remove('selected'));
-      div.classList.add('selected');
-      selectedLang = { id: l.id, name: l.name };
-      document.getElementById('step2next').disabled = false;
+  // Other speakers
+  mySpeakers.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'speaker-option';
+    btn.innerHTML = `
+      <div class="speaker-option__name">🎙️ ${s.full_name}</div>
+      <div class="speaker-option__sub">${(s.language_ids||[]).join(', ') || '—'}</div>`;
+    btn.onclick = () => {
+      document.querySelectorAll('.speaker-option').forEach(e => e.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedSpeaker = { id: s.id, name: s.full_name };
+      document.getElementById('confirmSpeakerBtn').disabled = false;
     };
-    grid.appendChild(div);
+    grid.appendChild(btn);
   });
-
-  document.getElementById('step2next').disabled = true;
 }
 
-window.goStep3 = async function() {
-  if (!selectedLang) return;
-  show('step3'); setActive(3);
+window.confirmSpeaker = async function() {
+  document.getElementById('speakerPickSection').classList.add('hidden');
+  await loadAndShow();
+}
 
-  const grid = document.getElementById('topicGrid');
-  grid.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;">⏳ Inapakia...</div>';
-
+async function loadAndShow() {
+  // Load topic data
   const res = await fetch('../data/index.json');
   const index = await res.json();
-  grid.innerHTML = '';
+  const entry = index.find(e => e.id === topicId);
+  if (!entry) { document.getElementById('mainContent').innerHTML = '<p>Mada haikupatikana.</p>'; return; }
 
-  for (const entry of index) {
-    try {
-      const tr = await fetch('../' + entry.path);
-      const topic = await tr.json();
-      const phraseCount = (topic.blocks || []).reduce((n,b) => n + (b.phrases||[]).length, 0);
+  const tr = await fetch('../' + entry.path);
+  topicData = await tr.json();
 
-      const div = document.createElement('div');
-      div.className = 'speaker-option';
-      div.dataset.id = topic.id;
-      div.dataset.path = entry.path;
-      div.dataset.name = topic.name?.sw || topic.id;
-      div.innerHTML = `
-        <div class="speaker-option__name">${topic.name?.sw || topic.id}</div>
-        <div class="speaker-option__langs">${topic.name?.en || ''}</div>
-        <div class="speaker-option__self">${phraseCount} misemo · ${topic.payment_tzs || 0} TZS</div>`;
-      div.onclick = () => {
-        document.querySelectorAll('#topicGrid .speaker-option').forEach(e => e.classList.remove('selected'));
-        div.classList.add('selected');
-        selectedTopic = { id: topic.id, path: entry.path, name: topic.name?.sw || topic.id };
-        topicData = topic;
-        document.getElementById('step3next').disabled = false;
-      };
-      grid.appendChild(div);
-    } catch(e) { console.warn(e); }
+  // Set banner
+  const speakerName = selectedSpeaker ? selectedSpeaker.name : (currentUser.user_metadata?.full_name || currentUser.email);
+  document.getElementById('bannerName').textContent = '🎙️ ' + speakerName;
+  document.getElementById('bannerSub').textContent = (langId || '') + ' · ' + (topicData.name?.sw || topicId);
+
+  // Show change button only if has speakers
+  if (mySpeakers && mySpeakers.length > 0) {
+    document.getElementById('changeSpeakerBtn').classList.remove('hidden');
   }
 
-  document.getElementById('step3next').disabled = true;
-}
-
-window.goStep4 = async function() {
-  if (!selectedTopic) return;
-  show('step4'); setActive(4);
-
-  document.getElementById('bannerSpeaker').textContent = '🎙️ ' + selectedSpeaker.name;
-  document.getElementById('bannerLangTopic').textContent = selectedLang.name + ' · ' + selectedTopic.name;
-
   // Create or find submission
-  const speakerId = selectedSpeaker.id === 'self' ? null : selectedSpeaker.id;
-
   const { data: existing } = await supabase
     .from('submissions')
     .select('id')
-    .eq('user_id', user.id)
-    .eq('language_id', selectedLang.id)
-    .eq('topic_id', selectedTopic.id)
+    .eq('user_id', currentUser.id)
+    .eq('language_id', langId)
+    .eq('topic_id', topicId)
     .maybeSingle();
 
   if (existing) {
     submissionId = existing.id;
   } else {
-    const payload = {
-      user_id: user.id,
-      language_id: selectedLang.id,
-      topic_id: selectedTopic.id,
-      status: 'in_progress',
-      speaker_id: speakerId
-    };
-    const { data: newSub } = await supabase.from('submissions').insert(payload).select().single();
+    const { data: newSub } = await supabase
+      .from('submissions')
+      .insert({ user_id: currentUser.id, language_id: langId, topic_id: topicId, status: 'in_progress', speaker_id: selectedSpeaker?.id || null })
+      .select().single();
     submissionId = newSub?.id;
   }
 
@@ -353,6 +229,7 @@ window.goStep4 = async function() {
   (responses || []).forEach(r => { existingResponses[r.phrase_id] = r; });
 
   renderPhrases();
+  document.getElementById('mainContent').classList.remove('hidden');
 }
 
 function renderPhrases() {
@@ -360,35 +237,30 @@ function renderPhrases() {
   list.innerHTML = '';
 
   const allPhrases = [];
-  (topicData.blocks || []).forEach(block => {
-    (block.phrases || []).forEach(p => allPhrases.push(p));
-  });
+  (topicData.blocks || []).forEach(b => (b.phrases||[]).forEach(p => allPhrases.push(p)));
 
   const done = allPhrases.filter(p => existingResponses[p.id]?.translation).length;
-  const pct = Math.round(done / allPhrases.length * 100);
+  const pct = allPhrases.length ? Math.round(done / allPhrases.length * 100) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressText').textContent = `${done} / ${allPhrases.length} misemo imekamilika`;
 
   allPhrases.forEach(p => {
-    const existing = existingResponses[p.id];
+    const ex = existingResponses[p.id];
     const card = document.createElement('div');
     card.className = 'phrase-card';
-    card.id = 'card_' + p.id;
 
     const ctx = p.ctx_sw ? `<div class="phrase-card__ctx">${p.ctx_sw}</div>` : '';
-    const audioHtml = existing?.audio_url
-      ? `<audio controls src="${existing.audio_url}" style="height:32px;"></audio>`
-      : '';
-    const status = existing?.translation
-      ? `<span class="phrase-card__status status--done">✓ Imekamilika</span>`
-      : `<span class="phrase-card__status status--pending">○ Inasubiri</span>`;
+    const audioHtml = ex?.audio_url ? `<audio controls src="${ex.audio_url}" style="height:32px;"></audio>` : '';
+    const status = ex?.translation
+      ? `<span class="phrase-status status--done">✓ Imekamilika</span>`
+      : `<span class="phrase-status status--pending">○ Inasubiri</span>`;
 
     card.innerHTML = `
       <div class="phrase-card__sw">${p.sw}</div>
       <div class="phrase-card__en">${p.en}</div>
       ${ctx}
       <input type="text" class="form-input phrase-card__input" id="trans_${p.id}"
-        placeholder="Tafsiri hapa..." value="${existing?.translation || ''}" />
+        placeholder="Tafsiri hapa..." value="${ex?.translation || ''}" />
       <div class="phrase-card__audio">
         <button class="rec-btn rec-btn--start" id="recbtn_${p.id}" onclick="startRec('${p.id}')">🎙 Rekodi</button>
         <div id="audio_${p.id}">${audioHtml}</div>
@@ -398,67 +270,48 @@ function renderPhrases() {
   });
 }
 
-// RECORDING
 window.startRec = async function(phraseId) {
-  if (recordingPhraseId) { stopRec(); return; }
+  if (mediaRecorder) { mediaRecorder.stop(); mediaRecorder.stream.getTracks().forEach(t=>t.stop()); mediaRecorder=null; return; }
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   audioChunks = [];
   mediaRecorder = new MediaRecorder(stream);
   mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
   mediaRecorder.onstop = () => uploadAudio(phraseId);
   mediaRecorder.start();
-  recordingPhraseId = phraseId;
-
   const btn = document.getElementById('recbtn_' + phraseId);
   btn.className = 'rec-btn rec-btn--stop';
   btn.innerHTML = '⏹ Simama';
-  btn.onclick = () => stopRec();
-}
-
-function stopRec() {
-  if (mediaRecorder) { mediaRecorder.stop(); mediaRecorder.stream.getTracks().forEach(t => t.stop()); }
-  mediaRecorder = null;
-  recordingPhraseId = null;
 }
 
 async function uploadAudio(phraseId) {
   const blob = new Blob(audioChunks, { type: 'audio/webm' });
   const fileName = `${submissionId}_${phraseId}_${Date.now()}.webm`;
-
-  const { data, error } = await supabase.storage
-    .from('audio').upload(fileName, blob, { contentType: 'audio/webm', upsert: true });
-
+  const { error } = await supabase.storage.from('audio').upload(fileName, blob, { contentType:'audio/webm', upsert:true });
   const btn = document.getElementById('recbtn_' + phraseId);
   btn.className = 'rec-btn rec-btn--start';
   btn.innerHTML = '🎙 Rekodi tena';
-  btn.onclick = () => startRec(phraseId);
-
   if (!error) {
     const { data: urlData } = supabase.storage.from('audio').getPublicUrl(fileName);
-    const url = urlData.publicUrl;
-    document.getElementById('audio_' + phraseId).innerHTML =
-      `<audio controls src="${url}" style="height:32px;"></audio>`;
+    document.getElementById('audio_' + phraseId).innerHTML = `<audio controls src="${urlData.publicUrl}" style="height:32px;"></audio>`;
     if (!existingResponses[phraseId]) existingResponses[phraseId] = {};
-    existingResponses[phraseId].audio_url = url;
+    existingResponses[phraseId].audio_url = urlData.publicUrl;
   }
 }
 
-// SAVE ALL
 window.saveAll = async function() {
   const btn = document.getElementById('saveBtn');
   btn.disabled = true; btn.textContent = '⏳ Inahifadhi...';
 
   const allPhrases = [];
-  (topicData.blocks || []).forEach(b => (b.phrases||[]).forEach(p => allPhrases.push(p)));
-
-  const speakerId = selectedSpeaker.id === 'self' ? null : selectedSpeaker.id;
+  (topicData.blocks||[]).forEach(b => (b.phrases||[]).forEach(p => allPhrases.push(p)));
 
   for (const p of allPhrases) {
     const trans = document.getElementById('trans_' + p.id)?.value?.trim();
     if (!trans) continue;
     const audioUrl = existingResponses[p.id]?.audio_url || null;
+    const speakerId = selectedSpeaker?.id || null;
 
-    if (existingResponses[p.id]?.translation !== undefined) {
+    if (existingResponses[p.id]) {
       await supabase.from('phrase_responses')
         .update({ translation: trans, audio_url: audioUrl, speaker_id: speakerId })
         .eq('submission_id', submissionId).eq('phrase_id', p.id);
@@ -471,7 +324,6 @@ window.saveAll = async function() {
   }
 
   await supabase.from('submissions').update({ status: 'submitted' }).eq('id', submissionId);
-
   btn.disabled = false; btn.textContent = '💾 Hifadhi zote';
   const msg = document.getElementById('saveMsg');
   msg.style.display = 'block';
@@ -479,22 +331,6 @@ window.saveAll = async function() {
   msg.textContent = '✅ Imehifadhiwa! Asante kwa mchango wako.';
   renderPhrases();
 }
-
-// HELPERS
-function show(id) {
-  ['step1','step2','step3','step4'].forEach(s => {
-    document.getElementById(s).classList.toggle('hidden', s !== id);
-  });
-}
-
-function setActive(n) {
-  for (let i=1;i<=4;i++) {
-    const el = document.getElementById('step'+i+'label');
-    el.className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
-  }
-}
-
-await loadSpeakers();
 </script>
 </body>
 </html>
