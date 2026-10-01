@@ -393,7 +393,7 @@
           const status = statusMap[ref.id] || 'pending'
           const badge  = { approved:'badge--approved', review:'badge--review', in_progress:'badge--in-progress', pending:'badge--not-started' }[status] || 'badge--not-started'
           const label  = { approved:t.badge_approved, review:t.badge_review, in_progress:t.badge_progress, pending:t.badge_pending }[status] || t.badge_pending
-          return `<a href="contributor/topic.html?lang=${langId}&topic=${ref.id}" class="topic-card ${status==='approved'?'approved':''}">
+          return `<a href="contributor/topic.html?id=${ref.id}" class="topic-card ${status==='approved'?'approved':''}">
             <div class="topic-card__name">${name}</div>
             <div class="topic-card__right">
               <span class="badge ${badge}" style="font-size:0.7rem;">${label}</span>
