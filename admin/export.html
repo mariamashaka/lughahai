@@ -131,9 +131,6 @@
             <label class="form-label">Lugha</label>
             <select class="form-select" id="selLanguage">
               <option value="">— chagua —</option>
-              <option value="kikurya">Kikurya</option>
-              <option value="kinyamwezi">Kinyamwezi</option>
-              <option value="kimakonde">Kimakonde</option>
             </select>
           </div>
           <div class="form-group">
@@ -166,6 +163,23 @@
 
   let topicsData = [];
   let profilesCache = {};
+
+  // Load languages for dropdown (from data/languages.json, no hardcoding)
+async function loadLanguages() {
+  const sel = document.getElementById('selLanguage');
+  try {
+    const res  = await fetch('../data/languages.json');
+    const data = await res.json();
+    (data.languages || []).forEach(l => {
+      const opt = document.createElement('option');
+      opt.value = l.id;
+      opt.textContent = l.name;
+      sel.appendChild(opt);
+    });
+  } catch (e) {
+    console.warn('Could not load languages:', e);
+  }
+}
 
   // Load topics for dropdown
 async function loadTopics() {
@@ -389,7 +403,8 @@ async function loadTopics() {
     document.getElementById('btn-sw').classList.remove('active');
   });
 
+  loadLanguages();
   loadTopics();
   </script>
 </body>
-</html> 
+</html>
