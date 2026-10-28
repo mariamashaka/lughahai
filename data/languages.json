@@ -200,6 +200,55 @@
         "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_1_pndw6m",
         "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_2_fejwes"
       }
+    },
+    {
+      "id": "kingurimi",
+      "name": "Kingurimi",
+      "country": "Tanzania",
+      "region": "East Africa",
+      "subregion": "Mara Region (Serengeti District)",
+      "family": "Bantu",
+      "speakers": "~55,000",
+      "tonal": null,
+      "status": "active",
+      "started": "2026-10",
+      "contributors": [],
+      "moderator": null,
+      "levels": {
+        "A1": {
+          "active": true,
+          "topics_total": 12,
+          "grammar": [
+            { "id": "pronouns", "status": "pending" },
+            { "id": "nouns", "status": "pending" },
+            { "id": "verb-tenses", "status": "pending" },
+            { "id": "agreement", "status": "pending" },
+            { "id": "being-having", "status": "pending" },
+            { "id": "questions", "status": "pending" }
+          ],
+          "vocabulary": [
+            { "id": "communication", "status": "pending" },
+            { "id": "person-family", "status": "pending" },
+            { "id": "health-emotions", "status": "pending" },
+            { "id": "home-food", "status": "pending" },
+            { "id": "nature-world", "status": "pending" },
+            { "id": "words", "status": "pending" }
+          ],
+          "phonetics": []
+        },
+        "A2": { "active": false, "topics_total": 0 },
+        "B1": { "active": false, "topics_total": 0 },
+        "B2": { "active": false, "topics_total": 0 },
+        "C1": { "active": false, "topics_total": 0 }
+      },
+      "tribe": "Ngurimi",
+      "member_singular": "Mngurimi",
+      "member_plural": "Wangurimi",
+      "culture": {},
+      "images": {
+        "flags": null,
+        "map": null
+      }
     }
   ]
 }
