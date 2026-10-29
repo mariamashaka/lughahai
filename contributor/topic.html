@@ -256,6 +256,8 @@
       save_error:"⚠️ Haikuhifadhiwa! Angalia mtandao na jaribu tena",
       load_error:"Hitilafu ya kupakia data",
       speakers_error:"Imeshindwa kupakia orodha ya wasemaji. Onyesha upya ukurasa.",
+      no_submission_short:"⚠️ HAIHIFADHIWI! Mada haikuundwa kwenye hifadhidata",
+      no_submission_banner:"⚠️ Kazi yako HAIHIFADHIWI. Rekodi ya mada haikuweza kuundwa kwenye hifadhidata. Usiendelee kuingiza data — mjulishe msimamizi na usifunge ukurasa.",
       footer_tagline:"Lugha hai, zilizohifadhiwa kwa vizazi."
     },
     en: {
@@ -296,6 +298,8 @@
       save_error:"⚠️ Not saved! Check your connection and try again",
       load_error:"Error loading data",
       speakers_error:"Could not load the speakers list. Please refresh the page.",
+      no_submission_short:"⚠️ NOT SAVING! The topic record could not be created",
+      no_submission_banner:"⚠️ Your work is NOT being saved. The topic record could not be created in the database. Do not keep entering data — tell the admin and do not close this page.",
       footer_tagline:"Living languages, preserved for generations."
     }
   };
@@ -522,7 +526,12 @@
 
   // ── SAVE TO SUPABASE ──────────────────────────────────
   async function saveToSupabase(phraseId) {
-    if (!submissionId || !currentUser) return;
+    if (!currentUser) return;
+    if (!submissionId) {
+      // never lose data silently: tell the user that nothing is being saved
+      showToast(i18n[currentLang].no_submission_short, 'error');
+      return;
+    }
     const state = phraseState[phraseId];
     try {
       const { error } = await supabase
@@ -567,7 +576,12 @@
         <button class="speaker-banner__btn" onclick="changeSpeaker()">${t.speaker_change}</button>
       </div>` : '';
 
-    let html = speakerBanner + `
+    const saveWarning = (currentUser && !submissionId) ? `
+      <div style="background:#fdecea;border:2px solid #922b21;color:#922b21;border-radius:var(--radius-md);padding:var(--space-lg);margin-bottom:var(--space-lg);font-weight:600;line-height:1.6;">
+        ${t.no_submission_banner}
+      </div>` : '';
+
+    let html = saveWarning + speakerBanner + `
       <div class="status-path">
         <div class="status-step current"><div class="status-step__dot"></div>${t.status_inprogress}</div>
         <div class="status-arrow">›</div>
