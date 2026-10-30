@@ -83,6 +83,18 @@
       .admin-sidebar { position:static;height:auto; }
       .form-grid { grid-template-columns:1fr; }
     }
+
+    /* === EXPORT v2: source + mode controls === */
+    .export-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);margin-bottom:var(--space-lg); }
+    .export-section-title { font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-sm); }
+    .chk-box { display:flex;flex-direction:column;gap:6px;background:var(--cream);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md); }
+    .chk { display:flex;align-items:center;gap:8px;font-size:0.88rem;color:var(--text-dark);cursor:pointer; }
+    .chk input { width:16px;height:16px;flex-shrink:0; }
+    .chk .muted { color:var(--text-muted);font-size:0.78rem; }
+    .chk.disabled { opacity:0.5;cursor:not-allowed; }
+    .hint { font-size:0.78rem;color:var(--text-muted);line-height:1.5; }
+    .auth-warn { background:#fdecea;border:1px solid #922b21;color:#922b21;border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-lg);font-size:0.88rem; }
+    @media(max-width:900px) { .export-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -122,31 +134,55 @@
     </div>
 
     <div class="admin-content">
-      <div class="admin-page-title">⬇️ Hamisha data</div>
-      <div class="admin-page-sub">Chagua lugha, mada na mchangiaji — upakue CSV kwa uchanganuzi</div>
+      <div class="admin-page-title">⬇️ Hamisha data / Export</div>
+      <div class="admin-page-sub">Chagua lugha, mada na wasemaji — upakue CSV / Choose language, topic and speakers — download CSV</div>
+
+      <div id="authWarn"></div>
 
       <div class="export-form">
-        <div class="form-grid">
+        <div class="form-grid" style="grid-template-columns:1fr 1fr;">
           <div class="form-group">
-            <label class="form-label">Lugha</label>
+            <label class="form-label">Lugha / Language</label>
             <select class="form-select" id="selLanguage">
               <option value="">— chagua —</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Mada</label>
+            <label class="form-label">Mada / Topic</label>
             <select class="form-select" id="selTopic">
               <option value="">— chagua —</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">Mchangiaji</label>
-            <select class="form-select" id="selContributor">
-              <option value="">Wote</option>
-            </select>
+        </div>
+
+        <div class="export-grid">
+          <div>
+            <div class="export-section-title">1. Nani / Whose answers</div>
+            <div class="chk-box" id="speakerBox">
+              <div class="hint">Chagua lugha kwanza / Choose a language first</div>
+            </div>
+            <div class="chk-box" style="margin-top:var(--space-sm);">
+              <label class="chk disabled"><input type="checkbox" disabled> Mtoa maoni (moderator) pamoja na masahihisho <span class="muted">— baadaye / coming later</span></label>
+            </div>
+          </div>
+          <div>
+            <div class="export-section-title">2. Nini / What to export</div>
+            <div class="form-group" style="margin-bottom:var(--space-md);">
+              <select class="form-select" id="selMode">
+                <option value="analysis">Uchambuzi / Analysis — safu moja kwa kila msemaji na fungu</option>
+                <option value="compare">Ulinganisho / Compare — wasemaji kando kwa kando</option>
+                <option value="full">Kamili / Full — pamoja na muktadha, hali, tarehe, sauti</option>
+              </select>
+            </div>
+            <div class="chk-box">
+              <label class="chk"><input type="checkbox" id="optAudio"> Ongeza viungo vya sauti / Add audio links</label>
+              <label class="chk"><input type="checkbox" id="optFilled" checked> Fungu zenye tafsiri tu / Only phrases with a translation</label>
+              <label class="chk"><input type="checkbox" id="optNames"> Majina halisi ya wasemaji / Real speaker names <span class="muted">(chaguo-msingi: Msemaji 1, 2, 3)</span></label>
+            </div>
           </div>
         </div>
-        <button class="export-btn" id="btnLoad" onclick="loadData()">🔍 Angalia data</button>
+
+        <button class="export-btn" id="btnLoad" onclick="loadData()">🔍 Angalia data / Preview</button>
       </div>
 
       <div id="previewArea"></div>
@@ -161,239 +197,270 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
   );
 
-  let topicsData = [];
-  let profilesCache = {};
+  const state = { topics: [], speakers: [], rows: null, headers: null, meta: null };
 
-  // Load languages for dropdown (from data/languages.json, no hardcoding)
-async function loadLanguages() {
-  const sel = document.getElementById('selLanguage');
-  try {
-    const res  = await fetch('../data/languages.json');
-    const data = await res.json();
-    (data.languages || []).forEach(l => {
-      const opt = document.createElement('option');
-      opt.value = l.id;
-      opt.textContent = l.name;
-      sel.appendChild(opt);
-    });
-  } catch (e) {
-    console.warn('Could not load languages:', e);
+  // <pure>
+  function normTxt(s) {
+    return String(s || '').normalize('NFC').replace(/\s+/g, ' ').trim().toLowerCase();
   }
-}
 
-  // Load topics for dropdown
-async function loadTopics() {
-  const indexRes = await fetch('../data/index.json');
-  const indexList = await indexRes.json();
-
-  topicsData = [];
-  const sel = document.getElementById('selTopic');
-
-  for (const entry of indexList) {
-    try {
-      const res = await fetch('../' + entry.path);
-      const topic = await res.json();
-      topicsData.push(topic);
-
-      const opt = document.createElement('option');
-      opt.value = topic.id;
-      opt.textContent = topic.name.sw + ' / ' + topic.name.en;
-      sel.appendChild(opt);
-    } catch (e) {
-      console.warn('Could not load topic:', entry.id, e);
-    }
-  }
-}
-  // Load contributors for selected language
-  document.getElementById('selLanguage').addEventListener('change', async function() {
-    const langId = this.value;
-    const sel    = document.getElementById('selContributor');
-    sel.innerHTML = '<option value="">Wote</option>';
-    if (!langId) return;
-    // Get users with contributor role for this language
-    const { data: roles } = await supabase
-      .from('user_roles')
-      .select('user_id')
-      .eq('language_id', langId)
-      .eq('role', 'contributor')
-      .eq('status', 'approved');
-    if (!roles || !roles.length) return;
-    // Get profiles
-    const ids = roles.map(r => r.user_id);
-    const { data: profiles } = await supabase
-      .from('profiles')
-      .select('id, full_name')
-      .in('id', ids);
-    if (!profiles) return;
-    profiles.forEach(p => {
-      profilesCache[p.id] = p.full_name;
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = p.full_name || p.id.substring(0,8);
-      sel.appendChild(opt);
-    });
-  });
-
-  window.loadData = async function() {
-    const langId      = document.getElementById('selLanguage').value;
-    const topicId     = document.getElementById('selTopic').value;
-    const contributorId = document.getElementById('selContributor').value;
-
-    if (!langId || !topicId) {
-      alert('Tafadhali chagua lugha na mada');
-      return;
-    }
-
-    document.getElementById('previewArea').innerHTML =
-      '<div class="loading">⏳ Inapakia...</div>';
-
-    // Find topic phrases
-    const topic = topicsData.find(t => t.id === topicId);
-    if (!topic) return;
-    const allPhrases = topic.blocks.flatMap(b => b.phrases);
-    const phraseMap  = {};
-    allPhrases.forEach(p => { phraseMap[p.id] = p; });
-
-    // Get submissions
-    let subsQuery = supabase
-      .from('submissions')
-      .select('id, user_id, status')
-      .eq('language_id', langId)
-      .eq('topic_id', topicId);
-    if (contributorId) subsQuery = subsQuery.eq('user_id', contributorId);
-    const { data: submissions } = await subsQuery;
-
-    if (!submissions || !submissions.length) {
-      document.getElementById('previewArea').innerHTML =
-        '<div class="preview-wrap"><div class="empty-state">😔 Hakuna data bado kwa chaguo hili.</div></div>';
-      return;
-    }
-
-    // Get all phrase responses for these submissions
-    const subIds = submissions.map(s => s.id);
-    const { data: responses } = await supabase
-      .from('phrase_responses')
-      .select('*')
-      .in('submission_id', subIds);
-
-    // Get contributor names
-    const userIds = [...new Set(submissions.map(s => s.user_id))];
-    for (const uid of userIds) {
-      if (!profilesCache[uid]) {
-        const { data: p } = await supabase.from('profiles').select('full_name').eq('id', uid).single();
-        profilesCache[uid] = p?.full_name || uid.substring(0,8);
-      }
-    }
-
-    // Build rows: one row per phrase per contributor
+  // sources: [{key,label}]   maps: { key: { phraseId: response } }
+  function buildTable({ mode, langId, topic, sources, maps, withAudio, onlyFilled }) {
+    const phrases = [];
+    let n = 0;
+    topic.blocks.forEach(b => (b.phrases || []).forEach(p => {
+      n++;
+      phrases.push({ n, block: (b.label && (b.label.en || b.label.sw)) || b.id || '', p });
+    }));
+    const topicId = topic.id;
+    const ctxOf = p => p.ctx_en || p.ctx_sw || '';
+    let headers;
     const rows = [];
-    submissions.forEach(sub => {
-      const contribName = profilesCache[sub.user_id] || sub.user_id.substring(0,8);
-      const subResponses = (responses || []).filter(r => r.submission_id === sub.id);
-      allPhrases.forEach(phrase => {
-        const resp = subResponses.find(r => r.phrase_id === phrase.id);
-        rows.push({
-          contributor: contribName,
-          phrase_id:   phrase.id,
-          sw:          phrase.sw,
-          en:          phrase.en,
-          ctx_sw:      phrase.ctx_sw || '',
-          translation: resp?.translation || '',
-          has_audio:   !!resp?.audio_url,
-          audio_url:   resp?.audio_url || '',
-          is_done:     resp?.is_done || false,
-          status:      sub.status
+
+    if (mode === 'compare') {
+      headers = ['Lugha', 'Mada', 'Kichwa kidogo', 'Na.', 'ID', 'English', 'Kiswahili'];
+      sources.forEach(s => {
+        headers.push(s.label + ' · tafsiri');
+        if (withAudio) headers.push(s.label + ' · sauti');
+      });
+      if (sources.length >= 2) headers.push('Sawa/Tofauti');
+      phrases.forEach(({ n, block, p }) => {
+        const resps = sources.map(s => (maps[s.key] || {})[p.id]);
+        const texts = resps.map(r => (r && r.translation) || '');
+        if (onlyFilled && !texts.some(Boolean)) return;
+        const row = [langId, topicId, block, n, p.id, p.en || '', p.sw || ''];
+        resps.forEach((r, i) => {
+          row.push(texts[i]);
+          if (withAudio) row.push((r && r.audio_url) || '');
+        });
+        if (sources.length >= 2) {
+          const vals = texts.filter(Boolean).map(normTxt);
+          row.push(vals.length < 2 ? '' : (vals.every(v => v === vals[0]) ? 'sawa' : 'tofauti'));
+        }
+        rows.push(row);
+      });
+    } else {
+      const full = mode === 'full';
+      headers = ['Lugha', 'Mada', 'Msemaji', 'Kichwa kidogo', 'Na.', 'ID', 'English', 'Kiswahili', 'Tafsiri'];
+      if (full) headers.push('Muktadha', 'Imekamilika', 'Imebadilishwa');
+      if (withAudio || full) headers.push('Sauti');
+      sources.forEach(s => {
+        phrases.forEach(({ n, block, p }) => {
+          const r = (maps[s.key] || {})[p.id];
+          if (onlyFilled && !(r && r.translation)) return;
+          const row = [langId, topicId, s.label, block, n, p.id, p.en || '', p.sw || '', (r && r.translation) || ''];
+          if (full) row.push(ctxOf(p), r && r.is_done ? 'Ndiyo' : 'Hapana', (r && r.updated_at) || '');
+          if (withAudio || full) row.push((r && r.audio_url) || '');
+          rows.push(row);
         });
       });
-    });
-
-    // Render preview
-    const contributorLabel = contributorId
-      ? (profilesCache[contributorId] || contributorId)
-      : 'Wachangiaji wote';
-
-    document.getElementById('previewArea').innerHTML = `
-      <div class="preview-wrap">
-        <div class="preview-header">
-          <div class="preview-title">
-            ${topic.name.sw} · ${contributorLabel} · ${rows.length} safu
-          </div>
-          <button class="download-btn" onclick="downloadCSV()">⬇️ Pakua CSV</button>
-        </div>
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>Mchangiaji</th>
-                <th>ID</th>
-                <th>Kiswahili</th>
-                <th>English</th>
-                <th>Muktadha</th>
-                <th>Tafsiri</th>
-                <th>Sauti</th>
-                <th>Hali</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows.map(r => `
-                <tr>
-                  <td>${r.contributor}</td>
-                  <td class="td-id">${r.phrase_id}</td>
-                  <td>${r.sw}</td>
-                  <td>${r.en}</td>
-                  <td style="font-size:0.72rem;color:var(--text-muted);">${r.ctx_sw}</td>
-                  <td class="td-translation">${r.translation || '<span style="color:var(--text-muted);font-style:italic;">—</span>'}</td>
-                  <td class="td-audio">
-                    ${r.audio_url
-                      ? `<a href="${r.audio_url}" target="_blank" class="audio-link">▶ Sikiliza</a>`
-                      : '<span class="no-audio">—</span>'}
-                  </td>
-                  <td>
-                    ${r.is_done
-                      ? '<span class="badge-done">✓ Imekamilika</span>'
-                      : '<span class="badge-pending">Inaendelea</span>'}
-                  </td>
-                </tr>`).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>`;
-
-    // Store rows for CSV download
-    window._exportRows = rows;
-    window._exportTopic = topic;
+    }
+    return { headers, rows };
   }
 
-  window.downloadCSV = function() {
-    const rows  = window._exportRows;
-    const topic = window._exportTopic;
-    if (!rows) return;
+  function toCSV(headers, rows) {
+    const q = v => '"' + String(v === null || v === undefined ? '' : v).replace(/"/g, '""') + '"';
+    return '﻿' + [headers, ...rows].map(r => r.map(q).join(',')).join('\r\n');
+  }
+  // </pure>
 
-    const headers = ['Mchangiaji', 'phrase_id', 'Kiswahili', 'English', 'Muktadha', 'Tafsiri', 'Audio URL', 'Imekamilika'];
-    const csvRows = [
-      headers.join(','),
-      ...rows.map(r => [
-        `"${r.contributor}"`,
-        `"${r.phrase_id}"`,
-        `"${r.sw.replace(/"/g,'""')}"`,
-        `"${r.en.replace(/"/g,'""')}"`,
-        `"${r.ctx_sw.replace(/"/g,'""')}"`,
-        `"${r.translation.replace(/"/g,'""')}"`,
-        `"${r.audio_url}"`,
-        r.is_done ? 'Ndiyo' : 'Hapana'
-      ].join(','))
-    ];
+  function esc(s) {
+    return String(s === null || s === undefined ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 
-    const blob = new Blob(['\uFEFF' + csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  function speakerLangs(s) {
+    let l = s.language_ids;
+    if (typeof l === 'string') { try { l = JSON.parse(l); } catch (e) { l = [l]; } }
+    return Array.isArray(l) ? l : [];
+  }
+
+  // Supabase returns at most 1000 rows per request, so read in pages
+  async function fetchAll(buildQuery) {
+    const out = [];
+    const size = 1000;
+    for (let from = 0; ; from += size) {
+      const { data, error } = await buildQuery().range(from, from + size - 1);
+      if (error) throw error;
+      out.push(...(data || []));
+      if (!data || data.length < size) break;
+    }
+    return out;
+  }
+
+  // ── LOAD DROPDOWNS (no hardcoding) ───────────────────
+  async function loadLanguages() {
+    const sel = document.getElementById('selLanguage');
+    try {
+      const res  = await fetch('../data/languages.json');
+      const data = await res.json();
+      (data.languages || []).forEach(l => {
+        const opt = document.createElement('option');
+        opt.value = l.id;
+        opt.textContent = l.name;
+        sel.appendChild(opt);
+      });
+    } catch (e) {
+      console.warn('Could not load languages:', e);
+    }
+  }
+
+  async function loadTopics() {
+    const indexRes  = await fetch('../data/index.json');
+    const indexList = await indexRes.json();
+    state.topics = [];
+    const sel = document.getElementById('selTopic');
+    for (const entry of indexList) {
+      try {
+        const res = await fetch('../' + entry.path);
+        const topic = await res.json();
+        state.topics.push(topic);
+        const opt = document.createElement('option');
+        opt.value = topic.id;
+        opt.textContent = topic.name.sw + ' / ' + topic.name.en;
+        sel.appendChild(opt);
+      } catch (e) {
+        console.warn('Could not load topic:', entry.id, e);
+      }
+    }
+  }
+
+  async function loadSpeakersFor(langId) {
+    const box = document.getElementById('speakerBox');
+    state.speakers = [];
+    if (!langId) {
+      box.innerHTML = '<div class="hint">Chagua lugha kwanza / Choose a language first</div>';
+      return;
+    }
+    box.innerHTML = '<div class="hint">⏳ ...</div>';
+    const { data, error } = await supabase
+      .from('speakers')
+      .select('id, full_name, language_ids, created_at')
+      .order('created_at', { ascending: true });
+    if (error) {
+      box.innerHTML = '<div class="hint" style="color:#922b21;">❌ ' + esc(error.message) + '</div>';
+      return;
+    }
+    state.speakers = (data || [])
+      .filter(s => speakerLangs(s).includes(langId))
+      .sort((a, b) => (a.created_at || '').localeCompare(b.created_at || '') || a.id.localeCompare(b.id));
+    state.speakers.forEach((s, i) => { s.anon = 'Msemaji ' + (i + 1); });
+
+    let html = state.speakers.map(s =>
+      `<label class="chk"><input type="checkbox" class="spk" value="${esc(s.id)}" checked> ${esc(s.anon)} <span class="muted">${esc(s.full_name || '')}</span></label>`
+    ).join('');
+    if (!state.speakers.length) html = '<div class="hint">Hakuna wasemaji kwa lugha hii / No speakers for this language</div>';
+    html += `<label class="chk"><input type="checkbox" class="spk" value="__none__"> Majibu bila msemaji <span class="muted">(akaunti ya mtumiaji moja kwa moja / entered directly on an account)</span></label>`;
+    box.innerHTML = html;
+  }
+
+  document.getElementById('selLanguage').addEventListener('change', function () {
+    document.getElementById('previewArea').innerHTML = '';
+    loadSpeakersFor(this.value);
+  });
+
+  // ── LOAD + PREVIEW ───────────────────────────────────
+  window.loadData = async function () {
+    const langId  = document.getElementById('selLanguage').value;
+    const topicId = document.getElementById('selTopic').value;
+    const mode    = document.getElementById('selMode').value;
+    const withAudio  = document.getElementById('optAudio').checked;
+    const onlyFilled = document.getElementById('optFilled').checked;
+    const realNames  = document.getElementById('optNames').checked;
+    const area = document.getElementById('previewArea');
+
+    if (!langId || !topicId) { alert('Tafadhali chagua lugha na mada / Please choose a language and a topic'); return; }
+    const selected = [...document.querySelectorAll('.spk:checked')].map(c => c.value);
+    if (!selected.length) { alert('Chagua angalau msemaji mmoja / Choose at least one speaker'); return; }
+    const wantNone = selected.includes('__none__');
+    const ids = selected.filter(x => x !== '__none__');
+
+    const topic = state.topics.find(t => t.id === topicId);
+    if (!topic) { alert('Mada haipatikani / Topic not found'); return; }
+
+    area.innerHTML = '<div class="loading">⏳ Inapakia... / Loading...</div>';
+    try {
+      const subs = await fetchAll(() => supabase
+        .from('submissions')
+        .select('id, speaker_id, user_id, status')
+        .eq('language_id', langId)
+        .eq('topic_id', topicId)
+        .order('id'));
+      const picked = subs.filter(s => s.speaker_id ? ids.includes(s.speaker_id) : wantNone);
+
+      let responses = [];
+      if (picked.length) {
+        responses = await fetchAll(() => supabase
+          .from('phrase_responses')
+          .select('submission_id, phrase_id, translation, audio_url, is_done, updated_at')
+          .in('submission_id', picked.map(s => s.id))
+          .order('id'));
+      }
+
+      const keyOf = s => s.speaker_id || ('none:' + s.user_id);
+      const subKey = {};
+      picked.forEach(s => { subKey[s.id] = keyOf(s); });
+      const maps = {};
+      responses.forEach(r => {
+        const k = subKey[r.submission_id];
+        if (!maps[k]) maps[k] = {};
+        const cur = maps[k][r.phrase_id];
+        if (!cur || (r.updated_at || '') > (cur.updated_at || '')) maps[k][r.phrase_id] = r;
+      });
+
+      const sources = state.speakers
+        .filter(s => ids.includes(s.id))
+        .map(s => ({ key: s.id, label: realNames ? (s.full_name || s.anon) : s.anon }));
+      [...new Set(picked.filter(s => !s.speaker_id).map(keyOf))]
+        .forEach(k => sources.push({ key: k, label: 'Bila msemaji · ' + k.slice(5, 13) }));
+
+      const { headers, rows } = buildTable({ mode, langId, topic, sources, maps, withAudio, onlyFilled });
+      state.headers = headers;
+      state.rows = rows;
+      state.meta = { langId, topicId, mode };
+
+      if (!rows.length) {
+        area.innerHTML = '<div class="preview-wrap"><div class="empty-state">😔 Hakuna data kwa chaguo hili. / No data for this selection.</div></div>';
+        return;
+      }
+
+      const LIMIT = 100;
+      const cell = v => {
+        const s = String(v === null || v === undefined ? '' : v);
+        return /^https?:\/\//.test(s) ? `<a href="${esc(s)}" target="_blank" class="audio-link">▶</a>` : esc(s);
+      };
+      area.innerHTML = `
+        <div class="preview-wrap">
+          <div class="preview-header">
+            <div class="preview-title">${esc(topic.name.sw)} · ${rows.length} safu / rows${rows.length > LIMIT ? ' (onyesho: ' + LIMIT + ' za kwanza / preview: first ' + LIMIT + ')' : ''}</div>
+            <button class="download-btn" onclick="downloadCSV()">⬇️ Pakua CSV / Download CSV</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead><tr>${headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead>
+              <tbody>${rows.slice(0, LIMIT).map(r => `<tr>${r.map(v => `<td>${cell(v)}</td>`).join('')}</tr>`).join('')}</tbody>
+            </table>
+          </div>
+        </div>`;
+    } catch (e) {
+      console.error(e);
+      area.innerHTML = '<div class="preview-wrap"><div class="empty-state" style="color:#922b21;">❌ ' + esc(e.message || e) + '</div></div>';
+    }
+  };
+
+  window.downloadCSV = function () {
+    if (!state.rows) return;
+    const { langId, topicId, mode } = state.meta;
+    const blob = new Blob([toCSV(state.headers, state.rows)], { type: 'text/csv;charset=utf-8;' });
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
     a.href     = url;
-    a.download = `lughahai_${topic.id}_${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = `lughahai_${langId}_${topicId}_${mode}_${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-  }
+  };
 
-  // Lang switcher
+  // Lang switcher (visual only, as before)
   document.getElementById('btn-sw').addEventListener('click', () => {
     document.getElementById('btn-sw').classList.add('active');
     document.getElementById('btn-en').classList.remove('active');
@@ -401,6 +468,14 @@ async function loadTopics() {
   document.getElementById('btn-en').addEventListener('click', () => {
     document.getElementById('btn-en').classList.add('active');
     document.getElementById('btn-sw').classList.remove('active');
+  });
+
+  // Must be signed in as admin, otherwise the database returns nothing
+  supabase.auth.getUser().then(({ data }) => {
+    if (!data || !data.user) {
+      document.getElementById('authWarn').innerHTML =
+        '<div class="auth-warn">⚠️ Hujaingia / You are not signed in. <a href="../auth/login.html" style="color:#922b21;text-decoration:underline;">Ingia / Sign in</a> kama msimamizi, vinginevyo data haitaonekana.</div>';
+    }
   });
 
   loadLanguages();
