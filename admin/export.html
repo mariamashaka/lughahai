@@ -95,6 +95,18 @@
     .hint { font-size:0.78rem;color:var(--text-muted);line-height:1.5; }
     .auth-warn { background:#fdecea;border:1px solid #922b21;color:#922b21;border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-lg);font-size:0.88rem; }
     @media(max-width:900px) { .export-grid { grid-template-columns:1fr; } }
+
+    /* === EXPORT v2: source + mode controls === */
+    .export-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);margin-bottom:var(--space-lg); }
+    .export-section-title { font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-sm); }
+    .chk-box { display:flex;flex-direction:column;gap:6px;background:var(--cream);border:1px solid var(--cream-border);border-radius:var(--radius-md);padding:var(--space-md); }
+    .chk { display:flex;align-items:center;gap:8px;font-size:0.88rem;color:var(--text-dark);cursor:pointer; }
+    .chk input { width:16px;height:16px;flex-shrink:0; }
+    .chk .muted { color:var(--text-muted);font-size:0.78rem; }
+    .chk.disabled { opacity:0.5;cursor:not-allowed; }
+    .hint { font-size:0.78rem;color:var(--text-muted);line-height:1.5; }
+    .auth-warn { background:#fdecea;border:1px solid #922b21;color:#922b21;border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);margin-bottom:var(--space-lg);font-size:0.88rem; }
+    @media(max-width:900px) { .export-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -104,12 +116,12 @@
       <div class="nav__inner">
         <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
         <div style="display:flex;align-items:center;gap:var(--space-md);">
-          <span style="font-size:0.78rem;color:var(--text-muted);">Msimamizi Mkuu</span>
+          <span style="font-size:0.78rem;color:var(--text-muted);" data-i18n="nav_admin">Msimamizi Mkuu</span>
           <div class="lang-switcher">
             <button class="lang-switcher__btn active" id="btn-sw">SW</button>
             <button class="lang-switcher__btn" id="btn-en">EN</button>
           </div>
-          <a href="../auth/login.html" class="btn btn--ghost btn--sm">Toka</a>
+          <a href="../auth/login.html" class="btn btn--ghost btn--sm" data-i18n="nav_signout">Toka</a>
         </div>
       </div>
     </div>
@@ -117,72 +129,73 @@
 
   <div class="admin-layout">
     <div class="admin-sidebar">
-      <div class="admin-sidebar__section">MUHTASARI</div>
-      <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span>Dashibodi</span></a>
-      <div class="admin-sidebar__section">MAUDHUI</div>
-      <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span>Lugha</span></a>
-      <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span>Watumiaji</span></a>
-      <a href="topics.html" class="admin-nav-link"><span class="admin-nav-link__icon">📚</span><span>Mada na Bei</span></a>
-      <a href="disputes.html" class="admin-nav-link"><span class="admin-nav-link__icon">⚠️</span><span>Pingamizi</span></a>
-      <div class="admin-sidebar__section">DATA</div>
-      <a href="export.html" class="admin-nav-link active"><span class="admin-nav-link__icon">⬇️</span><span>Hamisha data</span></a>
-      <div class="admin-sidebar__section">FEDHA</div>
-      <a href="#" class="admin-nav-link"><span class="admin-nav-link__icon">💰</span><span>Malipo</span></a>
+      <div class="admin-sidebar__section" data-i18n="sec_overview">MUHTASARI</div>
+      <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span data-i18n="nav_dashboard">Dashibodi</span></a>
+      <div class="admin-sidebar__section" data-i18n="sec_content">MAUDHUI</div>
+      <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span data-i18n="nav_languages">Lugha</span></a>
+      <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span data-i18n="nav_users">Watumiaji</span></a>
+      <a href="speakers.html" class="admin-nav-link"><span class="admin-nav-link__icon">🎙️</span><span data-i18n="nav_speakers">Wasemaji</span></a>
+      <a href="topics.html" class="admin-nav-link"><span class="admin-nav-link__icon">📚</span><span data-i18n="nav_topics">Mada na Bei</span></a>
+      <a href="disputes.html" class="admin-nav-link"><span class="admin-nav-link__icon">⚠️</span><span data-i18n="nav_disputes">Pingamizi</span></a>
+      <div class="admin-sidebar__section" data-i18n="sec_data">DATA</div>
+      <a href="export.html" class="admin-nav-link active"><span class="admin-nav-link__icon">⬇️</span><span data-i18n="nav_export">Hamisha data</span></a>
+      <div class="admin-sidebar__section" data-i18n="sec_finance">FEDHA</div>
+      <a href="#" class="admin-nav-link"><span class="admin-nav-link__icon">💰</span><span data-i18n="nav_payments">Malipo</span></a>
       <div style="padding:var(--space-lg);">
-        <a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);">← Angalia tovuti</a>
+        <a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);" data-i18n="nav_site">← Angalia tovuti</a>
       </div>
     </div>
 
     <div class="admin-content">
-      <div class="admin-page-title">⬇️ Hamisha data / Export</div>
-      <div class="admin-page-sub">Chagua lugha, mada na wasemaji — upakue CSV / Choose language, topic and speakers — download CSV</div>
+      <div class="admin-page-title" data-i18n="page_title">⬇️ Hamisha data</div>
+      <div class="admin-page-sub" data-i18n="page_sub">Chagua lugha, mada na wasemaji — upakue CSV</div>
 
       <div id="authWarn"></div>
 
       <div class="export-form">
         <div class="form-grid" style="grid-template-columns:1fr 1fr;">
           <div class="form-group">
-            <label class="form-label">Lugha / Language</label>
+            <label class="form-label" data-i18n="lbl_language">Lugha</label>
             <select class="form-select" id="selLanguage">
-              <option value="">— chagua —</option>
+              <option value="" data-i18n="opt_choose">— chagua —</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Mada / Topic</label>
+            <label class="form-label" data-i18n="lbl_topic">Mada</label>
             <select class="form-select" id="selTopic">
-              <option value="">— chagua —</option>
+              <option value="" data-i18n="opt_choose">— chagua —</option>
             </select>
           </div>
         </div>
 
         <div class="export-grid">
           <div>
-            <div class="export-section-title">1. Nani / Whose answers</div>
+            <div class="export-section-title" data-i18n="sec_who">1. Nani</div>
             <div class="chk-box" id="speakerBox">
-              <div class="hint">Chagua lugha kwanza / Choose a language first</div>
+              <div class="hint" data-i18n="hint_choose_lang">Chagua lugha kwanza</div>
             </div>
             <div class="chk-box" style="margin-top:var(--space-sm);">
-              <label class="chk disabled"><input type="checkbox" disabled> Mtoa maoni (moderator) pamoja na masahihisho <span class="muted">— baadaye / coming later</span></label>
+              <label class="chk disabled"><input type="checkbox" disabled> <span data-i18n="mod_label">Mtoa maoni (moderator) pamoja na masahihisho</span> <span class="muted" data-i18n="coming_later">— baadaye</span></label>
             </div>
           </div>
           <div>
-            <div class="export-section-title">2. Nini / What to export</div>
+            <div class="export-section-title" data-i18n="sec_what">2. Nini</div>
             <div class="form-group" style="margin-bottom:var(--space-md);">
               <select class="form-select" id="selMode">
-                <option value="analysis">Uchambuzi / Analysis — safu moja kwa kila msemaji na fungu</option>
-                <option value="compare">Ulinganisho / Compare — wasemaji kando kwa kando</option>
-                <option value="full">Kamili / Full — pamoja na muktadha, hali, tarehe, sauti</option>
+                <option value="analysis" data-i18n="mode_analysis">Uchambuzi — safu moja kwa kila msemaji na fungu</option>
+                <option value="compare" data-i18n="mode_compare">Ulinganisho — wasemaji kando kwa kando</option>
+                <option value="full" data-i18n="mode_full">Kamili — pamoja na muktadha, hali, tarehe, sauti</option>
               </select>
             </div>
             <div class="chk-box">
-              <label class="chk"><input type="checkbox" id="optAudio"> Ongeza viungo vya sauti / Add audio links</label>
-              <label class="chk"><input type="checkbox" id="optFilled" checked> Fungu zenye tafsiri tu / Only phrases with a translation</label>
-              <label class="chk"><input type="checkbox" id="optNames"> Majina halisi ya wasemaji / Real speaker names <span class="muted">(chaguo-msingi: Msemaji 1, 2, 3)</span></label>
+              <label class="chk"><input type="checkbox" id="optAudio"> <span data-i18n="opt_audio">Ongeza viungo vya sauti</span></label>
+              <label class="chk"><input type="checkbox" id="optFilled" checked> <span data-i18n="opt_filled">Fungu zenye tafsiri tu</span></label>
+              <label class="chk"><input type="checkbox" id="optNames"> <span data-i18n="opt_names">Majina halisi ya wasemaji</span> <span class="muted" data-i18n="opt_names_hint">(chaguo-msingi: Msemaji 1, 2, 3)</span></label>
             </div>
           </div>
         </div>
 
-        <button class="export-btn" id="btnLoad" onclick="loadData()">🔍 Angalia data / Preview</button>
+        <button class="export-btn" id="btnLoad" onclick="loadData()" data-i18n="btn_preview">🔍 Angalia data</button>
       </div>
 
       <div id="previewArea"></div>
@@ -197,7 +210,112 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
   );
 
-  const state = { topics: [], speakers: [], rows: null, headers: null, meta: null };
+  const state = { topics: [], speakers: [], rows: null, headers: null, meta: null, topicName: null, speakerLang: null, signedIn: null };
+
+  // ── i18n (SW / EN); the choice is remembered across pages via lh_lang ──
+  const I18N = {
+    sw: {
+      nav_admin: "Msimamizi Mkuu",
+      nav_signout: "Toka",
+      sec_overview: "MUHTASARI",
+      nav_dashboard: "Dashibodi",
+      sec_content: "MAUDHUI",
+      nav_languages: "Lugha",
+      nav_users: "Watumiaji",
+      nav_speakers: "Wasemaji",
+      nav_topics: "Mada na Bei",
+      nav_disputes: "Pingamizi",
+      sec_data: "DATA",
+      nav_export: "Hamisha data",
+      sec_finance: "FEDHA",
+      nav_payments: "Malipo",
+      nav_site: "← Angalia tovuti",
+      page_title: "⬇️ Hamisha data",
+      page_sub: "Chagua lugha, mada na wasemaji — upakue CSV",
+      lbl_language: "Lugha",
+      lbl_topic: "Mada",
+      opt_choose: "— chagua —",
+      sec_who: "1. Nani",
+      sec_what: "2. Nini",
+      hint_choose_lang: "Chagua lugha kwanza",
+      mod_label: "Mtoa maoni (moderator) pamoja na masahihisho",
+      coming_later: "— baadaye",
+      mode_analysis: "Uchambuzi — safu moja kwa kila msemaji na fungu",
+      mode_compare: "Ulinganisho — wasemaji kando kwa kando",
+      mode_full: "Kamili — pamoja na muktadha, hali, tarehe, sauti",
+      opt_audio: "Ongeza viungo vya sauti",
+      opt_filled: "Fungu zenye tafsiri tu",
+      opt_names: "Majina halisi ya wasemaji",
+      opt_names_hint: "(chaguo-msingi: Msemaji 1, 2, 3)",
+      btn_preview: "🔍 Angalia data",
+      no_speakers: "Hakuna wasemaji kwa lugha hii",
+      spk_none: "Majibu bila msemaji",
+      spk_none_hint: "(yaliyoingizwa moja kwa moja kwenye akaunti)",
+      alert_pick: "Tafadhali chagua lugha na mada",
+      alert_spk: "Chagua angalau msemaji mmoja",
+      alert_topic_nf: "Mada haipatikani",
+      loading: "⏳ Inapakia...",
+      empty: "😔 Hakuna data kwa chaguo hili.",
+      rows_word: "safu",
+      preview_first: "onyesho: {n} za kwanza",
+      btn_download: "⬇️ Pakua CSV",
+      auth_not_in: "Hujaingia.",
+      auth_signin: "Ingia",
+      auth_tail: "kama msimamizi, vinginevyo data haitaonekana."
+    },
+    en: {
+      nav_admin: "Chief Admin",
+      nav_signout: "Sign out",
+      sec_overview: "OVERVIEW",
+      nav_dashboard: "Dashboard",
+      sec_content: "CONTENT",
+      nav_languages: "Languages",
+      nav_users: "Users",
+      nav_speakers: "Speakers",
+      nav_topics: "Topics & Prices",
+      nav_disputes: "Disputes",
+      sec_data: "DATA",
+      nav_export: "Export data",
+      sec_finance: "FINANCE",
+      nav_payments: "Payments",
+      nav_site: "← View site",
+      page_title: "⬇️ Export data",
+      page_sub: "Choose language, topic and speakers — download CSV",
+      lbl_language: "Language",
+      lbl_topic: "Topic",
+      opt_choose: "— choose —",
+      sec_who: "1. Whose answers",
+      sec_what: "2. What to export",
+      hint_choose_lang: "Choose a language first",
+      mod_label: "Moderator with corrections",
+      coming_later: "— coming later",
+      mode_analysis: "Analysis — one row per speaker and phrase",
+      mode_compare: "Compare — speakers side by side",
+      mode_full: "Full — with context, status, date, audio",
+      opt_audio: "Add audio links",
+      opt_filled: "Only phrases with a translation",
+      opt_names: "Real speaker names",
+      opt_names_hint: "(default: Msemaji 1, 2, 3)",
+      btn_preview: "🔍 Preview",
+      no_speakers: "No speakers for this language",
+      spk_none: "Answers without a speaker",
+      spk_none_hint: "(entered directly on an account)",
+      alert_pick: "Please choose a language and a topic",
+      alert_spk: "Choose at least one speaker",
+      alert_topic_nf: "Topic not found",
+      loading: "⏳ Loading...",
+      empty: "😔 No data for this selection.",
+      rows_word: "rows",
+      preview_first: "preview: first {n}",
+      btn_download: "⬇️ Download CSV",
+      auth_not_in: "You are not signed in.",
+      auth_signin: "Sign in",
+      auth_tail: "as an admin, otherwise no data will show."
+    }
+  };
+  let currentLang = 'sw';
+  try { currentLang = localStorage.getItem('lh_lang') === 'en' ? 'en' : 'sw'; } catch (e) {}
+  const t = key => (I18N[currentLang] && I18N[currentLang][key] !== undefined) ? I18N[currentLang][key] : (I18N.sw[key] || key);
 
   // <pure>
   function normTxt(s) {
@@ -328,8 +446,9 @@
   async function loadSpeakersFor(langId) {
     const box = document.getElementById('speakerBox');
     state.speakers = [];
+    state.speakerLang = null;
     if (!langId) {
-      box.innerHTML = '<div class="hint">Chagua lugha kwanza / Choose a language first</div>';
+      renderSpeakerBox(false);
       return;
     }
     box.innerHTML = '<div class="hint">⏳ ...</div>';
@@ -345,12 +464,24 @@
       .filter(s => speakerLangs(s).includes(langId))
       .sort((a, b) => (a.created_at || '').localeCompare(b.created_at || '') || a.id.localeCompare(b.id));
     state.speakers.forEach((s, i) => { s.anon = 'Msemaji ' + (i + 1); });
+    state.speakerLang = langId;
+    renderSpeakerBox(false);
+  }
 
+  function renderSpeakerBox(keepChecked) {
+    const box = document.getElementById('speakerBox');
+    if (!state.speakerLang) {
+      box.innerHTML = `<div class="hint">${esc(t('hint_choose_lang'))}</div>`;
+      return;
+    }
+    const prev = new Set([...document.querySelectorAll('.spk:checked')].map(c => c.value));
+    const had  = document.querySelectorAll('.spk').length > 0;
+    const isOn = (v, dflt) => (keepChecked && had) ? prev.has(v) : dflt;
     let html = state.speakers.map(s =>
-      `<label class="chk"><input type="checkbox" class="spk" value="${esc(s.id)}" checked> ${esc(s.anon)} <span class="muted">${esc(s.full_name || '')}</span></label>`
+      `<label class="chk"><input type="checkbox" class="spk" value="${esc(s.id)}" ${isOn(s.id, true) ? 'checked' : ''}> ${esc(s.anon)} <span class="muted">${esc(s.full_name || '')}</span></label>`
     ).join('');
-    if (!state.speakers.length) html = '<div class="hint">Hakuna wasemaji kwa lugha hii / No speakers for this language</div>';
-    html += `<label class="chk"><input type="checkbox" class="spk" value="__none__"> Majibu bila msemaji <span class="muted">(akaunti ya mtumiaji moja kwa moja / entered directly on an account)</span></label>`;
+    if (!state.speakers.length) html = `<div class="hint">${esc(t('no_speakers'))}</div>`;
+    html += `<label class="chk"><input type="checkbox" class="spk" value="__none__" ${isOn('__none__', false) ? 'checked' : ''}> ${esc(t('spk_none'))} <span class="muted">${esc(t('spk_none_hint'))}</span></label>`;
     box.innerHTML = html;
   }
 
@@ -360,6 +491,58 @@
   });
 
   // ── LOAD + PREVIEW ───────────────────────────────────
+
+  function renderPreview() {
+    const area = document.getElementById('previewArea');
+    if (!state.rows) return;
+    const { headers, rows } = state;
+    if (!rows.length) {
+      area.innerHTML = `<div class="preview-wrap"><div class="empty-state">${esc(t('empty'))}</div></div>`;
+      return;
+    }
+    const LIMIT = 100;
+    const cell = v => {
+      const s = String(v === null || v === undefined ? '' : v);
+      return /^https?:\/\//.test(s) ? `<a href="${esc(s)}" target="_blank" class="audio-link">▶</a>` : esc(s);
+    };
+    const name = state.topicName ? (state.topicName[currentLang] || state.topicName.sw || '') : '';
+    const lim = rows.length > LIMIT ? ' (' + t('preview_first').replace('{n}', LIMIT) + ')' : '';
+    area.innerHTML = `
+      <div class="preview-wrap">
+        <div class="preview-header">
+          <div class="preview-title">${esc(name)} · ${rows.length} ${esc(t('rows_word'))}${esc(lim)}</div>
+          <button class="download-btn" onclick="downloadCSV()">${esc(t('btn_download'))}</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead><tr>${headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead>
+            <tbody>${rows.slice(0, LIMIT).map(r => `<tr>${r.map(v => `<td>${cell(v)}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  function renderAuthWarn(signedIn) {
+    state.signedIn = signedIn;
+    document.getElementById('authWarn').innerHTML = signedIn ? '' :
+      `<div class="auth-warn">⚠️ ${esc(t('auth_not_in'))} <a href="../auth/login.html" style="color:#922b21;text-decoration:underline;">${esc(t('auth_signin'))}</a> ${esc(t('auth_tail'))}</div>`;
+  }
+
+  function applyLang() {
+    document.documentElement.lang = currentLang;
+    document.getElementById('btn-sw').classList.toggle('active', currentLang === 'sw');
+    document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
+    renderSpeakerBox(true);
+    renderPreview();
+    if (state.signedIn === false) renderAuthWarn(false);
+  }
+  window.setLang = function (lang) {
+    currentLang = lang === 'en' ? 'en' : 'sw';
+    try { localStorage.setItem('lh_lang', currentLang); } catch (e) {}
+    applyLang();
+  };
+
   window.loadData = async function () {
     const langId  = document.getElementById('selLanguage').value;
     const topicId = document.getElementById('selTopic').value;
@@ -369,16 +552,16 @@
     const realNames  = document.getElementById('optNames').checked;
     const area = document.getElementById('previewArea');
 
-    if (!langId || !topicId) { alert('Tafadhali chagua lugha na mada / Please choose a language and a topic'); return; }
+    if (!langId || !topicId) { alert(t('alert_pick')); return; }
     const selected = [...document.querySelectorAll('.spk:checked')].map(c => c.value);
-    if (!selected.length) { alert('Chagua angalau msemaji mmoja / Choose at least one speaker'); return; }
+    if (!selected.length) { alert(t('alert_spk')); return; }
     const wantNone = selected.includes('__none__');
     const ids = selected.filter(x => x !== '__none__');
 
     const topic = state.topics.find(t => t.id === topicId);
-    if (!topic) { alert('Mada haipatikani / Topic not found'); return; }
+    if (!topic) { alert(t('alert_topic_nf')); return; }
 
-    area.innerHTML = '<div class="loading">⏳ Inapakia... / Loading...</div>';
+    area.innerHTML = `<div class="loading">${esc(t('loading'))}</div>`;
     try {
       const subs = await fetchAll(() => supabase
         .from('submissions')
@@ -419,29 +602,8 @@
       state.rows = rows;
       state.meta = { langId, topicId, mode };
 
-      if (!rows.length) {
-        area.innerHTML = '<div class="preview-wrap"><div class="empty-state">😔 Hakuna data kwa chaguo hili. / No data for this selection.</div></div>';
-        return;
-      }
-
-      const LIMIT = 100;
-      const cell = v => {
-        const s = String(v === null || v === undefined ? '' : v);
-        return /^https?:\/\//.test(s) ? `<a href="${esc(s)}" target="_blank" class="audio-link">▶</a>` : esc(s);
-      };
-      area.innerHTML = `
-        <div class="preview-wrap">
-          <div class="preview-header">
-            <div class="preview-title">${esc(topic.name.sw)} · ${rows.length} safu / rows${rows.length > LIMIT ? ' (onyesho: ' + LIMIT + ' za kwanza / preview: first ' + LIMIT + ')' : ''}</div>
-            <button class="download-btn" onclick="downloadCSV()">⬇️ Pakua CSV / Download CSV</button>
-          </div>
-          <div style="overflow-x:auto;">
-            <table>
-              <thead><tr>${headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead>
-              <tbody>${rows.slice(0, LIMIT).map(r => `<tr>${r.map(v => `<td>${cell(v)}</td>`).join('')}</tr>`).join('')}</tbody>
-            </table>
-          </div>
-        </div>`;
+      state.topicName = topic.name;
+      renderPreview();
     } catch (e) {
       console.error(e);
       area.innerHTML = '<div class="preview-wrap"><div class="empty-state" style="color:#922b21;">❌ ' + esc(e.message || e) + '</div></div>';
@@ -460,24 +622,15 @@
     URL.revokeObjectURL(url);
   };
 
-  // Lang switcher (visual only, as before)
-  document.getElementById('btn-sw').addEventListener('click', () => {
-    document.getElementById('btn-sw').classList.add('active');
-    document.getElementById('btn-en').classList.remove('active');
-  });
-  document.getElementById('btn-en').addEventListener('click', () => {
-    document.getElementById('btn-en').classList.add('active');
-    document.getElementById('btn-sw').classList.remove('active');
-  });
+  document.getElementById('btn-sw').addEventListener('click', () => window.setLang('sw'));
+  document.getElementById('btn-en').addEventListener('click', () => window.setLang('en'));
 
   // Must be signed in as admin, otherwise the database returns nothing
   supabase.auth.getUser().then(({ data }) => {
-    if (!data || !data.user) {
-      document.getElementById('authWarn').innerHTML =
-        '<div class="auth-warn">⚠️ Hujaingia / You are not signed in. <a href="../auth/login.html" style="color:#922b21;text-decoration:underline;">Ingia / Sign in</a> kama msimamizi, vinginevyo data haitaonekana.</div>';
-    }
+    renderAuthWarn(!!(data && data.user));
   });
 
+  applyLang();
   loadLanguages();
   loadTopics();
   </script>
