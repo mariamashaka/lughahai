@@ -202,7 +202,8 @@
     </div>
   </div>
 
-  <script type="module">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
   const supabase = createClient(
@@ -231,7 +232,7 @@
       nav_payments: "Malipo",
       nav_site: "← Angalia tovuti",
       page_title: "⬇️ Hamisha data",
-      page_sub: "Chagua lugha, mada na wasemaji — upakue CSV",
+      page_sub: "Chagua lugha, mada na wasemaji — upakue Excel au CSV",
       lbl_language: "Lugha",
       lbl_topic: "Mada",
       opt_choose: "— chagua —",
@@ -258,7 +259,9 @@
       empty: "😔 Hakuna data kwa chaguo hili.",
       rows_word: "safu",
       preview_first: "onyesho: {n} za kwanza",
-      btn_download: "⬇️ Pakua CSV",
+      btn_download: "⬇️ Pakua Excel (.xlsx)",
+      btn_csv: "CSV",
+      xlsx_missing: "Maktaba ya Excel haikupakiwa. Pakua CSV au jaribu tena.",
       auth_not_in: "Hujaingia.",
       auth_signin: "Ingia",
       auth_tail: "kama msimamizi, vinginevyo data haitaonekana."
@@ -280,7 +283,7 @@
       nav_payments: "Payments",
       nav_site: "← View site",
       page_title: "⬇️ Export data",
-      page_sub: "Choose language, topic and speakers — download CSV",
+      page_sub: "Choose language, topic and speakers — download Excel or CSV",
       lbl_language: "Language",
       lbl_topic: "Topic",
       opt_choose: "— choose —",
@@ -307,7 +310,9 @@
       empty: "😔 No data for this selection.",
       rows_word: "rows",
       preview_first: "preview: first {n}",
-      btn_download: "⬇️ Download CSV",
+      btn_download: "⬇️ Download Excel (.xlsx)",
+      btn_csv: "CSV",
+      xlsx_missing: "The Excel library did not load. Download CSV or try again.",
       auth_not_in: "You are not signed in.",
       auth_signin: "Sign in",
       auth_tail: "as an admin, otherwise no data will show."
@@ -511,7 +516,8 @@
       <div class="preview-wrap">
         <div class="preview-header">
           <div class="preview-title">${esc(name)} · ${rows.length} ${esc(t('rows_word'))}${esc(lim)}</div>
-          <button class="download-btn" onclick="downloadCSV()">${esc(t('btn_download'))}</button>
+          <span><button class="download-btn" onclick="downloadXLSX()">${esc(t('btn_download'))}</button>
+            <button class="download-btn" style="background:#6b7a6f;margin-left:6px;" onclick="downloadCSV()">${esc(t('btn_csv'))}</button></span>
         </div>
         <div style="overflow-x:auto;">
           <table>
@@ -608,6 +614,23 @@
       console.error(e);
       area.innerHTML = '<div class="preview-wrap"><div class="empty-state" style="color:#922b21;">❌ ' + esc(e.message || e) + '</div></div>';
     }
+  };
+
+  window.downloadXLSX = function () {
+    if (!state.rows) return;
+    if (typeof XLSX === 'undefined') { alert(t('xlsx_missing')); return; }
+    const { langId, topicId, mode } = state.meta;
+    const aoa = [state.headers, ...state.rows.map(r => r.map(v => (v === null || v === undefined) ? '' : String(v)))];
+    const ws = XLSX.utils.aoa_to_sheet(aoa);
+    ws['!cols'] = state.headers.map((h, i) => {
+      let w = String(h).length;
+      for (const r of aoa.slice(1, 60)) w = Math.max(w, String(r[i] || '').length);
+      return { wch: Math.min(Math.max(w + 2, 10), 45) };
+    });
+    ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'data');
+    XLSX.writeFile(wb, `lughahai_${langId}_${topicId}_${mode}_${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
   window.downloadCSV = function () {
