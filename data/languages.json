@@ -29,7 +29,7 @@
             { "id": "questions", "status": "pending" }
           ],
           "vocabulary": [
-            { "id": "communication-numbers-time", "status": "pending" },
+            { "id": "communication", "status": "pending" },
             { "id": "person-family", "status": "pending" },
             { "id": "health-emotions", "status": "pending" },
             { "id": "home-food", "status": "pending" },
@@ -80,7 +80,7 @@
             { "id": "questions", "status": "pending" }
           ],
           "vocabulary": [
-            { "id": "communication-numbers-time", "status": "pending" },
+            { "id": "communication", "status": "pending" },
             { "id": "person-family", "status": "pending" },
             { "id": "health-emotions", "status": "pending" },
             { "id": "home-food", "status": "pending" },
@@ -129,7 +129,7 @@
         { "id": "questions", "status": "pending" }
       ],
       "vocabulary": [
-        { "id": "communication-numbers-time", "status": "pending" },
+        { "id": "communication", "status": "pending" },
         { "id": "person-family", "status": "pending" },
         { "id": "health-emotions", "status": "pending" },
         { "id": "home-food", "status": "pending" },
