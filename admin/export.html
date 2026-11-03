@@ -337,14 +337,23 @@
     }));
     const topicId = topic.id;
     const ctxOf = p => p.ctx_en || p.ctx_sw || '';
+    // phrases closed as duplicates of other phrases (field covered_by in the topic JSON)
+    const anyCovered = phrases.some(({ p }) => Array.isArray(p.covered_by) && p.covered_by.length);
+    const coveredText = p => (Array.isArray(p.covered_by) ? p.covered_by.join(' + ') : '');
+    const subst = (p, key) => {
+      if (!Array.isArray(p.covered_by) || !p.covered_by.length) return '';
+      return p.covered_by.map(id => ((maps[key] || {})[id] || {}).translation || '').filter(Boolean).join(' / ');
+    };
     let headers;
     const rows = [];
 
     if (mode === 'compare') {
       headers = ['Lugha', 'Mada', 'Kichwa kidogo', 'Na.', 'ID', 'English', 'Kiswahili'];
+      if (anyCovered) headers.push('Imefunikwa na');
       sources.forEach(s => {
         headers.push(s.label + ' · tafsiri');
         if (withAudio) headers.push(s.label + ' · sauti');
+        if (anyCovered) headers.push(s.label + ' · jibu kutoka fungu mbadala');
       });
       if (sources.length >= 2) headers.push('Sawa/Tofauti');
       phrases.forEach(({ n, block, p }) => {
@@ -352,9 +361,11 @@
         const texts = resps.map(r => (r && r.translation) || '');
         if (onlyFilled && !texts.some(Boolean)) return;
         const row = [langId, topicId, block, n, p.id, p.en || '', p.sw || ''];
+        if (anyCovered) row.push(coveredText(p));
         resps.forEach((r, i) => {
           row.push(texts[i]);
           if (withAudio) row.push((r && r.audio_url) || '');
+          if (anyCovered) row.push(subst(p, sources[i].key));
         });
         if (sources.length >= 2) {
           const vals = texts.filter(Boolean).map(normTxt);
@@ -365,6 +376,7 @@
     } else {
       const full = mode === 'full';
       headers = ['Lugha', 'Mada', 'Msemaji', 'Kichwa kidogo', 'Na.', 'ID', 'English', 'Kiswahili', 'Tafsiri'];
+      if (anyCovered) headers.push('Imefunikwa na', 'Jibu kutoka fungu mbadala');
       if (full) headers.push('Muktadha', 'Imekamilika', 'Imebadilishwa');
       if (withAudio || full) headers.push('Sauti');
       sources.forEach(s => {
@@ -372,6 +384,7 @@
           const r = (maps[s.key] || {})[p.id];
           if (onlyFilled && !(r && r.translation)) return;
           const row = [langId, topicId, s.label, block, n, p.id, p.en || '', p.sw || '', (r && r.translation) || ''];
+          if (anyCovered) row.push(coveredText(p), subst(p, s.key));
           if (full) row.push(ctxOf(p), r && r.is_done ? 'Ndiyo' : 'Hapana', (r && r.updated_at) || '');
           if (withAudio || full) row.push((r && r.audio_url) || '');
           rows.push(row);
