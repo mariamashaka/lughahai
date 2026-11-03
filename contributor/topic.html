@@ -351,6 +351,9 @@
       const res  = await fetch('../' + entry.path);
       topicData  = await res.json();
       if (!topicData) throw new Error('Topic not found: ' + topicId);
+      // Phrases marked "covered_by" duplicate another phrase: hide them (answers already saved stay in the database)
+      topicData.blocks.forEach(b => { b.phrases = (b.phrases || []).filter(p => !p.covered_by); });
+      topicData.blocks = topicData.blocks.filter(b => b.phrases.length > 0);
     } catch(e) {
       document.getElementById('mainContainer').innerHTML =
         `<div class="loading" style="color:var(--terracotta);">Hitilafu: ${e.message}</div>`;
