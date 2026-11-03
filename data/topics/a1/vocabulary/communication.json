@@ -1,0 +1,780 @@
+{
+  "id": "communication",
+  "type": "vocabulary",
+  "level": "A1",
+  "order": 7,
+  "payment_tzs": 5000,
+  "name": {
+    "sw": "Mawasiliano, nambari na wakati",
+    "en": "Communication, numbers and time"
+  },
+  "description": {
+    "sw": "Salamu na kuaga, maneno ya heshima, kujuana, maombi na mahitaji, njia na mahali, kuelewa, nambari 1-100, siku za juma, miezi, nyakati za siku.",
+    "en": "Greetings and farewells, polite expressions, introductions, requests and needs, directions, understanding, numbers 1-100, days of the week, months, parts of the day."
+  },
+  "blocks": [
+    {
+      "id": "greetings",
+      "label": {
+        "sw": "A. Salamu",
+        "en": "A. Greetings"
+      },
+      "phrases": [
+        {
+          "id": "gr1",
+          "sw": "Habari za asubuhi!",
+          "en": "Good morning!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gr2",
+          "sw": "Habari za mchana!",
+          "en": "Good afternoon!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gr3",
+          "sw": "Habari za jioni!",
+          "en": "Good evening!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gr4",
+          "sw": "Habari, John!",
+          "en": "Hi, John!",
+          "ctx_sw": "(salamu kwa rafiki)",
+          "ctx_en": "(greeting a friend)"
+        },
+        {
+          "id": "gr5",
+          "sw": "John anamsalimia mzee",
+          "en": "John greets the elder",
+          "ctx_sw": "(salamu kwa mzee)",
+          "ctx_en": "(greeting an elder)"
+        },
+        {
+          "id": "gr6",
+          "sw": "John anakutana na Anna mara ya kwanza: nafurahi kukujua!",
+          "en": "John meets Anna for the first time: nice to meet you!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gr7",
+          "sw": "Anna anamjibu John: mimi pia!",
+          "en": "Anna responds to John: nice to meet you too!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "farewells",
+      "label": {
+        "sw": "B. Kuaga",
+        "en": "B. Farewells"
+      },
+      "phrases": [
+        {
+          "id": "fw1",
+          "sw": "Kwa heri!",
+          "en": "Goodbye!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "fw2",
+          "sw": "Baadaye, John!",
+          "en": "See you later, John!",
+          "ctx_sw": "(kuaga kwa rafiki)",
+          "ctx_en": "(informal farewell)"
+        },
+        {
+          "id": "fw3",
+          "sw": "Tutaonana kesho, Anna!",
+          "en": "See you tomorrow, Anna!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "fw4",
+          "sw": "Nenda salama!",
+          "en": "Go well!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "fw5",
+          "sw": "John anaaga mzee",
+          "en": "John says goodbye to the elder",
+          "ctx_sw": "(kuaga mzee)",
+          "ctx_en": "(farewell to elder)"
+        }
+      ]
+    },
+    {
+      "id": "polite",
+      "label": {
+        "sw": "C. Maneno ya heshima",
+        "en": "C. Polite expressions"
+      },
+      "phrases": [
+        {
+          "id": "po1",
+          "sw": "Asante, Anna!",
+          "en": "Thank you, Anna!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "po2",
+          "sw": "Anna anasema asante, John anajibu: ___",
+          "en": "Anna says thank you, John responds: ___",
+          "ctx_sw": "(jibu la asante)",
+          "ctx_en": "(responding to thank you)"
+        },
+        {
+          "id": "po3",
+          "sw": "Nipe maji, tafadhali",
+          "en": "Give me some water, please",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "po4",
+          "sw": "Karibu!",
+          "en": "You're welcome!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "po5",
+          "sw": "Samahani, barabara iko wapi?",
+          "en": "Excuse me, where is the road?",
+          "ctx_sw": "(kwa mgeni)",
+          "ctx_en": "(to a stranger)"
+        },
+        {
+          "id": "po6",
+          "sw": "Nisamehe, John!",
+          "en": "Sorry, John!",
+          "ctx_sw": "(kwa mtu unayemjua)",
+          "ctx_en": "(to someone you know)"
+        },
+        {
+          "id": "po7",
+          "sw": "John anasema msamaha, Anna anajibu: ___",
+          "en": "John says sorry, Anna responds: ___",
+          "ctx_sw": "(jibu la msamaha)",
+          "ctx_en": "(responding to sorry)"
+        },
+        {
+          "id": "po8",
+          "sw": "Hakuna shida, usijali!",
+          "en": "It's okay, don't worry!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "po9",
+          "sw": "Asante kwa msaada, Anna!",
+          "en": "Thank you for the help, Anna!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "po10",
+          "sw": "Asante kwa chakula.",
+          "en": "Thank you for the food.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "po11",
+          "sw": "Asante sana!",
+          "en": "Thank you very much!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "label": {
+        "sw": "D. Kujuana na hali",
+        "en": "D. Meeting people and how are you"
+      },
+      "phrases": [
+        {
+          "id": "in1",
+          "sw": "Shikamoo!",
+          "en": "Greetings, respected one!",
+          "ctx_sw": "(salamu kwa mzee)",
+          "ctx_en": "(greeting an elder)"
+        },
+        {
+          "id": "in2",
+          "sw": "Marahaba!",
+          "en": "Hello, child!",
+          "ctx_sw": "(jibu la mzee)",
+          "ctx_en": "(the elder's reply)"
+        },
+        {
+          "id": "in3",
+          "sw": "Habari yako?",
+          "en": "How are you?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "in4",
+          "sw": "Nzuri, asante.",
+          "en": "Fine, thank you.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "in5",
+          "sw": "Unaitwa nani?",
+          "en": "What is your name?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "in6",
+          "sw": "Naitwa Anna.",
+          "en": "My name is Anna.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "in7",
+          "sw": "Unatoka wapi?",
+          "en": "Where are you from?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "in8",
+          "sw": "Nina miaka ishirini.",
+          "en": "I am twenty years old.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "in9",
+          "sw": "Pole sana, John!",
+          "en": "I am so sorry, John!",
+          "ctx_sw": "(kwa mtu mwenye shida)",
+          "ctx_en": "(to someone in trouble)"
+        },
+        {
+          "id": "in10",
+          "sw": "Pole na kazi!",
+          "en": "Don't get tired at work!",
+          "ctx_sw": "(kwa mtu anayefanya kazi)",
+          "ctx_en": "(to someone who is working)"
+        }
+      ]
+    },
+    {
+      "id": "want",
+      "label": {
+        "sw": "E. Nataka na ninahitaji",
+        "en": "E. I want and I need"
+      },
+      "phrases": [
+        {
+          "id": "wa1",
+          "sw": "Nataka maji.",
+          "en": "I want water.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa2",
+          "sw": "Nina kiu.",
+          "en": "I am thirsty.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa3",
+          "sw": "Nina njaa.",
+          "en": "I am hungry.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa4",
+          "sw": "Ninahitaji daktari.",
+          "en": "I need a doctor.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa5",
+          "sw": "Ninahitaji msaada.",
+          "en": "I need help.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa6",
+          "sw": "Ninahitaji hiki.",
+          "en": "I need this.",
+          "ctx_sw": "(nikionyesha kitu)",
+          "ctx_en": "(pointing at an object)"
+        },
+        {
+          "id": "wa7",
+          "sw": "Ninahitaji kwenda huko.",
+          "en": "I need to go there.",
+          "ctx_sw": "(nikionyesha mahali)",
+          "ctx_en": "(pointing at a place)"
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "label": {
+        "sw": "F. Maombi na ruhusa",
+        "en": "F. Requests and permission"
+      },
+      "phrases": [
+        {
+          "id": "rq1",
+          "sw": "Nisaidie, tafadhali.",
+          "en": "Help me, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "rq2",
+          "sw": "Subiri, tafadhali.",
+          "en": "Wait, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "rq3",
+          "sw": "Rudia, tafadhali.",
+          "en": "Repeat, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "rq4",
+          "sw": "Sema polepole, tafadhali.",
+          "en": "Speak slowly, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "rq5",
+          "sw": "Naweza kuingia?",
+          "en": "May I come in?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "rq6",
+          "sw": "Naweza kukaa?",
+          "en": "May I sit down?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "must",
+      "label": {
+        "sw": "G. Lazima na uwezo",
+        "en": "G. Must and can"
+      },
+      "phrases": [
+        {
+          "id": "mu1",
+          "sw": "Lazima niende nyumbani.",
+          "en": "I must go home.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mu2",
+          "sw": "Naweza kuja kesho.",
+          "en": "I can come tomorrow.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mu3",
+          "sw": "Siwezi kuja leo.",
+          "en": "I cannot come today.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "way",
+      "label": {
+        "sw": "H. Njia na mahali",
+        "en": "H. Directions and places"
+      },
+      "phrases": [
+        {
+          "id": "wy1",
+          "sw": "Naendaje sokoni?",
+          "en": "How do I get to the market?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wy2",
+          "sw": "Choo kiko wapi?",
+          "en": "Where is the toilet?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wy3",
+          "sw": "Nitapata wapi maji?",
+          "en": "Where can I find water?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wy4",
+          "sw": "Zahanati iko wapi hapa?",
+          "en": "Where is the clinic here?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wy5",
+          "sw": "Ninafanyaje hili?",
+          "en": "How do I do this?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "understand",
+      "label": {
+        "sw": "I. Kuelewa na simu",
+        "en": "I. Understanding and the phone"
+      },
+      "phrases": [
+        {
+          "id": "un1",
+          "sw": "Sielewi.",
+          "en": "I do not understand.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "un2",
+          "sw": "Nimeelewa.",
+          "en": "I understood.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "un3",
+          "sw": "Sijui.",
+          "en": "I do not know.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "un4",
+          "sw": "Hii inamaanisha nini?",
+          "en": "What does this mean?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "un5",
+          "sw": "Hii inasemwaje kwa lugha yako?",
+          "en": "How do you say this in your language?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "un6",
+          "sw": "Nipe nambari yako ya simu.",
+          "en": "Give me your phone number.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "un7",
+          "sw": "Nipigie simu.",
+          "en": "Call me.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "numbers",
+      "label": {
+        "sw": "J. Nambari",
+        "en": "J. Numbers"
+      },
+      "phrases": [
+        {
+          "id": "nu1",
+          "sw": "Moja, mbili, tatu, nne, tano, sita, saba, nane, tisa, kumi",
+          "en": "One, two, three, four, five, six, seven, eight, nine, ten",
+          "ctx_sw": "1-10",
+          "ctx_en": "1-10"
+        },
+        {
+          "id": "nu2",
+          "sw": "Kumi, ishirini, thelathini, arobaini, hamsini, sitini, sabini, themanini, tisini, mia moja",
+          "en": "Ten, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, one hundred",
+          "ctx_sw": "makumi",
+          "ctx_en": "tens"
+        },
+        {
+          "id": "nu3",
+          "sw": "Kumi na moja, kumi na mbili, ishirini na moja, ishirini na mbili, hamsini na tano",
+          "en": "Eleven, twelve, twenty one, twenty two, fifty five",
+          "ctx_sw": "nambari mchanganyiko",
+          "ctx_en": "compound numbers"
+        },
+        {
+          "id": "nu4",
+          "sw": "Wa kwanza, wa pili, wa tatu, wa nne, wa tano, wa sita, wa saba, wa nane, wa tisa, wa kumi",
+          "en": "First, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth",
+          "ctx_sw": "nambari za mpangilio 1-10",
+          "ctx_en": "ordinal numbers 1-10"
+        },
+        {
+          "id": "nu5",
+          "sw": "John anaishi nyumba ya kwanza",
+          "en": "John lives in the first house",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nu6",
+          "sw": "Leo ni siku ya pili",
+          "en": "Today is the second day",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "label": {
+        "sw": "K. Wakati",
+        "en": "K. Time"
+      },
+      "phrases": [
+        {
+          "id": "ti1",
+          "sw": "Jumatatu, Jumanne, Jumatano, Alhamisi, Ijumaa, Jumamosi, Jumapili",
+          "en": "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
+          "ctx_sw": "siku za juma",
+          "ctx_en": "days of the week"
+        },
+        {
+          "id": "ti2",
+          "sw": "Leo ni Jumatatu",
+          "en": "Today is Monday",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti3",
+          "sw": "John atakuja Ijumaa",
+          "en": "John will come on Friday",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti4",
+          "sw": "Januari, Februari, Machi, Aprili, Mei, Juni, Julai, Agosti, Septemba, Oktoba, Novemba, Desemba",
+          "en": "January, February, March, April, May, June, July, August, September, October, November, December",
+          "ctx_sw": "miezi",
+          "ctx_en": "months"
+        },
+        {
+          "id": "ti5",
+          "sw": "Sasa ni Januari",
+          "en": "It is January now",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti6",
+          "sw": "Anna alizaliwa Machi",
+          "en": "Anna was born in March",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti7",
+          "sw": "Asubuhi, mchana, jioni, usiku",
+          "en": "Morning, afternoon, evening, night",
+          "ctx_sw": "nyakati za siku",
+          "ctx_en": "parts of the day"
+        },
+        {
+          "id": "ti8",
+          "sw": "Sasa ni asubuhi",
+          "en": "It is morning now",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti9",
+          "sw": "John atakuja jioni",
+          "en": "John will come in the evening",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti10",
+          "sw": "Jana, leo, kesho, sasa, baadaye, hivi karibuni",
+          "en": "Yesterday, today, tomorrow, now, later, soon",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti11",
+          "sw": "Leo John yuko nyumbani",
+          "en": "Today John is at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti12",
+          "sw": "Jana Anna alikuwa shuleni",
+          "en": "Yesterday Anna was at school",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti13",
+          "sw": "Kesho tutaenda sokoni",
+          "en": "Tomorrow we are going to the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti14",
+          "sw": "Saa ngapi sasa?",
+          "en": "What time is it?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti15",
+          "sw": "Sasa ni saa tisa",
+          "en": "It is three o'clock",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti16",
+          "sw": "Sasa ni saa tisa na nusu",
+          "en": "It is half past three",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti17",
+          "sw": "Sasa ni saa nne na dakika ishirini",
+          "en": "It is ten twenty",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti18",
+          "sw": "John atakuja saa moja na dakika thelathini",
+          "en": "John will come at seven thirty",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    }
+  ],
+  "moderator_questions": [
+    {
+      "id": "mq1",
+      "sw": "Swali 1: Nambari na ngeli",
+      "en": "Question 1: Numbers and noun classes",
+      "body": {
+        "sw": "Katika Kiswahili 'watu wawili' lakini 'vitabu viwili' — neno 'wawili/viwili' linabadilika kulingana na ngeli. Katika Kiingereza 'two' haibadiliki kamwe. Katika lugha yako — nambari inabadilika kulingana na kitu au daima ni sawa?",
+        "en": "In Swahili 'watu wawili' (two people) but 'vitabu viwili' (two books) — the word 'two' changes according to noun class. In English 'two' never changes. In your language — does the number change depending on the object or always stay the same?"
+      },
+      "options": {
+        "sw": [
+          "Ni sawa — nambari haibadiliki",
+          "Inabadilika → toa mifano na vitu tofauti na tafsiri"
+        ],
+        "en": [
+          "Always the same — numbers do not change",
+          "Changes → give examples with different objects and translations"
+        ]
+      }
+    },
+    {
+      "id": "mq2",
+      "sw": "Swali 2: Maumbo maalum ya 1 na 2",
+      "en": "Question 2: Special forms for 1 and 2",
+      "body": {
+        "sw": "Katika baadhi ya lugha nambari 1 na 2 zina maumbo maalum — zinapatana na nomino tofauti na nambari nyingine. Kwa mfano katika Kirusi nambari 1 na 2 zinabadilika kulingana na jinsia. Katika lugha yako — nambari 1 na 2 zina maalum au zinafanya kazi kama nyingine zote?",
+        "en": "In some languages numbers 1 and 2 have special forms — they agree with nouns differently from other numbers. In Russian numbers 1 and 2 change by gender. In your language — do numbers 1 and 2 have special forms or work like all other numbers?"
+      },
+      "options": {
+        "sw": [
+          "Zinafanya kazi kama nyingine zote",
+          "Zina maalum → toa mifano na tafsiri"
+        ],
+        "en": [
+          "Same as all other numbers",
+          "Special forms exist → give examples and translations"
+        ]
+      }
+    },
+    {
+      "id": "mq3",
+      "sw": "Swali 3: Kukusanya kitabu cha sarufi",
+      "en": "Question 3: Building the grammar reference",
+      "body": {
+        "sw": "Kulingana na maudhui yote — maneno, misemo ya wasemaji na majibu ya maswali — tunga kitabu kifupi cha sarufi kuhusu mada hii katika lugha yako.",
+        "en": "Based on all content provided — words, speakers' phrases and answers to the questions — write a short grammar reference on this topic in your language."
+      },
+      "structure": {
+        "sw": [
+          "Salamu — orodha kamili na maelezo ni lini kutumia",
+          "Kuaga — orodha kamili",
+          "Maneno ya heshima na majibu yake",
+          "Nambari — je, zinapatana na ngeli, maumbo maalum ya 1 na 2",
+          "Siku za juma — maneno yake au ya mpangilio",
+          "Miezi — majina yake au ya kukopa",
+          "Jinsi ya kusema wakati — saa, dakika, nyakati za siku"
+        ],
+        "en": [
+          "Greetings — full list with notes on when to use each",
+          "Farewells — full list",
+          "Polite expressions and responses",
+          "Numbers — agreement with classes, special forms for 1 and 2",
+          "Days of the week — own words or ordinal",
+          "Months — own names or borrowed",
+          "How to express time — hours, minutes, parts of the day"
+        ]
+      }
+    }
+  ]
+}
