@@ -25,21 +25,30 @@
           "sw": "Nyumba kubwa",
           "en": "A big house",
           "ctx_sw": "",
-          "ctx_en": ""
+          "ctx_en": "",
+          "covered_by": [
+            "b1"
+          ]
         },
         {
           "id": "a2",
           "sw": "Kitabu kikubwa",
           "en": "A big book",
           "ctx_sw": "",
-          "ctx_en": ""
+          "ctx_en": "",
+          "covered_by": [
+            "b1"
+          ]
         },
         {
           "id": "a3",
           "sw": "Dirisha kubwa",
           "en": "A big window",
           "ctx_sw": "",
-          "ctx_en": ""
+          "ctx_en": "",
+          "covered_by": [
+            "b1"
+          ]
         },
         {
           "id": "a4",
@@ -211,63 +220,99 @@
           "sw": "Mwanaume — wanaume",
           "en": "Man — men",
           "ctx_sw": "watu",
-          "ctx_en": "people"
+          "ctx_en": "people",
+          "covered_by": [
+            "i2_sg",
+            "i2_pl"
+          ]
         },
         {
           "id": "c2",
           "sw": "Mwanamke — wanawake",
           "en": "Woman — women",
           "ctx_sw": "watu",
-          "ctx_en": "people"
+          "ctx_en": "people",
+          "covered_by": [
+            "i3_sg",
+            "i3_pl"
+          ]
         },
         {
           "id": "c3",
           "sw": "Mtoto — watoto",
           "en": "Child — children",
           "ctx_sw": "watu",
-          "ctx_en": "people"
+          "ctx_en": "people",
+          "covered_by": [
+            "i4_sg",
+            "i4_pl"
+          ]
         },
         {
           "id": "c4",
           "sw": "Mzee — wazee",
           "en": "Elder — elders",
           "ctx_sw": "watu",
-          "ctx_en": "people"
+          "ctx_en": "people",
+          "covered_by": [
+            "i6_sg",
+            "i6_pl"
+          ]
         },
         {
           "id": "c5",
           "sw": "Ng'ombe — ng'ombe",
           "en": "Cow — cows",
           "ctx_sw": "wanyama",
-          "ctx_en": "animals"
+          "ctx_en": "animals",
+          "covered_by": [
+            "i11_sg",
+            "i11_pl"
+          ]
         },
         {
           "id": "c6",
           "sw": "Mbuzi — mbuzi",
           "en": "Goat — goats",
           "ctx_sw": "wanyama",
-          "ctx_en": "animals"
+          "ctx_en": "animals",
+          "covered_by": [
+            "i12_sg",
+            "i12_pl"
+          ]
         },
         {
           "id": "c7",
           "sw": "Mbwa — mbwa",
           "en": "Dog — dogs",
           "ctx_sw": "wanyama",
-          "ctx_en": "animals"
+          "ctx_en": "animals",
+          "covered_by": [
+            "i13_sg",
+            "i13_pl"
+          ]
         },
         {
           "id": "c8",
           "sw": "Kuku — kuku",
           "en": "Chicken — chickens",
           "ctx_sw": "wanyama",
-          "ctx_en": "animals"
+          "ctx_en": "animals",
+          "covered_by": [
+            "i14_sg",
+            "i14_pl"
+          ]
         },
         {
           "id": "c9",
           "sw": "Nyumba — nyumba",
           "en": "House — houses",
           "ctx_sw": "vitu",
-          "ctx_en": "objects"
+          "ctx_en": "objects",
+          "covered_by": [
+            "i49_sg",
+            "i49_pl"
+          ]
         },
         {
           "id": "c10",
@@ -281,7 +326,11 @@
           "sw": "Mti — miti",
           "en": "Tree — trees",
           "ctx_sw": "vitu",
-          "ctx_en": "objects"
+          "ctx_en": "objects",
+          "covered_by": [
+            "i21_sg",
+            "i21_pl"
+          ]
         },
         {
           "id": "c12",
@@ -295,35 +344,55 @@
           "sw": "Barabara — barabara",
           "en": "Road — roads",
           "ctx_sw": "vitu",
-          "ctx_en": "objects"
+          "ctx_en": "objects",
+          "covered_by": [
+            "i50_sg",
+            "i50_pl"
+          ]
         },
         {
           "id": "c14",
           "sw": "Shamba — mashamba",
           "en": "Field — fields",
           "ctx_sw": "vitu",
-          "ctx_en": "objects"
+          "ctx_en": "objects",
+          "covered_by": [
+            "i52_sg",
+            "i52_pl"
+          ]
         },
         {
           "id": "c15",
           "sw": "Chakula (je, kuna wingi?)",
           "en": "Food (is there a plural?)",
           "ctx_sw": "chakula",
-          "ctx_en": "food"
+          "ctx_en": "food",
+          "covered_by": [
+            "i40_sg",
+            "i40_pl"
+          ]
         },
         {
           "id": "c16",
           "sw": "Maji (je, kuna wingi?)",
           "en": "Water (is there a plural?)",
           "ctx_sw": "chakula",
-          "ctx_en": "food"
+          "ctx_en": "food",
+          "covered_by": [
+            "i41_sg",
+            "i41_pl"
+          ]
         },
         {
           "id": "c17",
           "sw": "Maziwa (je, kuna wingi?)",
           "en": "Milk (is there a plural?)",
           "ctx_sw": "chakula",
-          "ctx_en": "food"
+          "ctx_en": "food",
+          "covered_by": [
+            "i42_sg",
+            "i42_pl"
+          ]
         }
       ]
     },
