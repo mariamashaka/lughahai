@@ -337,8 +337,14 @@
   async function init() {
     const params  = new URLSearchParams(window.location.search);
     const topicId = params.get('id') || 'pronouns';
-    languageId    = params.get('lang') || 'kikurya';
+    languageId    = params.get('lang');
     currentTopicId = topicId;
+    if (!languageId) {
+      // Never guess the language: a wrong guess saves answers under the wrong language
+      document.getElementById('mainContainer').innerHTML =
+        `<div class="loading" style="color:var(--terracotta);">Hitilafu: lugha haijatajwa kwenye kiungo. Fungua mada kutoka ukurasa wa lugha.<br>Error: no language in the link. Open the topic from the language page.<br><br><a href="../index.html">← Home</a></div>`;
+      return;
+    }
 
     const { data: { user } } = await supabase.auth.getUser();
     currentUser = user;
