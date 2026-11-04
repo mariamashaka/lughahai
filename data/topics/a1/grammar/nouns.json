@@ -3,7 +3,7 @@
   "type": "grammar",
   "level": "A1",
   "order": 2,
-  "payment_tzs": 7500,
+  "payment_tzs": 20000,
   "name": {
     "sw": "Nomino (jinsia, ngeli, idadi, upatanisho)",
     "en": "Nouns (gender, classes, number, agreement)"
