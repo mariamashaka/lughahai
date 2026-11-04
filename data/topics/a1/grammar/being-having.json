@@ -3,7 +3,7 @@
   "type": "grammar",
   "level": "A1",
   "order": 5,
-  "payment_tzs": 5000,
+  "payment_tzs": 10000,
   "name": {
     "sw": "Kuwa na kuwa nacho (kitenzi 'kuwa', 'nina')",
     "en": "Being and having (verb 'to be', 'I have')"
