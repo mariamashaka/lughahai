@@ -174,7 +174,11 @@ options: { redirectTo: 'https://mariamashaka.github.io/lughahai/profile/index.ht
       const roles = await getUserRoles(data.user.id)
       if (roles.some(r => r.role === 'admin')) window.location.href = '../admin/index.html'
       else if (roles.some(r => r.role === 'moderator')) window.location.href = '../moderator/index.html'
-      else if (roles.some(r => r.role === 'contributor')) window.location.href = '../contributor/index.html'
+      else if (roles.some(r => r.role === 'contributor')) {
+        // Send contributors to their language page so the language is always known (one language = direct)
+        const cLangs = [...new Set(roles.filter(r => r.role === 'contributor' && r.language_id && r.language_id !== '*').map(r => r.language_id))]
+        window.location.href = cLangs.length === 1 ? '../language.html?id=' + encodeURIComponent(cLangs[0]) : '../index.html'
+      }
       else window.location.href = '../profile/index.html'
     }
 
