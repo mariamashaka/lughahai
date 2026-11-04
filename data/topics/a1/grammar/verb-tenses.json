@@ -1,9 +1,9 @@
-    {
+{
       "id": "verb-tenses",
       "type": "grammar",
       "level": "A1",
       "order": 3,
-      "payment_tzs": 7500,
+      "payment_tzs": 60000,
       "name": {
         "sw": "Nyakati za kitenzi (sasa, kale, kesho, kukanusha)",
         "en": "Verb tenses (present, past, future, negation)"
