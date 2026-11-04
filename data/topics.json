@@ -12,6 +12,57 @@
   "topics": [
 
     {
+      "id": "pronouns",
+      "type": "grammar",
+      "level": "A1",
+      "order": 1,
+      "payment_tzs": 10000,
+      "name": {
+        "sw": "Viwakilishi (nafsi, kuonyesha, umiliki)",
+        "en": "Pronouns (personal, demonstrative, possessive)"
+      },
+      "description": {
+        "sw": "Viwakilishi vyote vya nafsi — mimi/wewe/yeye/sisi/ninyi/wao — pamoja na viwakilishi vya kuonyesha na umiliki.",
+        "en": "All personal pronouns — I/you/he/she/we/you/they — together with demonstrative and possessive pronouns."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
+    {
+      "id": "nouns",
+      "type": "grammar",
+      "level": "A1",
+      "order": 2,
+      "payment_tzs": 20000,
+      "name": {
+        "sw": "Nomino (jinsia, ngeli, idadi, upatanisho)",
+        "en": "Nouns (gender, classes, number, agreement)"
+      },
+      "description": {
+        "sw": "Jinsia na ngeli za nomino, umoja na wingi, upatanisho wa kivumishi na kitenzi, uhai, hali za nomino, utambuzi.",
+        "en": "Noun gender and classes, singular and plural, adjective and verb agreement, animacy, noun cases, definiteness."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
+    {
+      "id": "verb-tenses",
+      "type": "grammar",
+      "level": "A1",
+      "order": 3,
+      "payment_tzs": 60000,
+      "name": {
+        "sw": "Nyakati za kitenzi (sasa, kale, kesho, kukanusha)",
+        "en": "Verb tenses (present, past, future, negation)"
+      },
+      "description": {
+        "sw": "Wakati wa sasa, wakati wa kale, wakati wa kesho, kukanusha katika nyakati zote. Vitenzi vya mfano (vikundi 1-3) na mzunguko wa vitenzi 50 (kikundi 4).",
+        "en": "Present, past, future tenses and negation. Model verbs (groups 1-3) with full conjugation and rotation of 50 verbs (group 4)."
+      },
+      "blocks": [],
+      "moderator_questions": []
+    },
+    {
       "id": "agreement",
       "type": "grammar",
       "level": "A1",
