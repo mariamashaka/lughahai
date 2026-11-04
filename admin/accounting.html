@@ -145,7 +145,7 @@ const I18N = {
     title: '📋 Uhasibu', all: 'Lugha zote', grammar: 'Sarufi', vocab: 'Msamiati',
     speakers: 'Wasemaji', moderators: 'Wasimamizi',
     words: 'maneno', audio: 'sauti', paid: 'imelipwa', unpaid: 'haijalipwa', partial: 'imelipwa kiasi',
-    approved: 'imeidhinishwa', corrections: 'marekebisho', vacant: 'Nafasi wazi — tafuta mtu',
+    approved: 'imeidhinishwa', corrections: 'marekebisho', completed: 'imekamilika', vacant: 'Nafasi wazi — tafuta mtu',
     legend: 'Kisanduku: maneno · sauti · malipo · idhini. Kijani kilichokolea = tayari, nyekundu = haijalipwa / haijaidhinishwa / marekebisho, nyeusi = inaendelea. Kisanduku chote kijani kibichi = kila kitu tayari. Tupu = haijaanza. Bonyeza kisanduku kuweka malipo. N1, N2… = namba za wasemaji (kwa wasimamizi: vishazi vingapi amekagua kwa kila msemaji).',
     loading: 'Inapakia…', error: 'Hitilafu ya kupakia', noLang: 'Hakuna lugha',
     pmTitle: 'Malipo', status: 'Hali', amount: 'Kiasi (TZS)', date: 'Tarehe ya malipo', note: 'Maelezo', save: 'Hifadhi', cancel: 'Ghairi',
@@ -155,7 +155,7 @@ const I18N = {
     title: '📋 Accounting', all: 'All languages', grammar: 'Grammar', vocab: 'Vocabulary',
     speakers: 'Wasemaji (speakers)', moderators: 'Moderators',
     words: 'words', audio: 'audio', paid: 'paid', unpaid: 'not paid', partial: 'partly paid',
-    approved: 'approved', corrections: 'corrections', vacant: 'Open place — find a person',
+    approved: 'approved', corrections: 'corrections', completed: 'completed', vacant: 'Open place — find a person',
     legend: 'Cell: words · audio · payment · approval. Dark green = done, red = unpaid / not approved / corrections, black = in progress. Whole cell light green = everything done. Empty cell = not started. Click a cell to record payment. N1, N2… = speaker numbers (in moderator rows: how many phrases the moderator checked for each speaker).',
     loading: 'Loading…', error: 'Load error', noLang: 'No languages',
     pmTitle: 'Payment', status: 'Status', amount: 'Amount (TZS)', date: 'Payment date', note: 'Note', save: 'Save', cancel: 'Cancel',
@@ -166,6 +166,9 @@ let lang = 'sw';
 try { const s = localStorage.getItem('lh_lang'); if (s && I18N[s]) lang = s; } catch (e) {}
 const t = k => (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+const dateFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Dar_es_Salaam', day: '2-digit', month: '2-digit', year: '2-digit' });
+const fmtDate = ts => { if (!ts) return ''; const d = new Date(ts); return isNaN(d) ? '' : dateFmt.format(d).replace(/\//g, '.'); };
 
 // ── STATE ─────────────────────────────────────────────────────────
 let LANGS = [];            // [{id,name,topicIds:[...], grammarIds:[...], vocabIds:[...]}]
@@ -221,8 +224,8 @@ async function loadAll() {
   const [spk, subs, resp, mods, acc] = await Promise.all([
     supabase.from('speakers').select('id, full_name, language_ids, user_id, assistant_user_id, created_at').order('created_at'),
     fetchAll('submissions', 'id, user_id, language_id, topic_id, speaker_id'),
-    fetchAll('phrase_responses', 'id, submission_id, phrase_id, translation, audio_url'),
-    fetchAll('moderations', 'id, submission_id, moderator_id, phrase_id, verdict'),
+    fetchAll('phrase_responses', 'id, submission_id, phrase_id, translation, audio_url, updated_at'),
+    fetchAll('moderations', 'id, submission_id, moderator_id, phrase_id, verdict, created_at'),
     supabase.from('work_accounting').select('*')
   ]);
   if (spk.error) throw spk.error;
@@ -233,7 +236,8 @@ async function loadAll() {
     if (!RESP.has(r.submission_id)) RESP.set(r.submission_id, new Map());
     RESP.get(r.submission_id).set(r.phrase_id, {
       text: !!(r.translation && String(r.translation).trim()),
-      audio: !!r.audio_url
+      audio: !!r.audio_url,
+      at: r.updated_at || null
     });
   });
   (acc.data || []).forEach(a => ACC.set(`${a.speaker_id}|${a.language_id}|${a.topic_id}`, a));
@@ -265,12 +269,14 @@ function cellData(card, langId, topicId, modIds) {
   const subs = subsOf(card, langId, topicId);
   let words = 0, audio = 0;
   const wordsSet = new Set(), audioSet = new Set();
+  let lastAt = null;
   subs.forEach(s => {
     const m = RESP.get(s.id); if (!m) return;
     info.active.forEach(pid => {
       const r = m.get(pid); if (!r) return;
       if (r.text) wordsSet.add(pid);
       if (r.audio) audioSet.add(pid);
+      if (r.at && (!lastAt || r.at > lastAt)) lastAt = r.at;
     });
   });
   words = wordsSet.size; audio = audioSet.size;
@@ -280,18 +286,23 @@ function cellData(card, langId, topicId, modIds) {
   // per moderator: accepted / rejected phrase counts (active phrases only)
   const per = modIds.map(mid => {
     const acc = new Set(), rej = new Set();
+    let at = null;
     MODS.forEach(m => {
       if (m.moderator_id !== mid || !subIds.has(m.submission_id) || !info.active.has(m.phrase_id)) return;
+      if (m.created_at && (!at || m.created_at > at)) at = m.created_at;
       const v = String(m.verdict || '').toLowerCase();
       if (VERDICT_REJECT.includes(v)) rej.add(m.phrase_id);
       else if (VERDICT_ACCEPT.includes(v)) acc.add(m.phrase_id);
     });
-    return { checked: acc.size + rej.size, accepted: acc.size, rejected: rej.size };
+    return { checked: acc.size + rej.size, accepted: acc.size, rejected: rej.size, at };
   });
-  const doneMods = per.filter(p => p.accepted === info.total && p.rejected === 0).length;
+  const finished = per.filter(p => p.accepted === info.total && p.rejected === 0);
+  const doneMods = finished.length;
+  const modAt = finished.reduce((a, p) => (p.at && (!a || p.at > a) ? p.at : a), null);
+  const completedAt = (words === info.total && audio === info.total) ? lastAt : null;
   const anyReject = per.some(p => p.rejected > 0);
   const accRow = ACC.get(`${card.id}|${langId}|${topicId}`) || null;
-  return { total: info.total, words, audio, per, doneMods, anyReject, acc: accRow, pay: info.pay };
+  return { total: info.total, words, audio, per, doneMods, modAt, completedAt, anyReject, acc: accRow, pay: info.pay };
 }
 
 // ── RENDER ────────────────────────────────────────────────────────
@@ -309,10 +320,13 @@ function renderCell(c, modSlots, cardId, langId, topicId) {
   const apOk = c.doneMods >= modSlots && modSlots > 0 && !c.anyReject;
   const all = wOk && aOk && pOk && apOk;
   const payTxt = st === 'paid' ? t('paid') : st === 'partial' ? t('partial') : t('unpaid');
-  const apTxt = c.anyReject ? t('corrections') : `${t('approved')} ${c.doneMods}/${modSlots}`;
+  const apDate = c.doneMods > 0 && !c.anyReject ? fmtDate(c.modAt) : '';
+  const apTxt = c.anyReject ? t('corrections') : `${t('approved')} ${c.doneMods}/${modSlots}${apDate ? ' · ' + apDate : ''}`;
+  const doneLine = c.completedAt ? `<div class="ln ok">${t('completed')} ${fmtDate(c.completedAt)}</div>` : '';
   return `<td class="cell has ${all ? 'alldone' : ''}" data-spk="${esc(cardId)}" data-lang="${esc(langId)}" data-topic="${esc(topicId)}">
     <div class="ln ${wOk ? 'ok' : ''}">${t('words')} ${c.words}/${c.total}</div>
     <div class="ln ${aOk ? 'ok' : ''}">${t('audio')} ${c.audio}/${c.total}</div>
+    ${doneLine}
     <div class="ln ${pOk ? 'ok' : 'bad'}">${payTxt}</div>
     <div class="ln ${apOk ? 'ok' : 'bad'}">${apTxt}</div>
   </td>`;
