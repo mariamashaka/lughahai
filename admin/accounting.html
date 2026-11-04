@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Admin · Uhasibu / Учёт</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .lang-switcher{display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px}
+    .lang-switcher__btn{padding:4px 12px;border-radius:var(--radius-xl);border:none;background:transparent;font-size:0.8rem;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all var(--transition)}
+    .lang-switcher__btn.active{background:var(--white);color:var(--green-deep);box-shadow:0 1px 4px var(--shadow-warm)}
+    .admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px)}
+    .admin-sidebar{background:var(--green-deep);padding:var(--space-lg) 0;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto}
+    .admin-sidebar__section{padding:var(--space-sm) var(--space-lg);font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-pale);margin-top:var(--space-md)}
+    .admin-nav-link{display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) var(--space-lg);font-size:0.88rem;color:var(--green-pale);transition:all var(--transition);cursor:pointer;border-left:3px solid transparent;text-decoration:none}
+    .admin-nav-link:hover{background:rgba(255,255,255,0.06);color:var(--cream)}
+    .admin-nav-link.active{background:rgba(255,255,255,0.10);color:var(--cream);border-left-color:var(--terracotta)}
+    .admin-nav-link__icon{font-size:1rem;width:20px;text-align:center}
+    .admin-content{padding:var(--space-xl);background:var(--cream);min-width:0}
+    .admin-page-title{font-size:1.4rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-md)}
+    .loading-state{text-align:center;padding:var(--space-2xl);color:var(--text-muted)}
+    .hidden{display:none!important}
+
+    /* language buttons */
+    .lang-bar{display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-bottom:var(--space-lg)}
+    .lang-pick{padding:6px 16px;border-radius:99px;border:1px solid var(--cream-border);background:var(--white);color:var(--green-deep);font-size:0.88rem;cursor:pointer}
+    .lang-pick:hover{border-color:var(--green-soft)}
+    .lang-pick.active{background:var(--green-deep);color:var(--cream);border-color:var(--green-deep)}
+
+    /* matrix */
+    .matrix-block{margin-bottom:var(--space-2xl)}
+    .matrix-title{font-size:1.15rem;font-weight:600;color:var(--green-deep);margin-bottom:var(--space-sm)}
+    .matrix-wrap{overflow-x:auto;background:var(--white);border:1px solid var(--cream-border);border-radius:var(--radius-lg);box-shadow:0 2px 8px var(--shadow-warm)}
+    table.matrix{border-collapse:separate;border-spacing:0;font-size:0.78rem;min-width:100%}
+    table.matrix th,table.matrix td{border-right:1px solid var(--cream-border);border-bottom:1px solid var(--cream-border);padding:6px 8px;vertical-align:top;text-align:left;min-width:128px}
+    table.matrix thead th{background:var(--cream-dark);color:var(--green-deep);font-weight:600;vertical-align:middle}
+    table.matrix thead tr.group th{text-align:center;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase}
+    table.matrix th.nocontent{opacity:0.45;font-weight:400}
+    table.matrix .first{position:sticky;left:0;z-index:2;min-width:150px;max-width:190px;background:var(--white);font-weight:600;color:var(--green-deep)}
+    table.matrix thead .first{background:var(--cream-dark);z-index:3}
+    table.matrix tr.sect td{background:var(--cream);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600;padding:4px 8px}
+    table.matrix tr.sect td.first{background:var(--cream)}
+    table.matrix td.vacant{background:#e57373;color:#fff}
+    table.matrix td.cell{cursor:default}
+    table.matrix td.cell.has{cursor:pointer}
+    table.matrix td.cell.has:hover{outline:2px solid var(--green-soft);outline-offset:-2px}
+    table.matrix td.cell.alldone{background:#d7efd9}
+    .ln{line-height:1.45;white-space:nowrap;color:#111}
+    .ln.ok{color:#1b5e20;font-weight:600}
+    .ln.bad{color:#c62828;font-weight:600}
+    .orphans{margin-top:var(--space-sm);font-size:0.78rem;color:#c62828}
+    .legend{font-size:0.78rem;color:var(--text-muted);margin-bottom:var(--space-lg);line-height:1.6}
+
+    /* payment dialog */
+    .modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:100;padding:var(--space-md)}
+    .modal{background:var(--white);border-radius:var(--radius-lg);padding:var(--space-lg);width:100%;max-width:380px;box-shadow:0 12px 40px rgba(0,0,0,0.25)}
+    .modal h3{margin:0 0 var(--space-xs);color:var(--green-deep);font-size:1.05rem}
+    .modal .sub{font-size:0.8rem;color:var(--text-muted);margin-bottom:var(--space-md)}
+    .modal label{display:block;font-size:0.78rem;color:var(--text-muted);margin:var(--space-sm) 0 2px}
+    .modal input,.modal select,.modal textarea{width:100%;padding:8px;border:1px solid var(--cream-border);border-radius:var(--radius-sm,6px);font:inherit;font-size:0.9rem;box-sizing:border-box}
+    .modal .row{display:flex;gap:var(--space-sm);justify-content:flex-end;margin-top:var(--space-md)}
+    @media(max-width:900px){.admin-layout{grid-template-columns:1fr}.admin-sidebar{position:static;height:auto}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container" style="max-width:100%;padding:0 var(--space-lg);">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">Lugha <span>Hai</span></a>
+      <div style="display:flex;align-items:center;gap:var(--space-md);">
+        <span style="font-size:0.78rem;color:var(--text-muted);">Msimamizi Mkuu</span>
+        <div class="lang-switcher">
+          <button class="lang-switcher__btn" id="btn-ru">RU</button>
+          <button class="lang-switcher__btn" id="btn-sw">SW</button>
+          <button class="lang-switcher__btn" id="btn-en">EN</button>
+        </div>
+        <a href="../auth/login.html" class="btn btn--ghost btn--sm">Toka</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="admin-sidebar__section">MUHTASARI</div>
+    <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span>Dashibodi</span></a>
+    <a href="accounting.html" class="admin-nav-link active"><span class="admin-nav-link__icon">📋</span><span>Uhasibu / Учёт</span></a>
+    <div class="admin-sidebar__section">MAUDHUI</div>
+    <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span>Lugha</span></a>
+    <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span>Watumiaji</span></a>
+    <a href="speakers.html" class="admin-nav-link"><span class="admin-nav-link__icon">🎙️</span><span>Wasemaji</span></a>
+    <a href="topics.html" class="admin-nav-link"><span class="admin-nav-link__icon">📚</span><span>Mada na Bei</span></a>
+    <a href="disputes.html" class="admin-nav-link"><span class="admin-nav-link__icon">⚠️</span><span>Pingamizi</span></a>
+    <div class="admin-sidebar__section">DATA</div>
+    <a href="export.html" class="admin-nav-link"><span class="admin-nav-link__icon">⬇️</span><span>Hamisha data</span></a>
+    <div style="padding:var(--space-lg);"><a href="../index.html" style="font-size:0.78rem;color:var(--green-pale);">← Angalia tovuti</a></div>
+  </div>
+
+  <div class="admin-content">
+    <div class="admin-page-title" id="pageTitle">📋</div>
+    <div class="lang-bar" id="langBar"></div>
+    <div class="legend" id="legend"></div>
+    <div id="matrices"><div class="loading-state" id="loadingMsg">…</div></div>
+  </div>
+</div>
+
+<div class="modal-back hidden" id="payModal">
+  <div class="modal">
+    <h3 id="pm_title"></h3>
+    <div class="sub" id="pm_sub"></div>
+    <label id="pm_l_status"></label>
+    <select id="pm_status"></select>
+    <label id="pm_l_amount"></label>
+    <input type="number" id="pm_amount" min="0" step="500" />
+    <label id="pm_l_date"></label>
+    <input type="date" id="pm_date" />
+    <label id="pm_l_note"></label>
+    <textarea id="pm_note" rows="3"></textarea>
+    <div class="row">
+      <button class="btn btn--secondary btn--sm" id="pm_cancel"></button>
+      <button class="btn btn--primary btn--sm" id="pm_save"></button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const supabase = createClient(
+  'https://geogbanccumdcaymhkdb.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+);
+
+// ── SETTINGS (change here, nothing else is hardcoded) ─────────────
+// How many speaker / moderator places each language should have.
+// A place with nobody in it is shown as an empty RED name cell = "find a person".
+const SLOTS_DEFAULT = { speakers: 3, moderators: 2 };
+const SLOTS_BY_LANG = {};   // e.g. { kikurya: { speakers: 3, moderators: 2 } }
+// Moderation verdict values (moderations.verdict) counted as accepted / needing corrections.
+const VERDICT_ACCEPT = ['accept', 'accepted', 'approved', 'ok', 'both', 'one'];
+const VERDICT_REJECT = ['reject', 'rejected', 'error', 'correction', 'corrections'];
+
+// ── TRANSLATIONS ──────────────────────────────────────────────────
+const I18N = {
+  ru: {
+    title: '📋 Учёт', all: 'Все языки', grammar: 'Грамматика', vocab: 'Лексика',
+    speakers: 'Wasemaji (носители)', moderators: 'Модераторы',
+    words: 'слова', audio: 'аудио', paid: 'оплачено', unpaid: 'не оплачено', partial: 'оплачено частично',
+    approved: 'одобрено', corrections: 'правки', vacant: 'Свободное место — нужен человек',
+    legend: 'Клетка: слова · аудио · оплата · одобрение. Тёмно-зелёный = готово, красный = не оплачено / не одобрено / правки, чёрный = в процессе. Вся клетка светло-зелёная = всё сделано. Пустая клетка = не начато. Нажми на клетку, чтобы отметить оплату. Н1, Н2… = номера носителей (у модераторов: сколько фраз он проверил у каждого).',
+    loading: 'Загрузка…', error: 'Ошибка загрузки', noLang: 'Нет языков',
+    pmTitle: 'Оплата', status: 'Статус', amount: 'Сумма (TZS)', date: 'Дата оплаты', note: 'Заметка', save: 'Сохранить', cancel: 'Отмена',
+    saveErr: 'Не удалось сохранить', orphan: '⚠ Ответы без карточки носителя', phrases: 'фраз', modName: 'Модератор'
+  },
+  sw: {
+    title: '📋 Uhasibu', all: 'Lugha zote', grammar: 'Sarufi', vocab: 'Msamiati',
+    speakers: 'Wasemaji', moderators: 'Wasimamizi',
+    words: 'maneno', audio: 'sauti', paid: 'imelipwa', unpaid: 'haijalipwa', partial: 'imelipwa kiasi',
+    approved: 'imeidhinishwa', corrections: 'marekebisho', vacant: 'Nafasi wazi — tafuta mtu',
+    legend: 'Kisanduku: maneno · sauti · malipo · idhini. Kijani kilichokolea = tayari, nyekundu = haijalipwa / haijaidhinishwa / marekebisho, nyeusi = inaendelea. Kisanduku chote kijani kibichi = kila kitu tayari. Tupu = haijaanza. Bonyeza kisanduku kuweka malipo.',
+    loading: 'Inapakia…', error: 'Hitilafu ya kupakia', noLang: 'Hakuna lugha',
+    pmTitle: 'Malipo', status: 'Hali', amount: 'Kiasi (TZS)', date: 'Tarehe ya malipo', note: 'Maelezo', save: 'Hifadhi', cancel: 'Ghairi',
+    saveErr: 'Imeshindwa kuhifadhi', orphan: '⚠ Majibu bila kadi ya msemaji', phrases: 'vishazi', modName: 'Msimamizi'
+  },
+  en: {
+    title: '📋 Accounting', all: 'All languages', grammar: 'Grammar', vocab: 'Vocabulary',
+    speakers: 'Wasemaji (speakers)', moderators: 'Moderators',
+    words: 'words', audio: 'audio', paid: 'paid', unpaid: 'not paid', partial: 'partly paid',
+    approved: 'approved', corrections: 'corrections', vacant: 'Open place — find a person',
+    legend: 'Cell: words · audio · payment · approval. Dark green = done, red = unpaid / not approved / corrections, black = in progress. Whole cell light green = everything done. Empty cell = not started. Click a cell to record payment.',
+    loading: 'Loading…', error: 'Load error', noLang: 'No languages',
+    pmTitle: 'Payment', status: 'Status', amount: 'Amount (TZS)', date: 'Payment date', note: 'Note', save: 'Save', cancel: 'Cancel',
+    saveErr: 'Could not save', orphan: '⚠ Answers without a speaker card', phrases: 'phrases', modName: 'Moderator'
+  }
+};
+let lang = 'ru';
+try { const s = localStorage.getItem('lh_admin_lang'); if (s && I18N[s]) lang = s; } catch (e) {}
+const t = k => (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ── STATE ─────────────────────────────────────────────────────────
+let LANGS = [];            // [{id,name,topicIds:[...], grammarIds:[...], vocabIds:[...]}]
+let TOPIC_META = {};       // id -> {name:{sw,en}, payment_tzs}
+let TOPIC_INFO = {};       // id -> {total, active:Set}   (only topics that have a content file)
+let SPEAKERS = [];         // cards
+let SUBS = [];             // submissions
+let RESP = new Map();      // submission_id -> Map(phrase_id -> {text,audio})
+let MODS = [];             // moderations rows
+let ACC = new Map();       // `${speaker_id}|${lang}|${topic}` -> work_accounting row
+let selected = 'ALL';
+let modalCtx = null;
+
+async function fetchAll(table, cols) {
+  let out = [], from = 0;
+  for (;;) {
+    const { data, error } = await supabase.from(table).select(cols).order('id').range(from, from + 999);
+    if (error) throw error;
+    out = out.concat(data || []);
+    if (!data || data.length < 1000) break;
+    from += 1000;
+  }
+  return out;
+}
+
+async function loadAll() {
+  const [langRes, topicRes, indexRes] = await Promise.all([
+    fetch('../data/languages.json').then(r => r.json()),
+    fetch('../data/topics.json').then(r => r.json()),
+    fetch('../data/index.json').then(r => r.json())
+  ]);
+
+  (topicRes.topics || []).forEach(tp => { TOPIC_META[tp.id] = tp; });
+
+  LANGS = (langRes.languages || []).map(l => {
+    const lvKey = Object.keys(l.levels || {}).find(k => l.levels[k] && l.levels[k].active);
+    const lv = (lvKey && l.levels[lvKey]) || {};
+    const g = (lv.grammar || []).map(x => x.id);
+    const v = (lv.vocabulary || []).map(x => x.id);
+    return { id: l.id, name: l.name, grammarIds: g, vocabIds: v, topicIds: g.concat(v) };
+  }).filter(l => l.topicIds.length);
+
+  // phrase counts per topic: only phrases that are NOT closed as duplicates (covered_by)
+  await Promise.all(indexRes.map(async e => {
+    try {
+      const d = await fetch('../' + e.path).then(r => r.json());
+      const ids = new Set();
+      (d.blocks || []).forEach(b => (b.phrases || []).forEach(p => { if (!p.covered_by) ids.add(p.id); }));
+      TOPIC_INFO[e.id] = { total: ids.size, active: ids, pay: d.payment_tzs || null };
+    } catch (err) { /* topic without readable file: its column stays empty */ }
+  }));
+
+  const [spk, subs, resp, mods, acc] = await Promise.all([
+    supabase.from('speakers').select('id, full_name, language_ids, user_id, assistant_user_id, created_at').order('created_at'),
+    fetchAll('submissions', 'id, user_id, language_id, topic_id, speaker_id'),
+    fetchAll('phrase_responses', 'id, submission_id, phrase_id, translation, audio_url'),
+    fetchAll('moderations', 'id, submission_id, moderator_id, phrase_id, verdict'),
+    supabase.from('work_accounting').select('*')
+  ]);
+  if (spk.error) throw spk.error;
+  SPEAKERS = (spk.data || []).map(s => ({ ...s, language_ids: Array.isArray(s.language_ids) ? s.language_ids : [] }));
+  SUBS = subs;
+  MODS = mods;
+  resp.forEach(r => {
+    if (!RESP.has(r.submission_id)) RESP.set(r.submission_id, new Map());
+    RESP.get(r.submission_id).set(r.phrase_id, {
+      text: !!(r.translation && String(r.translation).trim()),
+      audio: !!r.audio_url
+    });
+  });
+  (acc.data || []).forEach(a => ACC.set(`${a.speaker_id}|${a.language_id}|${a.topic_id}`, a));
+}
+
+// ── CALCULATIONS ──────────────────────────────────────────────────
+function slotsFor(langId) { return Object.assign({}, SLOTS_DEFAULT, SLOTS_BY_LANG[langId] || {}); }
+
+function cardsFor(langId) {
+  return SPEAKERS.filter(s => s.language_ids.includes(langId));   // already ordered by created_at
+}
+
+function subsOf(card, langId, topicId) {
+  return SUBS.filter(s => s.language_id === langId && s.topic_id === topicId &&
+    (s.speaker_id === card.id || (!s.speaker_id && card.user_id && s.user_id === card.user_id)));
+}
+
+// moderators of a language, in order of first appearance (names are not readable by the page, so they are numbered)
+function moderatorsFor(langId) {
+  const subIds = new Set(SUBS.filter(s => s.language_id === langId).map(s => s.id));
+  const seen = [];
+  MODS.forEach(m => { if (subIds.has(m.submission_id) && !seen.includes(m.moderator_id)) seen.push(m.moderator_id); });
+  return seen;
+}
+
+function cellData(card, langId, topicId, modIds) {
+  const info = TOPIC_INFO[topicId];
+  if (!info || !info.total) return null;
+  const subs = subsOf(card, langId, topicId);
+  let words = 0, audio = 0;
+  const wordsSet = new Set(), audioSet = new Set();
+  subs.forEach(s => {
+    const m = RESP.get(s.id); if (!m) return;
+    info.active.forEach(pid => {
+      const r = m.get(pid); if (!r) return;
+      if (r.text) wordsSet.add(pid);
+      if (r.audio) audioSet.add(pid);
+    });
+  });
+  words = wordsSet.size; audio = audioSet.size;
+  if (!words && !audio) return null;
+
+  const subIds = new Set(subs.map(s => s.id));
+  // per moderator: accepted / rejected phrase counts (active phrases only)
+  const per = modIds.map(mid => {
+    const acc = new Set(), rej = new Set();
+    MODS.forEach(m => {
+      if (m.moderator_id !== mid || !subIds.has(m.submission_id) || !info.active.has(m.phrase_id)) return;
+      const v = String(m.verdict || '').toLowerCase();
+      if (VERDICT_REJECT.includes(v)) rej.add(m.phrase_id);
+      else if (VERDICT_ACCEPT.includes(v)) acc.add(m.phrase_id);
+    });
+    return { checked: acc.size + rej.size, accepted: acc.size, rejected: rej.size };
+  });
+  const doneMods = per.filter(p => p.accepted === info.total && p.rejected === 0).length;
+  const anyReject = per.some(p => p.rejected > 0);
+  const accRow = ACC.get(`${card.id}|${langId}|${topicId}`) || null;
+  return { total: info.total, words, audio, per, doneMods, anyReject, acc: accRow, pay: info.pay };
+}
+
+// ── RENDER ────────────────────────────────────────────────────────
+function topicName(id) {
+  const m = TOPIC_META[id];
+  if (m && m.name) return m.name[lang === 'en' ? 'en' : 'sw'] || m.name.sw || id;
+  return id;
+}
+
+function renderCell(c, modSlots, cardId, langId, topicId) {
+  if (!c) return `<td class="cell"></td>`;
+  const wOk = c.words === c.total, aOk = c.audio === c.total;
+  const st = c.acc ? c.acc.pay_status : 'unpaid';
+  const pOk = st === 'paid';
+  const apOk = c.doneMods >= modSlots && modSlots > 0 && !c.anyReject;
+  const all = wOk && aOk && pOk && apOk;
+  const payTxt = st === 'paid' ? t('paid') : st === 'partial' ? t('partial') : t('unpaid');
+  const apTxt = c.anyReject ? t('corrections') : `${t('approved')} ${c.doneMods}/${modSlots}`;
+  return `<td class="cell has ${all ? 'alldone' : ''}" data-spk="${esc(cardId)}" data-lang="${esc(langId)}" data-topic="${esc(topicId)}">
+    <div class="ln ${wOk ? 'ok' : ''}">${t('words')} ${c.words}/${c.total}</div>
+    <div class="ln ${aOk ? 'ok' : ''}">${t('audio')} ${c.audio}/${c.total}</div>
+    <div class="ln ${pOk ? 'ok' : 'bad'}">${payTxt}</div>
+    <div class="ln ${apOk ? 'ok' : 'bad'}">${apTxt}</div>
+  </td>`;
+}
+
+function matrixHtml(L) {
+  const slots = slotsFor(L.id);
+  const cards = cardsFor(L.id);
+  const nSpeakerRows = Math.max(slots.speakers, cards.length);
+  const modIds = moderatorsFor(L.id);
+  const nModRows = Math.max(slots.moderators, modIds.length);
+  const modSlots = slots.moderators;
+  const cols = L.topicIds.length;
+
+  let h = `<div class="matrix-block"><div class="matrix-title">${esc(L.name)}</div><div class="matrix-wrap"><table class="matrix"><thead>`;
+  h += `<tr class="group"><th class="first" rowspan="2"></th>`;
+  if (L.grammarIds.length) h += `<th colspan="${L.grammarIds.length}">${t('grammar')}</th>`;
+  if (L.vocabIds.length) h += `<th colspan="${L.vocabIds.length}">${t('vocab')}</th>`;
+  h += `</tr><tr>`;
+  L.topicIds.forEach(id => {
+    const has = TOPIC_INFO[id] && TOPIC_INFO[id].total;
+    h += `<th class="${has ? '' : 'nocontent'}">${esc(topicName(id))}</th>`;
+  });
+  h += `</tr></thead><tbody>`;
+
+  h += `<tr class="sect"><td class="first">${t('speakers')}</td><td colspan="${cols}"></td></tr>`;
+  for (let i = 0; i < nSpeakerRows; i++) {
+    const card = cards[i];
+    if (!card) {
+      h += `<tr><td class="first vacant" title="${esc(t('vacant'))}">&nbsp;</td>${'<td class="cell"></td>'.repeat(cols)}</tr>`;
+      continue;
+    }
+    h += `<tr><td class="first">Н${i + 1} · ${esc(card.full_name || '—')}</td>`;
+    L.topicIds.forEach(tid => { h += renderCell(cellData(card, L.id, tid, modIds), modSlots, card.id, L.id, tid); });
+    h += `</tr>`;
+  }
+
+  h += `<tr class="sect"><td class="first">${t('moderators')}</td><td colspan="${cols}"></td></tr>`;
+  for (let j = 0; j < nModRows; j++) {
+    const mid = modIds[j];
+    if (!mid) {
+      h += `<tr><td class="first vacant" title="${esc(t('vacant'))}">&nbsp;</td>${'<td class="cell"></td>'.repeat(cols)}</tr>`;
+      continue;
+    }
+    h += `<tr><td class="first">${t('modName')} ${j + 1}</td>`;
+    L.topicIds.forEach(tid => {
+      const lines = [];
+      cards.forEach((card, i) => {
+        const c = cellData(card, L.id, tid, modIds);
+        if (!c) return;
+        const p = c.per[j];
+        if (!p) return;
+        const full = p.accepted === c.words && c.words === c.total && p.rejected === 0;
+        lines.push(`<div class="ln ${full ? 'ok' : (p.rejected ? 'bad' : '')}">Н${i + 1}: ${p.checked}/${c.words}</div>`);
+      });
+      h += `<td class="cell">${lines.join('')}</td>`;
+    });
+    h += `</tr>`;
+  }
+  h += `</tbody></table></div>`;
+
+  // answers that belong to nobody's card (so nothing is silently missing from the table)
+  const orphanList = [];
+  SUBS.filter(s => s.language_id === L.id).forEach(s => {
+    const owned = cards.some(card => s.speaker_id === card.id || (!s.speaker_id && card.user_id && s.user_id === card.user_id));
+    const n = (RESP.get(s.id) || new Map()).size;
+    if (!owned && n > 0) {
+      orphanList.push(`${esc(s.topic_id)}: ${n} ${t('phrases')} (${esc(String(s.user_id).slice(0, 8))})`);
+    }
+  });
+  if (orphanList.length) h += `<div class="orphans">${t('orphan')}: ${orphanList.join('; ')}</div>`;
+  h += `</div>`;
+  return h;
+}
+
+function render() {
+  document.getElementById('pageTitle').textContent = t('title');
+  document.getElementById('legend').textContent = t('legend');
+  ['ru', 'sw', 'en'].forEach(l => document.getElementById('btn-' + l).classList.toggle('active', l === lang));
+
+  const bar = document.getElementById('langBar');
+  if (!LANGS.length) { document.getElementById('matrices').innerHTML = `<div class="loading-state">${t('noLang')}</div>`; bar.innerHTML = ''; return; }
+  bar.innerHTML = `<button class="lang-pick ${selected === 'ALL' ? 'active' : ''}" data-pick="ALL">${t('all')}</button>` +
+    LANGS.map(l => `<button class="lang-pick ${selected === l.id ? 'active' : ''}" data-pick="${esc(l.id)}">${esc(l.name)}</button>`).join('');
+
+  const list = selected === 'ALL' ? LANGS : LANGS.filter(l => l.id === selected);
+  document.getElementById('matrices').innerHTML = list.map(matrixHtml).join('');
+}
+
+// ── PAYMENT DIALOG ────────────────────────────────────────────────
+function openModal(spkId, langId, topicId) {
+  const card = SPEAKERS.find(s => s.id === spkId); if (!card) return;
+  const key = `${spkId}|${langId}|${topicId}`;
+  const row = ACC.get(key) || {};
+  const info = TOPIC_INFO[topicId] || {};
+  const meta = TOPIC_META[topicId] || {};
+  modalCtx = { spkId, langId, topicId, key };
+  document.getElementById('pm_title').textContent = t('pmTitle');
+  document.getElementById('pm_sub').textContent = `${card.full_name || ''} · ${langId} · ${topicName(topicId)}`;
+  document.getElementById('pm_l_status').textContent = t('status');
+  document.getElementById('pm_l_amount').textContent = t('amount');
+  document.getElementById('pm_l_date').textContent = t('date');
+  document.getElementById('pm_l_note').textContent = t('note');
+  document.getElementById('pm_cancel').textContent = t('cancel');
+  document.getElementById('pm_save').textContent = t('save');
+  const sel = document.getElementById('pm_status');
+  sel.innerHTML = [['unpaid', t('unpaid')], ['partial', t('partial')], ['paid', t('paid')]]
+    .map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join('');
+  sel.value = row.pay_status || 'unpaid';
+  document.getElementById('pm_amount').value = row.amount_tzs != null ? row.amount_tzs : (info.pay || meta.payment_tzs || '');
+  document.getElementById('pm_date').value = row.paid_at || '';
+  document.getElementById('pm_note').value = row.note || '';
+  document.getElementById('payModal').classList.remove('hidden');
+}
+function closeModal() { document.getElementById('payModal').classList.add('hidden'); modalCtx = null; }
+
+async function savePayment() {
+  if (!modalCtx) return;
+  const status = document.getElementById('pm_status').value;
+  const amt = document.getElementById('pm_amount').value;
+  let date = document.getElementById('pm_date').value || null;
+  if (status !== 'unpaid' && !date) date = new Date().toISOString().slice(0, 10);
+  const payload = {
+    speaker_id: modalCtx.spkId, language_id: modalCtx.langId, topic_id: modalCtx.topicId,
+    pay_status: status, amount_tzs: amt === '' ? null : parseInt(amt, 10),
+    paid_at: status === 'unpaid' ? null : date,
+    note: document.getElementById('pm_note').value.trim() || null,
+    updated_at: new Date().toISOString()
+  };
+  const { data, error } = await supabase.from('work_accounting')
+    .upsert(payload, { onConflict: 'speaker_id,language_id,topic_id' }).select().single();
+  if (error) { alert(t('saveErr') + ': ' + error.message); return; }
+  ACC.set(modalCtx.key, data);
+  closeModal();
+  render();
+}
+
+// ── EVENTS ────────────────────────────────────────────────────────
+document.addEventListener('click', e => {
+  const pick = e.target.closest('[data-pick]');
+  if (pick) { selected = pick.dataset.pick; render(); return; }
+  const cell = e.target.closest('td.cell.has');
+  if (cell) { openModal(cell.dataset.spk, cell.dataset.lang, cell.dataset.topic); return; }
+  if (e.target.id === 'payModal') closeModal();
+});
+document.getElementById('pm_cancel').addEventListener('click', closeModal);
+document.getElementById('pm_save').addEventListener('click', savePayment);
+['ru', 'sw', 'en'].forEach(l => document.getElementById('btn-' + l).addEventListener('click', () => {
+  lang = l; try { localStorage.setItem('lh_admin_lang', l); } catch (e) {}
+  render();
+}));
+
+// ── INIT ──────────────────────────────────────────────────────────
+(async function init() {
+  document.getElementById('pageTitle').textContent = t('title');
+  document.getElementById('loadingMsg').textContent = t('loading');
+  ['ru', 'sw', 'en'].forEach(l => document.getElementById('btn-' + l).classList.toggle('active', l === lang));
+  try {
+    await loadAll();
+    if (LANGS.length) selected = LANGS[0].id;
+    render();
+  } catch (err) {
+    document.getElementById('matrices').innerHTML = `<div class="loading-state" style="color:#c62828;">${t('error')}: ${esc(err.message || err)}</div>`;
+  }
+})();
+</script>
+</body>
+</html>
