@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lugha Hai — Admin · Uhasibu / Учёт</title>
+  <title>Lugha Hai — Admin · Uhasibu</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
     .lang-switcher{display:flex;align-items:center;background:var(--cream-dark);border-radius:var(--radius-xl);padding:3px;gap:2px}
@@ -71,7 +71,6 @@
       <div style="display:flex;align-items:center;gap:var(--space-md);">
         <span style="font-size:0.78rem;color:var(--text-muted);">Msimamizi Mkuu</span>
         <div class="lang-switcher">
-          <button class="lang-switcher__btn" id="btn-ru">RU</button>
           <button class="lang-switcher__btn" id="btn-sw">SW</button>
           <button class="lang-switcher__btn" id="btn-en">EN</button>
         </div>
@@ -85,7 +84,7 @@
   <div class="admin-sidebar">
     <div class="admin-sidebar__section">MUHTASARI</div>
     <a href="index.html" class="admin-nav-link"><span class="admin-nav-link__icon">📊</span><span>Dashibodi</span></a>
-    <a href="accounting.html" class="admin-nav-link active"><span class="admin-nav-link__icon">📋</span><span>Uhasibu / Учёт</span></a>
+    <a href="accounting.html" class="admin-nav-link active"><span class="admin-nav-link__icon">📋</span><span>Uhasibu</span></a>
     <div class="admin-sidebar__section">MAUDHUI</div>
     <a href="languages.html" class="admin-nav-link"><span class="admin-nav-link__icon">🌍</span><span>Lugha</span></a>
     <a href="users.html" class="admin-nav-link"><span class="admin-nav-link__icon">👥</span><span>Watumiaji</span></a>
@@ -142,22 +141,12 @@ const VERDICT_REJECT = ['reject', 'rejected', 'error', 'correction', 'correction
 
 // ── TRANSLATIONS ──────────────────────────────────────────────────
 const I18N = {
-  ru: {
-    title: '📋 Учёт', all: 'Все языки', grammar: 'Грамматика', vocab: 'Лексика',
-    speakers: 'Wasemaji (носители)', moderators: 'Модераторы',
-    words: 'слова', audio: 'аудио', paid: 'оплачено', unpaid: 'не оплачено', partial: 'оплачено частично',
-    approved: 'одобрено', corrections: 'правки', vacant: 'Свободное место — нужен человек',
-    legend: 'Клетка: слова · аудио · оплата · одобрение. Тёмно-зелёный = готово, красный = не оплачено / не одобрено / правки, чёрный = в процессе. Вся клетка светло-зелёная = всё сделано. Пустая клетка = не начато. Нажми на клетку, чтобы отметить оплату. Н1, Н2… = номера носителей (у модераторов: сколько фраз он проверил у каждого).',
-    loading: 'Загрузка…', error: 'Ошибка загрузки', noLang: 'Нет языков',
-    pmTitle: 'Оплата', status: 'Статус', amount: 'Сумма (TZS)', date: 'Дата оплаты', note: 'Заметка', save: 'Сохранить', cancel: 'Отмена',
-    saveErr: 'Не удалось сохранить', orphan: '⚠ Ответы без карточки носителя', phrases: 'фраз', modName: 'Модератор'
-  },
   sw: {
     title: '📋 Uhasibu', all: 'Lugha zote', grammar: 'Sarufi', vocab: 'Msamiati',
     speakers: 'Wasemaji', moderators: 'Wasimamizi',
     words: 'maneno', audio: 'sauti', paid: 'imelipwa', unpaid: 'haijalipwa', partial: 'imelipwa kiasi',
     approved: 'imeidhinishwa', corrections: 'marekebisho', vacant: 'Nafasi wazi — tafuta mtu',
-    legend: 'Kisanduku: maneno · sauti · malipo · idhini. Kijani kilichokolea = tayari, nyekundu = haijalipwa / haijaidhinishwa / marekebisho, nyeusi = inaendelea. Kisanduku chote kijani kibichi = kila kitu tayari. Tupu = haijaanza. Bonyeza kisanduku kuweka malipo.',
+    legend: 'Kisanduku: maneno · sauti · malipo · idhini. Kijani kilichokolea = tayari, nyekundu = haijalipwa / haijaidhinishwa / marekebisho, nyeusi = inaendelea. Kisanduku chote kijani kibichi = kila kitu tayari. Tupu = haijaanza. Bonyeza kisanduku kuweka malipo. N1, N2… = namba za wasemaji (kwa wasimamizi: vishazi vingapi amekagua kwa kila msemaji).',
     loading: 'Inapakia…', error: 'Hitilafu ya kupakia', noLang: 'Hakuna lugha',
     pmTitle: 'Malipo', status: 'Hali', amount: 'Kiasi (TZS)', date: 'Tarehe ya malipo', note: 'Maelezo', save: 'Hifadhi', cancel: 'Ghairi',
     saveErr: 'Imeshindwa kuhifadhi', orphan: '⚠ Majibu bila kadi ya msemaji', phrases: 'vishazi', modName: 'Msimamizi'
@@ -167,14 +156,14 @@ const I18N = {
     speakers: 'Wasemaji (speakers)', moderators: 'Moderators',
     words: 'words', audio: 'audio', paid: 'paid', unpaid: 'not paid', partial: 'partly paid',
     approved: 'approved', corrections: 'corrections', vacant: 'Open place — find a person',
-    legend: 'Cell: words · audio · payment · approval. Dark green = done, red = unpaid / not approved / corrections, black = in progress. Whole cell light green = everything done. Empty cell = not started. Click a cell to record payment.',
+    legend: 'Cell: words · audio · payment · approval. Dark green = done, red = unpaid / not approved / corrections, black = in progress. Whole cell light green = everything done. Empty cell = not started. Click a cell to record payment. N1, N2… = speaker numbers (in moderator rows: how many phrases the moderator checked for each speaker).',
     loading: 'Loading…', error: 'Load error', noLang: 'No languages',
     pmTitle: 'Payment', status: 'Status', amount: 'Amount (TZS)', date: 'Payment date', note: 'Note', save: 'Save', cancel: 'Cancel',
     saveErr: 'Could not save', orphan: '⚠ Answers without a speaker card', phrases: 'phrases', modName: 'Moderator'
   }
 };
-let lang = 'ru';
-try { const s = localStorage.getItem('lh_admin_lang'); if (s && I18N[s]) lang = s; } catch (e) {}
+let lang = 'sw';
+try { const s = localStorage.getItem('lh_lang'); if (s && I18N[s]) lang = s; } catch (e) {}
 const t = k => (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -356,7 +345,7 @@ function matrixHtml(L) {
       h += `<tr><td class="first vacant" title="${esc(t('vacant'))}">&nbsp;</td>${'<td class="cell"></td>'.repeat(cols)}</tr>`;
       continue;
     }
-    h += `<tr><td class="first">Н${i + 1} · ${esc(card.full_name || '—')}</td>`;
+    h += `<tr><td class="first">N${i + 1} · ${esc(card.full_name || '—')}</td>`;
     L.topicIds.forEach(tid => { h += renderCell(cellData(card, L.id, tid, modIds), modSlots, card.id, L.id, tid); });
     h += `</tr>`;
   }
@@ -377,7 +366,7 @@ function matrixHtml(L) {
         const p = c.per[j];
         if (!p) return;
         const full = p.accepted === c.words && c.words === c.total && p.rejected === 0;
-        lines.push(`<div class="ln ${full ? 'ok' : (p.rejected ? 'bad' : '')}">Н${i + 1}: ${p.checked}/${c.words}</div>`);
+        lines.push(`<div class="ln ${full ? 'ok' : (p.rejected ? 'bad' : '')}">N${i + 1}: ${p.checked}/${c.words}</div>`);
       });
       h += `<td class="cell">${lines.join('')}</td>`;
     });
@@ -402,7 +391,7 @@ function matrixHtml(L) {
 function render() {
   document.getElementById('pageTitle').textContent = t('title');
   document.getElementById('legend').textContent = t('legend');
-  ['ru', 'sw', 'en'].forEach(l => document.getElementById('btn-' + l).classList.toggle('active', l === lang));
+  ['sw', 'en'].forEach(l => document.getElementById('btn-' + l).classList.toggle('active', l === lang));
 
   const bar = document.getElementById('langBar');
   if (!LANGS.length) { document.getElementById('matrices').innerHTML = `<div class="loading-state">${t('noLang')}</div>`; bar.innerHTML = ''; return; }
@@ -471,8 +460,8 @@ document.addEventListener('click', e => {
 });
 document.getElementById('pm_cancel').addEventListener('click', closeModal);
 document.getElementById('pm_save').addEventListener('click', savePayment);
-['ru', 'sw', 'en'].forEach(l => document.getElementById('btn-' + l).addEventListener('click', () => {
-  lang = l; try { localStorage.setItem('lh_admin_lang', l); } catch (e) {}
+['sw', 'en'].forEach(l => document.getElementById('btn-' + l).addEventListener('click', () => {
+  lang = l; try { localStorage.setItem('lh_lang', l); } catch (e) {}
   render();
 }));
 
@@ -480,7 +469,7 @@ document.getElementById('pm_save').addEventListener('click', savePayment);
 (async function init() {
   document.getElementById('pageTitle').textContent = t('title');
   document.getElementById('loadingMsg').textContent = t('loading');
-  ['ru', 'sw', 'en'].forEach(l => document.getElementById('btn-' + l).classList.toggle('active', l === lang));
+  ['sw', 'en'].forEach(l => document.getElementById('btn-' + l).classList.toggle('active', l === lang));
   try {
     await loadAll();
     if (LANGS.length) selected = LANGS[0].id;
