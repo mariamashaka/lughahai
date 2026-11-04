@@ -3,7 +3,7 @@
   "type": "grammar",
   "level": "A1",
   "order": 4,
-  "payment_tzs": 5000,
+  "payment_tzs": 7500,
   "name": {
     "sw": "Upatanisho (kitenzi, nambari, mahali)",
     "en": "Agreement (verb, numbers, locative)"
