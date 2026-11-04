@@ -163,6 +163,29 @@
       ]
     },
     {
+      "id": "personal_subject_polite",
+      "label": {
+        "sw": "A2. Viwakilishi vya nafsi — heshima",
+        "en": "A2. Personal pronouns — politeness"
+      },
+      "phrases": [
+        {
+          "id": "a21",
+          "sw": "Daniel anasema kwa wazee: ninyi mmefika?",
+          "en": "Daniel says to the elders: have you (pl.) arrived?",
+          "ctx_sw": "(heshima / hadhi — wazee wengi)",
+          "ctx_en": "(polite / status form — several elders)"
+        },
+        {
+          "id": "a22",
+          "sw": "Anna anamwambia John kuhusu mzee: yeye amefika",
+          "en": "Anna says to John about the elder: he has arrived",
+          "ctx_sw": "(heshima / hadhi — mzee anazungumziwa)",
+          "ctx_en": "(polite / status form — talking about an elder)"
+        }
+      ]
+    },
+    {
       "id": "personal_object",
       "label": {
         "sw": "B. Viwakilishi vya nafsi — mtendewa (menya/wewe...)",
@@ -287,6 +310,43 @@
           "en": "The elder says to John: I see you",
           "ctx_sw": "(heshima / hadhi)",
           "ctx_en": "(polite / status form)"
+        }
+      ]
+    },
+    {
+      "id": "personal_object_contrast",
+      "label": {
+        "sw": "B2. Mtendewa — tofauti kati ya ninyi / wao / mimi / yeye",
+        "en": "B2. Object pronouns — contrasts (you pl. / them / me / him)"
+      },
+      "phrases": [
+        {
+          "id": "b18",
+          "sw": "Anna anawaona ninyi na anawaona wao",
+          "en": "Anna sees you (pl.) and sees them",
+          "ctx_sw": "(ninyi ni John na Daniel walio mbele yake; wao ni watoto wale walio mbali)",
+          "ctx_en": "(you = John and Daniel in front of her; them = those children far away)"
+        },
+        {
+          "id": "b19",
+          "sw": "John ananiona mimi na anamwona yeye",
+          "en": "John sees me and sees him",
+          "ctx_sw": "(mimi ni msemaji; yeye ni Daniel)",
+          "ctx_en": "(me = the speaker; him = Daniel)"
+        },
+        {
+          "id": "b20",
+          "sw": "Anna anakuona wewe na anamwona yeye",
+          "en": "Anna sees you and sees him",
+          "ctx_sw": "(wewe ni John; yeye ni Daniel)",
+          "ctx_en": "(you = John; him = Daniel)"
+        },
+        {
+          "id": "b21",
+          "sw": "Daniel anatuona sisi na anawaona wao",
+          "en": "Daniel sees us and sees them",
+          "ctx_sw": "(sisi ni John na Anna; wao ni watoto wale walio mbali)",
+          "ctx_en": "(us = John and Anna; them = those children far away)"
         }
       ]
     },
@@ -463,6 +523,78 @@
       ]
     },
     {
+      "id": "possessive_categories",
+      "label": {
+        "sw": "C3. Umiliki — vitu vya aina mbalimbali",
+        "en": "C3. Possessives — different kinds of nouns"
+      },
+      "phrases": [
+        {
+          "id": "c3_1",
+          "sw": "Rafiki yangu / rafiki yako / rafiki yake (wa John) / rafiki yake (wa Anna) / rafiki yetu / rafiki yenu / rafiki yao",
+          "en": "My friend / your friend / his friend / her friend / our friend / your (pl.) friend / their friend",
+          "ctx_sw": "(mtu — rafiki; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(person — friend; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_2",
+          "sw": "Watoto wangu / watoto wako / watoto wake (wa John) / watoto wake (wa Anna) / watoto wetu / watoto wenu / watoto wao",
+          "en": "My children / your children / his children / her children / our children / your (pl.) children / their children",
+          "ctx_sw": "(watu wengi — watoto; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(people (plural) — children; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_3",
+          "sw": "Ng'ombe wangu / ng'ombe wako / ng'ombe wake (wa John) / ng'ombe wake (wa Anna) / ng'ombe wetu / ng'ombe wenu / ng'ombe wao",
+          "en": "My cow / your cow / his cow / her cow / our cow / your (pl.) cow / their cow",
+          "ctx_sw": "(mnyama — ng'ombe; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(animal — cow; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_4",
+          "sw": "Mti wangu / mti wako / mti wake (wa John) / mti wake (wa Anna) / mti wetu / mti wenu / mti wao",
+          "en": "My tree / your tree / his tree / her tree / our tree / your (pl.) tree / their tree",
+          "ctx_sw": "(mmea — mti; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(plant — tree; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_5",
+          "sw": "Nyumba yangu / nyumba yako / nyumba yake (wa John) / nyumba yake (wa Anna) / nyumba yetu / nyumba yenu / nyumba yao",
+          "en": "My house / your house / his house / her house / our house / your (pl.) house / their house",
+          "ctx_sw": "(kitu — nyumba; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(object — house; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_6",
+          "sw": "Mkono wangu / mkono wako / mkono wake (wa John) / mkono wake (wa Anna) / mkono wetu / mkono wenu / mkono wao",
+          "en": "My hand / your hand / his hand / her hand / our hand / your (pl.) hand / their hand",
+          "ctx_sw": "(sehemu ya mwili — mkono; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(body part — hand; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_7",
+          "sw": "Jina langu / jina lako / jina lake (wa John) / jina lake (wa Anna) / jina letu / jina lenu / jina lao",
+          "en": "My name / your name / his name / her name / our name / your (pl.) name / their name",
+          "ctx_sw": "(dhana — jina; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(abstract — name; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_8",
+          "sw": "Maji yangu / maji yako / maji yake (wa John) / maji yake (wa Anna) / maji yetu / maji yenu / maji yao",
+          "en": "My water / your water / his water / her water / our water / your (pl.) water / their water",
+          "ctx_sw": "(kitu kisichohesabika — maji; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(mass (uncountable) — water; in this order: my, your, his, her, our, your (pl.), their)"
+        },
+        {
+          "id": "c3_9",
+          "sw": "Mawe yangu / mawe yako / mawe yake (wa John) / mawe yake (wa Anna) / mawe yetu / mawe yenu / mawe yao",
+          "en": "My stones / your stones / his stones / her stones / our stones / your (pl.) stones / their stones",
+          "ctx_sw": "(vitu vingi — mawe; kwa mpangilio: wangu, wako, wake wa John, wake wa Anna, wetu, wenu, wao)",
+          "ctx_en": "(objects (plural) — stones; in this order: my, your, his, her, our, your (pl.), their)"
+        }
+      ]
+    },
+    {
       "id": "demonstrative",
       "label": {
         "sw": "D. Viwakilishi vya kuonyesha",
@@ -559,6 +691,64 @@
           "en": "I want that one over there",
           "ctx_sw": "(ninaonyesha kitu mbali, siitaji jina)",
           "ctx_en": "(pointing at object far away, not naming it)"
+        }
+      ]
+    },
+    {
+      "id": "demonstrative_categories",
+      "label": {
+        "sw": "D2. Viashiria — vitu vya aina mbalimbali",
+        "en": "D2. Demonstratives — different kinds of nouns"
+      },
+      "phrases": [
+        {
+          "id": "d14",
+          "sw": "Ng'ombe huyu / ng'ombe huyo / ng'ombe yule",
+          "en": "This cow / that cow (near you) / that cow over there",
+          "ctx_sw": "(mnyama — ng'ombe; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(animal — cow; near me / near you / far from both of us)"
+        },
+        {
+          "id": "d15",
+          "sw": "Mti huu / mti huo / mti ule",
+          "en": "This tree / that tree (near you) / that tree over there",
+          "ctx_sw": "(mmea — mti; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(plant — tree; near me / near you / far from both of us)"
+        },
+        {
+          "id": "d16",
+          "sw": "Nyumba hii / nyumba hiyo / nyumba ile",
+          "en": "This house / that house (near you) / that house over there",
+          "ctx_sw": "(kitu — nyumba; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(object — house; near me / near you / far from both of us)"
+        },
+        {
+          "id": "d17",
+          "sw": "Mkono huu / mkono huo / mkono ule",
+          "en": "This hand / that hand (near you) / that hand over there",
+          "ctx_sw": "(sehemu ya mwili — mkono; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(body part — hand; near me / near you / far from both of us)"
+        },
+        {
+          "id": "d18",
+          "sw": "Jina hili / jina hilo / jina lile",
+          "en": "This name / that name (near you) / that name over there",
+          "ctx_sw": "(dhana — jina; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(abstract — name; near me / near you / far from both of us)"
+        },
+        {
+          "id": "d19",
+          "sw": "Maji haya / maji hayo / maji yale",
+          "en": "This water / that water (near you) / that water over there",
+          "ctx_sw": "(kitu kisichohesabika — maji; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(mass — water; near me / near you / far from both of us)"
+        },
+        {
+          "id": "d20",
+          "sw": "Mawe haya / mawe hayo / mawe yale",
+          "en": "These stones / those stones (near you) / those stones over there",
+          "ctx_sw": "(vitu vingi — mawe; karibu nami / karibu nawe / mbali nasi wote wawili)",
+          "ctx_en": "(objects (plural) — stones; near me / near you / far from both of us)"
         }
       ]
     },
