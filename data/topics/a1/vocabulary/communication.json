@@ -112,6 +112,27 @@
           "en": "John says goodbye to the elder",
           "ctx_sw": "(kuaga mzee)",
           "ctx_en": "(farewell to elder)"
+        },
+        {
+          "id": "fw6",
+          "sw": "Usiku mwema!",
+          "en": "Good night!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "fw7",
+          "sw": "Lala salama!",
+          "en": "Sleep well!",
+          "ctx_sw": "(kabla ya kulala)",
+          "ctx_en": "(before going to bed)"
+        },
+        {
+          "id": "fw8",
+          "sw": "Nakutakia siku njema!",
+          "en": "Have a nice day!",
+          "ctx_sw": "",
+          "ctx_en": ""
         }
       ]
     },
