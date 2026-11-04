@@ -3,7 +3,7 @@
   "type": "grammar",
   "level": "A1",
   "order": 6,
-  "payment_tzs": 5000,
+  "payment_tzs": 10000,
   "name": {
     "sw": "Maswali (ndiyo/hapana, maneno ya kuuliza)",
     "en": "Questions (yes/no, question words)"
