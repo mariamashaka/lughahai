@@ -3,7 +3,7 @@
   "type": "vocabulary",
   "level": "A1",
   "order": 7,
-  "payment_tzs": 5000,
+  "payment_tzs": 10000,
   "name": {
     "sw": "Mawasiliano, nambari na wakati",
     "en": "Communication, numbers and time"
