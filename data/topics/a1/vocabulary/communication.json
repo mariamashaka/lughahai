@@ -68,6 +68,13 @@
           "en": "Anna responds to John: nice to meet you too!",
           "ctx_sw": "",
           "ctx_en": ""
+        },
+        {
+          "id": "gr8",
+          "sw": "Karibu!",
+          "en": "Welcome!",
+          "ctx_sw": "(kwa mgeni anayefika)",
+          "ctx_en": "(to a guest who arrives)"
         }
       ]
     },
@@ -481,6 +488,13 @@
           "en": "How do I do this?",
           "ctx_sw": "",
           "ctx_en": ""
+        },
+        {
+          "id": "wy6",
+          "sw": "Twende pamoja!",
+          "en": "Let's go together!",
+          "ctx_sw": "(kumwambia mtu aje nawe)",
+          "ctx_en": "(telling someone to come with you)"
         }
       ]
     },
@@ -723,6 +737,83 @@
           "id": "ti18",
           "sw": "John atakuja saa moja na dakika thelathini",
           "en": "John will come at seven thirty",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti19",
+          "sw": "Juzi, kesho kutwa",
+          "en": "The day before yesterday, the day after tomorrow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti20",
+          "sw": "Juzi John alikuwa nyumbani",
+          "en": "The day before yesterday John was at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti21",
+          "sw": "Kesho kutwa Anna atakuja",
+          "en": "The day after tomorrow Anna will come",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti22",
+          "sw": "Wiki iliyopita, wiki hii, wiki ijayo",
+          "en": "Last week, this week, next week",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti23",
+          "sw": "Mwezi uliopita, mwezi huu, mwezi ujao",
+          "en": "Last month, this month, next month",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti24",
+          "sw": "Mwaka jana, mwaka huu, mwaka ujao",
+          "en": "Last year, this year, next year",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti25",
+          "sw": "Baada ya wiki moja, baada ya mwezi mmoja, baada ya mwaka mmoja",
+          "en": "In a week, in a month, in a year",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti26",
+          "sw": "Wiki moja iliyopita, mwezi mmoja uliopita, mwaka mmoja uliopita",
+          "en": "A week ago, a month ago, a year ago",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti27",
+          "sw": "Wiki hii John yuko nyumbani",
+          "en": "This week John is at home",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti28",
+          "sw": "Mwezi ujao tutaenda sokoni",
+          "en": "Next month we are going to the market",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ti29",
+          "sw": "Mwaka jana Anna alikuwa shuleni",
+          "en": "Last year Anna was at school",
           "ctx_sw": "",
           "ctx_en": ""
         }
