@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Jifunza</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    html, body { margin:0; height:100%; overflow:hidden; background:#5ca0d8; }
+    #stage { position:fixed; inset:0; overflow:hidden; }
+    #scene { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+             image-rendering:pixelated; image-rendering:crisp-edges; image-rendering:pixelated;
+             max-width:none; user-select:none; -webkit-user-drag:none; }
+    #veil  { position:absolute; inset:0; background:rgba(255,255,255,var(--haze,0.12)); pointer-events:none; }
+
+    .topbar { position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center; z-index:5; }
+    .back { color:#fff; background:rgba(20,30,25,.55); border-radius:999px; padding:6px 14px; font-size:.85rem; text-decoration:none; font-family:var(--font-body, system-ui, sans-serif); }
+    .switcher { display:flex; background:rgba(20,30,25,.55); border-radius:999px; padding:3px; gap:2px; }
+    .switcher button { border:none; background:transparent; color:#fff; padding:4px 12px; border-radius:999px; font-size:.8rem; cursor:pointer; font-family:inherit; }
+    .switcher button.active { background:#fff; color:#2C4A3E; font-weight:600; }
+
+    .screen { position:absolute; inset:0; display:none; align-items:center; justify-content:center; padding:56px 16px 16px; box-sizing:border-box; z-index:4; }
+    .screen.active { display:flex; }
+    .plate { max-width:640px; width:100%; max-height:100%; overflow:auto; box-sizing:border-box;
+             background:rgba(24,34,29,.78); color:#F7F3EC; border-radius:18px; padding:clamp(16px,3vw,28px);
+             box-shadow:0 8px 32px rgba(0,0,0,.35); text-align:center; font-family:var(--font-body, system-ui, sans-serif); }
+    .plate h1 { color:#F7F3EC; margin:0 0 .6em; font-family:var(--font-display, Georgia, serif); font-size:clamp(1.3rem,3.2vw,1.9rem); font-weight:600; }
+    .plate p  { color:#F7F3EC; margin:0 0 1.2em; font-size:clamp(.95rem,2.2vw,1.1rem); line-height:1.65; }
+    .btn { background:#C4714A; color:#fff; border:none; border-radius:999px; padding:.8rem 2.2rem; font-size:1.05rem; font-weight:600; cursor:pointer; font-family:inherit; }
+    .btn:hover { background:#b05e38; }
+    @media (max-height:420px) { .plate p { margin-bottom:.8em; line-height:1.45; } .screen { padding-top:48px; } }
+  </style>
+</head>
+<body>
+<div id="stage">
+  <img id="scene" src="assets/village.png" alt="" width="458" height="256" />
+  <div id="veil"></div>
+
+  <div class="topbar">
+    <a class="back" id="backLink" href="../language.html">←</a>
+    <div class="switcher">
+      <button id="btn-sw" type="button">SW</button>
+      <button id="btn-en" type="button">EN</button>
+    </div>
+  </div>
+
+  <!-- Экран 1: приветствие -->
+  <section class="screen active" id="screen-welcome">
+    <div class="plate">
+      <h1 id="w-title"></h1>
+      <p id="w-text"></p>
+      <button class="btn" id="w-btn" type="button"></button>
+    </div>
+  </section>
+
+  <!-- Экран 2: знакомство (анкета) — будет следующим шагом -->
+  <section class="screen" id="screen-profile">
+    <div class="plate">
+      <h1 id="p-title"></h1>
+      <p id="p-text"></p>
+    </div>
+  </section>
+</div>
+
+<script>
+  const SCENE_W = 458, SCENE_H = 256        // размер картинки в «родных» пикселях
+  const i18n = {
+    sw: {
+      back: "← Rudi",
+      w_title: "Karibu Mizizi!",
+      w_text: "Umefika kuishi katika kijiji cha {plural}. Karibu! Hapa tutajifunza {lang} pamoja, na polepole tutajenga maisha yetu. Na tutajua mengi kuhusu watu wa {tribe} tukiishi hapa! Tufahamiane kwanza!",
+      w_btn: "Tufahamiane",
+      p_title: "Tufahamiane",
+      p_text: "Hatua hii itakuja hivi karibuni."
+    },
+    en: {
+      back: "← Back",
+      w_title: "Welcome to Mizizi!",
+      w_text: "You have come to live in the village of the {plural}. Welcome! Here we will learn {lang} together and, little by little, make our life here. And we will learn so much about the {tribe} people while we live here! Let's get to know each other first!",
+      w_btn: "Let's meet",
+      p_title: "Let's meet",
+      p_text: "This step is coming soon."
+    }
+  }
+
+  let lang = localStorage.getItem('lh_lang') || 'sw'
+  if (!i18n[lang]) lang = 'sw'
+  let L = { id: 'kikurya', name: 'Kikurya', tribe: 'Kurya', member_plural: 'Wakurya' }
+
+  function fill(str) {
+    return str.replace('{lang}', L.name).replace('{tribe}', L.tribe || L.name).replace('{plural}', L.member_plural || L.tribe || L.name)
+  }
+  function render() {
+    const t = i18n[lang]
+    document.documentElement.lang = lang
+    document.getElementById('btn-sw').classList.toggle('active', lang === 'sw')
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+    document.getElementById('backLink').textContent = t.back
+    document.getElementById('w-title').textContent = t.w_title
+    document.getElementById('w-text').textContent  = fill(t.w_text)
+    document.getElementById('w-btn').textContent   = t.w_btn
+    document.getElementById('p-title').textContent = t.p_title
+    document.getElementById('p-text').textContent  = t.p_text
+  }
+  function setLang(l) { lang = l; try { localStorage.setItem('lh_lang', l) } catch(e) {} render() }
+
+  // Картинка растягивается только в целое число раз, чтобы пиксели оставались резкими.
+  function fit() {
+    const s = Math.max(1, Math.ceil(Math.max(innerWidth / SCENE_W, innerHeight / SCENE_H)))
+    const img = document.getElementById('scene')
+    img.style.width  = SCENE_W * s + 'px'
+    img.style.height = SCENE_H * s + 'px'
+  }
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id))
+  }
+
+  document.getElementById('btn-sw').onclick = () => setLang('sw')
+  document.getElementById('btn-en').onclick = () => setLang('en')
+  document.getElementById('w-btn').onclick  = () => show('screen-profile')
+  addEventListener('resize', fit)
+
+  async function init() {
+    const id = new URLSearchParams(location.search).get('id') || 'kikurya'
+    document.getElementById('backLink').href = '../language.html?id=' + encodeURIComponent(id)
+    try {
+      const res  = await fetch('../data/languages.json')
+      const json = await res.json()
+      L = json.languages.find(l => l.id === id) || L
+    } catch (e) {}
+    fit(); render()
+  }
+  init()
+</script>
+</body>
+</html>
