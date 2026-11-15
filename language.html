@@ -338,13 +338,8 @@
         t.learn_title.replace('{lang}', l.name)
       document.getElementById('learn-desc').textContent =
         t.learn_desc.replace('{lang}', l.name).replace('{tribe}', tribe)
-      document.getElementById('learnBtn').href = '#'
-      document.getElementById('learnBtn').onclick = (e) => {
-        e.preventDefault()
-        alert(currentLang === 'sw'
-          ? 'Sehemu ya kujifunza itakuwa tayari hivi karibuni!'
-          : 'Learning section coming soon!')
-      }
+      document.getElementById('learnBtn').href = `learn/index.html?id=${encodeURIComponent(l.id)}`
+      document.getElementById('learnBtn').onclick = null
     }
 
     function renderLevelTabs() {
