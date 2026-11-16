@@ -28,6 +28,37 @@
     .plate p  { color:#F7F3EC; margin:0 0 1.2em; font-size:clamp(.95rem,2.2vw,1.1rem); line-height:1.65; }
     .btn { background:#C4714A; color:#fff; border:none; border-radius:999px; padding:.8rem 2.2rem; font-size:1.05rem; font-weight:600; cursor:pointer; font-family:inherit; }
     .btn:hover { background:#b05e38; }
+
+    .plate.wide { max-width:860px; text-align:left; max-height:calc(100vh - 70px); overflow-y:auto; }
+    .plate .hint { font-size:.8rem; line-height:1.4; margin:6px 0 0; }
+    .plate .note { font-size:.9rem; line-height:1.5; }
+    .plate .chip { font-size:.95rem; }
+    .plate.wide h1 { text-align:center; }
+    .grid2 { display:grid; grid-template-columns:1fr; gap:16px 28px; margin-bottom:1.2em; }
+    @media (min-width:720px) { .grid2 { grid-template-columns:1fr 1fr; } }
+    .field > label, .field > .lbl { display:block; font-size:.9rem; font-weight:600; margin-bottom:8px; color:#F7F3EC; }
+    .hint { font-size:.8rem; opacity:.85; margin:6px 0 0; line-height:1.4; color:#F7F3EC; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip { border:2px solid rgba(247,243,236,.35); background:transparent; color:#F7F3EC; border-radius:999px; padding:.45rem 1rem; font-size:.95rem; cursor:pointer; font-family:inherit; }
+    .chip.sel { background:#F7F3EC; color:#2C4A3E; border-color:#F7F3EC; font-weight:600; }
+    .txt { width:100%; box-sizing:border-box; border-radius:10px; border:2px solid rgba(247,243,236,.35); background:rgba(255,255,255,.1); color:#fff; padding:.6rem .8rem; font-size:1rem; font-family:inherit; }
+    .txt::placeholder { color:rgba(247,243,236,.55); }
+    .reasons { display:flex; flex-direction:column; gap:8px; }
+    .reason { text-align:left; border-radius:12px; line-height:1.4; padding:.7rem 1rem; }
+    .note { margin:8px 0 0; padding:.6rem .8rem; border-left:3px solid #E8A882; background:rgba(255,255,255,.08); border-radius:6px; font-size:.9rem; line-height:1.5; color:#F7F3EC; }
+    .actions { display:flex; gap:10px; justify-content:center; margin-top:.4em; flex-wrap:wrap; }
+    .btn.ghost { background:transparent; border:2px solid rgba(247,243,236,.5); }
+    .btn[disabled] { opacity:.4; cursor:not-allowed; }
+    .looks { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:0 0 1.2em; }
+    .look { width:150px; border:3px solid rgba(247,243,236,.3); border-radius:14px; background:rgba(255,255,255,.08); padding:10px 8px 12px; cursor:pointer; color:#F7F3EC; font-family:inherit; }
+    .look.sel { border-color:#E8A882; background:rgba(232,168,130,.18); }
+    .look[disabled] { cursor:not-allowed; opacity:.65; }
+    .look .pic { height:192px; display:flex; align-items:center; justify-content:center; }
+    .look img { image-rendering:pixelated; width:144px; height:192px; }
+    .look .q { font-size:4rem; font-weight:700; opacity:.7; }
+    .look .cap { font-size:.8rem; margin-top:6px; line-height:1.3; }
+    .look .soon { display:block; font-size:.72rem; opacity:.8; margin-top:2px; }
+    @media (max-height:520px) { .look .pic { height:96px; } .look img { width:72px; height:96px; } .look { width:110px; } .look .q { font-size:2.4rem; } }
     @media (max-height:420px) { .plate p { margin-bottom:.8em; line-height:1.45; } .screen { padding-top:48px; } }
   </style>
 </head>
@@ -53,82 +84,177 @@
     </div>
   </section>
 
-  <!-- Экран 2: знакомство (анкета) — будет следующим шагом -->
+  <!-- Экран 2: знакомство -->
   <section class="screen" id="screen-profile">
-    <div class="plate">
+    <div class="plate wide">
       <h1 id="p-title"></h1>
-      <p id="p-text"></p>
+      <div class="grid2">
+        <div class="field"><span class="lbl" id="p-age-l"></span><div class="chips" id="p-age"></div></div>
+        <div class="field"><span class="lbl" id="p-gender-l"></span><div class="chips" id="p-gender"></div></div>
+        <div class="field"><label for="p-name" id="p-name-l"></label><input class="txt" id="p-name" maxlength="30" autocomplete="off" /><p class="hint" id="p-name-h"></p></div>
+        <div class="field"><span class="lbl" id="p-reason-l"></span><div class="reasons" id="p-reason"></div><p class="note" id="p-note" hidden></p></div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="p-back" type="button"></button>
+        <button class="btn" id="p-next" type="button" disabled></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Экран 3: внешность -->
+  <section class="screen" id="screen-look">
+    <div class="plate wide">
+      <h1 id="l-title"></h1>
+      <div class="looks" id="l-looks"></div>
+      <div class="actions">
+        <button class="btn ghost" id="l-back" type="button"></button>
+        <button class="btn" id="l-next" type="button"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Экран 4: урок (будет следующим шагом) -->
+  <section class="screen" id="screen-lesson">
+    <div class="plate">
+      <h1 id="s-title"></h1>
+      <p id="s-text"></p>
+      <div class="actions"><button class="btn ghost" id="s-redo" type="button"></button></div>
     </div>
   </section>
 </div>
 
 <script>
-  const SCENE_W = 458, SCENE_H = 256        // размер картинки в «родных» пикселях
+  const SCENE_W = 458, SCENE_H = 256
   const i18n = {
     sw: {
-      back: "← Rudi",
-      w_title: "Karibu Mizizi!",
+      back: "← Rudi", w_title: "Karibu {village}!",
       w_text: "Umefika kuishi katika kijiji cha {plural}. Karibu! Hapa tutajifunza {lang} pamoja, na polepole tutajenga maisha yetu. Na tutajua mengi kuhusu watu wa {tribe} tukiishi hapa! Tufahamiane kwanza!",
       w_btn: "Tufahamiane",
       p_title: "Tufahamiane",
-      p_text: "Hatua hii itakuja hivi karibuni."
+      p_age: "Una umri gani?", p_gender: "Jinsia yako", p_name: "Jina lako",
+      p_name_h: "Unaweza kuandika jina lako au kubuni jina lolote unalopenda. Hilo ndilo jina watakalokuita kijijini.",
+      p_reason: "Kwa nini umekuja kwa {plural}?",
+      ages: ["Chini ya miaka 12", "12–17", "18–29", "30–49", "Miaka 50 na zaidi"],
+      genders: ["Mwanaume", "Mwanamke"],
+      reasons: ["Hapa ni mahali pa mababu zangu. Damu ya {plural} inatiririka ndani yangu.", "Nina shauku kubwa tu."],
+      notes: ["Haijalishi babu yako alikuwa mbali kiasi gani. Muhimu ni kwamba wewe pia ni wa watu hawa.", ""],
+      p_back: "Rudi", p_next: "Endelea",
+      l_title: "Chagua mwonekano wako",
+      looks: ["Ngozi nyeusi, nywele nyeusi", "Ngozi nyepesi, nywele nyepesi", "Ngozi nyepesi, nywele nyeusi"],
+      soon: "Hivi karibuni",
+      l_back: "Rudi", l_next: "Anza",
+      s_title: "Karibu tena, {name}!", s_text: "Somo la kwanza litakuja hivi karibuni.", s_redo: "Badilisha taarifa zangu"
     },
     en: {
-      back: "← Back",
-      w_title: "Welcome to Mizizi!",
+      back: "← Back", w_title: "Welcome to {village}!",
       w_text: "You have come to live in the village of the {plural}. Welcome! Here we will learn {lang} together and, little by little, make our life here. And we will learn so much about the {tribe} people while we live here! Let's get to know each other first!",
       w_btn: "Let's meet",
       p_title: "Let's meet",
-      p_text: "This step is coming soon."
+      p_age: "How old are you?", p_gender: "Your gender", p_name: "Your name",
+      p_name_h: "You can write your own name or make up any name you like. This is what you will be called in the village.",
+      p_reason: "Why have you come to the {plural}?",
+      ages: ["Under 12", "12–17", "18–29", "30–49", "50 and over"],
+      genders: ["Male", "Female"],
+      reasons: ["This is the land of my ancestors. The blood of the {plural} flows in me.", "I am just very interested."],
+      notes: ["It does not matter how distant your ancestor was. What matters is that you also belong to this people.", ""],
+      p_back: "Back", p_next: "Continue",
+      l_title: "Choose your look",
+      looks: ["Dark skin, dark hair", "Light skin, light hair", "Light skin, dark hair"],
+      soon: "Coming soon",
+      l_back: "Back", l_next: "Start",
+      s_title: "Welcome back, {name}!", s_text: "The first lesson is coming soon.", s_redo: "Change my details"
     }
   }
 
   let lang = localStorage.getItem('lh_lang') || 'sw'
   if (!i18n[lang]) lang = 'sw'
   let L = { id: 'kikurya', name: 'Kikurya', tribe: 'Kurya', member_plural: 'Wakurya' }
+  let P = { age: null, gender: null, name: '', reason: null, look: 0 }   // ответы ученика
+  let current = 'screen-welcome'
+  const AGE_KEYS = ['u12', '12-17', '18-29', '30-49', '50+'], GENDER_KEYS = ['m', 'f'], REASON_KEYS = ['roots', 'interest']
+  const HERO_IMG = { m: 'assets/hero_m_idle.png', f: 'assets/hero_f_idle.png' }
+  const $ = id => document.getElementById(id)
 
   function fill(str) {
-    return str.replace('{lang}', L.name).replace('{tribe}', L.tribe || L.name).replace('{plural}', L.member_plural || L.tribe || L.name)
+    return str.replace(/\{lang\}/g, L.name).replace(/\{tribe\}/g, L.tribe || L.name)
+              .replace(/\{plural\}/g, L.member_plural || L.tribe || L.name).replace(/\{name\}/g, P.name).replace(/\{village\}/g, L.village_name || 'Mizizi')
   }
+  function loadProfile() { try { const j = JSON.parse(localStorage.getItem('lh_profile') || 'null'); return j && j.name ? j : null } catch (e) { return null } }
+  function saveProfile() { try { localStorage.setItem('lh_profile', JSON.stringify(P)) } catch (e) {} }
+
+  function chips(el, labels, keys, key, onPick) {
+    el.innerHTML = ''
+    labels.forEach((lab, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (P[key] === keys[i] ? ' sel' : '')
+      b.textContent = fill(lab); b.onclick = () => { P[key] = keys[i]; onPick && onPick(); render() }
+      el.appendChild(b)
+    })
+  }
+
   function render() {
     const t = i18n[lang]
     document.documentElement.lang = lang
-    document.getElementById('btn-sw').classList.toggle('active', lang === 'sw')
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en')
-    document.getElementById('backLink').textContent = t.back
-    document.getElementById('w-title').textContent = t.w_title
-    document.getElementById('w-text').textContent  = fill(t.w_text)
-    document.getElementById('w-btn').textContent   = t.w_btn
-    document.getElementById('p-title').textContent = t.p_title
-    document.getElementById('p-text').textContent  = t.p_text
+    $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
+    $('backLink').textContent = t.back
+    // 1
+    $('w-title').textContent = fill(t.w_title); $('w-text').textContent = fill(t.w_text); $('w-btn').textContent = t.w_btn
+    // 2
+    $('p-title').textContent = t.p_title; $('p-age-l').textContent = t.p_age; $('p-gender-l').textContent = t.p_gender
+    $('p-name-l').textContent = t.p_name; $('p-name-h').textContent = t.p_name_h; $('p-reason-l').textContent = fill(t.p_reason)
+    chips($('p-age'), t.ages, AGE_KEYS, 'age'); chips($('p-gender'), t.genders, GENDER_KEYS, 'gender')
+    const rs = $('p-reason'); rs.innerHTML = ''
+    t.reasons.forEach((lab, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip reason' + (P.reason === REASON_KEYS[i] ? ' sel' : '')
+      b.textContent = fill(lab); b.onclick = () => { P.reason = REASON_KEYS[i]; render() }; rs.appendChild(b)
+    })
+    const ri = REASON_KEYS.indexOf(P.reason), note = $('p-note')
+    note.hidden = !(ri >= 0 && t.notes[ri]); if (!note.hidden) note.textContent = fill(t.notes[ri])
+    $('p-back').textContent = t.p_back; $('p-next').textContent = t.p_next
+    $('p-next').disabled = !(P.age && P.gender && P.name.trim() && P.reason)
+    // 3
+    $('l-title').textContent = t.l_title; $('l-back').textContent = t.l_back; $('l-next').textContent = t.l_next
+    const box = $('l-looks'); box.innerHTML = ''
+    t.looks.forEach((cap, i) => {
+      const ready = i === 0
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'look' + (P.look === i ? ' sel' : ''); b.disabled = !ready
+      const g = P.gender === 'f' ? 'f' : 'm'
+      b.innerHTML = '<div class="pic">' + (ready ? '<img alt="" src="' + HERO_IMG[g] + '">' : '<span class="q">?</span>') + '</div>'
+                  + '<div class="cap"></div>'
+      b.querySelector('.cap').textContent = cap
+      if (!ready) { const sp = document.createElement('span'); sp.className = 'soon'; sp.textContent = t.soon; b.querySelector('.cap').appendChild(sp) }
+      b.onclick = () => { P.look = i; render() }
+      box.appendChild(b)
+    })
+    // 4
+    $('s-title').textContent = fill(t.s_title); $('s-text').textContent = t.s_text; $('s-redo').textContent = t.s_redo
   }
-  function setLang(l) { lang = l; try { localStorage.setItem('lh_lang', l) } catch(e) {} render() }
+  function setLang(l) { lang = l; try { localStorage.setItem('lh_lang', l) } catch (e) {} render() }
 
-  // Картинка растягивается только в целое число раз, чтобы пиксели оставались резкими.
   function fit() {
     const s = Math.max(1, Math.ceil(Math.max(innerWidth / SCENE_W, innerHeight / SCENE_H)))
-    const img = document.getElementById('scene')
-    img.style.width  = SCENE_W * s + 'px'
-    img.style.height = SCENE_H * s + 'px'
+    const img = $('scene'); img.style.width = SCENE_W * s + 'px'; img.style.height = SCENE_H * s + 'px'
   }
-  function show(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id))
-  }
+  function show(id) { current = id; document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id)) }
 
-  document.getElementById('btn-sw').onclick = () => setLang('sw')
-  document.getElementById('btn-en').onclick = () => setLang('en')
-  document.getElementById('w-btn').onclick  = () => show('screen-profile')
+  $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
+  $('w-btn').onclick = () => show('screen-profile')
+  $('p-name').oninput = e => { P.name = e.target.value.slice(0, 30); render_nextOnly() }
+  function render_nextOnly() { $('p-next').disabled = !(P.age && P.gender && P.name.trim() && P.reason) }
+  $('p-back').onclick = () => show('screen-welcome')
+  $('p-next').onclick = () => { P.name = P.name.trim(); P.look = 0; render(); show('screen-look') }
+  $('l-back').onclick = () => show('screen-profile')
+  $('l-next').onclick = () => { saveProfile(); render(); show('screen-lesson') }
+  $('s-redo').onclick = () => { try { localStorage.removeItem('lh_profile') } catch (e) {} P = { age: null, gender: null, name: '', reason: null, look: 0 }; $('p-name').value = ''; render(); show('screen-profile') }
   addEventListener('resize', fit)
 
   async function init() {
     const id = new URLSearchParams(location.search).get('id') || 'kikurya'
-    document.getElementById('backLink').href = '../language.html?id=' + encodeURIComponent(id)
-    try {
-      const res  = await fetch('../data/languages.json')
-      const json = await res.json()
-      L = json.languages.find(l => l.id === id) || L
-    } catch (e) {}
+    $('backLink').href = '../language.html?id=' + encodeURIComponent(id)
+    try { const res = await fetch('../data/languages.json'); const json = await res.json(); L = json.languages.find(l => l.id === id) || L } catch (e) {}
+    const saved = loadProfile()
+    if (saved) { P = saved; $('p-name').value = P.name }
     fit(); render()
+    if (saved) show('screen-lesson')
   }
   init()
 </script>
