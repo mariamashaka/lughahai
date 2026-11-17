@@ -54,6 +54,31 @@
     #end p { color:#F7F3EC; margin:0 0 1.2em; font-size:1.05rem; line-height:1.6; }
     .actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 
+    #ex { position:absolute; top:72px; left:50%; transform:translateX(-50%); width:min(640px, calc(100vw - 24px)); max-height:calc(100vh - 88px); overflow:auto; box-sizing:border-box;
+          background:rgba(24,34,29,.9); color:#F7F3EC; border-radius:18px; padding:16px; z-index:5; display:none; box-shadow:0 8px 32px rgba(0,0,0,.35); font-family:var(--font-body, system-ui, sans-serif); }
+    #ex.active { display:block; }
+    [hidden] { display:none !important; }
+    #ex p { color:#F7F3EC; }
+    #ex-title { font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; opacity:.8; margin:0 0 8px; }
+    #ex-prompt { display:flex; align-items:center; justify-content:center; gap:12px; margin:6px 0 14px; text-align:center; flex-wrap:wrap; }
+    #ex-prompt .big { font-family:var(--font-display, Georgia, serif); font-size:clamp(1.3rem,3.6vw,1.9rem); font-weight:600; color:#F7F3EC; line-height:1.25; }
+    .tag { font-size:.68rem; background:rgba(232,168,130,.25); color:#E8A882; border-radius:999px; padding:2px 8px; margin-left:6px; vertical-align:middle; font-family:var(--font-body, system-ui, sans-serif); font-weight:500; }
+    .speak[disabled] { opacity:.35; cursor:not-allowed; }
+    .opts { display:grid; grid-template-columns:1fr; gap:8px; }
+    @media (min-width:560px) { .opts.two { grid-template-columns:1fr 1fr; } }
+    .opt { display:flex; align-items:center; justify-content:space-between; gap:8px; text-align:left; color:#F7F3EC; background:rgba(255,255,255,.08); border:2px solid rgba(247,243,236,.3); border-radius:12px; padding:.7rem 1rem; font-size:1rem; line-height:1.35; cursor:pointer; font-family:inherit; }
+    .opt:hover:not([disabled]) { background:rgba(255,255,255,.16); }
+    .opt.good { background:rgba(80,170,110,.35); border-color:#6fcf97; }
+    .opt.bad  { background:rgba(200,70,60,.35); border-color:#eb5757; }
+    .opt[disabled] { cursor:default; }
+    .opt .mini { flex:none; width:34px; height:34px; border-radius:50%; border:2px solid rgba(247,243,236,.5); display:inline-flex; align-items:center; justify-content:center; background:transparent; color:#F7F3EC; cursor:pointer; padding:0; }
+    .opt .mini svg { width:16px; height:16px; fill:currentColor; }
+    .opt .mini[disabled] { opacity:.35; cursor:not-allowed; }
+    .opt.sel { border-color:#E8A882; background:rgba(232,168,130,.2); }
+    .opt.done { opacity:.4; }
+    #ex-fb { min-height:1.4em; margin:12px 0 0; font-size:1rem; font-weight:600; color:#F7F3EC; }
+    #ex-fb.good { color:#6fcf97; } #ex-fb.bad { color:#ffb4a8; }
+    #ex-next { margin-top:10px; }
     @media (max-height:460px) {
       #bubble { top:60px; padding:10px 12px; gap:10px; }
       #portrait { width:54px; height:54px; }
@@ -101,11 +126,19 @@
     </div>
   </div>
 
+  <div id="ex">
+    <p id="ex-title"></p>
+    <div id="ex-prompt"></div>
+    <div class="opts" id="ex-opts"></div>
+    <p id="ex-fb"></p>
+    <div style="text-align:center"><button class="btn" id="ex-next" type="button" hidden></button></div>
+  </div>
+
   <div id="end">
     <div class="plate">
       <h1 id="e-title"></h1>
       <p id="e-text"></p>
-      <div class="actions"><button class="btn ghost" id="e-again" type="button"></button></div>
+      <div class="actions"><button class="btn" id="e-village" type="button"></button><button class="btn ghost" id="e-again" type="button"></button></div>
     </div>
   </div>
 </div>
@@ -115,6 +148,7 @@
   const SB_URL = 'https://geogbanccumdcaymhkdb.supabase.co'
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
   const TOPIC = 'communication'
+  let EXTRA = []                // дополнительные фразы темы: варианты-обманки
   const TOPIC_JSON = '../data/topics/a1/vocabulary/communication.json'
   const SPR = { w: 72, h: 96 }, SKY_H = 170, GROUND_H = 27, FEET_IN_GROUND = 8
 
@@ -139,12 +173,16 @@
           instr: 'Zamu yako: sema, rekodi, kisha sikiliza na ulinganishe na mfano. Umesema sawa?',
           priv: 'Rekodi yako inabaki kwenye kifaa chako tu.', rec: 'Rekodi sauti yako', stop: 'Simamisha', mine: 'Sikiliza rekodi yako',
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
-          e_title: 'Mazoezi yanakuja', e_text: 'Sehemu ya mazoezi bado inatengenezwa. Utaikuta hapa hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza' },
+          e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
+          x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
+          good: 'Sahihi!', bad: 'Jibu sahihi ni:', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
     en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
-          e_title: 'Practice is coming', e_text: 'The practice part is still being built. You will find it here soon.', e_again: 'Start the lesson again', listen: 'Listen' }
+          e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
+          x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
+          good: 'Correct!', bad: 'The right answer is:', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
   }
 
   // ---------- состояние ----------
@@ -186,10 +224,14 @@
   async function loadAll() {
     try { const r = await fetch(TOPIC_JSON); collectTexts(await r.json()) } catch (e) {}
     const ids = a => [...new Set(LESSON.filter(l => l.who === a && l.id).map(l => l.id))]
-    const [ra, ry] = await Promise.all([
+    EXTRA = Object.keys(texts).filter(i => !PRACTICE.includes(i)).slice(0, 14)
+    const poolIds = [...new Set([...PRACTICE, ...EXTRA])]
+    const [ra, ry, rp] = await Promise.all([
       resolvePhrases(langId, TOPIC, ids('anna'), 'anna'),
-      resolvePhrases(langId, TOPIC, ids('you'), null)
+      resolvePhrases(langId, TOPIC, ids('you'), null),
+      resolvePhrases(langId, TOPIC, poolIds, null)
     ])
+    rp.forEach(r => rows['pool|' + r.phrase_id] = r)
     ra.forEach(r => rows['anna|' + r.phrase_id] = r)
     ry.forEach(r => rows['you|' + r.phrase_id] = r)
   }
@@ -338,14 +380,11 @@
   function next() {
     if (idx < LESSON.length - 1) { idx++; showLine() } else finish()
   }
-  function finish() {
-    ended = true; stopAudio(); clearMine()
-    $('bubble').style.display = 'none'; $('bar').style.width = '100%'
-    $('end').classList.add('active'); wave('anna'); wave('hero')
-    try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
-  }
+  function finish() { stopAudio(); clearMine(); startPractice() }
   function again() {
-    ended = false; idx = 0; $('end').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
+    ended = false; practicing = false; idx = 0; streak = {}; matchDone = false
+    try { localStorage.removeItem(practiceKey()) } catch (e) {}
+    $('end').classList.remove('active'); $('ex').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
   }
 
   function renderStatic() {
@@ -354,10 +393,163 @@
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
     $('backLink').textContent = L.back; $('restart').textContent = L.restart
     $('b-audio').setAttribute('aria-label', L.listen)
-    $('e-title').textContent = L.e_title; $('e-text').textContent = L.e_text; $('e-again').textContent = L.e_again
-    if (!ended) showLine()
+    $('e-title').textContent = L.e_title; $('e-text').textContent = L.e_text; $('e-again').textContent = L.e_again; $('e-village').textContent = L.e_village; $('e-village').hidden = false
+    if (practicing && exState) { if (exState.type === 'match') renderMatch(); else renderChoice(exState.id, exState.type) }
+    else if (!ended) showLine()
   }
   function setLang(l) { lang = l; try { localStorage.setItem('lh_lang', l) } catch (e) {} renderStatic() }
+
+  // ---------- упражнения ----------
+  const PRACTICE = ['gr1', 'in3', 'in4', 'in5', 'in6', 'gr8', 'wy6']      // что учим в уроке 1
+  const ANSWER_OF = { gr1: 'gr1', in4: 'in3', in6: 'in5' }               // на какую фразу Анны это ответ
+  const NEED = 2                                                           // сколько раз подряд верно
+  let streak = {}, lastTypes = [], matchDone = false, exState = null, practicing = false
+  const practiceKey = () => 'lh_practice1_' + langId
+  const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a }
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e }
+  const ICON = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>'
+
+  // Данные фразы. Нет записи в базе: слово на языке заменяет заглушка (текст на другом языке интерфейса) с пометкой «образец».
+  function info(id) {
+    const r = rows['pool|' + id], tx = texts[id] || { sw: id, en: id }
+    const gloss = tx[lang], other = tx[lang === 'sw' ? 'en' : 'sw']
+    return { id, gloss, tribal: (r && r.text_value) || other, stub: !(r && r.text_value), audio: (r && r.audio_url) || null }
+  }
+  function loadStreak() { try { streak = JSON.parse(localStorage.getItem(practiceKey()) || '{}') || {} } catch (e) { streak = {} } PRACTICE.forEach(i => { if (typeof streak[i] !== 'number') streak[i] = 0 }) }
+  function saveStreak() { try { localStorage.setItem(practiceKey(), JSON.stringify(streak)) } catch (e) {} }
+  const score = () => PRACTICE.reduce((a, i) => a + Math.min(streak[i], NEED), 0)
+  const allDone = () => PRACTICE.every(i => streak[i] >= NEED)
+
+  function miniBtn(d, small) {
+    const b = el('button', small ? 'mini' : 'speak'); b.type = 'button'; b.innerHTML = ICON
+    if (!d.audio) { b.disabled = true; b.title = i18n[lang].noaudio } else b.onclick = e => { e.stopPropagation(); play(d.audio, false) }
+    return b
+  }
+  function tribalNode(d, cls) {
+    const w = el('span', cls || 'big', d.tribal)
+    if (d.stub) w.appendChild(el('span', 'tag', i18n[lang].sample))
+    return w
+  }
+  function distractors(id, n, sameStub) {
+    const t = info(id), pool = [...new Set([...PRACTICE, ...EXTRA])].filter(x => x !== id)
+    const ok = pool.map(info).filter(d => d.gloss !== t.gloss && d.tribal !== t.tribal && (sameStub === undefined || d.stub === sameStub))
+    return shuffle(ok).slice(0, n)
+  }
+  function chooseType(id) {
+    const base = streak[id] === 0 ? ['listen', 'read'] : ['pick', 'reply', 'read', 'listen']
+    let ts = base.filter(t => t !== 'reply' || ANSWER_OF[id])
+    const fresh = ts.filter(t => !lastTypes.slice(-2).includes(t))
+    ts = fresh.length ? fresh : ts
+    return ts[Math.floor(Math.random() * ts.length)]
+  }
+  function nextExercise() {
+    if (allDone()) return finishPractice()
+    $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'
+    if (!matchDone && score() >= PRACTICE.length * NEED / 2 && PRACTICE.length >= 4) { matchDone = true; return renderMatch() }
+    const open = PRACTICE.filter(i => streak[i] < NEED)
+    const min = Math.min(...open.map(i => streak[i]))
+    let cands = open.filter(i => streak[i] === min && i !== (exState && exState.id))
+    if (!cands.length) cands = open
+    const id = cands[Math.floor(Math.random() * cands.length)], type = chooseType(id)
+    lastTypes.push(type)
+    renderChoice(id, type)
+  }
+
+  function shell(titleKey) {
+    const L = i18n[lang]
+    $('ex-title').textContent = L[titleKey]; $('ex-prompt').innerHTML = ''; $('ex-opts').innerHTML = ''
+    $('ex-fb').textContent = ''; $('ex-fb').className = ''; $('ex-next').hidden = true; $('ex-next').textContent = L.cont
+    $('ex').classList.add('active'); stopAudio()
+  }
+  function answer(id, ok, correctText, correctAudio) {
+    const L = i18n[lang]
+    streak[id] = ok ? streak[id] + 1 : 0; saveStreak()
+    $('ex-fb').className = ok ? 'good' : 'bad'
+    $('ex-fb').textContent = ok ? L.good : L.bad + ' ' + correctText
+    if (!ok && correctAudio) play(correctAudio, false)
+    $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'
+    $('ex-next').hidden = false
+    if (ok) wave('anna', 900)
+  }
+
+  function renderChoice(id, type) {
+    const L = i18n[lang], t = info(id)
+    exState = { id, type }
+    shell({ listen: 'x_listen', read: 'x_read', pick: 'x_pick', reply: 'x_reply' }[type])
+    const prompt = $('ex-prompt'), opts = $('ex-opts')
+    let options, correct, kind                       // kind: 'gloss' варианты — переводы, 'tribal' — слова
+    if (type === 'listen') {
+      prompt.appendChild(miniBtn(t, false))
+      if (t.stub || !t.audio) prompt.appendChild(tribalNode(t))
+      kind = 'gloss'
+    } else if (type === 'read') {
+      prompt.appendChild(tribalNode(t)); prompt.appendChild(miniBtn(t, false)); kind = 'gloss'
+    } else if (type === 'pick') {
+      prompt.appendChild(el('span', 'big', t.gloss)); kind = 'tribal'
+    } else {                                          // reply: Анна говорит вопрос, ученик выбирает ответ
+      const q = info(ANSWER_OF[id]); prompt.appendChild(tribalNode(q)); prompt.appendChild(miniBtn(q, false)); kind = 'tribal'
+    }
+    options = shuffle([t, ...distractors(id, 3, kind === 'tribal' ? t.stub : undefined)])
+    if (type === 'listen' && !t.stub && t.audio) setTimeout(() => { if (exState && exState.id === id) play(t.audio, false) }, 350)
+    options.forEach(d => {
+      const b = el('button', 'opt'); b.type = 'button'
+      if (kind === 'gloss') b.appendChild(el('span', '', d.gloss))
+      else { b.appendChild(tribalNode(d, '')); b.appendChild(miniBtn(d, true)) }
+      b.onclick = () => {
+        opts.querySelectorAll('.opt').forEach(x => x.disabled = true)
+        const ok = d.id === id
+        b.classList.add(ok ? 'good' : 'bad')
+        if (!ok) [...opts.children].forEach((x, i) => { if (options[i].id === id) x.classList.add('good') })
+        answer(id, ok, kind === 'gloss' ? t.gloss : t.tribal, kind === 'tribal' ? t.audio : null)
+      }
+      opts.appendChild(b)
+    })
+    opts.classList.toggle('two', kind === 'gloss')
+    $('ex-next').onclick = nextExercise
+  }
+
+  function renderMatch() {
+    const L = i18n[lang]
+    const ids = PRACTICE.slice().sort((a, b) => streak[a] - streak[b]).slice(0, 4)
+    exState = { id: null, type: 'match' }
+    shell('x_match')
+    const items = ids.map(info), opts = $('ex-opts'); opts.classList.add('two')
+    const left = shuffle(items), right = shuffle(items)
+    let sel = null, solved = 0, missed = {}
+    const mk = (d, side) => {
+      const b = el('button', 'opt'); b.type = 'button'
+      if (side === 'l') { b.appendChild(tribalNode(d, '')); b.appendChild(miniBtn(d, true)) } else b.appendChild(el('span', '', d.gloss))
+      b.onclick = () => {
+        if (b.classList.contains('done')) return
+        if (side === 'l') { opts.querySelectorAll('.opt.sel').forEach(x => x.classList.remove('sel')); sel = { d, b }; b.classList.add('sel'); if (d.audio) play(d.audio, false); return }
+        if (!sel) return
+        if (sel.d.id === d.id) {
+          sel.b.classList.remove('sel'); sel.b.classList.add('done'); b.classList.add('done'); solved++; sel = null
+          if (solved === items.length) {
+            items.forEach(x => { streak[x.id] = missed[x.id] ? 0 : streak[x.id] + 1 })
+            saveStreak(); $('ex-fb').className = 'good'; $('ex-fb').textContent = L.good; $('ex-next').hidden = false
+            $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'; wave('anna', 900)
+          }
+        } else { missed[sel.d.id] = true; b.classList.add('bad'); setTimeout(() => b.classList.remove('bad'), 500) }
+      }
+      return b
+    }
+    // две колонки: слова слева, значения справа (по строкам)
+    for (let i = 0; i < items.length; i++) { opts.appendChild(mk(left[i], 'l')); opts.appendChild(mk(right[i], 'r')) }
+    $('ex-next').onclick = nextExercise
+  }
+
+  function startPractice() {
+    $('bubble').style.display = 'none'; practicing = true; loadStreak(); matchDone = score() >= PRACTICE.length * NEED / 2
+    if (allDone()) return finishPractice()
+    nextExercise()
+  }
+  function finishPractice() {
+    $('ex').classList.remove('active'); stopAudio(); ended = true; practicing = false
+    $('bar').style.width = '100%'; $('e-text').textContent = i18n[lang].e_text
+    $('end').classList.add('active'); wave('anna'); wave('hero')
+    try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
+  }
 
   // ---------- запуск ----------
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
@@ -366,8 +558,9 @@
   $('b-mine').onclick = playMine
   $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
   $('e-again').onclick = again
+  $('e-village').onclick = () => { $('e-text').textContent = i18n[lang].e_soon; $('e-village').hidden = true }
   $('restart').onclick = () => {
-    try { localStorage.removeItem('lh_profile'); localStorage.removeItem(progressKey()) } catch (e) {}
+    try { localStorage.removeItem('lh_profile'); localStorage.removeItem(progressKey()); localStorage.removeItem(practiceKey()) } catch (e) {}
     location.href = 'index.html?id=' + encodeURIComponent(langId)
   }
   addEventListener('resize', layout)
@@ -382,7 +575,9 @@
     await loadAll()
     const saved = parseInt(localStorage.getItem(progressKey()) || '0', 10)
     idx = isNaN(saved) || saved >= LESSON.length ? 0 : saved
-    if (localStorage.getItem(progressKey()) === 'done') { idx = 0 }
+    loadStreak()
+    if (localStorage.getItem(progressKey()) === 'done' && allDone()) { startPractice(); return }   // всё пройдено: сразу финальный экран
+    if (score() > 0) { startPractice(); return }                                                    // практика уже начата
     showLine()
   }
   init()
