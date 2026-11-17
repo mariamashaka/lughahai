@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugha Hai — Somo la 1</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    html, body { margin:0; height:100%; overflow:hidden; background:#64abd9; }
+    #stage { position:fixed; inset:0; overflow:hidden; background:#64abd9; }
+    .layer { position:absolute; left:0; right:0; background-repeat:repeat-x; background-position:left bottom; image-rendering:pixelated; }
+    #far    { background-image:url(assets/scene/far.png); }
+    #ground { bottom:0; background-image:url(assets/scene/ground.png); }
+    .actor { position:absolute; image-rendering:pixelated; user-select:none; -webkit-user-drag:none; }
+    #hero { transform:scaleX(-1); }
+
+    .topbar { position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center; z-index:6; gap:8px; }
+    .pill { color:#fff; background:rgba(20,30,25,.55); border-radius:999px; padding:6px 14px; font-size:.85rem; text-decoration:none; font-family:var(--font-body, system-ui, sans-serif); border:none; cursor:pointer; }
+    .switcher { display:flex; background:rgba(20,30,25,.55); border-radius:999px; padding:3px; gap:2px; }
+    .switcher button { border:none; background:transparent; color:#fff; padding:4px 12px; border-radius:999px; font-size:.8rem; cursor:pointer; font-family:inherit; }
+    .switcher button.active { background:#fff; color:#2C4A3E; font-weight:600; }
+    .progress { position:absolute; top:52px; left:50%; transform:translateX(-50%); width:min(360px,60vw); height:6px; background:rgba(20,30,25,.35); border-radius:3px; z-index:6; overflow:hidden; }
+    .progress > i { display:block; height:100%; width:0; background:#F7F3EC; transition:width .3s; }
+
+    #bubble { position:absolute; top:72px; left:50%; transform:translateX(-50%); width:min(600px, calc(100vw - 24px)); box-sizing:border-box;
+              background:rgba(24,34,29,.86); color:#F7F3EC; border-radius:18px; padding:14px 16px; display:flex; gap:14px; align-items:center;
+              box-shadow:0 8px 32px rgba(0,0,0,.35); z-index:5; font-family:var(--font-body, system-ui, sans-serif); border:3px solid transparent; }
+    #bubble.you { border-color:#E8A882; }
+    #portrait { image-rendering:pixelated; flex:none; width:72px; height:72px; border-radius:10px; background:rgba(255,255,255,.08); }
+    #portrait[hidden] { display:none; }
+    #bubble .body { flex:1; min-width:0; }
+    #who { font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; opacity:.8; margin-bottom:2px; }
+    #main { font-family:var(--font-display, Georgia, serif); font-size:clamp(1.25rem,3.4vw,1.8rem); line-height:1.25; font-weight:600; margin:0; color:#F7F3EC; word-wrap:break-word; }
+    #main.plain { font-family:var(--font-body, system-ui, sans-serif); font-size:clamp(1.05rem,2.6vw,1.3rem); font-weight:500; }
+    #gloss { margin:4px 0 0; font-size:.95rem; opacity:.85; color:#F7F3EC; line-height:1.4; }
+    #instr { margin:6px 0 0; font-size:.85rem; color:#E8A882; line-height:1.4; }
+    .row { display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
+    .speak { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:2px solid rgba(247,243,236,.5); background:transparent; color:#F7F3EC; cursor:pointer; flex:none; }
+    .speak[hidden] { display:none; }
+    .speak:hover, .speak.playing { background:#F7F3EC; color:#2C4A3E; }
+    .speak svg { width:22px; height:22px; fill:currentColor; }
+    .btn { background:#C4714A; color:#fff; border:none; border-radius:999px; padding:.65rem 1.6rem; font-size:1rem; font-weight:600; cursor:pointer; font-family:inherit; }
+    .btn:hover { background:#b05e38; }
+    .btn.ghost { background:transparent; border:2px solid rgba(247,243,236,.5); }
+
+    #end { position:absolute; inset:0; display:none; align-items:center; justify-content:center; padding:56px 16px 16px; box-sizing:border-box; z-index:7; }
+    #end.active { display:flex; }
+    #end .plate { max-width:560px; width:100%; background:rgba(24,34,29,.88); color:#F7F3EC; border-radius:18px; padding:clamp(16px,3vw,28px); text-align:center; box-shadow:0 8px 32px rgba(0,0,0,.35); font-family:var(--font-body, system-ui, sans-serif); }
+    #end h1 { color:#F7F3EC; margin:0 0 .5em; font-family:var(--font-display, Georgia, serif); font-size:clamp(1.3rem,3.2vw,1.8rem); }
+    #end p { color:#F7F3EC; margin:0 0 1.2em; font-size:1.05rem; line-height:1.6; }
+    .actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
+    @media (max-height:460px) {
+      #bubble { top:60px; padding:10px 12px; gap:10px; }
+      #portrait { width:54px; height:54px; }
+      .row { margin-top:6px; }
+      .progress { top:46px; }
+    }
+  </style>
+</head>
+<body>
+<div id="stage">
+  <div id="far" class="layer"></div>
+  <div id="ground" class="layer"></div>
+  <img id="anna" class="actor" alt="" src="assets/anna/idle0.png" />
+  <img id="hero" class="actor" alt="" src="assets/hero_f/idle0.png" />
+
+  <div class="topbar">
+    <a class="pill" id="backLink" href="../language.html"></a>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button class="pill" id="restart" type="button"></button>
+      <div class="switcher"><button id="btn-sw" type="button">SW</button><button id="btn-en" type="button">EN</button></div>
+    </div>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+
+  <div id="bubble">
+    <img id="portrait" alt="" src="assets/anna_face/smile.png" />
+    <div class="body">
+      <div id="who"></div>
+      <p id="main"></p>
+      <p id="gloss"></p>
+      <p id="instr"></p>
+      <div class="row">
+        <button class="speak" id="b-audio" type="button" hidden aria-label="Listen">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+        </button>
+        <button class="btn" id="next" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="end">
+    <div class="plate">
+      <h1 id="e-title"></h1>
+      <p id="e-text"></p>
+      <div class="actions"><button class="btn ghost" id="e-again" type="button"></button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- настройки ----------
+  const SB_URL = 'https://geogbanccumdcaymhkdb.supabase.co'
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+  const TOPIC = 'communication'
+  const TOPIC_JSON = '../data/topics/a1/vocabulary/communication.json'
+  const SPR = { w: 72, h: 96 }, SKY_H = 170, GROUND_H = 27, FEET_IN_GROUND = 8
+
+  // Сценарий урока 1. who: 'anna' | 'you'. id: номер фразы в теме «communication».
+  // Нет записи в базе: показываем текст на SW/EN из файла темы. Есть запись: показываем и озвучиваем кикурья.
+  const LESSON = [
+    { who: 'anna', id: 'gr1', anim: 'wave' },
+    { who: 'you',  id: 'gr1' },
+    { who: 'anna', id: 'in3' },
+    { who: 'you',  id: 'in4' },
+    { who: 'anna', id: 'in4' },
+    { who: 'anna', id: 'in6' },
+    { who: 'anna', id: 'in5' },
+    { who: 'you',  id: 'in6', withName: true },
+    { who: 'anna', id: 'gr8', anim: 'wave' },
+    { who: 'anna', id: 'wy6' },
+    { who: 'anna', say: { sw: 'Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.', en: 'To go on, you need to memorise these words. Now we will practise.' } }
+  ]
+
+  const i18n = {
+    sw: { back: '← Rudi', restart: 'Anza upya', you: 'Wewe', next: 'Endelea', said: 'Nimesema',
+          instr: 'Zamu yako: sema kwa sauti. Bonyeza kipaza sauti kusikia mfano.',
+          e_title: 'Mazoezi yanakuja', e_text: 'Sehemu ya mazoezi bado inatengenezwa. Utaikuta hapa hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza' },
+    en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
+          instr: 'Your turn: say it aloud. Press the speaker to hear an example.',
+          e_title: 'Practice is coming', e_text: 'The practice part is still being built. You will find it here soon.', e_again: 'Start the lesson again', listen: 'Listen' }
+  }
+
+  // ---------- состояние ----------
+  const $ = id => document.getElementById(id)
+  const params = new URLSearchParams(location.search)
+  const langId = params.get('id') || 'kikurya'
+  let lang = localStorage.getItem('lh_lang') || 'sw'
+  if (!i18n[lang]) lang = 'sw'
+  let P = null                // профиль ученика
+  let texts = {}              // id -> { sw, en } из файла темы
+  let rows = {}               // 'anna|id' / 'you|id' -> строка из базы
+  let idx = 0, ended = false
+  let s = 3                   // масштаб пикселей
+
+  const progressKey = () => 'lh_lesson1_' + langId
+  function loadProfile() { try { const j = JSON.parse(localStorage.getItem('lh_profile') || 'null'); return j && j.name ? j : null } catch (e) { return null } }
+
+  // ---------- база ----------
+  async function resolvePhrases(language, topic, ids, hero) {
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 6000)
+    try {
+      const res = await fetch(SB_URL + '/rest/v1/rpc/resolve_phrases', {
+        method: 'POST', signal: ctl.signal,
+        headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_language: language, p_topic: topic, p_phrase_ids: ids, p_hero: hero || null })
+      })
+      if (!res.ok) return []
+      const out = await res.json()
+      return Array.isArray(out) ? out : []
+    } catch (e) { return [] } finally { clearTimeout(timer) }
+  }
+  function collectTexts(o) {
+    if (Array.isArray(o)) o.forEach(collectTexts)
+    else if (o && typeof o === 'object') {
+      if (o.id && (o.sw || o.en)) texts[o.id] = { sw: o.sw || '', en: o.en || '' }
+      Object.values(o).forEach(collectTexts)
+    }
+  }
+  async function loadAll() {
+    try { const r = await fetch(TOPIC_JSON); collectTexts(await r.json()) } catch (e) {}
+    const ids = a => [...new Set(LESSON.filter(l => l.who === a && l.id).map(l => l.id))]
+    const [ra, ry] = await Promise.all([
+      resolvePhrases(langId, TOPIC, ids('anna'), 'anna'),
+      resolvePhrases(langId, TOPIC, ids('you'), null)
+    ])
+    ra.forEach(r => rows['anna|' + r.phrase_id] = r)
+    ry.forEach(r => rows['you|' + r.phrase_id] = r)
+  }
+
+  // ---------- сцена ----------
+  function layout() {
+    // масштаб: герои не выше ~42% экрана и оба помещаются по ширине
+    s = Math.max(1, Math.min(4, Math.floor(innerHeight * 0.42 / SPR.h), Math.floor(innerWidth / 180)))
+    const far = $('far'), gr = $('ground')
+    far.style.height = SKY_H * s + 'px'; far.style.bottom = GROUND_H * s + 'px'; far.style.backgroundSize = 'auto 100%'
+    gr.style.height = GROUND_H * s + 'px'; gr.style.backgroundSize = 'auto 100%'
+    const bottom = (GROUND_H - FEET_IN_GROUND) * s
+    for (const [id, dx] of [['anna', -50], ['hero', 50]]) {
+      const el = $(id)
+      el.style.width = SPR.w * s + 'px'; el.style.height = SPR.h * s + 'px'
+      el.style.bottom = bottom + 'px'; el.style.left = `calc(50% + ${dx * s}px - ${SPR.w * s / 2}px)`
+    }
+    const pw = innerHeight < 460 ? 54 : 72
+    $('portrait').style.width = $('portrait').style.height = (innerHeight >= 600 ? 96 : pw) + 'px'
+  }
+
+  // Анимация героев: дыхание и моргание; «wave» по команде
+  const folders = { anna: 'assets/anna/', hero: null }
+  function setSprite(who, frame) { const el = $(who); el.src = (who === 'anna' ? 'assets/anna/' : 'assets/' + (P && P.gender === 'm' ? 'hero_m/' : 'hero_f/')) + frame + '.png' }
+  let waving = {}
+  function wave(who, ms = 1800) {
+    waving[who] = true; let k = 0
+    const t = setInterval(() => setSprite(who, k++ % 2 ? 'wave1' : 'wave0'), 260)
+    setTimeout(() => { clearInterval(t); waving[who] = false; setSprite(who, 'idle0') }, ms)
+  }
+  function idleLoop(who, offset) {
+    let breath = false
+    setInterval(() => { if (waving[who]) return; breath = !breath; setSprite(who, breath ? 'breath' : 'idle0') }, 700 + offset)
+    ;(function blink() {
+      setTimeout(() => { if (!waving[who]) { setSprite(who, 'blink'); setTimeout(() => { if (!waving[who]) setSprite(who, 'idle0') }, 140) } blink() }, 2200 + Math.random() * 2500)
+    })()
+  }
+
+  // ---------- звук и мимика Анны ----------
+  let audio = null, talkTimer = null
+  function setFace(name) { $('portrait').src = 'assets/anna_face/' + name + '.png' }
+  function stopAudio() { if (audio) { audio.pause(); audio = null } clearInterval(talkTimer); $('b-audio').classList.remove('playing'); if (!$('portrait').hidden) setFace('smile') }
+  function play(url, talking) {
+    stopAudio()
+    if (!url) return
+    try {
+      audio = new Audio(url)
+      $('b-audio').classList.add('playing')
+      if (talking) { let k = 0; talkTimer = setInterval(() => setFace(k++ % 2 ? 'talk1' : 'talk2'), 140) }
+      const done = () => stopAudio()
+      audio.onended = done; audio.onerror = done
+      audio.play().catch(done)
+    } catch (e) { stopAudio() }
+  }
+
+  // ---------- реплики ----------
+  function currentText(line) {
+    const L = i18n[lang]
+    if (line.say) return { main: line.say[lang], gloss: '', audio: null, recorded: false }
+    const row = rows[line.who + '|' + line.id]
+    const tx = texts[line.id] || { sw: line.id, en: line.id }
+    if (row && row.text_value) {
+      let main = row.text_value
+      if (line.withName && P) main = main.replace(/Anna/g, P.name)
+      let gloss = tx[lang]
+      if (line.withName && P) gloss = gloss.replace(/Anna/g, P.name)
+      return { main, gloss, audio: row.audio_url || null, recorded: true }
+    }
+    let main = tx[lang]
+    if (line.withName && P) main = main.replace(/Anna/g, P.name)
+    return { main, gloss: '', audio: null, recorded: false }
+  }
+
+  function showLine() {
+    const L = i18n[lang], line = LESSON[idx]
+    stopAudio()
+    const you = line.who === 'you', t = currentText(line)
+    $('bubble').classList.toggle('you', you)
+    $('portrait').hidden = you
+    if (!you) setFace('smile')
+    $('who').textContent = you ? (P ? P.name : L.you) : 'Anna'
+    $('main').textContent = t.main
+    $('main').classList.toggle('plain', !t.recorded)
+    $('gloss').textContent = t.gloss
+    $('gloss').hidden = !t.gloss
+    $('instr').textContent = you ? L.instr : ''
+    $('instr').hidden = !you
+    $('b-audio').hidden = !t.audio
+    $('next').textContent = you ? L.said : L.next
+    $('bar').style.width = (idx / LESSON.length * 100) + '%'
+    if (line.anim === 'wave' && !you) wave('anna')
+    if (!you && t.audio) setTimeout(() => { if (LESSON[idx] === line) play(t.audio, true) }, 350)
+    try { localStorage.setItem(progressKey(), String(idx)) } catch (e) {}
+  }
+
+  function next() {
+    if (idx < LESSON.length - 1) { idx++; showLine() } else finish()
+  }
+  function finish() {
+    ended = true; stopAudio()
+    $('bubble').style.display = 'none'; $('bar').style.width = '100%'
+    $('end').classList.add('active'); wave('anna'); wave('hero')
+    try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
+  }
+  function again() {
+    ended = false; idx = 0; $('end').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
+  }
+
+  function renderStatic() {
+    const L = i18n[lang]
+    document.documentElement.lang = lang
+    $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
+    $('backLink').textContent = L.back; $('restart').textContent = L.restart
+    $('b-audio').setAttribute('aria-label', L.listen)
+    $('e-title').textContent = L.e_title; $('e-text').textContent = L.e_text; $('e-again').textContent = L.e_again
+    if (!ended) showLine()
+  }
+  function setLang(l) { lang = l; try { localStorage.setItem('lh_lang', l) } catch (e) {} renderStatic() }
+
+  // ---------- запуск ----------
+  $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
+  $('next').onclick = next
+  $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
+  $('e-again').onclick = again
+  $('restart').onclick = () => {
+    try { localStorage.removeItem('lh_profile'); localStorage.removeItem(progressKey()) } catch (e) {}
+    location.href = 'index.html?id=' + encodeURIComponent(langId)
+  }
+  addEventListener('resize', layout)
+
+  async function init() {
+    P = loadProfile()
+    if (!P) { location.replace('index.html?id=' + encodeURIComponent(langId)); return }
+    $('backLink').href = '../language.html?id=' + encodeURIComponent(langId)
+    setSprite('anna', 'idle0'); setSprite('hero', 'idle0')
+    layout(); idleLoop('anna', 0); idleLoop('hero', 130)
+    renderStatic()                        // сразу показываем первую реплику на SW/EN, пока грузится база
+    await loadAll()
+    const saved = parseInt(localStorage.getItem(progressKey()) || '0', 10)
+    idx = isNaN(saved) || saved >= LESSON.length ? 0 : saved
+    if (localStorage.getItem(progressKey()) === 'done') { idx = 0 }
+    showLine()
+  }
+  init()
+</script>
+</body>
+</html>
