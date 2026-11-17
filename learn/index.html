@@ -29,6 +29,10 @@
     .btn { background:#C4714A; color:#fff; border:none; border-radius:999px; padding:.8rem 2.2rem; font-size:1.05rem; font-weight:600; cursor:pointer; font-family:inherit; }
     .btn:hover { background:#b05e38; }
 
+    .speak { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 0 .8em; border-radius:50%; border:2px solid rgba(247,243,236,.5); background:transparent; color:#F7F3EC; cursor:pointer; }
+    .speak[hidden] { display:none; }
+    .speak:hover, .speak.playing { background:#F7F3EC; color:#2C4A3E; }
+    .speak svg { width:22px; height:22px; fill:currentColor; }
     .plate.wide { max-width:860px; text-align:left; max-height:calc(100vh - 70px); overflow-y:auto; }
     .plate .hint { font-size:.8rem; line-height:1.4; margin:6px 0 0; }
     .plate .note { font-size:.9rem; line-height:1.5; }
@@ -79,6 +83,7 @@
   <section class="screen active" id="screen-welcome">
     <div class="plate">
       <h1 id="w-title"></h1>
+      <button class="speak" id="w-audio" type="button" hidden aria-label="Listen"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button>
       <p id="w-text"></p>
       <button class="btn" id="w-btn" type="button"></button>
     </div>
@@ -169,6 +174,37 @@
   let lang = localStorage.getItem('lh_lang') || 'sw'
   if (!i18n[lang]) lang = 'sw'
   let L = { id: 'kikurya', name: 'Kikurya', tribe: 'Kurya', member_plural: 'Wakurya' }
+  const SB_URL = 'https://geogbanccumdcaymhkdb.supabase.co'
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
+  const ROOT_PHRASE = { topic: 'nouns', id: 'i26_pl' }      // «корни» (мн. ч.): название деревни
+  let village = { text: null, audio: null }                 // из базы; если записи нет, показываем Mizizi / Roots
+  const villageName = () => village.text || (lang === 'en' ? 'Roots' : 'Mizizi')
+
+  // Спрашиваем у базы фразы. Нет записи или нет связи: возвращаем пустой список, игра работает с запасным текстом.
+  async function resolvePhrases(language, topic, ids, hero) {
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 5000)
+    try {
+      const res = await fetch(SB_URL + '/rest/v1/rpc/resolve_phrases', {
+        method: 'POST', signal: ctl.signal,
+        headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_language: language, p_topic: topic, p_phrase_ids: ids, p_hero: hero || null })
+      })
+      if (!res.ok) return []
+      const rows = await res.json()
+      return Array.isArray(rows) ? rows : []
+    } catch (e) { return [] } finally { clearTimeout(timer) }
+  }
+  let currentAudio = null
+  function playAudio(url, btn) {
+    if (!url) return
+    try {
+      if (currentAudio) currentAudio.pause()
+      currentAudio = new Audio(url)
+      if (btn) { btn.classList.add('playing'); currentAudio.onended = currentAudio.onerror = () => btn.classList.remove('playing') }
+      currentAudio.play().catch(() => btn && btn.classList.remove('playing'))
+    } catch (e) {}
+  }
+
   let P = { age: null, gender: null, name: '', reason: null, look: 0 }   // ответы ученика
   let current = 'screen-welcome'
   const AGE_KEYS = ['u12', '12-17', '18-29', '30-49', '50+'], GENDER_KEYS = ['m', 'f'], REASON_KEYS = ['roots', 'interest']
@@ -177,7 +213,7 @@
 
   function fill(str) {
     return str.replace(/\{lang\}/g, L.name).replace(/\{tribe\}/g, L.tribe || L.name)
-              .replace(/\{plural\}/g, L.member_plural || L.tribe || L.name).replace(/\{name\}/g, P.name).replace(/\{village\}/g, L.village_name || 'Mizizi')
+              .replace(/\{plural\}/g, L.member_plural || L.tribe || L.name).replace(/\{name\}/g, P.name).replace(/\{village\}/g, villageName())
   }
   function loadProfile() { try { const j = JSON.parse(localStorage.getItem('lh_profile') || 'null'); return j && j.name ? j : null } catch (e) { return null } }
   function saveProfile() { try { localStorage.setItem('lh_profile', JSON.stringify(P)) } catch (e) {} }
@@ -197,6 +233,7 @@
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
     $('backLink').textContent = t.back
     // 1
+    $('w-audio').hidden = !village.audio
     $('w-title').textContent = fill(t.w_title); $('w-text').textContent = fill(t.w_text); $('w-btn').textContent = t.w_btn
     // 2
     $('p-title').textContent = t.p_title; $('p-age-l').textContent = t.p_age; $('p-gender-l').textContent = t.p_gender
@@ -236,6 +273,7 @@
   }
   function show(id) { current = id; document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id)) }
 
+  $('w-audio').onclick = () => playAudio(village.audio, $('w-audio'))
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
   $('w-btn').onclick = () => show('screen-profile')
   $('p-name').oninput = e => { P.name = e.target.value.slice(0, 30); render_nextOnly() }
@@ -255,6 +293,8 @@
     if (saved) { P = saved; $('p-name').value = P.name }
     fit(); render()
     if (saved) show('screen-lesson')
+    const rows = await resolvePhrases(id, ROOT_PHRASE.topic, [ROOT_PHRASE.id], null)
+    if (rows[0] && rows[0].text_value) { village = { text: rows[0].text_value, audio: rows[0].audio_url || null }; render() }
   }
   init()
 </script>
