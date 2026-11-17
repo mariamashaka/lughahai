@@ -281,7 +281,8 @@
   $('p-back').onclick = () => show('screen-welcome')
   $('p-next').onclick = () => { P.name = P.name.trim(); P.look = 0; render(); show('screen-look') }
   $('l-back').onclick = () => show('screen-profile')
-  $('l-next').onclick = () => { saveProfile(); render(); show('screen-lesson') }
+  const langIdParam = () => new URLSearchParams(location.search).get('id') || 'kikurya'
+  $('l-next').onclick = () => { saveProfile(); location.href = 'lesson.html?id=' + encodeURIComponent(langIdParam()) }
   $('s-redo').onclick = () => { try { localStorage.removeItem('lh_profile') } catch (e) {} P = { age: null, gender: null, name: '', reason: null, look: 0 }; $('p-name').value = ''; render(); show('screen-profile') }
   addEventListener('resize', fit)
 
@@ -290,9 +291,8 @@
     $('backLink').href = '../language.html?id=' + encodeURIComponent(id)
     try { const res = await fetch('../data/languages.json'); const json = await res.json(); L = json.languages.find(l => l.id === id) || L } catch (e) {}
     const saved = loadProfile()
-    if (saved) { P = saved; $('p-name').value = P.name }
+    if (saved) { location.replace('lesson.html?id=' + encodeURIComponent(id)); return }
     fit(); render()
-    if (saved) show('screen-lesson')
     const rows = await resolvePhrases(id, ROOT_PHRASE.topic, [ROOT_PHRASE.id], null)
     if (rows[0] && rows[0].text_value) { village = { text: rows[0].text_value, audio: rows[0].audio_url || null }; render() }
   }
