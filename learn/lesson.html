@@ -106,6 +106,7 @@
     <a class="pill" id="backLink" href="../language.html"></a>
     <div style="display:flex; gap:8px; align-items:center;">
       <button class="pill" id="music" type="button"></button>
+      <button class="pill" id="sounds" type="button"></button>
       <button class="pill" id="restart" type="button"></button>
       <div class="switcher"><button id="btn-sw" type="button">SW</button><button id="btn-en" type="button">EN</button></div>
     </div>
@@ -186,14 +187,14 @@
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
           e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
-          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', music: '♪ Muziki', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
+          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', music: '♪ Muziki', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
     en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
           e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
-          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', music: '♪ Music', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
+          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', music: '♪ Music', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
   }
 
   // ---------- состояние ----------
@@ -302,7 +303,7 @@
   const AC = window.AudioContext || window.webkitAudioContext
   let ac = null, sfxBus = null, musicBus = null, wetBus = null, musicOn = localStorage.getItem('lh_music') !== 'off'
   let wantTrack = null, track = null, nextBar = 0, mTimer = null, ducked = false
-  const MUSIC_LEVEL = 0.5, DUCK_LEVEL = 0.15
+  const MUSIC_LEVEL = 1.0, DUCK_LEVEL = 0.22
   function ensureAudio() {
     if (!AC) return false
     if (!ac) {
@@ -325,17 +326,47 @@
     o.connect(g); g.connect(dest); if (wet) g.connect(wet)
     o.start(t); o.stop(t + dur + 0.05)
   }
+  // Звук «щипок» (калимба/мбира): основной тон + короткий металлический обертон
+  function pluck(f, t, dur, vol, dest, wet) { tone(f, t, dur, 'sine', vol, dest, wet); tone(f * 5.4, t, 0.12, 'sine', vol * 0.25, dest, wet) }
+  function noiseBurst(t, dur, freq, q, vol, dest) {
+    const n = Math.floor(ac.sampleRate * dur), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0)
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n)
+    const s = ac.createBufferSource(); s.buffer = buf
+    const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q
+    const g = ac.createGain(); g.gain.value = vol
+    s.connect(f); f.connect(g); g.connect(dest); s.start(t)
+  }
+  function drum(t, f0, f1, dur, vol, dest) {
+    const o = ac.createOscillator(), g = ac.createGain(); o.type = 'sine'
+    o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.6)
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
+    o.connect(g); g.connect(dest); o.start(t); o.stop(t + dur + 0.05)
+  }
+  // Наборы звуков по регионам мира. Сейчас готов африканский (барабан, калимба, шейкер), азиатский и южноамериканский
+  // добавим отдельно; пока для них играет африканский. Национальные инструменты народов даём в уроках про культуру.
+  const PACKS = {
+    africa: {
+      tap()  { const t = ac.currentTime; drum(t, 260, 120, 0.09, 0.32, sfxBus); noiseBurst(t, 0.03, 1800, 1, 0.18, sfxBus) },
+      good() { const t = ac.currentTime; [523.25, 659.25, 783.99].forEach((f, i) => pluck(f, t + i * 0.09, 0.55, 0.3, sfxBus)) },
+      bad()  { const t = ac.currentTime; drum(t, 190, 95, 0.28, 0.55, sfxBus); drum(t + 0.17, 150, 70, 0.34, 0.55, sfxBus) },
+      done() { const t = ac.currentTime; [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => pluck(f, t + i * 0.1, 0.7, 0.3, sfxBus)); [0.55, 0.68, 0.81].forEach(d => noiseBurst(t + d, 0.09, 6500, 2, 0.22, sfxBus)) },
+      tracks: {
+        lesson:   { bpm: 72, root: 130.81, scale: [0, 2, 4, 7, 9], density: 0.6,  pad: 0.07, chords: [0, 9, 5, 7] },   // тёплая, спокойная
+        practice: { bpm: 90, root: 196.00, scale: [0, 2, 4, 7, 9], density: 0.38, pad: 0.05, chords: [0, 5, 9, 7] },  // легче
+        end:      { bpm: 76, root: 146.83, scale: [0, 2, 4, 7, 9], density: 0.85, pad: 0.07, chords: [0, 7, 5, 0] }    // светлая
+      }
+    }
+  }
+  let soundPack = 'africa'
+  const pack = () => PACKS[soundPack] || PACKS.africa
+  let sfxOn = localStorage.getItem('lh_sfx') !== 'off'
   const sfx = {
-    good() { if (!ensureAudio()) return; const t = ac.currentTime; [523.25, 659.25, 783.99].forEach((f, i) => tone(f, t + i * 0.09, 0.4, 'sine', 0.28, sfxBus)) },
-    bad()  { if (!ensureAudio()) return; const t = ac.currentTime; tone(246.94, t, 0.28, 'triangle', 0.3, sfxBus); tone(196, t + 0.16, 0.4, 'triangle', 0.3, sfxBus) },
-    done() { if (!ensureAudio()) return; const t = ac.currentTime; [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, t + i * 0.12, 0.6, 'sine', 0.26, sfxBus)) }
+    tap()  { if (sfxOn && ensureAudio()) pack().tap() },
+    good() { if (sfxOn && ensureAudio()) pack().good() },
+    bad()  { if (sfxOn && ensureAudio()) pack().bad() },
+    done() { if (sfxOn && ensureAudio()) pack().done() }
   }
-  // Музыка: у каждой части урока свой характер (тональность, темп, густота мелодии)
-  const TRACKS = {
-    lesson:   { bpm: 72, root: 130.81, scale: [0, 2, 4, 7, 9], density: 0.55, pad: 0.05, chords: [0, 9, 5, 7] },   // тёплая, спокойная
-    practice: { bpm: 90, root: 196.00, scale: [0, 2, 4, 7, 9], density: 0.32, pad: 0.035, chords: [0, 5, 9, 7] },  // легче, мелодии меньше
-    end:      { bpm: 76, root: 146.83, scale: [0, 2, 4, 7, 9], density: 0.8,  pad: 0.05, chords: [0, 7, 5, 0] }    // светлая, радостная
-  }
+  const TRACKS_OF = () => pack().tracks
   function scheduleBar() {
     const T = track, beat = 60 / T.bpm, bar = beat * 4
     const c = T.chords[Math.floor(Math.random() * 1e6) % T.chords.length]
@@ -350,7 +381,7 @@
       if (Math.random() < T.density * (i % 2 ? 0.5 : 1)) {
         T._i = Math.max(0, Math.min(9, (T._i ?? 4) + [-2, -1, -1, 0, 1, 1, 2][Math.floor(Math.random() * 7)]))
         const semi = T.scale[T._i % 5] + 12 * Math.floor(T._i / 5)
-        tone(T.root * 2 * Math.pow(2, semi / 12), nextBar + i * beat / 2, 1.1, 'triangle', 0.09, musicBus, wetBus)
+        pluck(T.root * 2 * Math.pow(2, semi / 12), nextBar + i * beat / 2, 1.1, 0.2, musicBus, wetBus)
       }
     }
     nextBar += bar
@@ -358,13 +389,18 @@
   function musicLevel() { return !musicOn ? 0 : (ducked ? DUCK_LEVEL : MUSIC_LEVEL) }
   function applyMusicLevel() { if (musicBus) musicBus.gain.setTargetAtTime(musicLevel(), ac.currentTime, 0.4) }
   function startTrack(name) {
-    if (!ensureAudio() || !TRACKS[name]) return
-    clearInterval(mTimer); track = Object.assign({}, TRACKS[name]); nextBar = ac.currentTime + 0.3
+    if (!ensureAudio() || !TRACKS_OF()[name]) return
+    clearInterval(mTimer); track = Object.assign({}, TRACKS_OF()[name]); nextBar = ac.currentTime + 0.3
     mTimer = setInterval(() => { if (ac.state === 'running') while (nextBar < ac.currentTime + 1.5) scheduleBar() }, 300)
     applyMusicLevel()
   }
   function setTrack(name) { wantTrack = name; if (ac && ac.state === 'running' && musicOn && track && track._name !== name) { startTrack(name); track._name = name } else if (ac && !track && musicOn) { startTrack(name); track._name = name } }
   function duck(on) { ducked = on; applyMusicLevel() }
+  function toggleSounds() {
+    sfxOn = !sfxOn; try { localStorage.setItem('lh_sfx', sfxOn ? 'on' : 'off') } catch (e) {}
+    $('sounds').classList.toggle('off', !sfxOn); if (sfxOn) sfx.tap()
+  }
+  document.addEventListener('click', e => { if (e.target.closest('.opt, .btn, .speak, .mini') && !e.target.closest('#sounds')) sfx.tap() })
   function toggleMusic() {
     musicOn = !musicOn; try { localStorage.setItem('lh_music', musicOn ? 'on' : 'off') } catch (e) {}
     $('music').classList.toggle('off', !musicOn)
@@ -477,6 +513,7 @@
     const L = i18n[lang]
     document.documentElement.lang = lang
     $('music').textContent = L.music; $('music').classList.toggle('off', !musicOn)
+    $('sounds').textContent = L.sounds; $('sounds').classList.toggle('off', !sfxOn)
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
     $('backLink').textContent = L.back; $('restart').textContent = L.restart
     $('b-audio').setAttribute('aria-label', L.listen)
@@ -648,6 +685,7 @@
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
   $('next').onclick = next
   $('music').onclick = toggleMusic
+  $('sounds').onclick = toggleSounds
   $('b-rec').onclick = toggleRecording
   $('b-mine').onclick = playMine
   $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
@@ -665,6 +703,10 @@
     $('backLink').href = '../language.html?id=' + encodeURIComponent(langId)
     setSprite('anna', 'idle0'); setSprite('hero', 'idle0')
     layout(); idleLoop('anna', 0); idleLoop('hero', 130)
+    fetch('../data/languages.json').then(r => r.json()).then(j => {
+      const l = (j.languages || []).find(x => x.id === langId), reg = ((l && (l.region || l.subregion)) || '').toLowerCase()
+      soundPack = reg.includes('asia') ? 'asia' : reg.includes('america') ? 'south_america' : 'africa'
+    }).catch(() => {})
     setTrack('lesson')
     renderStatic()                        // сразу показываем первую реплику на SW/EN, пока грузится база
     await loadAll()
