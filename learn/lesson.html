@@ -59,7 +59,15 @@
     #ex.active { display:block; }
     [hidden] { display:none !important; }
     #ex p { color:#F7F3EC; }
-    #ex-title { font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; opacity:.8; margin:0 0 8px; }
+    .exhead { display:flex; align-items:center; gap:14px; margin:0 0 10px; }
+    #ex-face { image-rendering:pixelated; flex:none; width:84px; height:84px; border-radius:12px; background:rgba(255,255,255,.08); }
+    #ex-face.bounce { animation:bounce .5s ease-out; }
+    #ex-face.wag { animation:wag .6s ease-in-out 2; }
+    @keyframes bounce { 0%{transform:translateY(0)} 35%{transform:translateY(-10px)} 70%{transform:translateY(2px)} 100%{transform:translateY(0)} }
+    @keyframes wag { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-7deg)} 75%{transform:rotate(7deg)} }
+    #ex-title { font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; opacity:.8; margin:0 0 4px; }
+    #ex-fb { white-space:pre-line; }
+    .pill.off { opacity:.55; text-decoration:line-through; }
     #ex-prompt { display:flex; align-items:center; justify-content:center; gap:12px; margin:6px 0 14px; text-align:center; flex-wrap:wrap; }
     #ex-prompt .big { font-family:var(--font-display, Georgia, serif); font-size:clamp(1.3rem,3.6vw,1.9rem); font-weight:600; color:#F7F3EC; line-height:1.25; }
     .tag { font-size:.68rem; background:rgba(232,168,130,.25); color:#E8A882; border-radius:999px; padding:2px 8px; margin-left:6px; vertical-align:middle; font-family:var(--font-body, system-ui, sans-serif); font-weight:500; }
@@ -76,7 +84,7 @@
     .opt .mini[disabled] { opacity:.35; cursor:not-allowed; }
     .opt.sel { border-color:#E8A882; background:rgba(232,168,130,.2); }
     .opt.done { opacity:.4; }
-    #ex-fb { min-height:1.4em; margin:12px 0 0; font-size:1rem; font-weight:600; color:#F7F3EC; }
+    #ex-fb { min-height:1.4em; margin:0; font-size:1rem; font-weight:600; color:#F7F3EC; line-height:1.35; }
     #ex-fb.good { color:#6fcf97; } #ex-fb.bad { color:#ffb4a8; }
     #ex-next { margin-top:10px; }
     @media (max-height:460px) {
@@ -97,6 +105,7 @@
   <div class="topbar">
     <a class="pill" id="backLink" href="../language.html"></a>
     <div style="display:flex; gap:8px; align-items:center;">
+      <button class="pill" id="music" type="button"></button>
       <button class="pill" id="restart" type="button"></button>
       <div class="switcher"><button id="btn-sw" type="button">SW</button><button id="btn-en" type="button">EN</button></div>
     </div>
@@ -127,10 +136,12 @@
   </div>
 
   <div id="ex">
-    <p id="ex-title"></p>
+    <div class="exhead">
+      <img id="ex-face" alt="" src="assets/anna_face/smile.png" />
+      <div><p id="ex-title"></p><p id="ex-fb"></p></div>
+    </div>
     <div id="ex-prompt"></div>
     <div class="opts" id="ex-opts"></div>
-    <p id="ex-fb"></p>
     <div style="text-align:center"><button class="btn" id="ex-next" type="button" hidden></button></div>
   </div>
 
@@ -175,14 +186,14 @@
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
           e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
-          good: 'Sahihi!', bad: 'Jibu sahihi ni:', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
+          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', music: '♪ Muziki', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
     en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
           e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
-          good: 'Correct!', bad: 'The right answer is:', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
+          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', music: '♪ Music', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
   }
 
   // ---------- состояние ----------
@@ -273,12 +284,12 @@
   // ---------- звук и мимика Анны ----------
   let audio = null, talkTimer = null
   function setFace(name) { $('portrait').src = 'assets/anna_face/' + name + '.png' }
-  function stopAudio() { if (audio) { audio.pause(); audio = null } clearInterval(talkTimer); $('b-audio').classList.remove('playing'); if (!$('portrait').hidden) setFace('smile') }
+  function stopAudio() { if (audio) { audio.pause(); audio = null } clearInterval(talkTimer); $('b-audio').classList.remove('playing'); if (!$('portrait').hidden) setFace('smile'); duck(false) }
   function play(url, talking) {
     stopAudio()
     if (!url) return
     try {
-      audio = new Audio(url)
+      audio = new Audio(url); duck(true)
       $('b-audio').classList.add('playing')
       if (talking) { let k = 0; talkTimer = setInterval(() => setFace(k++ % 2 ? 'talk1' : 'talk2'), 140) }
       const done = () => stopAudio()
@@ -286,6 +297,81 @@
       audio.play().catch(done)
     } catch (e) { stopAudio() }
   }
+
+  // ---------- звуки и музыка (всё синтезируется в браузере, готовых файлов нет, лицензий нет) ----------
+  const AC = window.AudioContext || window.webkitAudioContext
+  let ac = null, sfxBus = null, musicBus = null, wetBus = null, musicOn = localStorage.getItem('lh_music') !== 'off'
+  let wantTrack = null, track = null, nextBar = 0, mTimer = null, ducked = false
+  const MUSIC_LEVEL = 0.5, DUCK_LEVEL = 0.15
+  function ensureAudio() {
+    if (!AC) return false
+    if (!ac) {
+      ac = new AC()
+      sfxBus = ac.createGain(); sfxBus.gain.value = 0.55; sfxBus.connect(ac.destination)
+      musicBus = ac.createGain(); musicBus.gain.value = 0; musicBus.connect(ac.destination)
+      // лёгкая реверберация из затухающего шума
+      const len = ac.sampleRate * 2, buf = ac.createBuffer(2, len, ac.sampleRate)
+      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5) }
+      const conv = ac.createConvolver(); conv.buffer = buf
+      wetBus = ac.createGain(); wetBus.gain.value = 0.35; wetBus.connect(conv); conv.connect(musicBus)
+    }
+    if (ac.state === 'suspended') ac.resume()
+    return true
+  }
+  function tone(freq, t, dur, type, vol, dest, wet) {
+    const o = ac.createOscillator(), g = ac.createGain()
+    o.type = type; o.frequency.value = freq
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
+    o.connect(g); g.connect(dest); if (wet) g.connect(wet)
+    o.start(t); o.stop(t + dur + 0.05)
+  }
+  const sfx = {
+    good() { if (!ensureAudio()) return; const t = ac.currentTime; [523.25, 659.25, 783.99].forEach((f, i) => tone(f, t + i * 0.09, 0.4, 'sine', 0.28, sfxBus)) },
+    bad()  { if (!ensureAudio()) return; const t = ac.currentTime; tone(246.94, t, 0.28, 'triangle', 0.3, sfxBus); tone(196, t + 0.16, 0.4, 'triangle', 0.3, sfxBus) },
+    done() { if (!ensureAudio()) return; const t = ac.currentTime; [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, t + i * 0.12, 0.6, 'sine', 0.26, sfxBus)) }
+  }
+  // Музыка: у каждой части урока свой характер (тональность, темп, густота мелодии)
+  const TRACKS = {
+    lesson:   { bpm: 72, root: 130.81, scale: [0, 2, 4, 7, 9], density: 0.55, pad: 0.05, chords: [0, 9, 5, 7] },   // тёплая, спокойная
+    practice: { bpm: 90, root: 196.00, scale: [0, 2, 4, 7, 9], density: 0.32, pad: 0.035, chords: [0, 5, 9, 7] },  // легче, мелодии меньше
+    end:      { bpm: 76, root: 146.83, scale: [0, 2, 4, 7, 9], density: 0.8,  pad: 0.05, chords: [0, 7, 5, 0] }    // светлая, радостная
+  }
+  function scheduleBar() {
+    const T = track, beat = 60 / T.bpm, bar = beat * 4
+    const c = T.chords[Math.floor(Math.random() * 1e6) % T.chords.length]
+    const base = T.root * Math.pow(2, c / 12)
+    ;[1, 1.5, 2].forEach((m, i) => {            // открытая квинта: звучит с любой мелодией
+      const t = nextBar, o = ac.createOscillator(), g = ac.createGain(), f = ac.createBiquadFilter()
+      o.type = 'triangle'; o.frequency.value = base * m * (i === 2 ? 1.003 : 1); f.type = 'lowpass'; f.frequency.value = 900
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(T.pad, t + bar * 0.4); g.gain.linearRampToValueAtTime(0.0001, t + bar * 1.05)
+      o.connect(f); f.connect(g); g.connect(musicBus); g.connect(wetBus); o.start(t); o.stop(t + bar * 1.1)
+    })
+    for (let i = 0; i < 8; i++) {               // мелодия: восьмые доли, блуждание по пентатонике
+      if (Math.random() < T.density * (i % 2 ? 0.5 : 1)) {
+        T._i = Math.max(0, Math.min(9, (T._i ?? 4) + [-2, -1, -1, 0, 1, 1, 2][Math.floor(Math.random() * 7)]))
+        const semi = T.scale[T._i % 5] + 12 * Math.floor(T._i / 5)
+        tone(T.root * 2 * Math.pow(2, semi / 12), nextBar + i * beat / 2, 1.1, 'triangle', 0.09, musicBus, wetBus)
+      }
+    }
+    nextBar += bar
+  }
+  function musicLevel() { return !musicOn ? 0 : (ducked ? DUCK_LEVEL : MUSIC_LEVEL) }
+  function applyMusicLevel() { if (musicBus) musicBus.gain.setTargetAtTime(musicLevel(), ac.currentTime, 0.4) }
+  function startTrack(name) {
+    if (!ensureAudio() || !TRACKS[name]) return
+    clearInterval(mTimer); track = Object.assign({}, TRACKS[name]); nextBar = ac.currentTime + 0.3
+    mTimer = setInterval(() => { if (ac.state === 'running') while (nextBar < ac.currentTime + 1.5) scheduleBar() }, 300)
+    applyMusicLevel()
+  }
+  function setTrack(name) { wantTrack = name; if (ac && ac.state === 'running' && musicOn && track && track._name !== name) { startTrack(name); track._name = name } else if (ac && !track && musicOn) { startTrack(name); track._name = name } }
+  function duck(on) { ducked = on; applyMusicLevel() }
+  function toggleMusic() {
+    musicOn = !musicOn; try { localStorage.setItem('lh_music', musicOn ? 'on' : 'off') } catch (e) {}
+    $('music').classList.toggle('off', !musicOn)
+    if (musicOn && wantTrack) { ensureAudio(); startTrack(wantTrack); track._name = wantTrack }
+    applyMusicLevel()
+  }
+  addEventListener('pointerdown', () => { if (ensureAudio() && musicOn && wantTrack && !track) { startTrack(wantTrack); track._name = wantTrack } }, { once: false })
 
   // ---------- запись ученика (остаётся на устройстве, никуда не отправляется) ----------
   let rec = null, recStream = null, recChunks = [], mineUrl = null, mineAudio = null, recTimer = null
@@ -329,9 +415,9 @@
     if (!mineUrl) return
     stopAudio()
     if (mineAudio) mineAudio.pause()
-    mineAudio = new Audio(mineUrl)
+    mineAudio = new Audio(mineUrl); duck(true)
     const b = $('b-mine'); b.classList.add('playing')
-    mineAudio.onended = mineAudio.onerror = () => b.classList.remove('playing')
+    mineAudio.onended = mineAudio.onerror = () => { b.classList.remove('playing'); duck(false) }
     mineAudio.play().catch(() => b.classList.remove('playing'))
   }
 
@@ -382,7 +468,7 @@
   }
   function finish() { stopAudio(); clearMine(); startPractice() }
   function again() {
-    ended = false; practicing = false; idx = 0; streak = {}; matchDone = false
+    ended = false; practicing = false; idx = 0; streak = {}; matchDone = false; redoId = null; setTrack('lesson')
     try { localStorage.removeItem(practiceKey()) } catch (e) {}
     $('end').classList.remove('active'); $('ex').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
   }
@@ -390,6 +476,7 @@
   function renderStatic() {
     const L = i18n[lang]
     document.documentElement.lang = lang
+    $('music').textContent = L.music; $('music').classList.toggle('off', !musicOn)
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
     $('backLink').textContent = L.back; $('restart').textContent = L.restart
     $('b-audio').setAttribute('aria-label', L.listen)
@@ -403,17 +490,18 @@
   const PRACTICE = ['gr1', 'in3', 'in4', 'in5', 'in6', 'gr8', 'wy6']      // что учим в уроке 1
   const ANSWER_OF = { gr1: 'gr1', in4: 'in3', in6: 'in5' }               // на какую фразу Анны это ответ
   const NEED = 2                                                           // сколько раз подряд верно
-  let streak = {}, lastTypes = [], matchDone = false, exState = null, practicing = false
+  let streak = {}, lastTypes = [], matchDone = false, exState = null, practicing = false, redoId = null
+  function exFace(name, anim) { const f = $('ex-face'); f.src = 'assets/anna_face/' + name + '.png'; f.className = ''; if (anim) { void f.offsetWidth; f.classList.add(anim) } }
   const practiceKey = () => 'lh_practice1_' + langId
   const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a }
   const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e }
   const ICON = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>'
 
-  // Данные фразы. Нет записи в базе: слово на языке заменяет заглушка (текст на другом языке интерфейса) с пометкой «образец».
+  // Данные фразы. Нет записи в базе: слово на языке заменяет заглушка (тот же текст на языке интерфейса) с пометкой «образец».
   function info(id) {
     const r = rows['pool|' + id], tx = texts[id] || { sw: id, en: id }
-    const gloss = tx[lang], other = tx[lang === 'sw' ? 'en' : 'sw']
-    return { id, gloss, tribal: (r && r.text_value) || other, stub: !(r && r.text_value), audio: (r && r.audio_url) || null }
+    const gloss = tx[lang]
+    return { id, gloss, tribal: (r && r.text_value) || gloss, stub: !(r && r.text_value), audio: (r && r.audio_url) || null }
   }
   function loadStreak() { try { streak = JSON.parse(localStorage.getItem(practiceKey()) || '{}') || {} } catch (e) { streak = {} } PRACTICE.forEach(i => { if (typeof streak[i] !== 'number') streak[i] = 0 }) }
   function saveStreak() { try { localStorage.setItem(practiceKey(), JSON.stringify(streak)) } catch (e) {} }
@@ -433,7 +521,9 @@
   function distractors(id, n, sameStub) {
     const t = info(id), pool = [...new Set([...PRACTICE, ...EXTRA])].filter(x => x !== id)
     const ok = pool.map(info).filter(d => d.gloss !== t.gloss && d.tribal !== t.tribal && (sameStub === undefined || d.stub === sameStub))
-    return shuffle(ok).slice(0, n)
+    // обманки похожей длины, чтобы по длине ответ не угадывался
+    ok.sort((a, b) => Math.abs(a.gloss.length - t.gloss.length) - Math.abs(b.gloss.length - t.gloss.length))
+    return shuffle(ok.slice(0, Math.max(n + 2, 6))).slice(0, n)
   }
   function chooseType(id) {
     const base = streak[id] === 0 ? ['listen', 'read'] : ['pick', 'reply', 'read', 'listen']
@@ -445,12 +535,15 @@
   function nextExercise() {
     if (allDone()) return finishPractice()
     $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'
-    if (!matchDone && score() >= PRACTICE.length * NEED / 2 && PRACTICE.length >= 4) { matchDone = true; return renderMatch() }
+    if (!redoId && !matchDone && score() >= PRACTICE.length * NEED / 2 && PRACTICE.length >= 4) { matchDone = true; return renderMatch() }
     const open = PRACTICE.filter(i => streak[i] < NEED)
     const min = Math.min(...open.map(i => streak[i]))
     let cands = open.filter(i => streak[i] === min && i !== (exState && exState.id))
     if (!cands.length) cands = open
-    const id = cands[Math.floor(Math.random() * cands.length)], type = chooseType(id)
+    let id = cands[Math.floor(Math.random() * cands.length)]
+    if (redoId && streak[redoId] < NEED) id = redoId
+    redoId = null
+    const type = chooseType(id)
     lastTypes.push(type)
     renderChoice(id, type)
   }
@@ -459,17 +552,17 @@
     const L = i18n[lang]
     $('ex-title').textContent = L[titleKey]; $('ex-prompt').innerHTML = ''; $('ex-opts').innerHTML = ''
     $('ex-fb').textContent = ''; $('ex-fb').className = ''; $('ex-next').hidden = true; $('ex-next').textContent = L.cont
-    $('ex').classList.add('active'); stopAudio()
+    $('ex').classList.add('active'); stopAudio(); exFace('smile')
   }
   function answer(id, ok, correctText, correctAudio) {
     const L = i18n[lang]
     streak[id] = ok ? streak[id] + 1 : 0; saveStreak()
     $('ex-fb').className = ok ? 'good' : 'bad'
-    $('ex-fb').textContent = ok ? L.good : L.bad + ' ' + correctText
-    if (!ok && correctAudio) play(correctAudio, false)
+    $('ex-fb').textContent = ok ? L.good : L.redo + '\n' + L.bad + ' ' + correctText
     $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'
     $('ex-next').hidden = false
-    if (ok) wave('anna', 900)
+    if (ok) { exFace('joy', 'bounce'); sfx.good(); wave('anna', 900) }
+    else { exFace('stern', 'wag'); sfx.bad(); redoId = id; $('ex-next').textContent = L.redobtn; if (correctAudio) setTimeout(() => play(correctAudio, false), 500) }
   }
 
   function renderChoice(id, type) {
@@ -527,10 +620,10 @@
           sel.b.classList.remove('sel'); sel.b.classList.add('done'); b.classList.add('done'); solved++; sel = null
           if (solved === items.length) {
             items.forEach(x => { streak[x.id] = missed[x.id] ? 0 : streak[x.id] + 1 })
-            saveStreak(); $('ex-fb').className = 'good'; $('ex-fb').textContent = L.good; $('ex-next').hidden = false
+            saveStreak(); $('ex-fb').className = 'good'; $('ex-fb').textContent = L.good; $('ex-next').hidden = false; exFace('joy', 'bounce'); sfx.good()
             $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'; wave('anna', 900)
           }
-        } else { missed[sel.d.id] = true; b.classList.add('bad'); setTimeout(() => b.classList.remove('bad'), 500) }
+        } else { missed[sel.d.id] = true; b.classList.add('bad'); setTimeout(() => b.classList.remove('bad'), 500); exFace('stern', 'wag'); sfx.bad(); setTimeout(() => { if (solved < items.length) exFace('smile') }, 1300) }
       }
       return b
     }
@@ -540,20 +633,21 @@
   }
 
   function startPractice() {
-    $('bubble').style.display = 'none'; practicing = true; loadStreak(); matchDone = score() >= PRACTICE.length * NEED / 2
+    $('bubble').style.display = 'none'; practicing = true; setTrack('practice'); loadStreak(); matchDone = score() >= PRACTICE.length * NEED / 2
     if (allDone()) return finishPractice()
     nextExercise()
   }
   function finishPractice() {
     $('ex').classList.remove('active'); stopAudio(); ended = true; practicing = false
     $('bar').style.width = '100%'; $('e-text').textContent = i18n[lang].e_text
-    $('end').classList.add('active'); wave('anna'); wave('hero')
+    $('end').classList.add('active'); wave('anna'); wave('hero'); setTrack('end'); sfx.done()
     try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
   }
 
   // ---------- запуск ----------
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
   $('next').onclick = next
+  $('music').onclick = toggleMusic
   $('b-rec').onclick = toggleRecording
   $('b-mine').onclick = playMine
   $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
@@ -571,6 +665,7 @@
     $('backLink').href = '../language.html?id=' + encodeURIComponent(langId)
     setSprite('anna', 'idle0'); setSprite('hero', 'idle0')
     layout(); idleLoop('anna', 0); idleLoop('hero', 130)
+    setTrack('lesson')
     renderStatic()                        // сразу показываем первую реплику на SW/EN, пока грузится база
     await loadAll()
     const saved = parseInt(localStorage.getItem(progressKey()) || '0', 10)
