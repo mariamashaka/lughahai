@@ -19,10 +19,27 @@
     .switcher { display:flex; background:rgba(20,30,25,.55); border-radius:999px; padding:3px; gap:2px; }
     .switcher button { border:none; background:transparent; color:#fff; padding:4px 12px; border-radius:999px; font-size:.8rem; cursor:pointer; font-family:inherit; }
     .switcher button.active { background:#fff; color:#2C4A3E; font-weight:600; }
-    .progress { position:absolute; top:52px; left:50%; transform:translateX(-50%); width:min(360px,60vw); height:6px; background:rgba(20,30,25,.35); border-radius:3px; z-index:6; overflow:hidden; }
+    .progress { position:absolute; top:112px; left:50%; transform:translateX(-50%); width:min(360px,60vw); height:6px; background:rgba(20,30,25,.35); border-radius:3px; z-index:6; overflow:hidden; }
     .progress > i { display:block; height:100%; width:0; background:#F7F3EC; transition:width .3s; }
 
-    #bubble { position:absolute; top:72px; left:50%; transform:translateX(-50%); width:min(600px, calc(100vw - 24px)); box-sizing:border-box;
+
+    #trail { position:absolute; top:48px; left:50%; transform:translateX(-50%); width:min(640px, calc(100vw - 24px)); height:60px; z-index:6; font-family:var(--font-body, system-ui, sans-serif); color:#fff; }
+    #trail .tt { position:absolute; top:0; left:0; right:0; text-align:center; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; opacity:.9; text-shadow:0 1px 3px rgba(0,0,0,.6); }
+    #trail svg { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
+    #trail .nodes { position:absolute; left:0; right:0; top:14px; display:flex; }
+    #trail .n { flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; cursor:pointer; background:none; border:none; color:inherit; font:inherit; padding:0; }
+    #trail .nd { width:28px; height:28px; border-radius:50%; box-sizing:border-box; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.8rem; background:rgba(20,30,25,.72); border:2px solid rgba(255,255,255,.55); color:#fff; transition:transform .2s; }
+    #trail .n.done .nd { background:#3FA66B; border-color:#BFEBD0; }
+    #trail .n.cur .nd { background:#F7F3EC; color:#2C4A3E; border-color:#E8A882; box-shadow:0 0 0 3px rgba(232,168,130,.45); animation:pulse 1.6s ease-in-out infinite; }
+    #trail .n.lock .nd { opacity:.65; }
+    #trail .nl { margin-top:2px; max-width:100%; font-size:.62rem; line-height:1.15; text-align:center; text-shadow:0 1px 3px rgba(0,0,0,.7); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:0 2px; box-sizing:border-box; }
+    #trail .n.lock .nl { opacity:.8; }
+    #trail .n.shake .nd { animation:shake .35s; }
+    @keyframes pulse { 50% { transform:scale(1.1); } }
+    @keyframes shake { 25% { transform:translateX(-4px); } 75% { transform:translateX(4px); } }
+    #toast { position:absolute; top:112px; left:50%; transform:translateX(-50%); background:rgba(24,34,29,.92); color:#F7F3EC; padding:6px 14px; border-radius:999px; font-size:.82rem; z-index:9; opacity:0; transition:opacity .25s; pointer-events:none; font-family:var(--font-body, system-ui, sans-serif); white-space:nowrap; }
+    #toast.on { opacity:1; }
+    #bubble { position:absolute; top:126px; left:50%; transform:translateX(-50%); width:min(600px, calc(100vw - 24px)); box-sizing:border-box;
               background:rgba(24,34,29,.86); color:#F7F3EC; border-radius:18px; padding:14px 16px; display:flex; gap:14px; align-items:center;
               box-shadow:0 8px 32px rgba(0,0,0,.35); z-index:5; font-family:var(--font-body, system-ui, sans-serif); border:3px solid transparent; }
     #bubble.you { border-color:#E8A882; }
@@ -54,7 +71,7 @@
     #end p { color:#F7F3EC; margin:0 0 1.2em; font-size:1.05rem; line-height:1.6; }
     .actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 
-    #ex { position:absolute; top:72px; left:50%; transform:translateX(-50%); width:min(640px, calc(100vw - 24px)); max-height:calc(100vh - 88px); overflow:auto; box-sizing:border-box;
+    #ex { position:absolute; top:126px; left:50%; transform:translateX(-50%); width:min(640px, calc(100vw - 24px)); max-height:calc(100vh - 142px); overflow:auto; box-sizing:border-box;
           background:rgba(24,34,29,.9); color:#F7F3EC; border-radius:18px; padding:16px; z-index:5; display:none; box-shadow:0 8px 32px rgba(0,0,0,.35); font-family:var(--font-body, system-ui, sans-serif); }
     #ex.active { display:block; }
     [hidden] { display:none !important; }
@@ -88,10 +105,12 @@
     #ex-fb.good { color:#6fcf97; } #ex-fb.bad { color:#ffb4a8; }
     #ex-next { margin-top:10px; }
     @media (max-height:460px) {
-      #bubble { top:60px; padding:10px 12px; gap:10px; }
+      #bubble { top:112px; padding:10px 12px; gap:10px; }
+      #ex { top:112px; max-height:calc(100vh - 122px); }
       #portrait { width:54px; height:54px; }
       .row { margin-top:6px; }
-      .progress { top:46px; }
+      .progress { top:100px; }
+      #trail { top:44px; height:52px; } #trail .n { margin-top:0 !important; } #trail .nd { width:22px; height:22px; font-size:.7rem; } #trail .tt { display:none; }
     }
   </style>
 </head>
@@ -105,12 +124,13 @@
   <div class="topbar">
     <a class="pill" id="backLink" href="../language.html"></a>
     <div style="display:flex; gap:8px; align-items:center;">
-      <button class="pill" id="music" type="button"></button>
       <button class="pill" id="sounds" type="button"></button>
       <button class="pill" id="restart" type="button"></button>
       <div class="switcher"><button id="btn-sw" type="button">SW</button><button id="btn-en" type="button">EN</button></div>
     </div>
   </div>
+  <div id="trail"></div>
+  <div id="toast"></div>
   <div class="progress"><i id="bar"></i></div>
 
   <div id="bubble">
@@ -185,16 +205,16 @@
           instr: 'Zamu yako: sema, rekodi, kisha sikiliza na ulinganishe na mfano. Umesema sawa?',
           priv: 'Rekodi yako inabaki kwenye kifaa chako tu.', rec: 'Rekodi sauti yako', stop: 'Simamisha', mine: 'Sikiliza rekodi yako',
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
-          e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
+          soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
-          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', music: '♪ Muziki', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
+          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
     en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
-          e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
+          soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
-          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', music: '♪ Music', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
+          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
   }
 
   // ---------- состояние ----------
@@ -285,12 +305,12 @@
   // ---------- звук и мимика Анны ----------
   let audio = null, talkTimer = null
   function setFace(name) { $('portrait').src = 'assets/anna_face/' + name + '.png' }
-  function stopAudio() { if (audio) { audio.pause(); audio = null } clearInterval(talkTimer); $('b-audio').classList.remove('playing'); if (!$('portrait').hidden) setFace('smile'); duck(false) }
+  function stopAudio() { if (audio) { audio.pause(); audio = null } clearInterval(talkTimer); $('b-audio').classList.remove('playing'); if (!$('portrait').hidden) setFace('smile')}
   function play(url, talking) {
     stopAudio()
     if (!url) return
     try {
-      audio = new Audio(url); duck(true)
+      audio = new Audio(url)
       $('b-audio').classList.add('playing')
       if (talking) { let k = 0; talkTimer = setInterval(() => setFace(k++ % 2 ? 'talk1' : 'talk2'), 140) }
       const done = () => stopAudio()
@@ -301,33 +321,25 @@
 
   // ---------- звуки и музыка (всё синтезируется в браузере, готовых файлов нет, лицензий нет) ----------
   const AC = window.AudioContext || window.webkitAudioContext
-  let ac = null, sfxBus = null, musicBus = null, wetBus = null, musicOn = localStorage.getItem('lh_music') !== 'off'
-  let wantTrack = null, track = null, nextBar = 0, mTimer = null, ducked = false
-  const MUSIC_LEVEL = 1.0, DUCK_LEVEL = 0.22
+  let ac = null, sfxBus = null
   function ensureAudio() {
     if (!AC) return false
     if (!ac) {
       ac = new AC()
       sfxBus = ac.createGain(); sfxBus.gain.value = 0.55; sfxBus.connect(ac.destination)
-      musicBus = ac.createGain(); musicBus.gain.value = 0; musicBus.connect(ac.destination)
-      // лёгкая реверберация из затухающего шума
-      const len = ac.sampleRate * 2, buf = ac.createBuffer(2, len, ac.sampleRate)
-      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5) }
-      const conv = ac.createConvolver(); conv.buffer = buf
-      wetBus = ac.createGain(); wetBus.gain.value = 0.35; wetBus.connect(conv); conv.connect(musicBus)
     }
     if (ac.state === 'suspended') ac.resume()
     return true
   }
-  function tone(freq, t, dur, type, vol, dest, wet) {
+  function tone(freq, t, dur, type, vol, dest) {
     const o = ac.createOscillator(), g = ac.createGain()
     o.type = type; o.frequency.value = freq
     g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
-    o.connect(g); g.connect(dest); if (wet) g.connect(wet)
+    o.connect(g); g.connect(dest)
     o.start(t); o.stop(t + dur + 0.05)
   }
   // Звук «щипок» (калимба/мбира): основной тон + короткий металлический обертон
-  function pluck(f, t, dur, vol, dest, wet) { tone(f, t, dur, 'sine', vol, dest, wet); tone(f * 5.4, t, 0.12, 'sine', vol * 0.25, dest, wet) }
+  function pluck(f, t, dur, vol, dest) { tone(f, t, dur, 'sine', vol, dest); tone(f * 5.4, t, 0.12, 'sine', vol * 0.25, dest) }
   function noiseBurst(t, dur, freq, q, vol, dest) {
     const n = Math.floor(ac.sampleRate * dur), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0)
     for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n)
@@ -349,12 +361,7 @@
       tap()  { const t = ac.currentTime; drum(t, 260, 120, 0.09, 0.32, sfxBus); noiseBurst(t, 0.03, 1800, 1, 0.18, sfxBus) },
       good() { const t = ac.currentTime; [523.25, 659.25, 783.99].forEach((f, i) => pluck(f, t + i * 0.09, 0.55, 0.3, sfxBus)) },
       bad()  { const t = ac.currentTime; drum(t, 190, 95, 0.28, 0.55, sfxBus); drum(t + 0.17, 150, 70, 0.34, 0.55, sfxBus) },
-      done() { const t = ac.currentTime; [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => pluck(f, t + i * 0.1, 0.7, 0.3, sfxBus)); [0.55, 0.68, 0.81].forEach(d => noiseBurst(t + d, 0.09, 6500, 2, 0.22, sfxBus)) },
-      tracks: {
-        lesson:   { bpm: 72, root: 130.81, scale: [0, 2, 4, 7, 9], density: 0.6,  pad: 0.07, chords: [0, 9, 5, 7] },   // тёплая, спокойная
-        practice: { bpm: 90, root: 196.00, scale: [0, 2, 4, 7, 9], density: 0.38, pad: 0.05, chords: [0, 5, 9, 7] },  // легче
-        end:      { bpm: 76, root: 146.83, scale: [0, 2, 4, 7, 9], density: 0.85, pad: 0.07, chords: [0, 7, 5, 0] }    // светлая
-      }
+      done() { const t = ac.currentTime; [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => pluck(f, t + i * 0.1, 0.7, 0.3, sfxBus)); [0.55, 0.68, 0.81].forEach(d => noiseBurst(t + d, 0.09, 6500, 2, 0.22, sfxBus)) }
     }
   }
   let soundPack = 'africa'
@@ -366,49 +373,11 @@
     bad()  { if (sfxOn && ensureAudio()) pack().bad() },
     done() { if (sfxOn && ensureAudio()) pack().done() }
   }
-  const TRACKS_OF = () => pack().tracks
-  function scheduleBar() {
-    const T = track, beat = 60 / T.bpm, bar = beat * 4
-    const c = T.chords[Math.floor(Math.random() * 1e6) % T.chords.length]
-    const base = T.root * Math.pow(2, c / 12)
-    ;[1, 1.5, 2].forEach((m, i) => {            // открытая квинта: звучит с любой мелодией
-      const t = nextBar, o = ac.createOscillator(), g = ac.createGain(), f = ac.createBiquadFilter()
-      o.type = 'triangle'; o.frequency.value = base * m * (i === 2 ? 1.003 : 1); f.type = 'lowpass'; f.frequency.value = 900
-      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(T.pad, t + bar * 0.4); g.gain.linearRampToValueAtTime(0.0001, t + bar * 1.05)
-      o.connect(f); f.connect(g); g.connect(musicBus); g.connect(wetBus); o.start(t); o.stop(t + bar * 1.1)
-    })
-    for (let i = 0; i < 8; i++) {               // мелодия: восьмые доли, блуждание по пентатонике
-      if (Math.random() < T.density * (i % 2 ? 0.5 : 1)) {
-        T._i = Math.max(0, Math.min(9, (T._i ?? 4) + [-2, -1, -1, 0, 1, 1, 2][Math.floor(Math.random() * 7)]))
-        const semi = T.scale[T._i % 5] + 12 * Math.floor(T._i / 5)
-        pluck(T.root * 2 * Math.pow(2, semi / 12), nextBar + i * beat / 2, 1.1, 0.2, musicBus, wetBus)
-      }
-    }
-    nextBar += bar
-  }
-  function musicLevel() { return !musicOn ? 0 : (ducked ? DUCK_LEVEL : MUSIC_LEVEL) }
-  function applyMusicLevel() { if (musicBus) musicBus.gain.setTargetAtTime(musicLevel(), ac.currentTime, 0.4) }
-  function startTrack(name) {
-    if (!ensureAudio() || !TRACKS_OF()[name]) return
-    clearInterval(mTimer); track = Object.assign({}, TRACKS_OF()[name]); nextBar = ac.currentTime + 0.3
-    mTimer = setInterval(() => { if (ac.state === 'running') while (nextBar < ac.currentTime + 1.5) scheduleBar() }, 300)
-    applyMusicLevel()
-  }
-  function setTrack(name) { wantTrack = name; if (ac && ac.state === 'running' && musicOn && track && track._name !== name) { startTrack(name); track._name = name } else if (ac && !track && musicOn) { startTrack(name); track._name = name } }
-  function duck(on) { ducked = on; applyMusicLevel() }
   function toggleSounds() {
     sfxOn = !sfxOn; try { localStorage.setItem('lh_sfx', sfxOn ? 'on' : 'off') } catch (e) {}
     $('sounds').classList.toggle('off', !sfxOn); if (sfxOn) sfx.tap()
   }
   document.addEventListener('click', e => { if (e.target.closest('.opt, .btn, .speak, .mini') && !e.target.closest('#sounds')) sfx.tap() })
-  function toggleMusic() {
-    musicOn = !musicOn; try { localStorage.setItem('lh_music', musicOn ? 'on' : 'off') } catch (e) {}
-    $('music').classList.toggle('off', !musicOn)
-    if (musicOn && wantTrack) { ensureAudio(); startTrack(wantTrack); track._name = wantTrack }
-    applyMusicLevel()
-  }
-  addEventListener('pointerdown', () => { if (ensureAudio() && musicOn && wantTrack && !track) { startTrack(wantTrack); track._name = wantTrack } }, { once: false })
-
   // ---------- запись ученика (остаётся на устройстве, никуда не отправляется) ----------
   let rec = null, recStream = null, recChunks = [], mineUrl = null, mineAudio = null, recTimer = null
   const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder)
@@ -451,9 +420,9 @@
     if (!mineUrl) return
     stopAudio()
     if (mineAudio) mineAudio.pause()
-    mineAudio = new Audio(mineUrl); duck(true)
+    mineAudio = new Audio(mineUrl)
     const b = $('b-mine'); b.classList.add('playing')
-    mineAudio.onended = mineAudio.onerror = () => { b.classList.remove('playing'); duck(false) }
+    mineAudio.onended = mineAudio.onerror = () => b.classList.remove('playing')
     mineAudio.play().catch(() => b.classList.remove('playing'))
   }
 
@@ -504,7 +473,7 @@
   }
   function finish() { stopAudio(); clearMine(); startPractice() }
   function again() {
-    ended = false; practicing = false; idx = 0; streak = {}; matchDone = false; redoId = null; setTrack('lesson')
+    ended = false; practicing = false; idx = 0; streak = {}; matchDone = false; redoId = null
     try { localStorage.removeItem(practiceKey()) } catch (e) {}
     $('end').classList.remove('active'); $('ex').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
   }
@@ -512,10 +481,9 @@
   function renderStatic() {
     const L = i18n[lang]
     document.documentElement.lang = lang
-    $('music').textContent = L.music; $('music').classList.toggle('off', !musicOn)
     $('sounds').textContent = L.sounds; $('sounds').classList.toggle('off', !sfxOn)
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
-    $('backLink').textContent = L.back; $('restart').textContent = L.restart
+    $('backLink').textContent = L.back; $('restart').textContent = L.restart; renderTrail()
     $('b-audio').setAttribute('aria-label', L.listen)
     $('e-title').textContent = L.e_title; $('e-text').textContent = L.e_text; $('e-again').textContent = L.e_again; $('e-village').textContent = L.e_village; $('e-village').hidden = false
     if (practicing && exState) { if (exState.type === 'match') renderMatch(); else renderChoice(exState.id, exState.type) }
@@ -670,21 +638,72 @@
   }
 
   function startPractice() {
-    $('bubble').style.display = 'none'; practicing = true; setTrack('practice'); loadStreak(); matchDone = score() >= PRACTICE.length * NEED / 2
+    $('bubble').style.display = 'none'; practicing = true; loadStreak(); matchDone = score() >= PRACTICE.length * NEED / 2
     if (allDone()) return finishPractice()
     nextExercise()
   }
   function finishPractice() {
     $('ex').classList.remove('active'); stopAudio(); ended = true; practicing = false
     $('bar').style.width = '100%'; $('e-text').textContent = i18n[lang].e_text
-    $('end').classList.add('active'); wave('anna'); wave('hero'); setTrack('end'); sfx.done()
+    $('end').classList.add('active'); wave('anna'); wave('hero'); sfx.done()
     try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
+    renderTrail()
   }
+
+
+  // ---------- тропинка раздела (карта уроков) ----------
+  const COURSE_FALLBACK = { sections: [{ id: 'village', title: { sw: 'Karibu kijijini', en: 'Welcome to the village' }, lessons: [
+    { id: 1, ready: true, title: { sw: 'Kutana na Anna', en: 'Meet Anna' } }, { id: 2, ready: false, title: { sw: 'Nina kiu', en: "I'm thirsty" } },
+    { id: 3, ready: false, title: { sw: 'Nina njaa!', en: "I'm hungry!" } }, { id: 4, ready: false, title: { sw: 'Nitalala wapi leo?', en: 'Where will I sleep today?' } }] }] }
+  let COURSE = COURSE_FALLBACK, CUR_LESSON = 1
+  const lessonDone = id => { try { return id === 1 && localStorage.getItem(progressKey()) === 'done' } catch (e) { return false } }
+  function lessonState(les, i, list) {
+    if (lessonDone(les.id)) return 'done'
+    if (les.id === CUR_LESSON) return 'cur'
+    return 'lock'
+  }
+  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 1800) }
+  function renderTrail() {
+    const sec = (COURSE.sections || []).find(s => s.lessons.some(l => l.id === CUR_LESSON)) || COURSE.sections[0]
+    if (!sec) return
+    const tr = $('trail'), pick = o => (o && (o[lang] || o.en || o.sw)) || ''
+    tr.innerHTML = '<div class="tt"></div><svg></svg><div class="nodes"></div>'
+    tr.querySelector('.tt').textContent = pick(sec.title)
+    const box = tr.querySelector('.nodes')
+    sec.lessons.forEach((les, i) => {
+      const st = lessonState(les, i, sec.lessons), b = document.createElement('button')
+      b.type = 'button'; b.className = 'n ' + st
+      b.innerHTML = '<span class="nd"></span><span class="nl"></span>'
+      b.querySelector('.nd').textContent = st === 'done' ? '✓' : les.id
+      b.querySelector('.nl').textContent = pick(les.title); b.title = pick(les.title)
+      b.style.marginTop = (i % 2 ? 6 : 0) + 'px'
+      b.onclick = () => {
+        if (les.id === CUR_LESSON) return
+        if (!les.ready) { toast(i18n[lang].soon) } else if (st === 'lock') { toast(i18n[lang].locked) }
+        else if (st === 'done') { location.href = 'lesson.html?id=' + encodeURIComponent(langId) + '&lesson=' + les.id }
+        b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake')
+      }
+      box.appendChild(b)
+    })
+    drawTrailLine()
+  }
+  function drawTrailLine() {
+    const tr = $('trail'), svg = tr.querySelector('svg'), r0 = tr.getBoundingClientRect(), nds = [...tr.querySelectorAll('.nd')]
+    if (nds.length < 2) return
+    const pts = nds.map(n => { const r = n.getBoundingClientRect(); return [r.left - r0.left + r.width / 2, r.top - r0.top + r.height / 2] })
+    let d = 'M' + pts[0].join(',')
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], mx = (x0 + x1) / 2, w = (i % 2 ? -1 : 1) * 7
+      d += ` Q${mx},${(y0 + y1) / 2 + w} ${x1},${y1}`
+    }
+    svg.innerHTML = `<path d="${d}" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>`
+  }
+  addEventListener('resize', () => { try { drawTrailLine() } catch (e) {} })
+  fetch('../data/course.json').then(r => r.json()).then(j => { if (j && j.sections) { COURSE = j; renderTrail() } }).catch(() => {})
 
   // ---------- запуск ----------
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
   $('next').onclick = next
-  $('music').onclick = toggleMusic
   $('sounds').onclick = toggleSounds
   $('b-rec').onclick = toggleRecording
   $('b-mine').onclick = playMine
@@ -707,7 +726,6 @@
       const l = (j.languages || []).find(x => x.id === langId), reg = ((l && (l.region || l.subregion)) || '').toLowerCase()
       soundPack = reg.includes('asia') ? 'asia' : reg.includes('america') ? 'south_america' : 'africa'
     }).catch(() => {})
-    setTrack('lesson')
     renderStatic()                        // сразу показываем первую реплику на SW/EN, пока грузится база
     await loadAll()
     const saved = parseInt(localStorage.getItem(progressKey()) || '0', 10)
