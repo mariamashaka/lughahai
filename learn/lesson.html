@@ -179,26 +179,15 @@
   // ---------- настройки ----------
   const SB_URL = 'https://geogbanccumdcaymhkdb.supabase.co'
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdlb2diYW5jY3VtZGNheW1oa2RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDk4MjgsImV4cCI6MjA5MTk4NTgyOH0.BL1np5CpfddNE_S7x_bmHBqTHG-L7xn8PE5Jk3XIUx0'
-  const TOPIC = 'communication'
+  // Содержание урока приходит из data/lessons/<id>.json, структура курса — из data/course.json.
+  let TOPIC = '', TOPIC_JSON = ''
   let EXTRA = []                // дополнительные фразы темы: варианты-обманки
-  const TOPIC_JSON = '../data/topics/a1/vocabulary/communication.json'
+  let LESSON = [], PRACTICE = [], ANSWER_OF = {}
+  let LESSON_ID = ''
   const SPR = { w: 72, h: 96 }, SKY_H = 170, GROUND_H = 27, FEET_IN_GROUND = 8
 
-  // Сценарий урока 1. who: 'anna' | 'you'. id: номер фразы в теме «communication».
+  // Сценарий урока (dialogue в файле урока). who: 'anna' | 'you'. id: номер фразы в теме урока.
   // Нет записи в базе: показываем текст на SW/EN из файла темы. Есть запись: показываем и озвучиваем кикурья.
-  const LESSON = [
-    { who: 'anna', id: 'gr1', anim: 'wave' },
-    { who: 'you',  id: 'gr1' },
-    { who: 'anna', id: 'in3' },
-    { who: 'you',  id: 'in4' },
-    { who: 'anna', id: 'in4' },
-    { who: 'anna', id: 'in6' },
-    { who: 'anna', id: 'in5' },
-    { who: 'you',  id: 'in6', withName: true },
-    { who: 'anna', id: 'gr8', anim: 'wave' },
-    { who: 'anna', id: 'wy6' },
-    { who: 'anna', say: { sw: 'Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.', en: 'To go on, you need to memorise these words. Now we will practise.' } }
-  ]
 
   const i18n = {
     sw: { back: '← Rudi', restart: 'Anza upya', you: 'Wewe', next: 'Endelea', said: 'Nimesema',
@@ -229,7 +218,8 @@
   let idx = 0, ended = false
   let s = 3                   // масштаб пикселей
 
-  const progressKey = () => 'lh_lesson1_' + langId
+  const progressKeyOf = id => 'lh_progress_' + id + '_' + langId
+  const progressKey = () => progressKeyOf(LESSON_ID)
   function loadProfile() { try { const j = JSON.parse(localStorage.getItem('lh_profile') || 'null'); return j && j.name ? j : null } catch (e) { return null } }
 
   // ---------- база ----------
@@ -492,12 +482,11 @@
   function setLang(l) { lang = l; try { localStorage.setItem('lh_lang', l) } catch (e) {} renderStatic() }
 
   // ---------- упражнения ----------
-  const PRACTICE = ['gr1', 'in3', 'in4', 'in5', 'in6', 'gr8', 'wy6']      // что учим в уроке 1
-  const ANSWER_OF = { gr1: 'gr1', in4: 'in3', in6: 'in5' }               // на какую фразу Анны это ответ
+  // PRACTICE (что учим) и ANSWER_OF (на какую фразу Анны это ответ) берутся из файла урока
   const NEED = 2                                                           // сколько раз подряд верно
   let streak = {}, lastTypes = [], matchDone = false, exState = null, practicing = false, redoId = null
   function exFace(name, anim) { const f = $('ex-face'); f.src = 'assets/anna_face/' + name + '.png'; f.className = ''; if (anim) { void f.offsetWidth; f.classList.add(anim) } }
-  const practiceKey = () => 'lh_practice1_' + langId
+  const practiceKey = () => 'lh_practice_' + LESSON_ID + '_' + langId
   const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a }
   const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e }
   const ICON = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>'
@@ -653,13 +642,14 @@
 
   // ---------- тропинка раздела (карта уроков) ----------
   const COURSE_FALLBACK = { sections: [{ id: 'village', title: { sw: 'Karibu kijijini', en: 'Welcome to the village' }, lessons: [
-    { id: 1, ready: true, title: { sw: 'Kutana na Anna', en: 'Meet Anna' } }, { id: 2, ready: false, title: { sw: 'Nina kiu', en: "I'm thirsty" } },
-    { id: 3, ready: false, title: { sw: 'Nina njaa!', en: "I'm hungry!" } }, { id: 4, ready: false, title: { sw: 'Nitalala wapi leo?', en: 'Where will I sleep today?' } }] }] }
-  let COURSE = COURSE_FALLBACK, CUR_LESSON = 1
-  const lessonDone = id => { try { return id === 1 && localStorage.getItem(progressKey()) === 'done' } catch (e) { return false } }
+    { id: 'village-1', ready: true, title: { sw: 'Kutana na Anna', en: 'Meet Anna' } }, { id: 'village-2', ready: false, title: { sw: 'Nina kiu', en: "I'm thirsty" } },
+    { id: 'village-3', ready: false, title: { sw: 'Nina njaa!', en: "I'm hungry!" } }, { id: 'village-4', ready: false, title: { sw: 'Nitalala wapi leo?', en: 'Where will I sleep today?' } }] }] }
+  let COURSE = COURSE_FALLBACK, CUR_LESSON = ''
+  const lessonDone = id => { try { return localStorage.getItem(progressKeyOf(id)) === 'done' } catch (e) { return false } }
   function lessonState(les, i, list) {
     if (lessonDone(les.id)) return 'done'
     if (les.id === CUR_LESSON) return 'cur'
+    if (les.ready && (i === 0 || lessonDone(list[i - 1].id))) return 'open'
     return 'lock'
   }
   function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 1800) }
@@ -674,13 +664,13 @@
       const st = lessonState(les, i, sec.lessons), b = document.createElement('button')
       b.type = 'button'; b.className = 'n ' + st
       b.innerHTML = '<span class="nd"></span><span class="nl"></span>'
-      b.querySelector('.nd').textContent = st === 'done' ? '✓' : les.id
+      b.querySelector('.nd').textContent = st === 'done' ? '✓' : i + 1
       b.querySelector('.nl').textContent = pick(les.title); b.title = pick(les.title)
       b.style.marginTop = (i % 2 ? 6 : 0) + 'px'
       b.onclick = () => {
         if (les.id === CUR_LESSON) return
         if (!les.ready) { toast(i18n[lang].soon) } else if (st === 'lock') { toast(i18n[lang].locked) }
-        else if (st === 'done') { location.href = 'lesson.html?id=' + encodeURIComponent(langId) + '&lesson=' + les.id }
+        else { location.href = 'lesson.html?id=' + encodeURIComponent(langId) + '&lesson=' + encodeURIComponent(les.id) }
         b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake')
       }
       box.appendChild(b)
@@ -699,7 +689,7 @@
     svg.innerHTML = `<path d="${d}" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>`
   }
   addEventListener('resize', () => { try { drawTrailLine() } catch (e) {} })
-  fetch('../data/course.json').then(r => r.json()).then(j => { if (j && j.sections) { COURSE = j; renderTrail() } }).catch(() => {})
+  async function loadCourse() { try { const j = await (await fetch('../data/course.json')).json(); if (j && j.sections) COURSE = j } catch (e) {} }
 
   // ---------- запуск ----------
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
@@ -726,6 +716,16 @@
       const l = (j.languages || []).find(x => x.id === langId), reg = ((l && (l.region || l.subregion)) || '').toLowerCase()
       soundPack = reg.includes('asia') ? 'asia' : reg.includes('america') ? 'south_america' : 'africa'
     }).catch(() => {})
+    await loadCourse()
+    LESSON_ID = params.get('lesson') || COURSE.sections[0].lessons[0].id
+    CUR_LESSON = LESSON_ID
+    try {
+      const lj = await (await fetch('../data/lessons/' + encodeURIComponent(LESSON_ID) + '.json')).json()
+      LESSON = lj.dialogue || []; PRACTICE = lj.practice || []; ANSWER_OF = lj.answer_of || {}
+      TOPIC = lj.topic; TOPIC_JSON = '../' + lj.topic_json
+    } catch (e) { toast('Somo halipatikani / Lesson not found'); $('bubble').style.display = 'none'; renderTrail(); return }
+    // перенос прогресса со старых ключей (до появления файлов уроков)
+    try { if (LESSON_ID === 'village-1') for (const [o, n] of [['lh_lesson1_' + langId, progressKey()], ['lh_practice1_' + langId, practiceKey()]]) { const v = localStorage.getItem(o); if (v !== null && localStorage.getItem(n) === null) localStorage.setItem(n, v); localStorage.removeItem(o) } } catch (e) {}
     renderStatic()                        // сразу показываем первую реплику на SW/EN, пока грузится база
     await loadAll()
     const saved = parseInt(localStorage.getItem(progressKey()) || '0', 10)
