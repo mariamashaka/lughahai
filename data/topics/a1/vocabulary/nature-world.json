@@ -1,0 +1,1242 @@
+{
+  "id": "nature-world",
+  "type": "vocabulary",
+  "level": "A1",
+  "order": 11,
+  "payment_tzs": 5000,
+  "name": {
+    "sw": "Asili na dunia",
+    "en": "Nature and the world"
+  },
+  "description": {
+    "sw": "Hali ya hewa, wanyama wa nyumbani na wa mwituni, asili, kijiji na mji.",
+    "en": "Weather, domestic and wild animals, nature, village and town."
+  },
+  "blocks": [
+    {
+      "id": "sky",
+      "label": {
+        "sw": "A. Anga na hali ya hewa",
+        "en": "A. Sky and weather"
+      },
+      "phrases": [
+        {
+          "id": "sk1",
+          "sw": "Jua",
+          "en": "Sun",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk2",
+          "sw": "Mwezi",
+          "en": "Moon",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk3",
+          "sw": "Nyota",
+          "en": "Star",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk4",
+          "sw": "Anga",
+          "en": "Sky",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk5",
+          "sw": "Wingu",
+          "en": "Cloud",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk6",
+          "sw": "Mvua",
+          "en": "Rain",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk7",
+          "sw": "Upepo",
+          "en": "Wind",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk8",
+          "sw": "Radi",
+          "en": "Thunder",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk9",
+          "sw": "Umeme",
+          "en": "Lightning",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk10",
+          "sw": "Ukungu",
+          "en": "Fog",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk11",
+          "sw": "Joto",
+          "en": "Heat",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk12",
+          "sw": "Baridi",
+          "en": "Cold",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk13",
+          "sw": "Giza",
+          "en": "Darkness",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk14",
+          "sw": "Kivuli",
+          "en": "Shade, shadow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk15",
+          "sw": "Kiangazi",
+          "en": "Dry season",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "sk16",
+          "sw": "Masika",
+          "en": "Rainy season",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "land",
+      "label": {
+        "sw": "B. Ardhi na mahali",
+        "en": "B. Land and places"
+      },
+      "phrases": [
+        {
+          "id": "ld1",
+          "sw": "Ardhi",
+          "en": "Earth, land",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld2",
+          "sw": "Udongo",
+          "en": "Soil",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld3",
+          "sw": "Mchanga",
+          "en": "Sand",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld4",
+          "sw": "Jiwe",
+          "en": "Stone",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld5",
+          "sw": "Mlima",
+          "en": "Mountain",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i53_sg"
+          ]
+        },
+        {
+          "id": "ld6",
+          "sw": "Kilima",
+          "en": "Hill",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld7",
+          "sw": "Bonde",
+          "en": "Valley",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld8",
+          "sw": "Msitu",
+          "en": "Forest",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld9",
+          "sw": "Pori",
+          "en": "Wild bush",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld10",
+          "sw": "Mto",
+          "en": "River",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i51_sg"
+          ]
+        },
+        {
+          "id": "ld11",
+          "sw": "Ziwa",
+          "en": "Lake",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld12",
+          "sw": "Bwawa",
+          "en": "Pond",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld13",
+          "sw": "Kisima",
+          "en": "Well",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld14",
+          "sw": "Chemchemi",
+          "en": "Spring (of water)",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld15",
+          "sw": "Maji",
+          "en": "Water",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i41_sg"
+          ]
+        },
+        {
+          "id": "ld16",
+          "sw": "Bahari",
+          "en": "Sea, ocean",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i54_sg"
+          ]
+        },
+        {
+          "id": "ld17",
+          "sw": "Njia",
+          "en": "Path",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld18",
+          "sw": "Moto",
+          "en": "Fire",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld19",
+          "sw": "Moshi",
+          "en": "Smoke",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld20",
+          "sw": "Majivu",
+          "en": "Ash",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld21",
+          "sw": "Kisiwa",
+          "en": "Island",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld22",
+          "sw": "Jangwa",
+          "en": "Desert",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld23",
+          "sw": "Dunia",
+          "en": "World",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ld24",
+          "sw": "Nchi",
+          "en": "Country, land",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "plants",
+      "label": {
+        "sw": "C. Mimea na mazao",
+        "en": "C. Plants and crops"
+      },
+      "phrases": [
+        {
+          "id": "pl1",
+          "sw": "Mti",
+          "en": "Tree",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i21_sg"
+          ]
+        },
+        {
+          "id": "pl2",
+          "sw": "Mzizi",
+          "en": "Root",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i26_sg"
+          ]
+        },
+        {
+          "id": "pl3",
+          "sw": "Tawi",
+          "en": "Branch",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i27_sg"
+          ]
+        },
+        {
+          "id": "pl4",
+          "sw": "Jani",
+          "en": "Leaf",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i24_sg"
+          ]
+        },
+        {
+          "id": "pl5",
+          "sw": "Ua",
+          "en": "Flower",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i23_sg"
+          ]
+        },
+        {
+          "id": "pl6",
+          "sw": "Tunda",
+          "en": "Fruit",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i25_sg"
+          ]
+        },
+        {
+          "id": "pl7",
+          "sw": "Nyasi",
+          "en": "Grass",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i22_sg"
+          ]
+        },
+        {
+          "id": "pl8",
+          "sw": "Mbegu",
+          "en": "Seed",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl9",
+          "sw": "Kuni",
+          "en": "Firewood",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl10",
+          "sw": "Gome",
+          "en": "Bark",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl11",
+          "sw": "Mahindi",
+          "en": "Maize",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl12",
+          "sw": "Mtama",
+          "en": "Sorghum",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl13",
+          "sw": "Muhogo",
+          "en": "Cassava",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl14",
+          "sw": "Maharagwe",
+          "en": "Beans",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl15",
+          "sw": "Ndizi",
+          "en": "Banana",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl16",
+          "sw": "Embe",
+          "en": "Mango",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "pl17",
+          "sw": "Pamba",
+          "en": "Cotton",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "domestic",
+      "label": {
+        "sw": "D. Wanyama wa nyumbani",
+        "en": "D. Domestic animals"
+      },
+      "phrases": [
+        {
+          "id": "da1",
+          "sw": "Ng'ombe",
+          "en": "Cow",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i11_sg"
+          ]
+        },
+        {
+          "id": "da2",
+          "sw": "Mbuzi",
+          "en": "Goat",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i12_sg"
+          ]
+        },
+        {
+          "id": "da3",
+          "sw": "Kondoo",
+          "en": "Sheep",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da4",
+          "sw": "Nguruwe",
+          "en": "Pig",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da5",
+          "sw": "Punda",
+          "en": "Donkey",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da6",
+          "sw": "Mbwa",
+          "en": "Dog",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i13_sg"
+          ]
+        },
+        {
+          "id": "da7",
+          "sw": "Paka",
+          "en": "Cat",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da8",
+          "sw": "Kuku",
+          "en": "Chicken",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i14_sg"
+          ]
+        },
+        {
+          "id": "da9",
+          "sw": "Jogoo",
+          "en": "Rooster",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da10",
+          "sw": "Bata",
+          "en": "Duck",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da11",
+          "sw": "Ndama",
+          "en": "Calf",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da12",
+          "sw": "Fahali",
+          "en": "Bull",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "da13",
+          "sw": "Mifugo",
+          "en": "Livestock",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "wild",
+      "label": {
+        "sw": "E. Wanyama wa porini, ndege na wadudu",
+        "en": "E. Wild animals, birds and insects"
+      },
+      "phrases": [
+        {
+          "id": "wa1",
+          "sw": "Simba",
+          "en": "Lion",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i19_sg"
+          ]
+        },
+        {
+          "id": "wa2",
+          "sw": "Tembo",
+          "en": "Elephant",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i15_sg"
+          ]
+        },
+        {
+          "id": "wa3",
+          "sw": "Twiga",
+          "en": "Giraffe",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa4",
+          "sw": "Fisi",
+          "en": "Hyena",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa5",
+          "sw": "Chui",
+          "en": "Leopard",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa6",
+          "sw": "Nyati",
+          "en": "Buffalo",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa7",
+          "sw": "Kiboko",
+          "en": "Hippopotamus",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa8",
+          "sw": "Mamba",
+          "en": "Crocodile",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa9",
+          "sw": "Pundamilia",
+          "en": "Zebra",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa10",
+          "sw": "Swala",
+          "en": "Gazelle",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa11",
+          "sw": "Nyani",
+          "en": "Monkey",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i20_sg"
+          ]
+        },
+        {
+          "id": "wa12",
+          "sw": "Nyoka",
+          "en": "Snake",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i16_sg"
+          ]
+        },
+        {
+          "id": "wa13",
+          "sw": "Samaki",
+          "en": "Fish",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i17_sg"
+          ]
+        },
+        {
+          "id": "wa14",
+          "sw": "Ndege",
+          "en": "Bird",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i18_sg"
+          ]
+        },
+        {
+          "id": "wa15",
+          "sw": "Tai",
+          "en": "Eagle",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa16",
+          "sw": "Bundi",
+          "en": "Owl",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa17",
+          "sw": "Mdudu",
+          "en": "Insect",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa18",
+          "sw": "Mbu",
+          "en": "Mosquito",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa19",
+          "sw": "Inzi",
+          "en": "Fly",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa20",
+          "sw": "Mchwa",
+          "en": "Termite, ant",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa21",
+          "sw": "Nyuki",
+          "en": "Bee",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "wa22",
+          "sw": "Buibui",
+          "en": "Spider",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "parts",
+      "label": {
+        "sw": "F. Sehemu za wanyama",
+        "en": "F. Animal parts"
+      },
+      "phrases": [
+        {
+          "id": "an1",
+          "sw": "Mkia",
+          "en": "Tail",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "an2",
+          "sw": "Pembe",
+          "en": "Horn",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "an3",
+          "sw": "Manyoya",
+          "en": "Feathers",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "an4",
+          "sw": "Bawa",
+          "en": "Wing",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "village",
+      "label": {
+        "sw": "G. Kijiji na mji",
+        "en": "G. Village and town"
+      },
+      "phrases": [
+        {
+          "id": "vg1",
+          "sw": "Kijiji",
+          "en": "Village",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i47_sg"
+          ]
+        },
+        {
+          "id": "vg2",
+          "sw": "Mji",
+          "en": "Town, city",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i48_sg"
+          ]
+        },
+        {
+          "id": "vg3",
+          "sw": "Nyumba",
+          "en": "House",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i49_sg"
+          ]
+        },
+        {
+          "id": "vg4",
+          "sw": "Barabara",
+          "en": "Road",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i50_sg"
+          ]
+        },
+        {
+          "id": "vg5",
+          "sw": "Shamba",
+          "en": "Field, farm",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i52_sg"
+          ]
+        },
+        {
+          "id": "vg6",
+          "sw": "Soko",
+          "en": "Market",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i55_sg"
+          ]
+        },
+        {
+          "id": "vg7",
+          "sw": "Shule",
+          "en": "School",
+          "ctx_sw": "",
+          "ctx_en": "",
+          "covered_by": [
+            "nouns:i56_sg"
+          ]
+        },
+        {
+          "id": "vg8",
+          "sw": "Duka",
+          "en": "Shop",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vg9",
+          "sw": "Hospitali",
+          "en": "Hospital",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vg10",
+          "sw": "Kanisa",
+          "en": "Church",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vg11",
+          "sw": "Msikiti",
+          "en": "Mosque",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vg12",
+          "sw": "Daraja",
+          "en": "Bridge",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vg13",
+          "sw": "Uwanja",
+          "en": "Yard, open ground",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vg14",
+          "sw": "Uzio",
+          "en": "Fence",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "verbs",
+      "label": {
+        "sw": "H. Vitenzi vya asili",
+        "en": "H. Verbs of nature and farm"
+      },
+      "phrases": [
+        {
+          "id": "vb1",
+          "sw": "Kunyesha",
+          "en": "To rain",
+          "ctx_sw": "(mvua)",
+          "ctx_en": "(of rain)"
+        },
+        {
+          "id": "vb2",
+          "sw": "Kuvuma",
+          "en": "To blow",
+          "ctx_sw": "(upepo)",
+          "ctx_en": "(of wind)"
+        },
+        {
+          "id": "vb3",
+          "sw": "Kuchomoza",
+          "en": "To rise",
+          "ctx_sw": "(jua)",
+          "ctx_en": "(of the sun)"
+        },
+        {
+          "id": "vb4",
+          "sw": "Kuzama",
+          "en": "To set",
+          "ctx_sw": "(jua)",
+          "ctx_en": "(of the sun)"
+        },
+        {
+          "id": "vb5",
+          "sw": "Kupanda",
+          "en": "To plant",
+          "ctx_sw": "(kupanda mbegu)",
+          "ctx_en": "(plant seeds)"
+        },
+        {
+          "id": "vb6",
+          "sw": "Kulima",
+          "en": "To cultivate, to till",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb7",
+          "sw": "Kuvuna",
+          "en": "To harvest",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb8",
+          "sw": "Kumwagilia",
+          "en": "To water (plants)",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb9",
+          "sw": "Kuchimba",
+          "en": "To dig",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb10",
+          "sw": "Kuchunga",
+          "en": "To herd, to graze",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb11",
+          "sw": "Kulisha",
+          "en": "To feed",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb12",
+          "sw": "Kufuga",
+          "en": "To keep (livestock)",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb13",
+          "sw": "Kuzaa",
+          "en": "To give birth",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb14",
+          "sw": "Kutiririka",
+          "en": "To flow",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb15",
+          "sw": "Kukauka",
+          "en": "To dry up",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "vb16",
+          "sw": "Kuota",
+          "en": "To sprout, to grow",
+          "ctx_sw": "(mbegu)",
+          "ctx_en": "(of seeds)"
+        }
+      ]
+    },
+    {
+      "id": "sentences",
+      "label": {
+        "sw": "I. Sentensi fupi",
+        "en": "I. Short sentences"
+      },
+      "phrases": [
+        {
+          "id": "ph1",
+          "sw": "Mvua inanyesha.",
+          "en": "It is raining.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph2",
+          "sw": "Kuna jua kali leo.",
+          "en": "The sun is fierce today.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph3",
+          "sw": "Kuna baridi asubuhi.",
+          "en": "It is cold in the morning.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph4",
+          "sw": "Upepo unavuma.",
+          "en": "The wind is blowing.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph5",
+          "sw": "Jua linachomoza asubuhi na kuzama jioni.",
+          "en": "The sun rises in the morning and sets in the evening.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph6",
+          "sw": "Kiangazi ni kirefu.",
+          "en": "The dry season is long.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph7",
+          "sw": "Mto uko wapi?",
+          "en": "Where is the river?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph8",
+          "sw": "Tazama, tembo!",
+          "en": "Look, an elephant!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph9",
+          "sw": "Ng'ombe anakula nyasi.",
+          "en": "The cow is eating grass.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph10",
+          "sw": "Ninalima shamba.",
+          "en": "I am tilling the field.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph11",
+          "sw": "Mbegu zinaota.",
+          "en": "The seeds are sprouting.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ph12",
+          "sw": "Mbwa analala chini ya mti.",
+          "en": "The dog is sleeping under the tree.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "stories",
+      "label": {
+        "sw": "J. Hadithi fupi",
+        "en": "J. Short stories"
+      },
+      "phrases": [
+        {
+          "id": "nw_story1_title",
+          "sw": "Kiangazi Kirefu",
+          "en": "The Long Dry Season",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "nw_story1_body",
+          "sw": "Kiangazi kilikuwa kirefu. Kila siku jua kali, hakuna wingu hata moja. Daniel alisema: ningependa mvua hata kidogo. Siku moja mawingu yakaja, upepo ukavuma, radi ikapiga, na mvua kubwa ikanyesha. Daniel alikimbia nje kucheza mvuani. Kisha akakumbuka kwamba nguo zake zote zilikuwa zimeanikwa nje.",
+          "en": "The dry season was long. Every day the sun was fierce, not a single cloud. Daniel said: I would like some rain, even a little. One day clouds came, the wind blew, thunder struck and heavy rain fell. Daniel ran outside to dance in the rain. Then he remembered that all his clothes were hanging outside.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nw_story2_title",
+          "sw": "Uzio wa John",
+          "en": "John's Fence",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "nw_story2_body",
+          "sw": "John alijenga uzio kuzunguka shamba lake la mahindi. Alibandika ubao: Ng'ombe usiingie. Ng'ombe wa Grace alisimama mbele ya ubao kwa muda mrefu, kama anayesoma. Kisha alikula ubao, uzio, na mahindi yote. Grace alisema: ng'ombe wangu hajui kusoma, lakini ana njaa kila wakati.",
+          "en": "John built a fence around his maize field. He nailed up a board: Cow, do not enter. Grace's cow stood in front of the board for a long time, as if reading. Then she ate the board, the fence and all the maize. Grace said: my cow cannot read, but she is hungry all the time.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nw_story3_title",
+          "sw": "Nyuki wa Mzee",
+          "en": "The Elder's Bees",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "nw_story3_body",
+          "sw": "Mzee alikuwa na nyuki wengi nyuma ya nyumba yake. John alienda kumsalimia mzee, na akawasalimia nyuki pia, kwa heshima kubwa: Shikamoo, nyuki! Nyuki hawakujibu Marahaba. Walijibu kwa njia yao. John alijifunza kukimbia haraka siku hiyo. Mzee alicheka na kusema: nyuki hawasikii lugha, wanasikia hofu.",
+          "en": "The elder kept many bees behind his house. John went to greet the elder, and greeted the bees too, with great respect: Shikamoo, bees! The bees did not answer Marahaba. They answered in their own way. John learned to run fast that day. The elder laughed and said: bees do not hear language, they hear fear.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nw_story4_title",
+          "sw": "Tembo Barabarani",
+          "en": "The Elephant on the Road",
+          "ctx_sw": "hadithi ya kawaida",
+          "ctx_en": "everyday story"
+        },
+        {
+          "id": "nw_story4_body",
+          "sw": "Asubuhi moja tembo alisimama katikati ya barabara. Watu wote walisimama pia. Dereva mmoja alipiga honi. Tembo hakujali. Walisubiri saa mbili. Kisha tembo alienda kunywa maji mtoni, kwa utulivu. Mzee alisema: tembo ana ratiba yake — sisi ndio tunasubiri.",
+          "en": "One morning an elephant stood in the middle of the road. Everyone stopped too. One driver sounded his horn. The elephant did not care. They waited two hours. Then the elephant calmly went to drink water at the river. The elder said: the elephant has his own schedule — we are the ones who wait.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nw_story5_title",
+          "sw": "Embe la Daniel",
+          "en": "Daniel's Mango",
+          "ctx_sw": "hadithi ya kuchekesha",
+          "ctx_en": "funny story"
+        },
+        {
+          "id": "nw_story5_body",
+          "sw": "Daniel alikaa chini ya mti mkubwa wa embe ili apumzike. Embe moja lilianguka juu ya kichwa chake. Daniel alisema: mti huu unanipenda. Embe jingine lilianguka. Daniel alisema: mti huu unanikasirikia. Alihama mbali na mti, akala embe zote mbili.",
+          "en": "Daniel sat under a big mango tree to rest. One mango fell on his head. Daniel said: this tree loves me. Another mango fell. Daniel said: this tree is angry with me. He moved away from the tree and ate both mangoes.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nw_story6_title",
+          "sw": "Mti na Kijiji",
+          "en": "The Tree and the Village",
+          "ctx_sw": "hadithi ya kubuni",
+          "ctx_en": "invented story"
+        },
+        {
+          "id": "nw_story6_body",
+          "sw": "Katikati ya kijiji kuna mti mkubwa. Mizizi yake ni mirefu kuliko nyumba zote. Mzee alisema: mti huu ulikuwa hapa kabla ya kijiji. Watu walikuja, wakajenga nyumba karibu na mti. Jina likaja lenyewe: Mizizi. Anna aliuliza: na mti unasemaje? Mzee alijibu: mti haujibu — lakini haondoki.",
+          "en": "In the middle of the village there is a big tree. Its roots are longer than all the houses. The elder said: this tree was here before the village. People came and built houses near the tree. The name came by itself: Mizizi, Roots. Anna asked: and what does the tree say? The elder answered: the tree does not answer — but it does not leave.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    }
+  ],
+  "moderator_questions": []
+}
