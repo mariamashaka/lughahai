@@ -39,6 +39,10 @@
     .speak[hidden] { display:none; }
     .speak:hover, .speak.playing { background:#F7F3EC; color:#2C4A3E; }
     .speak svg { width:22px; height:22px; fill:currentColor; }
+    .speak.rec { border-color:#E8A882; }
+    .speak.recording { background:#C0392B; border-color:#C0392B; color:#fff; animation:pulse 1s infinite; }
+    @keyframes pulse { 50% { box-shadow:0 0 0 6px rgba(192,57,43,.35); } }
+    #priv { margin:4px 0 0; font-size:.75rem; opacity:.7; color:#F7F3EC; }
     .btn { background:#C4714A; color:#fff; border:none; border-radius:999px; padding:.65rem 1.6rem; font-size:1rem; font-weight:600; cursor:pointer; font-family:inherit; }
     .btn:hover { background:#b05e38; }
     .btn.ghost { background:transparent; border:2px solid rgba(247,243,236,.5); }
@@ -85,8 +89,15 @@
         <button class="speak" id="b-audio" type="button" hidden aria-label="Listen">
           <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
         </button>
+        <button class="speak rec" id="b-rec" type="button" hidden>
+          <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg>
+        </button>
+        <button class="speak rec" id="b-mine" type="button" hidden>
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
         <button class="btn" id="next" type="button"></button>
       </div>
+      <p id="priv" hidden></p>
     </div>
   </div>
 
@@ -125,10 +136,14 @@
 
   const i18n = {
     sw: { back: '← Rudi', restart: 'Anza upya', you: 'Wewe', next: 'Endelea', said: 'Nimesema',
-          instr: 'Zamu yako: sema kwa sauti. Bonyeza kipaza sauti kusikia mfano.',
+          instr: 'Zamu yako: sema, rekodi, kisha sikiliza na ulinganishe na mfano. Umesema sawa?',
+          priv: 'Rekodi yako inabaki kwenye kifaa chako tu.', rec: 'Rekodi sauti yako', stop: 'Simamisha', mine: 'Sikiliza rekodi yako',
+          mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
           e_title: 'Mazoezi yanakuja', e_text: 'Sehemu ya mazoezi bado inatengenezwa. Utaikuta hapa hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza' },
     en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
-          instr: 'Your turn: say it aloud. Press the speaker to hear an example.',
+          instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
+          priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
+          mic_err: 'The microphone is not available. Allow microphone access in your browser.',
           e_title: 'Practice is coming', e_text: 'The practice part is still being built. You will find it here soon.', e_again: 'Start the lesson again', listen: 'Listen' }
   }
 
@@ -230,6 +245,54 @@
     } catch (e) { stopAudio() }
   }
 
+  // ---------- запись ученика (остаётся на устройстве, никуда не отправляется) ----------
+  let rec = null, recStream = null, recChunks = [], mineUrl = null, mineAudio = null, recTimer = null
+  const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder)
+  function clearMine() {
+    stopRecording(true)
+    if (mineAudio) { mineAudio.pause(); mineAudio = null }
+    if (mineUrl) { URL.revokeObjectURL(mineUrl); mineUrl = null }
+    $('b-mine').hidden = true; $('b-mine').classList.remove('playing')
+  }
+  function stopRecording(discard) {
+    clearTimeout(recTimer)
+    if (rec && rec.state !== 'inactive') { rec._discard = !!discard; try { rec.stop() } catch (e) {} }
+    else if (recStream) { recStream.getTracks().forEach(t => t.stop()); recStream = null }
+    $('b-rec').classList.remove('recording')
+  }
+  async function toggleRecording() {
+    const L = i18n[lang]
+    if (rec && rec.state === 'recording') { stopRecording(false); return }
+    clearMine(); stopAudio()
+    try {
+      recStream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      recChunks = []
+      rec = new MediaRecorder(recStream)
+      rec.ondataavailable = e => { if (e.data && e.data.size) recChunks.push(e.data) }
+      rec.onstop = () => {
+        if (recStream) { recStream.getTracks().forEach(t => t.stop()); recStream = null }
+        $('b-rec').classList.remove('recording'); $('b-rec').setAttribute('aria-label', L.rec)
+        if (rec._discard || !recChunks.length) return
+        mineUrl = URL.createObjectURL(new Blob(recChunks, { type: rec.mimeType || 'audio/webm' }))
+        $('b-mine').hidden = false
+      }
+      rec.start()
+      $('b-rec').classList.add('recording'); $('b-rec').setAttribute('aria-label', L.stop)
+      recTimer = setTimeout(() => stopRecording(false), 15000)       // не дольше 15 секунд
+    } catch (e) {
+      $('instr').textContent = L.mic_err
+    }
+  }
+  function playMine() {
+    if (!mineUrl) return
+    stopAudio()
+    if (mineAudio) mineAudio.pause()
+    mineAudio = new Audio(mineUrl)
+    const b = $('b-mine'); b.classList.add('playing')
+    mineAudio.onended = mineAudio.onerror = () => b.classList.remove('playing')
+    mineAudio.play().catch(() => b.classList.remove('playing'))
+  }
+
   // ---------- реплики ----------
   function currentText(line) {
     const L = i18n[lang]
@@ -250,7 +313,7 @@
 
   function showLine() {
     const L = i18n[lang], line = LESSON[idx]
-    stopAudio()
+    stopAudio(); clearMine()
     const you = line.who === 'you', t = currentText(line)
     $('bubble').classList.toggle('you', you)
     $('portrait').hidden = you
@@ -262,6 +325,8 @@
     $('gloss').hidden = !t.gloss
     $('instr').textContent = you ? L.instr : ''
     $('instr').hidden = !you
+    $('b-rec').hidden = !(you && canRecord); $('priv').hidden = !(you && canRecord); $('priv').textContent = L.priv
+    $('b-rec').setAttribute('aria-label', L.rec); $('b-mine').setAttribute('aria-label', L.mine)
     $('b-audio').hidden = !t.audio
     $('next').textContent = you ? L.said : L.next
     $('bar').style.width = (idx / LESSON.length * 100) + '%'
@@ -274,7 +339,7 @@
     if (idx < LESSON.length - 1) { idx++; showLine() } else finish()
   }
   function finish() {
-    ended = true; stopAudio()
+    ended = true; stopAudio(); clearMine()
     $('bubble').style.display = 'none'; $('bar').style.width = '100%'
     $('end').classList.add('active'); wave('anna'); wave('hero')
     try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
@@ -297,6 +362,8 @@
   // ---------- запуск ----------
   $('btn-sw').onclick = () => setLang('sw'); $('btn-en').onclick = () => setLang('en')
   $('next').onclick = next
+  $('b-rec').onclick = toggleRecording
+  $('b-mine').onclick = playMine
   $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
   $('e-again').onclick = again
   $('restart').onclick = () => {
