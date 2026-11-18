@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="sw">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Lugha Hai · Mtihani wa ramani / Map test</title>
+<style>
+  html, body { margin:0; height:100%; background:#1d2b22; overflow:hidden; font-family:system-ui, sans-serif; color:#fff; touch-action:manipulation; }
+  #view { position:absolute; inset:0; overflow:hidden; }
+  #world { position:absolute; left:0; top:0; transform-origin:0 0; }
+  #world img.map { position:absolute; left:0; top:0; image-rendering:pixelated; display:block; user-select:none; -webkit-user-drag:none; }
+  .obj { position:absolute; box-sizing:border-box; display:flex; align-items:center; justify-content:center; font-size:9px; color:#fff; text-align:center; line-height:1; }
+  .door { position:absolute; width:8px; height:8px; margin:-4px 0 0 -4px; border-radius:50%; border:1px solid rgba(255,255,255,.8); background:rgba(0,0,0,.25); pointer-events:none; }
+  .door.active { background:rgba(255,213,74,.9); border-color:#fff; }
+  .actor { position:absolute; width:10px; height:14px; margin:-12px 0 0 -5px; border-radius:5px 5px 3px 3px; border:1px solid #1d2b22; box-sizing:border-box; }
+  .actor::after { content:''; position:absolute; top:1px; width:3px; height:3px; border-radius:50%; background:#fff; }
+  .actor[data-f="l"]::after { left:1px } .actor[data-f="r"]::after { right:1px } .actor[data-f="d"]::after,.actor[data-f="u"]::after { left:3px }
+  #hero { background:#E8A83A; z-index:5; } #hero.m { background:#3B7DD8; }
+  #arrow { position:absolute; z-index:6; width:0; height:0; margin:-26px 0 0 -6px; border-left:6px solid transparent; border-right:6px solid transparent; border-top:10px solid #FFD54A; filter:drop-shadow(0 1px 0 #000); animation:bob .7s ease-in-out infinite; pointer-events:none; }
+  @keyframes bob { 50% { transform:translateY(5px); opacity:.55; } }
+  #edge { position:absolute; z-index:20; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:rgba(24,34,29,.88); border:2px solid #FFD54A; display:none; align-items:center; justify-content:center; animation:blink 1s ease-in-out infinite; pointer-events:auto; cursor:pointer; }
+  #edge i { display:block; width:0; height:0; border-top:7px solid transparent; border-bottom:7px solid transparent; border-left:12px solid #FFD54A; }
+  @keyframes blink { 50% { opacity:.4; } }
+  #top { position:absolute; top:10px; left:10px; right:10px; z-index:30; display:flex; gap:8px; align-items:center; justify-content:space-between; pointer-events:none; }
+  #goal { background:rgba(24,34,29,.9); border:2px solid #FFD54A; padding:7px 14px; border-radius:999px; font-weight:700; font-size:.95rem; pointer-events:auto; }
+  .pill { background:rgba(24,34,29,.8); color:#fff; border:none; border-radius:999px; padding:7px 12px; font-size:.8rem; cursor:pointer; pointer-events:auto; font-family:inherit; }
+  .pill.on { background:#fff; color:#2C4A3E; font-weight:700; }
+  #dev { position:absolute; bottom:10px; left:10px; right:10px; z-index:30; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+  #msg { position:absolute; left:50%; bottom:64px; transform:translateX(-50%); width:min(560px, calc(100vw - 24px)); box-sizing:border-box; background:rgba(24,34,29,.94); border-radius:16px; padding:12px 16px; z-index:40; display:none; }
+  #msg b { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75; display:block; margin-bottom:2px; }
+  #msg p { margin:0; font-size:1rem; line-height:1.35; }
+  #msg button { margin-top:8px; background:#C4714B; color:#fff; border:none; border-radius:999px; padding:8px 20px; font-weight:700; cursor:pointer; font-family:inherit; }
+  #msg.show { display:block; }
+</style>
+</head>
+<body>
+<div id="view"><div id="world"></div></div>
+<div id="edge"><i></i></div>
+<div id="top"><div id="goal"></div><div><button class="pill" id="l-sw">SW</button> <button class="pill" id="l-en">EN</button></div></div>
+<div id="dev"></div>
+<div id="msg"><b id="m-who"></b><p id="m-text"></p><button id="m-ok" hidden></button></div>
+<script>
+  // ---------- Карта деревни: данные (позже уйдут в data/maps/village.json и файл урока) ----------
+  const MAP_W = 458, MAP_H = 256
+  const P = new URLSearchParams(location.search)
+  const DEBUG = P.has('debug')
+
+  // узлы дорожек (координаты в пикселях исходной картинки village.png)
+  const NODES = {
+    anna_door: [150, 87], a1: [150, 100], a2: [144, 118], gate: [152, 142],
+    r1: [172, 147], r2: [225, 150], r3: [272, 150], r4: [305, 143], r5: [340, 135], r6: [380, 128], hj: [395, 118], r7: [430, 132], r8: [457, 132],
+    t0: [350, 5], t1: [315, 45], t2: [298, 80], t3: [298, 115], t4: [302, 135],
+    hosp_door: [395, 68], h1: [400, 95],
+    shop_door: [320, 186], s1: [300, 175], s2: [285, 161],
+    y1: [130, 142], john_door: [92, 152], y2: [150, 170], y3: [145, 190], daniel_door: [122, 199]
+  }
+  const EDGES = [
+    ['anna_door', 'a1'], ['a1', 'a2'], ['a2', 'gate'], ['gate', 'r1'], ['r1', 'r2'], ['r2', 'r3'], ['r3', 'r4'], ['r4', 'r5'], ['r5', 'r6'], ['r6', 'hj'], ['hj', 'r7'], ['r7', 'r8'],
+    ['t0', 't1'], ['t1', 't2'], ['t2', 't3'], ['t3', 't4'], ['t4', 'r4'],
+    ['hosp_door', 'h1'], ['h1', 'hj'],
+    ['shop_door', 's1'], ['s1', 's2'], ['s2', 'r3'],
+    ['gate', 'y1'], ['y1', 'john_door'], ['gate', 'y2'], ['y2', 'y3'], ['y3', 'daniel_door']
+  ]
+  // двери: чья, открыта ли по умолчанию, что говорит, если закрыта
+  const DOORS = {
+    anna_door:   { name: { sw: 'Nyumba ya Anna', en: "Anna's house" }, who: 'Anna' },
+    john_door:   { name: { sw: 'Nyumba ya John', en: "John's house" }, who: 'John' },
+    daniel_door: { name: { sw: 'Nyumba ya Daniel', en: "Daniel's house" }, who: 'Daniel' },
+    shop_door:   { name: { sw: 'Duka', en: 'Shop' }, who: 'Duka', closed: { sw: 'Samahani, duka limefungwa sasa. Njoo siku nyingine.', en: 'Sorry, the shop is closed right now. Come back another day.' } },
+    hosp_door:   { name: { sw: 'Hospitali', en: 'Hospital' }, who: 'Hospitali', closed: { sw: 'Samahani, hospitali imefungwa sasa. Njoo siku nyingine.', en: 'Sorry, the hospital is closed right now. Come back another day.' } }
+  }
+  // что делает выбор ученика
+  const GOALS = {
+    drink:  { label: { sw: 'Kunywa', en: 'Drink' },  door: g => g === 'f' ? 'anna_door' : 'john_door' },
+    eat:    { label: { sw: 'Kula', en: 'Eat' },      door: g => g === 'f' ? 'anna_door' : 'john_door' },
+    wash:   { label: { sw: 'Kuoga', en: 'Wash' },   door: g => g === 'f' ? 'anna_door' : 'john_door' },
+    toilet: { label: { sw: 'Choo', en: 'Toilet' },  door: g => g === 'f' ? 'anna_door' : 'john_door' }
+  }
+  const WRONG_HOUSE = {   // ошибся домом
+    f: { john_door: { who: 'Anna', sw: 'Hapa ni kwa John. Wewe njoo kwa Anna, kule!', en: "That's John's house. Come to Anna's, over there!" }, daniel_door: { who: 'Anna', sw: 'Daniel hayuko hapa. Njoo nyumbani kwangu!', en: "Daniel isn't home. Come to my house!" } },
+    m: { anna_door: { who: 'John', sw: 'Nyumbani kwa Anna? Hapana. Njoo kwangu, kule!', en: "Anna's house? No. Come to mine, over there!" }, daniel_door: { who: 'John', sw: 'Daniel hayuko hapa. Njoo nyumbani kwangu!', en: "Daniel isn't home. Come to my house!" } }
+  }
+  const T = {
+    sw: { enter: 'Ingia', here: 'Hapa ua wa nyumba utafunguka (onyesho la pembeni).', pick: 'Unataka nini kwanza?', go: 'Nenda', gender: 'Jinsia' },
+    en: { enter: 'Enter', here: 'The side-view yard scene will open here.', pick: 'What do you want first?', go: 'Go to', gender: 'Gender' }
+  }
+
+  // ---------- состояние ----------
+  let lang = localStorage.getItem('lh_lang') === 'en' ? 'en' : 'sw'
+  let gender = P.get('gender') === 'm' ? 'm' : 'f'
+  let goalKey = P.get('goal') || 'drink'
+  let S = 3
+  const world = document.getElementById('world'), view = document.getElementById('view')
+  const nodes = {}, edges = []
+  Object.entries(NODES).forEach(([k, v]) => nodes[k] = v)
+  EDGES.forEach(e => edges.push(e.slice()))
+  const allDoors = Object.assign({}, DOORS)
+
+  const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1])
+  let pos = nodes.gate.slice(), facing = 'd', path = [], moving = null
+
+  // ---------- построение сцены ----------
+  const img = new Image(); img.className = 'map'; img.src = 'assets/village.png'; world.appendChild(img)
+  const doorEls = {}
+  Object.keys(allDoors).forEach(id => { const d = document.createElement('div'); d.className = 'door'; d.style.left = nodes[id][0] + 'px'; d.style.top = nodes[id][1] + 'px'; world.appendChild(d); doorEls[id] = d })
+  const arrow = document.createElement('div'); arrow.id = 'arrow'; world.appendChild(arrow)
+  const hero = document.createElement('div'); hero.id = 'hero'; hero.className = 'actor'; hero.dataset.f = 'd'; world.appendChild(hero)
+  if (DEBUG) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('width', MAP_W); svg.setAttribute('height', MAP_H); svg.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;z-index:9'
+    edges.forEach(([a, b]) => { const l = document.createElementNS(svg.namespaceURI, 'line'); l.setAttribute('x1', nodes[a][0]); l.setAttribute('y1', nodes[a][1]); l.setAttribute('x2', nodes[b][0]); l.setAttribute('y2', nodes[b][1]); l.setAttribute('stroke', '#f0f'); l.setAttribute('stroke-width', '1'); svg.appendChild(l) })
+    Object.entries(nodes).forEach(([k, v]) => { const c = document.createElementNS(svg.namespaceURI, 'circle'); c.setAttribute('cx', v[0]); c.setAttribute('cy', v[1]); c.setAttribute('r', 1.5); c.setAttribute('fill', '#0ff'); svg.appendChild(c) })
+    world.appendChild(svg)
+  }
+
+  // ---------- маршрут по дорожкам ----------
+  function projectOnEdges(p, E, N) {
+    let best = null
+    E.forEach(([a, b], i) => {
+      const A = N[a], B = N[b], dx = B[0] - A[0], dy = B[1] - A[1], l2 = dx * dx + dy * dy
+      let t = l2 ? ((p[0] - A[0]) * dx + (p[1] - A[1]) * dy) / l2 : 0; t = Math.max(0, Math.min(1, t))
+      const q = [A[0] + dx * t, A[1] + dy * t], d = dist(p, q)
+      if (!best || d < best.d) best = { i, t, q, d }
+    })
+    return best
+  }
+  function routeTo(target) {
+    const N = Object.assign({}, nodes), E = edges.map(e => e.slice())
+    function insert(p, name) {
+      const pr = projectOnEdges(p, E, N), [a, b] = E[pr.i]
+      N[name] = pr.q; E.splice(pr.i, 1, [a, name], [name, b]); return name
+    }
+    insert(pos, '__s'); insert(target, '__t')
+    const D = { __s: 0 }, prev = {}, Q = new Set(Object.keys(N))
+    while (Q.size) {
+      let u = null; Q.forEach(k => { if (D[k] !== undefined && (u === null || D[k] < D[u])) u = k })
+      if (u === null || u === '__t') break
+      Q.delete(u)
+      E.forEach(([a, b]) => { const o = a === u ? b : b === u ? a : null; if (o && Q.has(o)) { const nd = D[u] + dist(N[a], N[b]); if (D[o] === undefined || nd < D[o]) { D[o] = nd; prev[o] = u } } })
+    }
+    const out = []; for (let k = '__t'; k; k = prev[k]) { out.unshift(N[k].slice()); if (k === '__s') break }
+    return out
+  }
+  function nearestDoor(p, r = 11) { let best = null; Object.keys(allDoors).forEach(id => { const d = dist(p, nodes[id]); if (d < r && (!best || d < best.d)) best = { id, d } }); return best && best.id }
+
+  // ---------- движение ----------
+  const SPEED = 55   // пикселей карты в секунду
+  let last = 0
+  function walkTo(p, doorId) {
+    hideMsg(); pan = null
+    path = routeTo(p); moving = { doorId: doorId || null }
+  }
+  function tick(ts) {
+    const dt = Math.min(0.05, (ts - last) / 1000); last = ts
+    if (moving && path.length) {
+      let step = SPEED * dt
+      while (step > 0 && path.length) {
+        const n = path[0], d = dist(pos, n)
+        if (d <= step) { pos = n.slice(); path.shift(); step -= d } else { pos[0] += (n[0] - pos[0]) / d * step; pos[1] += (n[1] - pos[1]) / d * step; step = 0 }
+        if (path.length) { const n2 = path[0], dx = n2[0] - pos[0], dy = n2[1] - pos[1]; if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) facing = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 'l' : 'r') : (dy < 0 ? 'u' : 'd') }
+      }
+      if (!path.length) { const id = moving.doorId || nearestDoor(pos, 3); moving = null; if (id) arrived(id) }
+    }
+    render(); requestAnimationFrame(tick)
+  }
+
+  // ---------- что происходит у двери ----------
+  function goalDoor() { return GOALS[goalKey].door(gender) }
+  function arrived(id) {
+    const L = T[lang], d = allDoors[id], wrong = WRONG_HOUSE[gender][id]
+    if (id === goalDoor()) { showMsg(d.who, L.here, L.enter, () => showMsg(d.who, '✓ ' + d.name[lang])) ; return }
+    if (wrong) { showMsg(wrong.who, wrong[lang]); return }
+    if (d.closed) { showMsg(d.who, d.closed[lang]); return }
+    showMsg(d.who, '…')
+  }
+  function showMsg(who, text, btn, onBtn) {
+    document.getElementById('m-who').textContent = who; document.getElementById('m-text').textContent = text
+    const b = document.getElementById('m-ok'); b.hidden = !btn; if (btn) { b.textContent = btn; b.onclick = onBtn }
+    document.getElementById('msg').classList.add('show')
+  }
+  function hideMsg() { document.getElementById('msg').classList.remove('show') }
+
+  // ---------- камера и отрисовка ----------
+  function layout() {
+    S = Math.max(1, Math.min(4, Math.floor(innerHeight * 0.9 / MAP_H)))
+    world.style.width = MAP_W + 'px'; world.style.height = MAP_H + 'px'; img.style.width = MAP_W + 'px'; img.style.height = MAP_H + 'px'
+  }
+  let pan = null     // ручной сдвиг камеры (перетаскивание); сбрасывается, когда герой идёт
+  function clampCam(cx, cy) {
+    const vw = innerWidth, vh = innerHeight, ww = MAP_W * S, wh = MAP_H * S
+    return [ww <= vw ? (vw - ww) / 2 : Math.max(vw - ww, Math.min(0, cx)), wh <= vh ? (vh - wh) / 2 : Math.max(vh - wh, Math.min(0, cy))]
+  }
+  function camera() {
+    if (pan) return clampCam(pan[0], pan[1])
+    return clampCam(innerWidth / 2 - pos[0] * S, innerHeight / 2 - pos[1] * S)
+  }
+  function render() {
+    const [cx, cy] = camera()
+    world.style.transform = `translate(${cx}px,${cy}px) scale(${S})`
+    hero.style.left = pos[0] + 'px'; hero.style.top = pos[1] + 'px'; hero.dataset.f = facing; hero.className = 'actor ' + gender
+    hero.style.zIndex = Math.round(pos[1])
+    const g = goalDoor(), gp = nodes[g]
+    arrow.style.left = gp[0] + 'px'; arrow.style.top = (gp[1] - 2) + 'px'
+    Object.keys(doorEls).forEach(id => doorEls[id].classList.toggle('active', id === g))
+    // стрелка у края экрана, если цель за кадром
+    const sx = cx + gp[0] * S, sy = cy + gp[1] * S, e = document.getElementById('edge')
+    const out = sx < 20 || sx > innerWidth - 20 || sy < 50 || sy > innerHeight - 20
+    if (out) {
+      const mx = innerWidth / 2, my = innerHeight / 2, ang = Math.atan2(sy - my, sx - mx)
+      const ex = Math.max(30, Math.min(innerWidth - 30, sx)), ey = Math.max(70, Math.min(innerHeight - 70, sy))
+      e.style.display = 'flex'; e.style.left = ex + 'px'; e.style.top = ey + 'px'; e.firstElementChild.style.transform = `rotate(${ang}rad)`
+    } else e.style.display = 'none'
+  }
+  function renderUI() {
+    const L = T[lang], gl = GOALS[goalKey].label[lang], dn = allDoors[goalDoor()].name[lang]
+    document.getElementById('goal').textContent = gl + ' → ' + dn
+    document.getElementById('l-sw').classList.toggle('on', lang === 'sw'); document.getElementById('l-en').classList.toggle('on', lang === 'en')
+    const dev = document.getElementById('dev'); dev.innerHTML = ''
+    Object.keys(GOALS).forEach(k => { const b = document.createElement('button'); b.className = 'pill' + (k === goalKey ? ' on' : ''); b.textContent = GOALS[k].label[lang]; b.onclick = () => { goalKey = k; hideMsg(); renderUI() }; dev.appendChild(b) })
+    ;['f', 'm'].forEach(k => { const b = document.createElement('button'); b.className = 'pill' + (k === gender ? ' on' : ''); b.textContent = k === 'f' ? '♀' : '♂'; b.onclick = () => { gender = k; hideMsg(); renderUI() }; dev.appendChild(b) })
+  }
+
+  // ---------- ввод ----------
+  // касание = идти; перетаскивание = двигать карту
+  let drag = null
+  view.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, cam: camera(), moved: false } })
+  view.addEventListener('pointermove', e => {
+    if (!drag) return
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y
+    if (!drag.moved && Math.hypot(dx, dy) < 8) return
+    drag.moved = true; pan = [drag.cam[0] + dx, drag.cam[1] + dy]
+  })
+  view.addEventListener('pointerup', e => {
+    const d = drag; drag = null
+    if (!d || d.moved) return
+    const [cx, cy] = camera(), p = [(e.clientX - cx) / S, (e.clientY - cy) / S]
+    const door = nearestDoor(p, 12)
+    if (door) walkTo(nodes[door], door)
+    else { const pr = projectOnEdges(p, edges, nodes); walkTo(pr.q) }
+  })
+  view.addEventListener('pointercancel', () => { drag = null })
+  document.getElementById('l-sw').onclick = () => { lang = 'sw'; try { localStorage.setItem('lh_lang', 'sw') } catch (e) {} hideMsg(); renderUI() }
+  document.getElementById('l-en').onclick = () => { lang = 'en'; try { localStorage.setItem('lh_lang', 'en') } catch (e) {} hideMsg(); renderUI() }
+  document.getElementById('edge').addEventListener('pointerup', e => { e.stopPropagation(); const g = goalDoor(); walkTo(nodes[g], g) })
+  addEventListener('resize', layout)
+  layout(); renderUI(); requestAnimationFrame(tick)
+  window.__t = { get pan() { return pan }, get pos() { return pos }, get S() { return S }, camera, nodes, walkTo, get moving() { return moving } }
+</script>
+</body>
+</html>
