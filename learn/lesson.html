@@ -103,6 +103,14 @@
     .opt .mini[disabled] { opacity:.35; cursor:not-allowed; }
     .opt.sel { border-color:#E8A882; background:rgba(232,168,130,.2); }
     .opt.done { opacity:.4; }
+    .slots { min-height:54px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:8px 4px; margin-bottom:10px; border-bottom:2px solid rgba(247,243,236,.35); }
+    .bank { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:12px; }
+    .chip { color:#F7F3EC; background:rgba(255,255,255,.1); border:2px solid rgba(247,243,236,.35); border-radius:12px; padding:.55rem .9rem; font-size:1.05rem; font-family:inherit; cursor:pointer; }
+    .chip:hover:not([disabled]) { background:rgba(255,255,255,.2); }
+    .chip.used { opacity:.15; pointer-events:none; }
+    .chip.good { background:rgba(80,170,110,.35); border-color:#6fcf97; } .chip.bad { background:rgba(200,70,60,.35); border-color:#eb5757; }
+    .slots.shake { animation:shake .35s; }
+    .skipnote { opacity:.85; margin:0 0 10px; text-align:center; }
     #ex-fb { min-height:1.4em; margin:0; font-size:1rem; font-weight:600; color:#F7F3EC; line-height:1.35; }
     #ex-fb.good { color:#6fcf97; } #ex-fb.bad { color:#ffb4a8; }
     #ex-next { margin-top:10px; }
@@ -198,14 +206,16 @@
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
           soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
-          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti' },
+          good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti',
+          x_buildA: 'Sikiliza na ukusanye sentensi', x_buildB: 'Kusanya sentensi kwa lugha ya kabila', ready: 'Tayari', again2: 'Bado si sawa. Jaribu tena!', ksoon: 'Maneno ya kabila yanakuja hivi karibuni', skip: 'Ruka' },
     en: { back: '← Back', restart: 'Start over', you: 'You', next: 'Continue', said: 'I said it',
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
           soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
-          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet' }
+          good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet',
+          x_buildA: 'Listen and build the phrase', x_buildB: 'Build the phrase in the tribal language', ready: 'Done', again2: 'Not quite. Try again!', ksoon: 'The tribal words are coming soon', skip: 'Skip' }
   }
 
   // ---------- состояние ----------
@@ -370,7 +380,7 @@
     sfxOn = !sfxOn; try { localStorage.setItem('lh_sfx', sfxOn ? 'on' : 'off') } catch (e) {}
     $('sounds').classList.toggle('off', !sfxOn); if (sfxOn) sfx.tap()
   }
-  document.addEventListener('click', e => { if (e.target.closest('.opt, .btn, .speak, .mini') && !e.target.closest('#sounds')) sfx.tap() })
+  document.addEventListener('click', e => { if (e.target.closest('.opt, .chip, .btn, .speak, .mini') && !e.target.closest('#sounds')) sfx.tap() })
   // ---------- запись ученика (остаётся на устройстве, никуда не отправляется) ----------
   let rec = null, recStream = null, recChunks = [], mineUrl = null, mineAudio = null, recTimer = null
   const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder)
@@ -521,12 +531,62 @@
     ok.sort((a, b) => Math.abs(a.gloss.length - t.gloss.length) - Math.abs(b.gloss.length - t.gloss.length))
     return shuffle(ok.slice(0, Math.max(n + 2, 6))).slice(0, n)
   }
+  // «Собери фразу»: слова фразы на языке + лишние слова из других фраз
+  const norm = w => w.toLowerCase().replace(/[.,!?¡¿;:…"“”()]/g, '').trim()
+  const words = s => s.split(/\s+/).map(norm).filter(Boolean)
+  const skipBuild = new Set()
   function chooseType(id) {
+    const d = info(id), n = words(d.tribal).length
+    const buildOk = streak[id] >= 1 && n >= 2 && !skipBuild.has(id)
     const base = streak[id] === 0 ? ['listen', 'read'] : ['pick', 'reply', 'read', 'listen']
+    if (buildOk) { base.push('buildB', 'buildB'); if (!d.stub && d.audio) base.push('buildA', 'buildA') }
     let ts = base.filter(t => t !== 'reply' || ANSWER_OF[id])
     const fresh = ts.filter(t => !lastTypes.slice(-2).includes(t))
     ts = fresh.length ? fresh : ts
     return ts[Math.floor(Math.random() * ts.length)]
+  }
+  function renderBuild(id, type) {
+    const L = i18n[lang], t = info(id)
+    exState = { id, type }
+    shell(type === 'buildA' ? 'x_buildA' : 'x_buildB')
+    const prompt = $('ex-prompt'), opts = $('ex-opts')
+    opts.classList.remove('two')
+    if (type === 'buildA') { prompt.appendChild(miniBtn(t, false)); setTimeout(() => { if (exState && exState.id === id) play(t.audio, false) }, 350) }
+    else prompt.appendChild(el('span', 'big', t.gloss))
+    $('ex-next').onclick = nextExercise
+    if (t.stub) {                                    // нет слов на языке: «скоро», можно пропустить
+      opts.appendChild(el('p', 'skipnote', L.ksoon))
+      const sk = el('button', 'btn'); sk.type = 'button'; sk.textContent = L.skip
+      sk.onclick = () => { skipBuild.add(id); nextExercise() }
+      opts.appendChild(sk); return
+    }
+    const target = words(t.tribal)
+    const pool = [...new Set([...PRACTICE, ...EXTRA])].filter(x => x !== id).map(info).filter(d => !d.stub)
+    const extra = shuffle([...new Set(pool.flatMap(d => words(d.tribal)).filter(w => !target.includes(w)))]).slice(0, Math.min(3, Math.max(2, Math.floor(target.length / 2) + 1)))
+    const tokens = shuffle([...target, ...extra].map((w, i) => ({ w, i })))
+    const slots = el('div', 'slots'), bank = el('div', 'bank'); let chosen = [], tries = 0, locked = false
+    const ready = el('button', 'btn'); ready.type = 'button'; ready.textContent = L.ready; ready.disabled = true
+    const chipOf = {}
+    const redraw = () => {
+      slots.innerHTML = ''
+      chosen.forEach(tok => { const c = el('button', 'chip', tok.w); c.type = 'button'; c.onclick = () => { if (locked) return; chosen = chosen.filter(x => x !== tok); chipOf[tok.i].classList.remove('used'); redraw() }; slots.appendChild(c) })
+      ready.disabled = !chosen.length
+    }
+    tokens.forEach(tok => { const c = el('button', 'chip', tok.w); c.type = 'button'; chipOf[tok.i] = c
+      c.onclick = () => { if (locked) return; chosen.push(tok); c.classList.add('used'); redraw() }; bank.appendChild(c) })
+    ready.onclick = () => {
+      if (locked) return
+      const ok = chosen.map(x => x.w).join(' ') === target.join(' ')
+      if (ok || tries >= 1) {
+        locked = true; ready.hidden = true
+        slots.querySelectorAll('.chip').forEach(c => c.classList.add(ok ? 'good' : 'bad'))
+        answer(id, ok, t.tribal, t.audio)
+      } else {
+        tries++; slots.classList.remove('shake'); void slots.offsetWidth; slots.classList.add('shake'); sfx.bad()
+        $('ex-fb').className = 'bad'; $('ex-fb').textContent = L.again2
+      }
+    }
+    opts.appendChild(slots); opts.appendChild(bank); opts.appendChild(ready)
   }
   function nextExercise() {
     if (allDone()) return finishPractice()
@@ -541,7 +601,7 @@
     redoId = null
     const type = chooseType(id)
     lastTypes.push(type)
-    renderChoice(id, type)
+    if (type === 'buildA' || type === 'buildB') renderBuild(id, type); else renderChoice(id, type)
   }
 
   function shell(titleKey) {
