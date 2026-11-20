@@ -889,6 +889,71 @@
           "ctx_en": ""
         }
       ]
+    },
+    {
+      "id": "comparison",
+      "label": {
+        "sw": "C. Ulinganisho — kuliko, kama (сравнение) [kipengele cha hiari]",
+        "en": "C. Comparison — more than, as ... as [optional block]"
+      },
+      "phrases": [
+        {
+          "id": "bh_cmp1",
+          "sw": "John ni mrefu kuliko Anna",
+          "en": "John is taller than Anna",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_cmp2",
+          "sw": "Anna ni mfupi kuliko John",
+          "en": "Anna is shorter than John",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_cmp3",
+          "sw": "Nyumba hii ni kubwa kuliko ile",
+          "en": "This house is bigger than that one",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_cmp4",
+          "sw": "Maji haya ni baridi kuliko yale",
+          "en": "This water is colder than that",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_cmp5",
+          "sw": "Mzee ni mzee kuliko wote",
+          "en": "The elder is the oldest of all",
+          "ctx_sw": "(bora zaidi — самый)",
+          "ctx_en": "(superlative)"
+        },
+        {
+          "id": "bh_cmp6",
+          "sw": "John ni mrefu kama Anna",
+          "en": "John is as tall as Anna",
+          "ctx_sw": "(sawa — такой же)",
+          "ctx_en": "(equal)"
+        },
+        {
+          "id": "bh_cmp7",
+          "sw": "Soko ni mbali kuliko shule",
+          "en": "The market is farther than the school",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "bh_cmp8",
+          "sw": "Ni nani mkubwa kuliko wote?",
+          "en": "Who is the biggest of all?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
     }
   ],
   "moderator_questions": [
@@ -1023,6 +1088,27 @@
           "Negation of possession — how it is built, does the noun change",
           "Existence without an owner — the same as possession or different",
           "Example sentences for each rule"
+        ]
+      }
+    },
+    {
+      "id": "mq7",
+      "sw": "Swali la 7. Ulinganisho",
+      "en": "Question 7. Comparison",
+      "body": {
+        "sw": "Angalia bloku C. Katika Kiswahili: \"mrefu kuliko Anna\" (kuliko = kuliko, zaidi ya). Katika lugha yako unasemaje \"John ni mrefu kuliko Anna\", \"kubwa kuliko wote\", \"mrefu kama Anna\"? Je, kuna neno la kulinganisha au umbo maalum la kivumishi?",
+        "en": "Look at block C. In Swahili: \"mrefu kuliko Anna\" (taller than Anna). How do you say \"John is taller than Anna\", \"the biggest of all\", \"as tall as Anna\" in your language? Is there a comparison word or a special adjective form?"
+      },
+      "options": {
+        "sw": [
+          "Neno la kulinganisha → toa mifano",
+          "Umbo maalum la kivumishi → toa mifano",
+          "Njia nyingine → eleza"
+        ],
+        "en": [
+          "A comparison word → give examples",
+          "A special adjective form → give examples",
+          "Another way → explain"
         ]
       }
     }
