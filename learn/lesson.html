@@ -11,6 +11,7 @@
     .layer { position:absolute; left:0; right:0; background-repeat:repeat-x; background-position:left bottom; image-rendering:pixelated; }
     #far    { background-image:url(assets/scene/far.png); }
     #ground { bottom:0; background-image:url(assets/scene/ground.png); }
+    .prop { position:absolute; image-rendering:pixelated; z-index:3; pointer-events:none; }
     .actor { position:absolute; image-rendering:pixelated; user-select:none; -webkit-user-drag:none; }
     #hero { transform:scaleX(-1); }
 
@@ -214,6 +215,7 @@
   let EXTRA = []                // дополнительные фразы темы: варианты-обманки
   let LESSON = [], PRACTICE = [], ANSWER_OF = {}
   let EXTRA_TOPICS = [], topicOf = {}, CHOICES = {}, CHOICE_DEFAULT = {}
+  let SCENES = {}, SCENE_BG = null, curScene = null, curProps = '', posed = {}, poseTimer = {}, poseTok = {}
   let LESSON_ID = ''
   const SPR = { w: 72, h: 96 }, SKY_H = 170, GROUND_H = 27, FEET_IN_GROUND = 8
 
@@ -313,9 +315,11 @@
   function layout() {
     // масштаб: герои не выше ~42% экрана и оба помещаются по ширине
     s = Math.max(1, Math.min(4, Math.floor(innerHeight * 0.42 / SPR.h), Math.floor(innerWidth / 180)))
-    const far = $('far'), gr = $('ground')
-    far.style.height = SKY_H * s + 'px'; far.style.bottom = GROUND_H * s + 'px'; far.style.backgroundSize = 'auto 100%'
+    const far = $('far'), gr = $('ground'), sc = !!SCENE_BG
+    far.style.height = (sc ? SKY_H + GROUND_H : SKY_H) * s + 'px'; far.style.bottom = (sc ? 0 : GROUND_H * s) + 'px'; far.style.backgroundSize = 'auto 100%'
+    gr.style.display = sc ? 'none' : ''
     gr.style.height = GROUND_H * s + 'px'; gr.style.backgroundSize = 'auto 100%'
+    document.querySelectorAll('.prop').forEach(placeProp)
     const bottom = (GROUND_H - FEET_IN_GROUND) * s
     for (const [id, dx] of [['anna', -50], ['hero', 50]]) {
       const el = $(id)
@@ -337,10 +341,68 @@
   }
   function idleLoop(who, offset) {
     let breath = false
-    setInterval(() => { if (waving[who]) return; breath = !breath; setSprite(who, breath ? 'breath' : 'idle0') }, 700 + offset)
+    setInterval(() => { if (waving[who] || posed[who]) return; breath = !breath; setSprite(who, breath ? 'breath' : 'idle0') }, 700 + offset)
     ;(function blink() {
-      setTimeout(() => { if (!waving[who]) { setSprite(who, 'blink'); setTimeout(() => { if (!waving[who]) setSprite(who, 'idle0') }, 140) } blink() }, 2200 + Math.random() * 2500)
+      setTimeout(() => { if (!waving[who] && !posed[who]) { setSprite(who, 'blink'); setTimeout(() => { if (!waving[who] && !posed[who]) setSprite(who, 'idle0') }, 140) } blink() }, 2200 + Math.random() * 2500)
     })()
+  }
+
+  // ---------- сцены, позы и предметы (из файла урока; нет картинки: остаётся прежний вид) ----------
+  // scene: имя из scenes урока (фон 800x197), действует, пока не сменится. pose: {anna|hero: 'имя'} (кадры имя0.png, имя1.png), null сбрасывает.
+  // props: список предметов {img, x, y, w, if}: x от центра сцены, y от низа, w ширина (пиксели исходника), пустой список убирает.
+  const imgOk = url => new Promise(res => { const i = new Image(); i.onload = () => res(true); i.onerror = () => res(false); i.src = url })
+  function nearest(key, who) {
+    for (let i = idx; i >= 0; i--) {
+      const l = LESSON[i]
+      if (who) { if (l[key] && Object.prototype.hasOwnProperty.call(l[key], who)) return l[key][who] }
+      else if (l[key] !== undefined) return l[key]
+    }
+    return undefined
+  }
+  async function setScene(name) {
+    if (name === curScene) return
+    curScene = name
+    const cfg = name && SCENES[name], far = $('far')
+    if (cfg && cfg.bg && await imgOk(cfg.bg) && curScene === name) {
+      SCENE_BG = cfg
+      far.style.backgroundImage = 'url(' + cfg.bg + ')'; far.style.backgroundRepeat = 'no-repeat'; far.style.backgroundPosition = 'center bottom'
+      if (cfg.color) $('stage').style.background = cfg.color
+    } else if (curScene === name) {
+      SCENE_BG = null; far.style.backgroundImage = ''; far.style.backgroundRepeat = ''; far.style.backgroundPosition = ''; $('stage').style.background = ''
+    }
+    layout()
+  }
+  function placeProp(el) {
+    const w = +el.dataset.w, x = +el.dataset.x, y = +el.dataset.y
+    el.style.width = w * s + 'px'; el.style.left = `calc(50% + ${x * s}px - ${w * s / 2}px)`; el.style.bottom = y * s + 'px'
+  }
+  function setProps(list) {
+    const act = (list || []).filter(p => !p.if || Object.entries(p.if).every(([k, v]) => (CHOICES[k] !== undefined ? CHOICES[k] : CHOICE_DEFAULT[k]) === v))
+    const sig = JSON.stringify(act)
+    if (sig === curProps) return
+    curProps = sig
+    document.querySelectorAll('.prop').forEach(e => e.remove())
+    act.forEach(p => {
+      const el = document.createElement('img'); el.className = 'prop'; el.alt = ''; el.src = p.img
+      el.dataset.w = p.w || 24; el.dataset.x = p.x || 0; el.dataset.y = p.y || 0
+      el.onerror = () => el.remove(); placeProp(el); $('stage').appendChild(el)
+    })
+  }
+  async function setPose(who, name) {
+    const tok = poseTok[who] = (poseTok[who] || 0) + 1
+    clearInterval(poseTimer[who])
+    const base = 'assets/' + (who === 'anna' ? 'anna/' : (P && P.gender === 'm' ? 'hero_m/' : 'hero_f/'))
+    if (!name) { if (posed[who]) { posed[who] = null; setSprite(who, 'idle0') } return }
+    if (!(await imgOk(base + name + '0.png')) || poseTok[who] !== tok) return
+    posed[who] = name; let k = 0
+    const f1 = await imgOk(base + name + '1.png')
+    setSprite(who, name + '0')
+    if (f1) poseTimer[who] = setInterval(() => setSprite(who, name + (++k % 2)), 450)
+  }
+  function applyVisuals() {
+    setScene(nearest('scene') || null)
+    setProps(nearest('props') || [])
+    setPose('anna', nearest('pose', 'anna')); setPose('hero', nearest('pose', 'hero'))
   }
 
   // ---------- звук и мимика Анны ----------
@@ -514,6 +576,7 @@
     if (line.anim === 'wave' && !you) wave('anna')
     if (!you && t.audio) setTimeout(() => { if (LESSON[idx] === line) play(t.audio, true) }, 350)
     try { localStorage.setItem(progressKey(), String(idx)) } catch (e) {}
+    applyVisuals()
   }
 
   function next() {
@@ -904,7 +967,7 @@
     try {
       const lj = await (await fetch('../data/lessons/' + encodeURIComponent(LESSON_ID) + '.json')).json()
       LESSON = lj.dialogue || []; PRACTICE = lj.practice || []; ANSWER_OF = lj.answer_of || {}
-      TOPIC = lj.topic; TOPIC_JSON = '../' + lj.topic_json; EXTRA_TOPICS = lj.extra_topics || []
+      TOPIC = lj.topic; TOPIC_JSON = '../' + lj.topic_json; EXTRA_TOPICS = lj.extra_topics || []; SCENES = lj.scenes || {}
       initChoices()
     } catch (e) { toast('Somo halipatikani / Lesson not found'); $('bubble').style.display = 'none'; renderTrail(); return }
     // перенос прогресса со старых ключей (до появления файлов уроков)
