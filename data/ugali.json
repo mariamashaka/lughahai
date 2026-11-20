@@ -1,0 +1,70 @@
+{
+  "id": "ugali",
+  "title": {
+    "sw": "Ugali",
+    "en": "Ugali"
+  },
+  "sections": [
+    {
+      "label": {
+        "sw": "Ni nini",
+        "en": "What it is"
+      },
+      "text": {
+        "sw": "Chakula kinachopikwa kwa unga na maji, kinakuwa kigumu kama uji mzito. Ni chakula cha kila siku katika sehemu nyingi za Tanzania.",
+        "en": "A stiff porridge made from flour and water. It is the everyday staple of much of Tanzania."
+      }
+    },
+    {
+      "label": {
+        "sw": "Imetengenezwa kwa",
+        "en": "Made from"
+      },
+      "text": {
+        "sw": "Unga wa mahindi; pia unga wa mtama, ulezi au muhogo.",
+        "en": "Maize flour; also sorghum, millet or cassava flour."
+      }
+    },
+    {
+      "label": {
+        "sw": "Jinsi ya kupika",
+        "en": "How it is cooked"
+      },
+      "text": {
+        "sw": "Maji huchemshwa, kisha unga hukorogwa kwa mwiko hadi kuwa mzito na laini.",
+        "en": "Water is boiled, then the flour is stirred in with a wooden spoon (mwiko) until thick and smooth."
+      }
+    },
+    {
+      "label": {
+        "sw": "Jinsi ya kula",
+        "en": "How it is eaten"
+      },
+      "text": {
+        "sw": "Hupakuliwa kwenye sahani na kuliwa kwa mkono wa kulia: unachukua kidogo, unakunja, unatengeneza shimo kwa kidole gumba na kuchukua mboga, nyama, maharage au samaki. Mikono huoshwa kabla na baada ya kula.",
+        "en": "Served in a mound on a plate and eaten with the right hand: pinch a piece, roll it, press a dent with the thumb and scoop up the side dish: greens, meat, beans or fish. Hands are washed before and after."
+      }
+    },
+    {
+      "label": {
+        "sw": "Umuhimu",
+        "en": "Why it matters"
+      },
+      "text": {
+        "sw": "Ni chakula wanachomkaribisha mgeni nyumbani kwa wengi. Nyama na mboga zinaonyesha mwenyeji amejitahidi.",
+        "en": "It is the food many families offer a guest. Meat and greens show the host made an effort."
+      }
+    },
+    {
+      "label": {
+        "sw": "Katika nchi nyingine",
+        "en": "Elsewhere"
+      },
+      "text": {
+        "sw": "Ugali (Kenya), posho (Uganda), nshima (Zambia), nsima (Malawi), sadza (Zimbabwe), pap (Afrika Kusini); polenta (Italia) inafanana. Fufu ya Afrika Magharibi ni tofauti: hutengenezwa kwa muhogo au viazi vikuu.",
+        "en": "Ugali (Kenya), posho (Uganda), nshima (Zambia), nsima (Malawi), sadza (Zimbabwe), pap (South Africa); polenta (Italy) is similar. West African fufu is different: it is made from cassava or yam."
+      }
+    }
+  ],
+  "images": []
+}
