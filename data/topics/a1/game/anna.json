@@ -1,0 +1,191 @@
+{
+  "id": "game-anna",
+  "type": "game",
+  "level": "A1",
+  "order": 100,
+  "payment_tzs": 0,
+  "name": {
+    "sw": "Maneno ya Anna katika mchezo",
+    "en": "Anna's game phrases"
+  },
+  "description": {
+    "sw": "Maneno ambayo Anna anasema katika masomo ya mchezo (Siku ya 1).",
+    "en": "Phrases Anna says in the game lessons (Day 1)."
+  },
+  "scale": "Tanzania",
+  "blocks": [
+    {
+      "id": "day1_l2",
+      "label": {
+        "sw": "Siku ya 1, somo la 2: Nina kiu",
+        "en": "Day 1, lesson 2: I'm thirsty"
+      },
+      "phrases": [
+        {
+          "id": "gm2_chukua",
+          "sw": "Chukua.",
+          "en": "Here, take it.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "day1_l3",
+      "label": {
+        "sw": "Siku ya 1, somo la 3: Nina njaa",
+        "en": "Day 1, lesson 3: I'm hungry"
+      },
+      "phrases": [
+        {
+          "id": "gm3_nyumbani_chakula",
+          "sw": "Nyumbani kwangu kuna chakula.",
+          "en": "There is food at my house.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_karibu_ndani",
+          "sw": "Karibu ndani!",
+          "en": "Come in!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_karibu_kiti",
+          "sw": "Karibu kiti.",
+          "en": "Take a seat.",
+          "ctx_sw": "(au: Karibu kukaa)",
+          "ctx_en": "(or: Karibu kukaa)"
+        },
+        {
+          "id": "gm3_nawa_mikono",
+          "sw": "Nawa mikono.",
+          "en": "Wash your hands.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_chakula_tayari",
+          "sw": "Chakula tayari.",
+          "en": "The food is ready.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_bibi_amepika",
+          "sw": "Bibi amepika.",
+          "en": "Grandmother cooked.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_ugali_au_wali",
+          "sw": "Unataka ugali au wali?",
+          "en": "Do you want ugali or rice?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_nataka_ugali",
+          "sw": "Nataka ugali.",
+          "en": "I want ugali.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_nataka_wali",
+          "sw": "Nataka wali.",
+          "en": "I want rice.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_sawa",
+          "sw": "Sawa!",
+          "en": "OK!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_karibu_chakula",
+          "sw": "Karibu chakula!",
+          "en": "Enjoy your meal!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_hii_ni_nini",
+          "sw": "Hii ni nini?",
+          "en": "What is this?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_hii_ugali",
+          "sw": "Hii ni ugali na nyama na mboga.",
+          "en": "This is ugali with meat and greens.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_hii_wali",
+          "sw": "Hii ni wali na nyama na mboga.",
+          "en": "This is rice with meat and greens.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_ni_moto",
+          "sw": "Ni moto!",
+          "en": "It's hot!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_pole_pole",
+          "sw": "Pole pole.",
+          "en": "Slowly, slowly.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_ni_tamu",
+          "sw": "Ni tamu!",
+          "en": "It's tasty!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_kula_kula",
+          "sw": "Kula, kula!",
+          "en": "Eat, eat!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_unataka_tena",
+          "sw": "Unataka tena?",
+          "en": "Do you want more?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_nataka_tena",
+          "sw": "Nataka tena.",
+          "en": "I want more.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm3_nimeshiba",
+          "sw": "Nimeshiba.",
+          "en": "I'm full.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    }
+  ],
+  "moderator_questions": []
+}
