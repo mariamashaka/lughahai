@@ -1,0 +1,233 @@
+{
+  "id": "village-3",
+  "topic": "communication",
+  "topic_json": "data/topics/a1/vocabulary/communication.json",
+  "extra_topics": [
+    {
+      "topic": "game-anna",
+      "json": "data/topics/a1/game/anna.json"
+    }
+  ],
+  "dialogue": [
+    {
+      "who": "anna",
+      "id": "wy6",
+      "anim": "wave"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_nyumbani_chakula"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_karibu_ndani"
+    },
+    {
+      "who": "you",
+      "id": "wa3"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_karibu_kiti"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_nawa_mikono",
+      "cult": [
+        "mikono"
+      ]
+    },
+    {
+      "who": "you",
+      "id": "po11"
+    },
+    {
+      "who": "anna",
+      "id": "po4"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_chakula_tayari"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_bibi_amepika"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_ugali_au_wali",
+      "cult": [
+        "ugali",
+        "wali"
+      ]
+    },
+    {
+      "who": "you",
+      "choice": {
+        "key": "food",
+        "options": [
+          {
+            "value": "ugali",
+            "id": "gm3_nataka_ugali"
+          },
+          {
+            "value": "wali",
+            "id": "gm3_nataka_wali"
+          }
+        ]
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm3_sawa"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_karibu_chakula"
+    },
+    {
+      "who": "you",
+      "id": "gm3_hii_ni_nini"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_hii_ugali",
+      "if": {
+        "food": "ugali"
+      },
+      "cult": [
+        "ugali",
+        "nyama",
+        "mboga"
+      ]
+    },
+    {
+      "who": "anna",
+      "id": "gm3_hii_wali",
+      "if": {
+        "food": "wali"
+      },
+      "cult": [
+        "wali",
+        "nyama",
+        "mboga"
+      ]
+    },
+    {
+      "who": "you",
+      "id": "gm3_ni_moto"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_pole_pole"
+    },
+    {
+      "who": "you",
+      "id": "gm3_ni_tamu"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_kula_kula"
+    },
+    {
+      "who": "you",
+      "id": "po3"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_chukua"
+    },
+    {
+      "who": "you",
+      "id": "po11"
+    },
+    {
+      "who": "anna",
+      "id": "po4"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_unataka_tena"
+    },
+    {
+      "who": "you",
+      "choice": {
+        "key": "more",
+        "options": [
+          {
+            "value": "tena",
+            "id": "gm3_nataka_tena"
+          },
+          {
+            "value": "shiba",
+            "id": "gm3_nimeshiba"
+          }
+        ]
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm2_chukua",
+      "if": {
+        "more": "tena"
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm3_sawa",
+      "if": {
+        "more": "shiba"
+      }
+    },
+    {
+      "who": "you",
+      "id": "po10"
+    },
+    {
+      "who": "anna",
+      "id": "po4"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Tazama: Nina kiu, Nina njaa. Maneno yote mawili huanza na Nina. Unaweza kusema Nina na kitu kingine pia.",
+        "en": "Look: Nina kiu, Nina njaa. Both start with Nina (\"I have\"). You can say Nina and other things too."
+      }
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Hii ni nini? ni swali. Unaweza kuuliza hivyo kuhusu kila kitu unachokiona.",
+        "en": "Hii ni nini? is a question. You can ask it about anything you see."
+      }
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.",
+        "en": "To go on, you need to memorise these words. Now we will practise."
+      }
+    }
+  ],
+  "practice": [
+    "wa3",
+    "gm3_nawa_mikono",
+    "gm3_hii_ni_nini",
+    "gm3_ni_moto",
+    "gm3_ni_tamu",
+    "po10",
+    "po3",
+    "po11",
+    "wa2"
+  ],
+  "answer_of": {
+    "wa3": "gm3_karibu_ndani",
+    "po11": "gm3_nawa_mikono",
+    "gm3_hii_ni_nini": "gm3_karibu_chakula",
+    "gm3_ni_moto": "gm3_hii_ugali",
+    "gm3_ni_tamu": "gm3_pole_pole",
+    "po3": "gm3_kula_kula",
+    "po10": "gm3_unataka_tena",
+    "wa2": "gm3_karibu_ndani"
+  }
+}
