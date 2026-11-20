@@ -37,6 +37,22 @@
     #trail .n.shake .nd { animation:shake .35s; }
     @keyframes pulse { 50% { transform:scale(1.1); } }
     @keyframes shake { 25% { transform:translateX(-4px); } 75% { transform:translateX(4px); } }
+    #choices { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+    #choices[hidden], #cult[hidden] { display:none; }
+    .chbtn { text-align:left; background:rgba(247,243,236,.12); color:#F7F3EC; border:2px solid rgba(247,243,236,.5); border-radius:14px; padding:10px 14px; font:inherit; font-size:1.05rem; font-weight:600; cursor:pointer; }
+    .chbtn small { display:block; font-weight:400; opacity:.8; font-size:.85rem; margin-top:2px; }
+    .chbtn:hover, .chbtn:focus-visible { background:#F7F3EC; color:#2C4A3E; }
+    .cw { background:none; border:none; border-bottom:2px dotted #E8A882; color:inherit; font:inherit; padding:0; cursor:pointer; }
+    .cchip { background:rgba(232,168,130,.25); color:#F7F3EC; border:1px solid #E8A882; border-radius:999px; padding:3px 12px; font:inherit; font-size:.85rem; cursor:pointer; }
+    #sheet { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:30; display:none; align-items:flex-end; justify-content:center; }
+    #sheet.on { display:flex; }
+    #sheet .card { background:#F7F3EC; color:#2C4A3E; width:min(640px,100%); max-height:82vh; overflow:auto; border-radius:18px 18px 0 0; padding:18px 18px 24px; box-sizing:border-box; }
+    #sheet h2 { margin:0 0 8px; font-family:var(--font-display, Georgia, serif); }
+    #sheet h4 { margin:12px 0 2px; font-size:.8rem; letter-spacing:.05em; text-transform:uppercase; color:#C4714A; }
+    #sheet p { margin:0; line-height:1.45; }
+    #sheet figure { margin:12px 0 0; } #sheet figure img { width:100%; border-radius:10px; display:block; }
+    #sheet figcaption { font-size:.8rem; opacity:.75; margin-top:4px; }
+    #sheet .close { margin-top:16px; }
     #toast { position:absolute; top:112px; left:50%; transform:translateX(-50%); background:rgba(24,34,29,.92); color:#F7F3EC; padding:6px 14px; border-radius:999px; font-size:.82rem; z-index:9; opacity:0; transition:opacity .25s; pointer-events:none; font-family:var(--font-body, system-ui, sans-serif); white-space:nowrap; }
     #toast.on { opacity:1; }
     #bubble { --bg:rgba(24,34,29,.9); position:absolute; top:126px; left:12px; width:min(540px, calc(100vw - 48px)); box-sizing:border-box;
@@ -150,6 +166,8 @@
       <p id="main"></p>
       <p id="gloss"></p>
       <p id="instr"></p>
+      <div id="cult" class="row" hidden></div>
+      <div id="choices" hidden></div>
       <div class="row">
         <button class="speak" id="b-audio" type="button" hidden aria-label="Listen">
           <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
@@ -165,6 +183,8 @@
       <p id="priv" hidden></p>
     </div>
   </div>
+
+  <div id="sheet" role="dialog" aria-modal="true"><div class="card" id="sheet-card"></div></div>
 
   <div id="ex">
     <div class="exhead">
@@ -193,6 +213,7 @@
   let TOPIC = '', TOPIC_JSON = ''
   let EXTRA = []                // дополнительные фразы темы: варианты-обманки
   let LESSON = [], PRACTICE = [], ANSWER_OF = {}
+  let EXTRA_TOPICS = [], topicOf = {}, CHOICES = {}, CHOICE_DEFAULT = {}
   let LESSON_ID = ''
   const SPR = { w: 72, h: 96 }, SKY_H = 170, GROUND_H = 27, FEET_IN_GROUND = 8
 
@@ -204,7 +225,7 @@
           instr: 'Zamu yako: sema, rekodi, kisha sikiliza na ulinganishe na mfano. Umesema sawa?',
           priv: 'Rekodi yako inabaki kwenye kifaa chako tu.', rec: 'Rekodi sauti yako', stop: 'Simamisha', mine: 'Sikiliza rekodi yako',
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
-          soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
+          choose: 'Chagua jibu lako', c_close: 'Funga', c_miss: 'Maelezo bado hayapatikani', soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
           good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti',
           x_buildA: 'Sikiliza na ukusanye sentensi', x_buildB: 'Kusanya sentensi kwa lugha ya kabila', ready: 'Tayari', again2: 'Bado si sawa. Jaribu tena!', ksoon: 'Maneno ya kabila yanakuja hivi karibuni', skip: 'Ruka' },
@@ -212,7 +233,7 @@
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
-          soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
+          choose: 'Choose your answer', c_close: 'Close', c_miss: 'This note is not available yet', soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
           good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet',
           x_buildA: 'Listen and build the phrase', x_buildB: 'Build the phrase in the tribal language', ready: 'Done', again2: 'Not quite. Try again!', ksoon: 'The tribal words are coming soon', skip: 'Skip' }
@@ -248,22 +269,40 @@
       return Array.isArray(out) ? out : []
     } catch (e) { return [] } finally { clearTimeout(timer) }
   }
-  function collectTexts(o) {
-    if (Array.isArray(o)) o.forEach(collectTexts)
+  function collectTexts(o, tp) {
+    if (Array.isArray(o)) o.forEach(x => collectTexts(x, tp))
     else if (o && typeof o === 'object') {
-      if (o.id && (o.sw || o.en)) texts[o.id] = { sw: o.sw || '', en: o.en || '' }
-      Object.values(o).forEach(collectTexts)
+      if (o.id && (o.sw || o.en)) { texts[o.id] = { sw: o.sw || '', en: o.en || '' }; topicOf[o.id] = tp }
+      Object.values(o).forEach(x => collectTexts(x, tp))
     }
   }
+  // фразы бывают из нескольких тем (основная тема урока и тема игровых реплик): запрашиваем каждую тему отдельно
+  async function resolveMany(ids, hero) {
+    const by = {}
+    ids.forEach(i => { const t = topicOf[i] || TOPIC; (by[t] = by[t] || []).push(i) })
+    const out = await Promise.all(Object.entries(by).map(([t, a]) => resolvePhrases(langId, t, a, hero)))
+    return out.flat()
+  }
   async function loadAll() {
-    try { const r = await fetch(TOPIC_JSON); collectTexts(await r.json()) } catch (e) {}
+    try { const r = await fetch(TOPIC_JSON); collectTexts(await r.json(), TOPIC) } catch (e) {}
+    const extraIds = []
+    for (const x of EXTRA_TOPICS) {
+      try {
+        const before = new Set(Object.keys(texts))
+        const r = await fetch('../' + x.json); collectTexts(await r.json(), x.topic)
+        Object.keys(texts).forEach(i => { if (!before.has(i) && !/^mq/.test(i)) extraIds.push(i) })
+      } catch (e) {}
+    }
     const ids = a => [...new Set(LESSON.filter(l => l.who === a && l.id).map(l => l.id))]
-    EXTRA = Object.keys(texts).filter(i => !PRACTICE.includes(i)).slice(0, 14)
-    const poolIds = [...new Set([...PRACTICE, ...EXTRA])]
+    const choiceIds = []
+    LESSON.forEach(l => { if (l.choice) l.choice.options.forEach(o => choiceIds.push(o.id)) })
+    const cand = [...extraIds, ...Object.keys(texts).filter(i => !/^mq/.test(i))]
+    EXTRA = [...new Set(cand)].filter(i => !PRACTICE.includes(i)).slice(0, 14)
+    const poolIds = [...new Set([...PRACTICE, ...EXTRA, ...Object.values(ANSWER_OF)])]
     const [ra, ry, rp] = await Promise.all([
-      resolvePhrases(langId, TOPIC, ids('anna'), 'anna'),
-      resolvePhrases(langId, TOPIC, ids('you'), null),
-      resolvePhrases(langId, TOPIC, poolIds, null)
+      resolveMany(ids('anna'), 'anna'),
+      resolveMany([...new Set([...ids('you'), ...choiceIds])], null),
+      resolveMany(poolIds, null)
     ])
     rp.forEach(r => rows['pool|' + r.phrase_id] = r)
     ra.forEach(r => rows['anna|' + r.phrase_id] = r)
@@ -449,18 +488,25 @@
 
   function showLine() {
     const L = i18n[lang], line = LESSON[idx]
+    if (!visible(line)) { next(); return }
     stopAudio(); clearMine()
-    const you = line.who === 'you', t = currentText(line)
+    const you = line.who === 'you' || !!line.choice
+    const t = line.choice ? { main: '', gloss: '', audio: null, recorded: true } : currentText(line)
     $('bubble').classList.toggle('you', you)
     if (you) setHeroFace(); else setFace('smile')
     $('who').textContent = you ? (P ? P.name : L.you) : 'Anna'
-    $('main').textContent = t.main
+    renderCult(line, t.main)
+    $('main').hidden = !!line.choice
     $('main').classList.toggle('plain', !t.recorded)
     $('gloss').textContent = t.gloss
     $('gloss').hidden = !t.gloss
-    $('instr').textContent = you ? L.instr : ''
+    $('instr').textContent = line.choice ? L.choose : (you ? L.instr : '')
     $('instr').hidden = !you
-    $('b-rec').hidden = !(you && canRecord); $('priv').hidden = !(you && canRecord); $('priv').textContent = L.priv
+    const cb = $('choices'); cb.innerHTML = ''; cb.hidden = !line.choice
+    $('next').hidden = !!line.choice
+    if (line.choice) renderChoiceLine(line)
+    const rec = you && !line.choice
+    $('b-rec').hidden = !(rec && canRecord); $('priv').hidden = !(rec && canRecord); $('priv').textContent = L.priv
     $('b-rec').setAttribute('aria-label', L.rec); $('b-mine').setAttribute('aria-label', L.mine)
     $('b-audio').hidden = !t.audio
     $('next').textContent = you ? L.said : L.next
@@ -471,12 +517,86 @@
   }
 
   function next() {
-    if (idx < LESSON.length - 1) { idx++; showLine() } else finish()
+    let j = idx + 1
+    while (j < LESSON.length && !visible(LESSON[j])) j++
+    if (j < LESSON.length) { idx = j; showLine() } else finish()
   }
+  // ---------- ветки (выбор ученика) ----------
+  const choicesKey = () => 'lh_choices_' + LESSON_ID + '_' + langId
+  function visible(line) {
+    if (!line.if) return true
+    return Object.entries(line.if).every(([k, v]) => (CHOICES[k] !== undefined ? CHOICES[k] : CHOICE_DEFAULT[k]) === v)
+  }
+  function initChoices() {
+    CHOICES = {}; CHOICE_DEFAULT = {}
+    LESSON.forEach(l => { if (l.choice && CHOICE_DEFAULT[l.choice.key] === undefined) CHOICE_DEFAULT[l.choice.key] = l.choice.options[0].value })
+    try { CHOICES = JSON.parse(localStorage.getItem(choicesKey()) || '{}') || {} } catch (e) { CHOICES = {} }
+  }
+  function renderChoiceLine(line) {
+    const box = $('choices')
+    line.choice.options.forEach(o => {
+      const t = currentText({ who: 'you', id: o.id }), b = document.createElement('button')
+      b.type = 'button'; b.className = 'chbtn'; b.textContent = t.main
+      const g = t.gloss || (t.recorded ? '' : ''); if (g) { const sm = document.createElement('small'); sm.textContent = g; b.appendChild(sm) }
+      b.onclick = () => {
+        CHOICES[line.choice.key] = o.value
+        try { localStorage.setItem(choicesKey(), JSON.stringify(CHOICES)) } catch (e) {}
+        if (t.audio) { play(t.audio, false); setTimeout(next, 700) } else next()
+      }
+      box.appendChild(b)
+    })
+  }
+  // ---------- слова-кнопки: справки о культуре ----------
+  function renderCult(line, text) {
+    const m = $('main'), box = $('cult'); box.innerHTML = ''; m.innerHTML = ''
+    const keys = line.cult || []
+    if (!keys.length) { m.textContent = text; box.hidden = true; return }
+    const used = new Set()
+    const re = new RegExp('(' + keys.map(k => k.replace(/[^a-z\-\']/gi, '')).join('|') + ')', 'i')
+    text.split(re).forEach((part, i) => {
+      if (i % 2 === 0) { if (part) m.appendChild(document.createTextNode(part)); return }
+      const key = keys.find(k => k.toLowerCase() === part.toLowerCase()) || part.toLowerCase()
+      used.add(key)
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'cw'; b.textContent = part
+      b.onclick = () => openCult(key); m.appendChild(b)
+    })
+    keys.filter(k => !used.has(k)).forEach(k => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'cchip'; b.textContent = 'ⓘ ' + k
+      b.onclick = () => openCult(k); box.appendChild(b)
+    })
+    box.hidden = !box.childNodes.length
+  }
+  async function openCult(key) {
+    const L = i18n[lang], card = $('sheet-card')
+    let j = null
+    try { const r = await fetch('../data/culture/' + encodeURIComponent(key) + '.json'); if (r.ok) j = await r.json() } catch (e) {}
+    if (!j) { toast(L.c_miss); return }
+    const pick = o => (o && (o[lang] || o.en || o.sw)) || ''
+    card.innerHTML = ''
+    const h = document.createElement('h2'); h.textContent = pick(j.title) || key; card.appendChild(h)
+    ;(j.sections || []).forEach(sec => {
+      const hh = document.createElement('h4'); hh.textContent = pick(sec.label)
+      const pp = document.createElement('p'); pp.textContent = pick(sec.text)
+      card.appendChild(hh); card.appendChild(pp)
+    })
+    ;(j.images || []).forEach(im => {
+      const f = document.createElement('figure'), img = document.createElement('img')
+      img.src = '../' + im.file; img.alt = pick(im.caption); f.appendChild(img)
+      const cap = document.createElement('figcaption'); cap.textContent = [pick(im.caption), im.credit].filter(Boolean).join(' · '); f.appendChild(cap)
+      card.appendChild(f)
+    })
+    const c = document.createElement('button'); c.type = 'button'; c.className = 'btn close'; c.textContent = L.c_close
+    c.onclick = closeCult; card.appendChild(c)
+    $('sheet').classList.add('on')
+  }
+  function closeCult() { $('sheet').classList.remove('on') }
+  $('sheet').addEventListener('click', e => { if (e.target === $('sheet')) closeCult() })
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCult() })
   function finish() { stopAudio(); clearMine(); startPractice() }
   function again() {
     ended = false; practicing = false; idx = 0; streak = {}; matchDone = false; redoId = null
-    try { localStorage.removeItem(practiceKey()) } catch (e) {}
+    try { localStorage.removeItem(practiceKey()); localStorage.removeItem(choicesKey()) } catch (e) {}
+    initChoices()
     $('end').classList.remove('active'); $('ex').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
   }
 
@@ -784,7 +904,8 @@
     try {
       const lj = await (await fetch('../data/lessons/' + encodeURIComponent(LESSON_ID) + '.json')).json()
       LESSON = lj.dialogue || []; PRACTICE = lj.practice || []; ANSWER_OF = lj.answer_of || {}
-      TOPIC = lj.topic; TOPIC_JSON = '../' + lj.topic_json
+      TOPIC = lj.topic; TOPIC_JSON = '../' + lj.topic_json; EXTRA_TOPICS = lj.extra_topics || []
+      initChoices()
     } catch (e) { toast('Somo halipatikani / Lesson not found'); $('bubble').style.display = 'none'; renderTrail(); return }
     // перенос прогресса со старых ключей (до появления файлов уроков)
     try { if (LESSON_ID === 'village-1') for (const [o, n] of [['lh_lesson1_' + langId, progressKey()], ['lh_practice1_' + langId, practiceKey()]]) { const v = localStorage.getItem(o); if (v !== null && localStorage.getItem(n) === null) localStorage.setItem(n, v); localStorage.removeItem(o) } } catch (e) {}
