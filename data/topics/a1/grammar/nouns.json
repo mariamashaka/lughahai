@@ -2070,6 +2070,85 @@
           "ctx_en": "(movement away from — fell from)"
         }
       ]
+    },
+    {
+      "id": "made_of",
+      "label": {
+        "sw": "N. Imetengenezwa kwa nini — из чего (made of)",
+        "en": "N. What it is made of"
+      },
+      "phrases": [
+        {
+          "id": "n_mo1",
+          "sw": "Nyumba hii imejengwa kwa udongo",
+          "en": "This house is built of mud",
+          "ctx_sw": "(nyumba — ya udongo)",
+          "ctx_en": "(house — of mud)"
+        },
+        {
+          "id": "n_mo2",
+          "sw": "Kikombe kimetengenezwa kwa udongo",
+          "en": "The cup is made of clay",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo3",
+          "sw": "Kiti kimetengenezwa kwa mbao",
+          "en": "The chair is made of wood",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo4",
+          "sw": "Ugali umetengenezwa kwa unga wa mahindi",
+          "en": "Ugali is made of maize flour",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo5",
+          "sw": "Kiatu kimetengenezwa kwa ngozi",
+          "en": "The shoe is made of leather",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo6",
+          "sw": "Kisu kimetengenezwa kwa chuma",
+          "en": "The knife is made of iron",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo7",
+          "sw": "Kikapu kimetengenezwa kwa nyasi",
+          "en": "The basket is made of grass",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo8",
+          "sw": "Nguo hii imetengenezwa kwa pamba",
+          "en": "This cloth is made of cotton",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "n_mo9",
+          "sw": "Hii imetengenezwa kwa nini?",
+          "en": "What is this made of?",
+          "ctx_sw": "(swali — вопрос)",
+          "ctx_en": "(question)"
+        },
+        {
+          "id": "n_mo10",
+          "sw": "Paa limetengenezwa kwa nyasi / mabati",
+          "en": "The roof is made of grass / iron sheets",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
     }
   ],
   "moderator_questions": [
@@ -2319,6 +2398,27 @@
         "en": [
           "Just the number plus regular plural — no special form for two",
           "Yes there is a special dual form → give examples of several nouns in this form with translations"
+        ]
+      }
+    },
+    {
+      "id": "mq12",
+      "sw": "Swali la 12. \"Imetengenezwa kwa\" — kitu kimetengenezwa na nini",
+      "en": "Question 12. \"Made of\" — what a thing is made from",
+      "body": {
+        "sw": "Angalia bloku N. Katika Kiswahili \"imetengenezwa kwa udongo\" — kiambishi \"kwa\" kinaonyesha nyenzo.\n\nJe, katika lugha yako unasemaje \"nyumba imejengwa kwa udongo\", \"kikombe ni cha udongo\" (made of / of clay)? Je, unatumia kihusishi (kama \"kwa\", \"cha\"), au kitenzi, au neno lingine? Na swali \"imetengenezwa kwa nini?\"",
+        "en": "Look at block N. In Swahili \"imetengenezwa kwa udongo\" — the word \"kwa\" marks the material.\n\nHow do you say \"the house is built of mud\", \"the cup is of clay\" in your language? Do you use a preposition (like \"kwa\", \"of\"), a verb, or another word? And the question \"what is it made of?\""
+      },
+      "options": {
+        "sw": [
+          "Kihusishi kimoja kwa hali zote",
+          "Maneno tofauti kwa vitu tofauti → toa mifano",
+          "Swali \"imetengenezwa kwa nini?\" lina umbo maalum → toa mfano"
+        ],
+        "en": [
+          "One preposition for all cases",
+          "Different words for different things → give examples",
+          "The question \"made of what?\" has its own form → give an example"
         ]
       }
     }
