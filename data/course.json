@@ -2,12 +2,43 @@
   "sections": [
     {
       "id": "village",
-      "title": { "sw": "Karibu kijijini", "en": "Welcome to the village", "ru": "Добро пожаловать в деревню" },
+      "title": {
+        "sw": "Karibu kijijini",
+        "en": "Welcome to the village"
+      },
       "lessons": [
-        { "id": "village-1", "ready": true,  "title": { "sw": "Kutana na Anna",         "en": "Meet Anna",                 "ru": "Знакомство с Анной" } },
-        { "id": "village-2", "ready": false, "title": { "sw": "Nina kiu",               "en": "I'm thirsty",               "ru": "Я хочу пить" } },
-        { "id": "village-3", "ready": false, "title": { "sw": "Nina njaa!",             "en": "I'm hungry!",               "ru": "Я хочу есть" } },
-        { "id": "village-4", "ready": false, "title": { "sw": "Nitalala wapi leo?",     "en": "Where will I sleep today?", "ru": "Где мне сегодня спать?" } }
+        {
+          "id": "village-1",
+          "ready": true,
+          "title": {
+            "sw": "Kutana na Anna",
+            "en": "Meet Anna"
+          }
+        },
+        {
+          "id": "village-2",
+          "ready": false,
+          "title": {
+            "sw": "Nina kiu",
+            "en": "I'm thirsty"
+          }
+        },
+        {
+          "id": "village-3",
+          "ready": false,
+          "title": {
+            "sw": "Nina njaa!",
+            "en": "I'm hungry!"
+          }
+        },
+        {
+          "id": "village-4",
+          "ready": false,
+          "title": {
+            "sw": "Nitalala wapi leo?",
+            "en": "Where will I sleep today?"
+          }
+        }
       ]
     }
   ]
