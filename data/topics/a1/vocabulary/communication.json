@@ -818,6 +818,229 @@
           "ctx_en": ""
         }
       ]
+    },
+    {
+      "id": "numbers_big",
+      "label": {
+        "sw": "L. Mamia na maelfu — hadi milioni (сотни, тысячи, миллион)",
+        "en": "L. Hundreds and thousands — up to a million"
+      },
+      "phrases": [
+        {
+          "id": "nb1",
+          "sw": "Mia moja, mia mbili, mia tatu, mia tano",
+          "en": "One hundred, two hundred, three hundred, five hundred",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb2",
+          "sw": "Mia moja na hamsini",
+          "en": "One hundred and fifty",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb3",
+          "sw": "Elfu moja, elfu mbili, elfu tano, elfu kumi",
+          "en": "One thousand, two thousand, five thousand, ten thousand",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb4",
+          "sw": "Elfu ishirini, elfu hamsini, elfu themanini",
+          "en": "Twenty thousand, fifty thousand, eighty thousand",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb5",
+          "sw": "Elfu mbili na mia tano",
+          "en": "Two thousand five hundred",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb6",
+          "sw": "Laki moja (elfu mia moja)",
+          "en": "One hundred thousand",
+          "ctx_sw": "(laki — 100 000)",
+          "ctx_en": "(laki = 100,000)"
+        },
+        {
+          "id": "nb7",
+          "sw": "Laki tano",
+          "en": "Five hundred thousand",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb8",
+          "sw": "Milioni moja",
+          "en": "One million",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb9",
+          "sw": "Milioni mbili na nusu",
+          "en": "Two and a half million",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "nb10",
+          "sw": "Nusu, robo, kidogo, nyingi",
+          "en": "Half, a quarter, a little, many",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "arithmetic",
+      "label": {
+        "sw": "M. Hesabu — jumlisha, toa, mara, gawanya (арифметика)",
+        "en": "M. Arithmetic — plus, minus, times, divide"
+      },
+      "phrases": [
+        {
+          "id": "ar1",
+          "sw": "Moja jumlisha mbili ni tatu",
+          "en": "One plus two is three",
+          "ctx_sw": "(jumlisha — плюс)",
+          "ctx_en": "(plus)"
+        },
+        {
+          "id": "ar2",
+          "sw": "Tano toa mbili ni tatu",
+          "en": "Five minus two is three",
+          "ctx_sw": "(toa — минус)",
+          "ctx_en": "(minus)"
+        },
+        {
+          "id": "ar3",
+          "sw": "Mbili mara tatu ni sita",
+          "en": "Two times three is six",
+          "ctx_sw": "(mara — умножить)",
+          "ctx_en": "(times)"
+        },
+        {
+          "id": "ar4",
+          "sw": "Sita gawanya kwa mbili ni tatu",
+          "en": "Six divided by two is three",
+          "ctx_sw": "(gawanya — разделить)",
+          "ctx_en": "(divided by)"
+        },
+        {
+          "id": "ar5",
+          "sw": "Kumi na mbili ni kumi na mbili",
+          "en": "Ten and two is twelve",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ar6",
+          "sw": "Mia moja toa ishirini ni themanini",
+          "en": "One hundred minus twenty is eighty",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ar7",
+          "sw": "Elfu moja jumlisha elfu mbili ni elfu tatu",
+          "en": "One thousand plus two thousand is three thousand",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "ar8",
+          "sw": "Ni sawa? Ndiyo, ni sawa. Hapana, si sawa",
+          "en": "Is it equal? Yes, it is right. No, it is not right",
+          "ctx_sw": "(ni sawa — равно / верно)",
+          "ctx_en": "(equals / correct)"
+        }
+      ]
+    },
+    {
+      "id": "money",
+      "label": {
+        "sw": "N. Pesa na bei — shilingi, bei, chenji (деньги и цены)",
+        "en": "N. Money and prices — shillings, price, change"
+      },
+      "phrases": [
+        {
+          "id": "mo1",
+          "sw": "Hii ni shilingi ngapi?",
+          "en": "How many shillings is this?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo2",
+          "sw": "Bei gani?",
+          "en": "What price?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo3",
+          "sw": "Shilingi elfu mbili",
+          "en": "Two thousand shillings",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo4",
+          "sw": "Ni ghali sana! Punguza bei",
+          "en": "It is very expensive! Reduce the price",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo5",
+          "sw": "Ni rahisi",
+          "en": "It is cheap",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo6",
+          "sw": "Nipe chenji yangu",
+          "en": "Give me my change",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo7",
+          "sw": "Nina shilingi elfu kumi",
+          "en": "I have ten thousand shillings",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo8",
+          "sw": "Sina pesa",
+          "en": "I have no money",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo9",
+          "sw": "Nataka kilo mbili za nyanya",
+          "en": "I want two kilos of tomatoes",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "mo10",
+          "sw": "Jumla ni shilingi elfu tano na mia tano",
+          "en": "The total is five thousand five hundred shillings",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
     }
   ],
   "moderator_questions": [
@@ -885,6 +1108,27 @@
           "Days of the week — own words or ordinal",
           "Months — own names or borrowed",
           "How to express time — hours, minutes, parts of the day"
+        ]
+      }
+    },
+    {
+      "id": "mq4",
+      "sw": "Swali la 4. Nambari kubwa na hesabu",
+      "en": "Question 4. Big numbers and arithmetic",
+      "body": {
+        "sw": "Angalia bloku L, M, N. Katika Kiswahili: mia, elfu, laki, milioni; jumlisha, toa, mara, gawanya. Katika lugha yako: unasema nambari kubwa (mia, elfu, milioni) kwa maneno yako au unatumia maneno ya Kiswahili? Na hesabu (plus, minus, mara, gawanya, ni sawa) — maneno yako mwenyewe?",
+        "en": "Look at blocks L, M, N. In Swahili: mia, elfu, laki, milioni; jumlisha, toa, mara, gawanya. In your language: do you say big numbers (hundred, thousand, million) in your own words or borrow Swahili ones? And arithmetic (plus, minus, times, divide, equals) — your own words?"
+      },
+      "options": {
+        "sw": [
+          "Maneno yangu mwenyewe → toa mifano",
+          "Ninakopa kutoka Kiswahili → taja yapi",
+          "Mchanganyiko → eleza"
+        ],
+        "en": [
+          "My own words → give examples",
+          "I borrow from Swahili → which ones",
+          "Mixed → explain"
         ]
       }
     }
