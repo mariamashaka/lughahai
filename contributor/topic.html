@@ -221,7 +221,7 @@
     sw: {
       nav_dashboard:"Dashibodi", nav_signout:"Toka", loading:"Inapakia...",
       btn_save:"Hifadhi", btn_submit:"Tuma kwa ukaguzi",
-      type_grammar:"Sarufi", type_vocabulary:"Msamiati",
+      type_grammar:"Sarufi", type_vocabulary:"Msamiati", type_game:"Mchezo",
       warning_title:"⚠️ Muhimu kujua",
       w1:"Malipo yanafanywa baada ya ukaguzi wa msimamizi na uthibitisho wa msimamizi mkuu.",
       w2:"Mfumo unakokotoa kiotomatiki asilimia ya makosa baada ya ukaguzi na kupunguza kiasi hicho kutoka malipo yako.",
@@ -263,7 +263,7 @@
     en: {
       nav_dashboard:"Dashboard", nav_signout:"Sign out", loading:"Loading...",
       btn_save:"Save", btn_submit:"Submit for review",
-      type_grammar:"Grammar", type_vocabulary:"Vocabulary",
+      type_grammar:"Grammar", type_vocabulary:"Vocabulary", type_game:"Game",
       warning_title:"⚠️ Important to know",
       w1:"Payment is made after moderator review and admin confirmation.",
       w2:"The system automatically calculates the error percentage after review and deducts that amount from your payment.",
@@ -318,6 +318,30 @@
   let speakers       = [];     // speakers this user enters data for (assistant mode)
   let currentSpeaker = null;   // null = the user's own answers
   let speakerChosen  = false;
+  let topicEntry     = null;   // запись темы из data/index.json (у игровых тем есть role)
+  let blocksFull     = null;   // блоки темы до скрытия уже записанных фраз
+
+  function typeLabel(t) {
+    return topicData.type === 'grammar' ? t.type_grammar : topicData.type === 'game' ? t.type_game : t.type_vocabulary;
+  }
+  // Скрыть фразы, которые этот носитель уже записал в другой теме (в любую сторону)
+  async function applyCovered() {
+    topicData.blocks = JSON.parse(JSON.stringify(blocksFull));
+    if (currentUser) {
+      try {
+        const { data, error } = await supabase.rpc('covered_phrases', {
+          p_language: languageId, p_topic: currentTopicId, p_speaker: currentSpeaker ? currentSpeaker.id : null
+        });
+        if (error) throw error;
+        const hide = new Set((data || []).map(r => r.phrase_id));
+        if (hide.size) {
+          topicData.blocks.forEach(b => { b.phrases = b.phrases.filter(p => !hide.has(p.id)); });
+          topicData.blocks = topicData.blocks.filter(b => b.phrases.length > 0);
+        }
+      } catch(e) { console.warn('covered_phrases', e); }
+    }
+    resetPhraseState();
+  }
 
   // ── LANG ──────────────────────────────────────────────
   window.setLang = function(lang) {
@@ -360,6 +384,8 @@
       // Phrases marked "covered_by" duplicate another phrase: hide them (answers already saved stay in the database)
       topicData.blocks.forEach(b => { b.phrases = (b.phrases || []).filter(p => !p.covered_by); });
       topicData.blocks = topicData.blocks.filter(b => b.phrases.length > 0);
+      topicEntry = entry;
+      blocksFull = JSON.parse(JSON.stringify(topicData.blocks));
     } catch(e) {
       document.getElementById('mainContainer').innerHTML =
         `<div class="loading" style="color:var(--terracotta);">Hitilafu: ${e.message}</div>`;
@@ -369,7 +395,7 @@
     resetPhraseState();
 
     const t = i18n[currentLang];
-    document.getElementById('hdr-type').textContent = topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
+    document.getElementById('hdr-type').textContent = typeLabel(t);
     document.getElementById('hdr-title').textContent = topicData.name[currentLang];
     document.getElementById('hdr-payment-amount').textContent = topicData.payment_tzs.toLocaleString() + ' TZS';
 
@@ -383,6 +409,7 @@
       // Normal contributor: original behaviour, answers belong to the user
       speakerChosen  = true;
       currentSpeaker = null;
+      await applyCovered();
       if (currentUser) { await loadFromSupabase(topicId); } else { loadDraft(); }
       render();
       return;
@@ -436,6 +463,18 @@
       speakers = (data || [])
         .filter(s => speakerLangs(s).includes(languageId))
         .sort((a, b) => (a.full_name || '').localeCompare(b.full_name || ''));
+      // Игровая тема персонажа: только носители с этой ролью
+      if (topicEntry && topicEntry.role && speakers.length) {
+        const { data: hv } = await supabase.from('hero_voices').select('speaker_id')
+          .eq('language_id', languageId).eq('hero_role', topicEntry.role);
+        const ok = new Set((hv || []).map(v => v.speaker_id));
+        speakers = speakers.filter(s => ok.has(s.id));
+        if (!speakers.length) {
+          document.getElementById('mainContainer').innerHTML =
+            '<div class="loading" style="color:var(--terracotta);">Hakuna msemaji mwenye jukumu hili. / No speaker with this role is assigned to you. (Admin: Wasemaji → Roli katika mchezo)</div>';
+          return false;
+        }
+      }
       return true;
     } catch(e) {
       console.warn('Speakers load error:', e);
@@ -450,7 +489,7 @@
     if (speakerId && !currentSpeaker) return;
     speakerChosen = true;
     try { sessionStorage.setItem('lh_speaker_' + languageId, speakerId || 'self'); } catch(e) {}
-    resetPhraseState();
+    await applyCovered();
     document.getElementById('mainContainer').innerHTML =
       `<div class="loading">⏳ ${i18n[currentLang].loading}</div>`;
     await loadFromSupabase(currentTopicId);
@@ -461,6 +500,7 @@
     try { sessionStorage.removeItem('lh_speaker_' + languageId); } catch(e) {}
     speakerChosen  = false;
     currentSpeaker = null;
+    topicData.blocks = JSON.parse(JSON.stringify(blocksFull));
     resetPhraseState();
     render();
   }
@@ -567,14 +607,14 @@
     const t  = i18n[currentLang];
     const nk = currentLang;
     const ck = 'ctx_' + currentLang;
-    document.getElementById('hdr-type').textContent = topicData.type === 'grammar' ? t.type_grammar : t.type_vocabulary;
+    document.getElementById('hdr-type').textContent = typeLabel(t);
     document.getElementById('hdr-title').textContent = topicData.name[currentLang];
     const allPhrases = topicData.blocks.flatMap(b => b.phrases);
     const total = allPhrases.length;
     const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translationConfirmed).length;
     const nAud  = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
     const nDone = allPhrases.filter(p => phraseState[p.id]?.done).length;
-    const pct   = Math.round(nDone / total * 100);
+    const pct   = total ? Math.round(nDone / total * 100) : 100;
 
     const speakerBanner = speakers.length > 0 ? `
       <div class="speaker-banner">
@@ -874,7 +914,7 @@
     const nTrl  = allPhrases.filter(p => phraseState[p.id]?.translationConfirmed).length;
     const nAud  = allPhrases.filter(p => phraseState[p.id]?.hasAudio).length;
     const nDone = allPhrases.filter(p => phraseState[p.id]?.done).length;
-    const pct   = Math.round(nDone / total * 100);
+    const pct   = total ? Math.round(nDone / total * 100) : 100;
     const t     = i18n[currentLang];
     const checks = document.querySelectorAll('.mini-check');
     if (checks[0]) checks[0].classList.toggle('done', nTrl === total);
