@@ -304,7 +304,8 @@
   "scenes": {
     "room": {
       "bg": "assets/scene/room.png",
-      "color": "#6b4a35"
+      "color": "#6b4a35",
+      "place": "anna_door"
     }
   }
 }
