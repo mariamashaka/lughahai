@@ -876,6 +876,7 @@
         const ok = d.id === id
         b.classList.add(ok ? 'good' : 'bad')
         if (!ok) [...opts.children].forEach((x, i) => { if (options[i].id === id) x.classList.add('good') })
+        if (type === 'listen' && !t.stub && t.audio) prompt.appendChild(tribalNode(t))   // после ответа показываем слово на языке (запомнить глазами)
         answer(id, ok, kind === 'gloss' ? t.gloss : t.tribal, kind === 'tribal' ? t.audio : null)
       }
       opts.appendChild(b)
