@@ -17,7 +17,7 @@
         },
         {
           "id": "village-2",
-          "ready": false,
+          "ready": true,
           "title": {
             "sw": "Nina kiu",
             "en": "I'm thirsty"
@@ -25,7 +25,7 @@
         },
         {
           "id": "village-3",
-          "ready": false,
+          "ready": true,
           "title": {
             "sw": "Nina njaa!",
             "en": "I'm hungry!"
@@ -33,10 +33,34 @@
         },
         {
           "id": "village-4",
-          "ready": false,
+          "ready": true,
+          "title": {
+            "sw": "Nataka kuoga",
+            "en": "I want to wash"
+          }
+        },
+        {
+          "id": "village-5",
+          "ready": true,
+          "title": {
+            "sw": "Choo kiko wapi?",
+            "en": "Where is the toilet?"
+          }
+        },
+        {
+          "id": "village-6",
+          "ready": true,
           "title": {
             "sw": "Nitalala wapi leo?",
             "en": "Where will I sleep today?"
+          }
+        },
+        {
+          "id": "village-7",
+          "ready": true,
+          "title": {
+            "sw": "Tukumbuke siku yetu",
+            "en": "Remember our day"
           }
         }
       ]
