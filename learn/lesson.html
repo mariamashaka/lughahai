@@ -227,7 +227,7 @@
           instr: 'Zamu yako: sema, rekodi, kisha sikiliza na ulinganishe na mfano. Umesema sawa?',
           priv: 'Rekodi yako inabaki kwenye kifaa chako tu.', rec: 'Rekodi sauti yako', stop: 'Simamisha', mine: 'Sikiliza rekodi yako',
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
-          choose: 'Chagua jibu lako', c_close: 'Funga', c_miss: 'Maelezo bado hayapatikani', soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
+          choose: 'Chagua jibu lako', c_close: 'Funga', c_miss: 'Maelezo bado hayapatikani', soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_text_day: 'Siku ya kwanza imekwisha. Umefanya vizuri!', e_next_day: 'Siku ya pili', e_soon_day: 'Siku ya pili inakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
           good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti',
           x_buildA: 'Sikiliza na ukusanye sentensi', x_buildB: 'Kusanya sentensi kwa lugha ya kabila', ready: 'Tayari', again2: 'Bado si sawa. Jaribu tena!', ksoon: 'Maneno ya kabila yanakuja hivi karibuni', skip: 'Ruka' },
@@ -235,7 +235,7 @@
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
-          choose: 'Choose your answer', c_close: 'Close', c_miss: 'This note is not available yet', soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
+          choose: 'Choose your answer', c_close: 'Close', c_miss: 'This note is not available yet', soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_text_day: 'Day 1 is over. You did great!', e_next_day: 'Day 2', e_soon_day: 'Day 2 is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
           good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet',
           x_buildA: 'Listen and build the phrase', x_buildB: 'Build the phrase in the tribal language', ready: 'Done', again2: 'Not quite. Try again!', ksoon: 'The tribal words are coming soon', skip: 'Skip' }
@@ -670,11 +670,33 @@
   function closeCult() { $('sheet').classList.remove('on') }
   $('sheet').addEventListener('click', e => { if (e.target === $('sheet')) closeCult() })
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCult() })
+  // ---------- урок-закрепление: повторы по ошибкам из других уроков ----------
+  let REVIEW = null
+  const errsKey = () => 'lh_errs_' + langId
+  const reviewKey = () => 'lh_review_' + LESSON_ID + '_' + langId
+  function loadErrs() { try { return JSON.parse(localStorage.getItem(errsKey()) || '{}') || {} } catch (e) { return {} } }
+  function noteMiss(id) { try { const e = loadErrs(); e[id] = (e[id] || 0) + 1; localStorage.setItem(errsKey(), JSON.stringify(e)) } catch (e) {} }
+  async function buildReview(r) {
+    let saved = null
+    try { saved = JSON.parse(localStorage.getItem(reviewKey()) || 'null') } catch (e) {}
+    const per = [], answer = {}
+    for (const id of r.of) {
+      try { const j = await (await fetch('../data/lessons/' + encodeURIComponent(id) + '.json')).json(); per.push(j.practice || []); Object.assign(answer, j.answer_of || {}) } catch (e) { per.push([]) }
+    }
+    ANSWER_OF = answer
+    if (saved && saved.length) { PRACTICE = saved; return }
+    const all = [...new Set(per.flat())], errs = loadErrs(), n = r.count || 10, pick = []
+    all.filter(i => errs[i] > 0).sort((a, b) => errs[b] - errs[a]).forEach(i => { if (pick.length < n) pick.push(i) })
+    for (let k = 0; pick.length < n && k < 12; k++) per.forEach(list => { const i = list.find(x => !pick.includes(x)); if (i && pick.length < n) pick.push(i) })
+    PRACTICE = pick
+    try { localStorage.setItem(reviewKey(), JSON.stringify(pick)) } catch (e) {}
+  }
   function finish() { stopAudio(); clearMine(); startPractice() }
   function again() {
     ended = false; practicing = false; idx = 0; streak = {}; matchDone = false; redoId = null
-    try { localStorage.removeItem(practiceKey()); localStorage.removeItem(choicesKey()) } catch (e) {}
+    try { localStorage.removeItem(practiceKey()); localStorage.removeItem(choicesKey()); localStorage.removeItem(reviewKey()) } catch (e) {}
     initChoices()
+    if (REVIEW) { PRACTICE = []; buildReview(REVIEW).then(() => { loadAll() }) }
     $('end').classList.remove('active'); $('ex').classList.remove('active'); $('bubble').style.display = 'flex'; showLine()
   }
 
@@ -685,7 +707,7 @@
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
     $('backLink').textContent = L.back; $('restart').textContent = L.restart; renderTrail()
     $('b-audio').setAttribute('aria-label', L.listen)
-    $('e-title').textContent = L.e_title; $('e-text').textContent = L.e_text; $('e-again').textContent = L.e_again; $('e-village').textContent = L.e_village; $('e-village').hidden = false
+    $('e-title').textContent = L.e_title; $('e-text').textContent = REVIEW ? L.e_text_day : L.e_text; $('e-again').textContent = L.e_again; $('e-village').textContent = REVIEW ? L.e_next_day : L.e_village; $('e-village').hidden = false
     if (practicing && exState) { if (exState.type === 'match') renderMatch(); else renderChoice(exState.id, exState.type) }
     else if (!ended) showLine()
   }
@@ -810,7 +832,7 @@
   }
   function answer(id, ok, correctText, correctAudio) {
     const L = i18n[lang]
-    streak[id] = ok ? streak[id] + 1 : 0; saveStreak()
+    streak[id] = ok ? streak[id] + 1 : 0; saveStreak(); if (!ok) noteMiss(id)
     $('ex-fb').className = ok ? 'good' : 'bad'
     $('ex-fb').textContent = ok ? L.good : L.redo + '\n' + L.bad + ' ' + correctText
     $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'
@@ -877,7 +899,7 @@
             saveStreak(); $('ex-fb').className = 'good'; $('ex-fb').textContent = L.good; $('ex-next').hidden = false; exFace('joy', 'bounce'); sfx.good()
             $('bar').style.width = (score() / (PRACTICE.length * NEED) * 100) + '%'; wave('anna', 900)
           }
-        } else { missed[sel.d.id] = true; b.classList.add('bad'); setTimeout(() => b.classList.remove('bad'), 500); exFace('stern', 'wag'); sfx.bad(); setTimeout(() => { if (solved < items.length) exFace('smile') }, 1300) }
+        } else { missed[sel.d.id] = true; noteMiss(sel.d.id); b.classList.add('bad'); setTimeout(() => b.classList.remove('bad'), 500); exFace('stern', 'wag'); sfx.bad(); setTimeout(() => { if (solved < items.length) exFace('smile') }, 1300) }
       }
       return b
     }
@@ -893,7 +915,7 @@
   }
   function finishPractice() {
     $('ex').classList.remove('active'); stopAudio(); ended = true; practicing = false
-    $('bar').style.width = '100%'; $('e-text').textContent = i18n[lang].e_text
+    $('bar').style.width = '100%'; $('e-text').textContent = REVIEW ? i18n[lang].e_text_day : i18n[lang].e_text
     $('end').classList.add('active'); wave('anna'); wave('hero'); sfx.done()
     try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
     renderTrail()
@@ -959,9 +981,9 @@
   $('b-mine').onclick = playMine
   $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
   $('e-again').onclick = again
-  $('e-village').onclick = () => { $('e-text').textContent = i18n[lang].e_soon; $('e-village').hidden = true }
+  $('e-village').onclick = () => { $('e-text').textContent = REVIEW ? i18n[lang].e_soon_day : i18n[lang].e_soon; $('e-village').hidden = true }
   $('restart').onclick = () => {
-    try { localStorage.removeItem('lh_profile'); localStorage.removeItem(progressKey()); localStorage.removeItem(practiceKey()) } catch (e) {}
+    try { localStorage.removeItem('lh_profile'); localStorage.removeItem(progressKey()); localStorage.removeItem(practiceKey()); localStorage.removeItem(reviewKey()) } catch (e) {}
     location.href = 'index.html?id=' + encodeURIComponent(langId)
   }
   addEventListener('resize', layout)
@@ -984,6 +1006,8 @@
       const lj = await (await fetch('../data/lessons/' + encodeURIComponent(LESSON_ID) + '.json')).json()
       LESSON = lj.dialogue || []; PRACTICE = lj.practice || []; ANSWER_OF = lj.answer_of || {}
       TOPIC = lj.topic; TOPIC_JSON = '../' + lj.topic_json; EXTRA_TOPICS = lj.extra_topics || []; SCENES = lj.scenes || {}
+      REVIEW = lj.review || null
+      if (REVIEW) await buildReview(REVIEW)
       initChoices()
     } catch (e) { toast('Somo halipatikani / Lesson not found'); $('bubble').style.display = 'none'; renderTrail(); return }
     // перенос прогресса со старых ключей (до появления файлов уроков)
