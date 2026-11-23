@@ -1,0 +1,101 @@
+{
+  "id": "village-5",
+  "topic": "communication",
+  "topic_json": "data/topics/a1/vocabulary/communication.json",
+  "extra_topics": [
+    {
+      "topic": "game-anna",
+      "json": "data/topics/a1/game/anna.json"
+    }
+  ],
+  "scenes": {
+    "outbuilding": {
+      "bg": "assets/scene/outbuilding.png",
+      "color": "#c98f5a"
+    }
+  },
+  "dialogue": [
+    {
+      "who": "you",
+      "id": "gm5_nataka_chooni"
+    },
+    {
+      "who": "anna",
+      "id": "gm3_sawa",
+      "scene": "outbuilding"
+    },
+    {
+      "who": "you",
+      "id": "wy2"
+    },
+    {
+      "who": "anna",
+      "id": "gm5_choo_pale",
+      "pose": {
+        "anna": "point"
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm3_nawa_mikono",
+      "pose": {
+        "anna": null
+      }
+    },
+    {
+      "who": "you",
+      "id": "gm5_maji_kunawa"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_chukua",
+      "pose": {
+        "anna": "give"
+      }
+    },
+    {
+      "who": "you",
+      "id": "po11",
+      "pose": {
+        "anna": null,
+        "hero": "wash"
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm4_vizuri",
+      "pose": {
+        "hero": null
+      }
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Tazama: Nataka kwenda chooni — tena Nataka! Na Choo kiko wapi? ni kama Bafu iko wapi?: unauliza kitu kiko wapi.",
+        "en": "Look: Nataka kwenda chooni: Nataka again! And Choo kiko wapi? works like Bafu iko wapi?: you ask where something is."
+      }
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.",
+        "en": "To go on, you need to memorise these words. Now we will practise."
+      }
+    }
+  ],
+  "practice": [
+    "gm5_nataka_chooni",
+    "wy2",
+    "gm5_maji_kunawa",
+    "gm3_nawa_mikono",
+    "po11",
+    "gm4_nataka_kuoga",
+    "gm4_bafu_wapi"
+  ],
+  "answer_of": {
+    "wy2": "gm3_sawa",
+    "gm5_maji_kunawa": "gm3_nawa_mikono",
+    "po11": "gm2_chukua",
+    "gm3_nawa_mikono": "gm5_choo_pale"
+  }
+}
