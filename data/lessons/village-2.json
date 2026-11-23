@@ -11,7 +11,8 @@
   "scenes": {
     "yard": {
       "bg": "assets/scene/yard.png",
-      "color": "#c98f5a"
+      "color": "#c98f5a",
+      "place": "well"
     }
   },
   "dialogue": [
@@ -26,12 +27,12 @@
     },
     {
       "who": "anna",
-      "id": "gm2_twende_kisima",
-      "scene": "yard"
+      "id": "gm2_twende_kisima"
     },
     {
       "who": "anna",
-      "id": "gr8"
+      "id": "gr8",
+      "scene": "yard"
     },
     {
       "who": "you",
