@@ -1,0 +1,135 @@
+{
+  "id": "village-2",
+  "topic": "communication",
+  "topic_json": "data/topics/a1/vocabulary/communication.json",
+  "extra_topics": [
+    {
+      "topic": "game-anna",
+      "json": "data/topics/a1/game/anna.json"
+    }
+  ],
+  "scenes": {
+    "yard": {
+      "bg": "assets/scene/yard.png",
+      "color": "#c98f5a"
+    }
+  },
+  "dialogue": [
+    {
+      "who": "you",
+      "id": "wa2"
+    },
+    {
+      "who": "anna",
+      "id": "wy6",
+      "anim": "wave"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_twende_kisima",
+      "scene": "yard"
+    },
+    {
+      "who": "anna",
+      "id": "gr8"
+    },
+    {
+      "who": "you",
+      "id": "wa2"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_kisima_pale",
+      "pose": {
+        "anna": "point",
+        "hero": "pull"
+      }
+    },
+    {
+      "who": "you",
+      "id": "po3",
+      "pose": {
+        "anna": null,
+        "hero": null
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm2_chukua",
+      "pose": {
+        "anna": "give"
+      },
+      "props": [
+        {
+          "img": "assets/props/cup.png",
+          "x": 0,
+          "y": 40,
+          "w": 10
+        }
+      ]
+    },
+    {
+      "who": "anna",
+      "id": "gm2_maji_baridi"
+    },
+    {
+      "who": "you",
+      "id": "po11",
+      "pose": {
+        "anna": null,
+        "hero": "drink"
+      }
+    },
+    {
+      "who": "anna",
+      "id": "po4",
+      "pose": {
+        "hero": null
+      },
+      "props": []
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Wakati mwingine ukiwa na kiu, unaweza kusema pia hivi:",
+        "en": "Next time you are thirsty, you can also say:"
+      }
+    },
+    {
+      "who": "you",
+      "id": "gm2_nataka_maji"
+    },
+    {
+      "who": "you",
+      "id": "gm2_ninahitaji_maji"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_kitu_kingine"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.",
+        "en": "To go on, you need to memorise these words. Now we will practise."
+      }
+    }
+  ],
+  "practice": [
+    "wa2",
+    "po3",
+    "po11",
+    "po4",
+    "gm2_nataka_maji",
+    "gm2_ninahitaji_maji",
+    "gr8",
+    "wy6"
+  ],
+  "answer_of": {
+    "wa2": "gr8",
+    "po3": "gm2_kisima_pale",
+    "po11": "gm2_maji_baridi",
+    "gm2_nataka_maji": "gm2_kitu_kingine",
+    "po4": "po11"
+  }
+}
