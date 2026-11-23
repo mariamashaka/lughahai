@@ -11,6 +11,28 @@
     .layer { position:absolute; left:0; right:0; background-repeat:repeat-x; background-position:left bottom; image-rendering:pixelated; }
     #far    { background-image:url(assets/scene/far.png); }
     #ground { bottom:0; background-image:url(assets/scene/ground.png); }
+
+    /* ---- карта деревни между сценами ---- */
+    #mapv { position:fixed; inset:0; z-index:40; background:#1d2b22; display:none; overflow:hidden; touch-action:none; color:#fff; font-family:system-ui,sans-serif; }
+    #mapv.on { display:block; }
+    #mworld { position:absolute; left:0; top:0; transform-origin:0 0; }
+    #mworld img.mmap { position:absolute; left:0; top:0; image-rendering:pixelated; display:block; user-select:none; -webkit-user-drag:none; }
+    #mworld .mpin { position:absolute; width:14px; height:14px; margin:-7px 0 0 -7px; font-size:11px; line-height:14px; text-align:center; border-radius:50%; background:rgba(24,34,29,.55); pointer-events:none; }
+    #mworld .mdoor { position:absolute; width:8px; height:8px; margin:-4px 0 0 -4px; border-radius:50%; border:1px solid rgba(255,255,255,.8); background:rgba(0,0,0,.25); pointer-events:none; }
+    #mworld .mdoor.active, #mworld .mpin.active { background:rgba(255,213,74,.9); border-color:#fff; }
+    #mhero { position:absolute; width:11.5px; height:15.3px; margin:-14.7px 0 0 -5.75px; image-rendering:pixelated; pointer-events:none; }
+    #marrow { position:absolute; z-index:6; width:0; height:0; margin:-26px 0 0 -6px; border-left:6px solid transparent; border-right:6px solid transparent; border-top:10px solid #FFD54A; filter:drop-shadow(0 1px 0 #000); animation:mbob .7s ease-in-out infinite; pointer-events:none; }
+    @keyframes mbob { 50% { transform:translateY(5px); opacity:.55; } }
+    #medge { position:absolute; z-index:20; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:rgba(24,34,29,.88); border:2px solid #FFD54A; display:none; align-items:center; justify-content:center; animation:mblink 1s ease-in-out infinite; cursor:pointer; }
+    #medge i { display:block; width:0; height:0; border-top:7px solid transparent; border-bottom:7px solid transparent; border-left:12px solid #FFD54A; }
+    @keyframes mblink { 50% { opacity:.4; } }
+    #mtop { position:absolute; top:10px; left:10px; right:10px; z-index:30; display:flex; gap:8px; align-items:center; justify-content:space-between; pointer-events:none; }
+    #mgoal { background:rgba(24,34,29,.9); border:2px solid #FFD54A; padding:7px 14px; border-radius:999px; font-weight:700; font-size:.95rem; }
+    #mskip { background:rgba(24,34,29,.8); color:#fff; border:none; border-radius:999px; padding:7px 14px; font-size:.8rem; cursor:pointer; pointer-events:auto; font-family:inherit; }
+    #mmsg { position:absolute; left:50%; bottom:24px; transform:translateX(-50%); width:min(560px, calc(100vw - 24px)); box-sizing:border-box; background:rgba(24,34,29,.94); border-radius:16px; padding:12px 16px; z-index:40; display:none; }
+    #mmsg b { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; opacity:.75; display:block; margin-bottom:2px; }
+    #mmsg p { margin:0; font-size:1rem; line-height:1.35; }
+    #mmsg.show { display:block; }
     .prop { position:absolute; image-rendering:pixelated; z-index:3; pointer-events:none; }
     .actor { position:absolute; z-index:2; image-rendering:pixelated; user-select:none; -webkit-user-drag:none; }
     #hero { transform:scaleX(-1); }
@@ -185,6 +207,7 @@
     </div>
   </div>
 
+  <div id="mapv"><div id="mworld"></div><div id="medge"><i></i></div><div id="mtop"><div id="mgoal"></div><button id="mskip" type="button"></button></div><div id="mmsg"><b id="mm-who"></b><p id="mm-text"></p></div></div>
   <div id="sheet" role="dialog" aria-modal="true"><div class="card" id="sheet-card"></div></div>
 
   <div id="ex">
@@ -419,6 +442,163 @@
     setPose('anna', nearest('pose', 'anna')); setPose('hero', nearest('pose', 'hero'))
   }
 
+
+  // ---------- карта деревни между сценами ----------
+  // Сцена урока может иметь place: когда место меняется, открывается карта и ученик ведёт героя к цели.
+  const MAPD = {
+    w: 458, h: 256,
+    nodes: {
+      anna_door: [150, 87], a1: [150, 100], a2: [144, 118], gate: [152, 142], well: [121, 112], outb: [180, 112],
+      r1: [172, 147], r2: [225, 150], r3: [272, 150], r4: [305, 143], r5: [340, 135], r6: [380, 128], hj: [395, 118], r7: [430, 132], r8: [457, 132],
+      t0: [350, 5], t1: [315, 45], t2: [298, 80], t3: [298, 115], t4: [302, 135],
+      hosp_door: [395, 68], h1: [400, 95], shop_door: [320, 186], s1: [300, 175], s2: [285, 161],
+      y1: [130, 142], john_door: [92, 152], y2: [150, 170], y3: [145, 190], daniel_door: [122, 199]
+    },
+    edges: [
+      ['anna_door', 'a1'], ['a1', 'a2'], ['a2', 'gate'], ['a2', 'well'], ['a1', 'outb'], ['gate', 'r1'], ['r1', 'r2'], ['r2', 'r3'], ['r3', 'r4'], ['r4', 'r5'], ['r5', 'r6'], ['r6', 'hj'], ['hj', 'r7'], ['r7', 'r8'],
+      ['t0', 't1'], ['t1', 't2'], ['t2', 't3'], ['t3', 't4'], ['t4', 'r4'], ['hosp_door', 'h1'], ['h1', 'hj'], ['shop_door', 's1'], ['s1', 's2'], ['s2', 'r3'],
+      ['gate', 'y1'], ['y1', 'john_door'], ['gate', 'y2'], ['y2', 'y3'], ['y3', 'daniel_door']
+    ],
+    // pin: значок на карте; go: что говорит Анна, если ученик пошёл не туда («сейчас идём…»)
+    places: {
+      well:        { pin: '💧', name: { sw: 'Kisima', en: 'Well' },               go: { sw: 'Sasa twende kisimani!', en: "Now let's go to the well!" } },
+      anna_door:   { name: { sw: 'Nyumba ya Anna', en: "Anna's house" },          go: { sw: 'Sasa twende nyumbani kwa Anna!', en: "Now let's go to Anna's house!" } },
+      outb:        { pin: '🚽', name: { sw: 'Choo na bafu', en: 'Toilet and shower' }, go: { sw: 'Sasa twende kwenye choo na bafu!', en: "Now let's go to the toilet and shower!" } },
+      john_door:   { name: { sw: 'Nyumba ya John', en: "John's house" },          go: { sw: 'Sasa twende nyumbani kwa John!', en: "Now let's go to John's house!" } },
+      daniel_door: { name: { sw: 'Nyumba ya Daniel', en: "Daniel's house" } },
+      shop_door:   { name: { sw: 'Duka', en: 'Shop' },          closed: { sw: 'Samahani, duka limefungwa sasa. Njoo siku nyingine.', en: 'Sorry, the shop is closed right now. Come back another day.' } },
+      hosp_door:   { name: { sw: 'Hospitali', en: 'Hospital' }, closed: { sw: 'Samahani, hospitali imefungwa sasa. Njoo siku nyingine.', en: 'Sorry, the hospital is closed right now. Come back another day.' } }
+    },
+    later: { sw: 'Baadaye tutaenda huko. ', en: "We'll go there later. " },
+    skip: { sw: 'Ruka', en: 'Skip' }, goto: { sw: 'Nenda: ', en: 'Go to: ' }
+  }
+  const MAP_OFF = params.has('nomap')
+  let mapAt = (() => { try { return localStorage.getItem('lh_mapat') || 'gate' } catch (e) { return 'gate' } })()
+  const setMapAt = n => { mapAt = n; try { localStorage.setItem('lh_mapat', n) } catch (e) {} }
+  let M = null   // состояние открытой карты
+
+  const mdist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1])
+  function mProject(p, E, N) {
+    let best = null
+    E.forEach(([a, b], i) => {
+      const A = N[a], B = N[b], dx = B[0] - A[0], dy = B[1] - A[1], l2 = dx * dx + dy * dy
+      let t = l2 ? ((p[0] - A[0]) * dx + (p[1] - A[1]) * dy) / l2 : 0; t = Math.max(0, Math.min(1, t))
+      const q = [A[0] + dx * t, A[1] + dy * t], d = mdist(p, q)
+      if (!best || d < best.d) best = { i, t, q, d }
+    })
+    return best
+  }
+  function mRoute(from, target) {
+    const N = Object.assign({}, MAPD.nodes), E = MAPD.edges.map(e => e.slice())
+    const insert = (p, name) => { const pr = mProject(p, E, N), [a, b] = E[pr.i]; N[name] = pr.q; E.splice(pr.i, 1, [a, name], [name, b]) }
+    insert(from, '__s'); insert(target, '__t')
+    const D = { __s: 0 }, prev = {}, Q = new Set(Object.keys(N))
+    while (Q.size) {
+      let u = null; Q.forEach(k => { if (D[k] !== undefined && (u === null || D[k] < D[u])) u = k })
+      if (u === null || u === '__t') break
+      Q.delete(u)
+      E.forEach(([a, b]) => { const o = a === u ? b : b === u ? a : null; if (o && Q.has(o)) { const nd = D[u] + mdist(N[a], N[b]); if (D[o] === undefined || nd < D[o]) { D[o] = nd; prev[o] = u } } })
+    }
+    const out = []; for (let k = '__t'; k; k = prev[k]) { out.unshift(N[k].slice()); if (k === '__s') break }
+    return out
+  }
+  const mPlaceAt = (p, r) => { let best = null; Object.keys(MAPD.places).forEach(id => { const d = mdist(p, MAPD.nodes[id]); if (d < r && (!best || d < best.d)) best = { id, d } }); return best && best.id }
+
+  function openMap(target, done) {
+    const L = lang, world = $('mworld')
+    world.innerHTML = ''
+    const img = new Image(); img.className = 'mmap'; img.src = 'assets/village.png'
+    img.onerror = () => { closeMap(); setMapAt(target); done() }     // нет картинки: просто идём дальше
+    world.appendChild(img)
+    Object.entries(MAPD.places).forEach(([id, pl]) => {
+      const n = MAPD.nodes[id], d = document.createElement('div')
+      d.className = pl.pin ? 'mpin' : 'mdoor'; d.id = 'mp-' + id; d.style.left = n[0] + 'px'; d.style.top = n[1] + 'px'
+      if (pl.pin) d.textContent = pl.pin
+      world.appendChild(d)
+    })
+    const arrow = document.createElement('div'); arrow.id = 'marrow'; world.appendChild(arrow)
+    const hero = document.createElement('img'); hero.id = 'mhero'; hero.alt = ''
+    hero.src = 'assets/hero_' + (P && P.gender === 'm' ? 'm' : 'f') + '_idle.png'; world.appendChild(hero)
+    world.style.width = MAPD.w + 'px'; world.style.height = MAPD.h + 'px'; img.style.width = MAPD.w + 'px'; img.style.height = MAPD.h + 'px'
+    M = { target, done, pos: (MAPD.nodes[mapAt] || MAPD.nodes.gate).slice(), path: [], moving: null, pan: null, drag: null, facing: 'r', last: performance.now(), S: 2, hero, arrow, raf: 0 }
+    $('mgoal').textContent = MAPD.goto[L] + MAPD.places[target].name[L]
+    $('mskip').textContent = MAPD.skip[L]
+    $('mmsg').classList.remove('show')
+    $('mapv').classList.add('on')
+    stopAudio()
+    mLayout()
+    M.raf = requestAnimationFrame(mTick)
+  }
+  function closeMap() { if (!M) return; cancelAnimationFrame(M.raf); $('mapv').classList.remove('on'); M = null }
+  function mFinish(skipped) { const m = M, t = m.target; closeMap(); setMapAt(t); m.done() }
+  function mLayout() { if (M) M.S = Math.max(1, Math.min(4, Math.floor(innerHeight * 0.9 / MAPD.h))) }
+  function mClamp(cx, cy) {
+    const vw = innerWidth, vh = innerHeight, ww = MAPD.w * M.S, wh = MAPD.h * M.S
+    return [ww <= vw ? (vw - ww) / 2 : Math.max(vw - ww, Math.min(0, cx)), wh <= vh ? (vh - wh) / 2 : Math.max(vh - wh, Math.min(0, cy))]
+  }
+  const mCam = () => M.pan ? mClamp(M.pan[0], M.pan[1]) : mClamp(innerWidth / 2 - M.pos[0] * M.S, innerHeight / 2 - M.pos[1] * M.S)
+  function mMsg(who, text) { $('mm-who').textContent = who; $('mm-text').textContent = text; $('mmsg').classList.add('show') }
+  function mWalk(p, placeId) { $('mmsg').classList.remove('show'); M.pan = null; M.path = mRoute(M.pos, p); M.moving = { placeId: placeId || null } }
+  function mArrived(id) {
+    if (id === M.target) { mMsg('✓', MAPD.places[id].name[lang]); setTimeout(() => { if (M && M.target === id) mFinish() }, 650); return }
+    const pl = MAPD.places[id], who = ((nearest('npc') || 'anna') === 'john') ? 'John' : 'Anna'
+    if (pl.closed) { mMsg(who === 'John' ? 'Duka' : pl.name[lang], pl.closed[lang]); return }
+    mMsg(who, MAPD.later[lang] + (MAPD.places[M.target].go ? MAPD.places[M.target].go[lang] : ''))
+  }
+  function mTick(ts) {
+    if (!M) return
+    const dt = Math.min(0.05, (ts - M.last) / 1000); M.last = ts
+    if (M.moving && M.path.length) {
+      let step = 55 * dt
+      while (step > 0 && M.path.length) {
+        const n = M.path[0], d = mdist(M.pos, n)
+        if (d <= step) { M.pos = n.slice(); M.path.shift(); step -= d } else { M.pos[0] += (n[0] - M.pos[0]) / d * step; M.pos[1] += (n[1] - M.pos[1]) / d * step; step = 0 }
+        if (M.path.length) { const dx = M.path[0][0] - M.pos[0]; if (Math.abs(dx) > 0.01) M.facing = dx < 0 ? 'l' : 'r' }
+      }
+      if (!M.path.length) { const id = M.moving.placeId || mPlaceAt(M.pos, 3); M.moving = null; if (id) mArrived(id) }
+    }
+    const [cx, cy] = mCam(), S = M.S
+    $('mworld').style.transform = `translate(${cx}px,${cy}px) scale(${S})`
+    M.hero.style.left = M.pos[0] + 'px'; M.hero.style.top = M.pos[1] + 'px'; M.hero.style.transform = M.facing === 'l' ? 'scaleX(-1)' : ''; M.hero.style.zIndex = Math.round(M.pos[1])
+    const gp = MAPD.nodes[M.target]
+    M.arrow.style.left = gp[0] + 'px'; M.arrow.style.top = (gp[1] - 2) + 'px'
+    document.querySelectorAll('#mworld .mdoor, #mworld .mpin').forEach(e => e.classList.toggle('active', e.id === 'mp-' + M.target))
+    const sx = cx + gp[0] * S, sy = cy + gp[1] * S, e = $('medge')
+    if (sx < 20 || sx > innerWidth - 20 || sy < 50 || sy > innerHeight - 20) {
+      const ang = Math.atan2(sy - innerHeight / 2, sx - innerWidth / 2)
+      e.style.display = 'flex'; e.style.left = Math.max(30, Math.min(innerWidth - 30, sx)) + 'px'; e.style.top = Math.max(70, Math.min(innerHeight - 70, sy)) + 'px'; e.firstElementChild.style.transform = `rotate(${ang}rad)`
+    } else e.style.display = 'none'
+    M.raf = requestAnimationFrame(mTick)
+  }
+  // касание = идти, перетаскивание = двигать карту
+  ;(function () {
+    const v = $('mapv')
+    v.addEventListener('pointerdown', e => { if (!M || e.target.closest('#mskip,#medge')) return; M.drag = { x: e.clientX, y: e.clientY, cam: mCam(), moved: false } })
+    v.addEventListener('pointermove', e => {
+      if (!M || !M.drag) return
+      const dx = e.clientX - M.drag.x, dy = e.clientY - M.drag.y
+      if (!M.drag.moved && Math.hypot(dx, dy) < 8) return
+      M.drag.moved = true; M.pan = [M.drag.cam[0] + dx, M.drag.cam[1] + dy]
+    })
+    v.addEventListener('pointerup', e => {
+      if (!M || !M.drag) return
+      const d = M.drag; M.drag = null
+      if (d.moved || e.target.closest('#mskip,#medge')) return
+      const [cx, cy] = mCam(), p = [(e.clientX - cx) / M.S, (e.clientY - cy) / M.S], id = mPlaceAt(p, 12)
+      if (id) mWalk(MAPD.nodes[id], id); else mWalk(mProject(p, MAPD.edges, MAPD.nodes).q)
+    })
+    v.addEventListener('pointercancel', () => { if (M) M.drag = null })
+    $('medge').addEventListener('pointerup', e => { e.stopPropagation(); if (M) mWalk(MAPD.nodes[M.target], M.target) })
+    $('mskip').addEventListener('click', () => { if (M) mFinish(true) })
+    addEventListener('resize', mLayout)
+  })()
+  // нужна ли карта перед этой репликой: место сцены сменилось
+  function needMap() {
+    if (MAP_OFF || M) return null
+    const sc = nearest('scene'), pl = sc && SCENES[sc] && SCENES[sc].place
+    return (pl && pl !== mapAt && MAPD.nodes[pl] && MAPD.places[pl]) ? pl : null
+  }
+
   // ---------- звук и мимика Анны ----------
   let audio = null, talkTimer = null
   function setFace(name) { $('portrait').src = npcFaceBase() + name + '.png' }
@@ -565,6 +745,8 @@
   function showLine() {
     const L = i18n[lang], line = LESSON[idx]
     if (!visible(line)) { next(); return }
+    const mp = needMap()
+    if (mp) { openMap(mp, () => showLine()); return }
     syncNpc(); stopAudio(); clearMine()
     const you = line.who === 'you' || !!line.choice
     const t = line.choice ? { main: '', gloss: '', audio: null, recorded: true } : currentText(line)
