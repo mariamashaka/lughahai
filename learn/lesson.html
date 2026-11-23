@@ -12,7 +12,7 @@
     #far    { background-image:url(assets/scene/far.png); }
     #ground { bottom:0; background-image:url(assets/scene/ground.png); }
     .prop { position:absolute; image-rendering:pixelated; z-index:3; pointer-events:none; }
-    .actor { position:absolute; image-rendering:pixelated; user-select:none; -webkit-user-drag:none; }
+    .actor { position:absolute; z-index:2; image-rendering:pixelated; user-select:none; -webkit-user-drag:none; }
     #hero { transform:scaleX(-1); }
 
     .topbar { position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between; align-items:center; z-index:6; gap:8px; }
@@ -332,7 +332,11 @@
 
   // Анимация героев: дыхание и моргание; «wave» по команде
   const folders = { anna: 'assets/anna/', hero: null }
-  function setSprite(who, frame) { const el = $(who); el.src = (who === 'anna' ? 'assets/anna/' : 'assets/' + (P && P.gender === 'm' ? 'hero_m/' : 'hero_f/')) + frame + '.png' }
+  // Второй NPC (Джон) играет через тот же актёр: npc:'john' в строке. Нет картинок Джона: временно рисуем Анну.
+  let NPC = 'anna', JOHN_OK = { sprite: false, face: false }
+  const npcBase = () => (NPC === 'john' && JOHN_OK.sprite) ? 'assets/john/' : 'assets/anna/'
+  const npcFaceBase = () => (NPC === 'john' && JOHN_OK.face) ? 'assets/john_face/' : 'assets/anna_face/'
+  function setSprite(who, frame) { const el = $(who); el.src = (who === 'anna' ? npcBase() : 'assets/' + (P && P.gender === 'm' ? 'hero_m/' : 'hero_f/')) + frame + '.png' }
   let waving = {}
   function wave(who, ms = 1800) {
     waving[who] = true; let k = 0
@@ -354,6 +358,7 @@
   function nearest(key, who) {
     for (let i = idx; i >= 0; i--) {
       const l = LESSON[i]
+      if (!visible(l)) continue
       if (who) { if (l[key] && Object.prototype.hasOwnProperty.call(l[key], who)) return l[key][who] }
       else if (l[key] !== undefined) return l[key]
     }
@@ -385,21 +390,30 @@
     act.forEach(p => {
       const el = document.createElement('img'); el.className = 'prop'; el.alt = ''; el.src = p.img
       el.dataset.w = p.w || 24; el.dataset.x = p.x || 0; el.dataset.y = p.y || 0
+      if (p.back) el.style.zIndex = 1
       el.onerror = () => el.remove(); placeProp(el); $('stage').appendChild(el)
     })
   }
   async function setPose(who, name) {
     const tok = poseTok[who] = (poseTok[who] || 0) + 1
     clearInterval(poseTimer[who])
-    const base = 'assets/' + (who === 'anna' ? 'anna/' : (P && P.gender === 'm' ? 'hero_m/' : 'hero_f/'))
+    const base = who === 'anna' ? npcBase() : 'assets/' + (P && P.gender === 'm' ? 'hero_m/' : 'hero_f/')
+    $(who).style.visibility = name === 'hide' ? 'hidden' : ''
+    if (name === 'hide') { posed[who] = 'hide'; return }
     if (!name) { if (posed[who]) { posed[who] = null; setSprite(who, 'idle0') } return }
     if (!(await imgOk(base + name + '0.png')) || poseTok[who] !== tok) return
-    posed[who] = name; let k = 0
-    const f1 = await imgOk(base + name + '1.png')
+    posed[who] = name; let k = 0, nf = 1
+    while (nf < 6 && await imgOk(base + name + nf + '.png')) nf++
+    if (poseTok[who] !== tok) return
     setSprite(who, name + '0')
-    if (f1) poseTimer[who] = setInterval(() => setSprite(who, name + (++k % 2)), 450)
+    if (nf > 1) poseTimer[who] = setInterval(() => setSprite(who, name + (++k % nf)), 450)
+  }
+  function syncNpc() {
+    const npc = nearest('npc') || 'anna'
+    if (npc !== NPC) { NPC = npc; posed.anna = null; clearInterval(poseTimer.anna); setSprite('anna', 'idle0') }
   }
   function applyVisuals() {
+    syncNpc()
     setScene(nearest('scene') || null)
     setProps(nearest('props') || [])
     setPose('anna', nearest('pose', 'anna')); setPose('hero', nearest('pose', 'hero'))
@@ -407,7 +421,7 @@
 
   // ---------- звук и мимика Анны ----------
   let audio = null, talkTimer = null
-  function setFace(name) { $('portrait').src = 'assets/anna_face/' + name + '.png' }
+  function setFace(name) { $('portrait').src = npcFaceBase() + name + '.png' }
   function setHeroFace() { $('portrait').src = 'assets/hero_' + (P && P.gender === 'm' ? 'm' : 'f') + '_face.png' }
   function stopAudio() { if (audio) { audio.pause(); audio = null } clearInterval(talkTimer); $('b-audio').classList.remove('playing'); if (!$('bubble').classList.contains('you')) setFace('smile') }
   function play(url, talking) {
@@ -551,12 +565,12 @@
   function showLine() {
     const L = i18n[lang], line = LESSON[idx]
     if (!visible(line)) { next(); return }
-    stopAudio(); clearMine()
+    syncNpc(); stopAudio(); clearMine()
     const you = line.who === 'you' || !!line.choice
     const t = line.choice ? { main: '', gloss: '', audio: null, recorded: true } : currentText(line)
     $('bubble').classList.toggle('you', you)
     if (you) setHeroFace(); else setFace('smile')
-    $('who').textContent = you ? (P ? P.name : L.you) : 'Anna'
+    $('who').textContent = you ? (P ? P.name : L.you) : (((nearest('npc') || 'anna') === 'john') ? 'John' : 'Anna')
     renderCult(line, t.main)
     $('main').hidden = !!line.choice
     $('main').classList.toggle('plain', !t.recorded)
@@ -587,6 +601,7 @@
   // ---------- ветки (выбор ученика) ----------
   const choicesKey = () => 'lh_choices_' + LESSON_ID + '_' + langId
   function visible(line) {
+    if (line.gender && P && P.gender && line.gender !== P.gender) return false
     if (!line.if) return true
     return Object.entries(line.if).every(([k, v]) => (CHOICES[k] !== undefined ? CHOICES[k] : CHOICE_DEFAULT[k]) === v)
   }
@@ -955,6 +970,7 @@
     P = loadProfile()
     if (!P) { location.replace('index.html?id=' + encodeURIComponent(langId)); return }
     $('backLink').href = '../language.html?id=' + encodeURIComponent(langId)
+    JOHN_OK.sprite = await imgOk('assets/john/idle0.png'); JOHN_OK.face = await imgOk('assets/john_face/smile.png')
     setSprite('anna', 'idle0'); setSprite('hero', 'idle0')
     layout(); idleLoop('anna', 0); idleLoop('hero', 130)
     fetch('../data/languages.json').then(r => r.json()).then(j => {
