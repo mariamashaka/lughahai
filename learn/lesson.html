@@ -227,7 +227,7 @@
           instr: 'Zamu yako: sema, rekodi, kisha sikiliza na ulinganishe na mfano. Umesema sawa?',
           priv: 'Rekodi yako inabaki kwenye kifaa chako tu.', rec: 'Rekodi sauti yako', stop: 'Simamisha', mine: 'Sikiliza rekodi yako',
           mic_err: 'Kipaza sauti hakipatikani. Ruhusu matumizi ya kipaza sauti kwenye kivinjari.',
-          choose: 'Chagua jibu lako', c_close: 'Funga', c_miss: 'Maelezo bado hayapatikani', soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_text_day: 'Siku ya kwanza imekwisha. Umefanya vizuri!', e_next_day: 'Siku ya pili', e_soon_day: 'Siku ya pili inakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
+          choose: 'Chagua jibu lako', c_close: 'Funga', c_miss: 'Maelezo bado hayapatikani', soon: 'Somo hili linakuja hivi karibuni', locked: 'Maliza somo la awali kwanza', e_title: 'Hongera!', e_text: 'Umefanya vizuri! Sasa uko tayari kuingia kijijini.', e_village: 'Ingia kijijini', e_soon: 'Kijiji kinakuja hivi karibuni.', e_text_day: 'Siku ya kwanza imekwisha. Umefanya vizuri!', e_text_mid: 'Umefanya vizuri! Tuendelee!', e_next: 'Somo linalofuata', e_next_day: 'Siku ya pili', e_soon_day: 'Siku ya pili inakuja hivi karibuni.', e_again: 'Anza somo upya', listen: 'Sikiliza',
           x_listen: 'Sikiliza na uchague maana', x_read: 'Soma na uchague maana', x_pick: 'Chagua neno sahihi kwa maana hii', x_reply: 'Anna anasema hivi. Chagua jibu sahihi.', x_match: 'Unganisha kila neno na maana yake',
           good: 'Sahihi!', redo: 'Jaribu tena!', bad: 'Jibu sahihi ni:', redobtn: 'Rudia', sounds: '🔊 Sauti', sample: 'mfano', cont: 'Endelea', noaudio: 'Bado hakuna sauti',
           x_buildA: 'Sikiliza na ukusanye sentensi', x_buildB: 'Kusanya sentensi kwa lugha ya kabila', ready: 'Tayari', again2: 'Bado si sawa. Jaribu tena!', ksoon: 'Maneno ya kabila yanakuja hivi karibuni', skip: 'Ruka' },
@@ -235,7 +235,7 @@
           instr: 'Your turn: say it, record yourself, then compare with the example. Did you say it right?',
           priv: 'Your recording stays on your device only.', rec: 'Record yourself', stop: 'Stop', mine: 'Play your recording',
           mic_err: 'The microphone is not available. Allow microphone access in your browser.',
-          choose: 'Choose your answer', c_close: 'Close', c_miss: 'This note is not available yet', soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_text_day: 'Day 1 is over. You did great!', e_next_day: 'Day 2', e_soon_day: 'Day 2 is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
+          choose: 'Choose your answer', c_close: 'Close', c_miss: 'This note is not available yet', soon: 'This lesson is coming soon', locked: 'Finish the previous lesson first', e_title: 'Well done!', e_text: 'You did great! Now you are ready to enter the village.', e_village: 'Enter the village', e_soon: 'The village is coming soon.', e_text_day: 'Day 1 is over. You did great!', e_text_mid: "You did great! Let's go on!", e_next: 'Next lesson', e_next_day: 'Day 2', e_soon_day: 'Day 2 is coming soon.', e_again: 'Start the lesson again', listen: 'Listen',
           x_listen: 'Listen and choose the meaning', x_read: 'Read and choose the meaning', x_pick: 'Choose the right word for this meaning', x_reply: 'Anna says this. Choose the right reply.', x_match: 'Match each word with its meaning',
           good: 'Correct!', redo: 'Try again!', bad: 'The right answer is:', redobtn: 'Redo', sounds: '🔊 Sounds', sample: 'sample', cont: 'Continue', noaudio: 'No audio yet',
           x_buildA: 'Listen and build the phrase', x_buildB: 'Build the phrase in the tribal language', ready: 'Done', again2: 'Not quite. Try again!', ksoon: 'The tribal words are coming soon', skip: 'Skip' }
@@ -691,6 +691,13 @@
     PRACTICE = pick
     try { localStorage.setItem(reviewKey(), JSON.stringify(pick)) } catch (e) {}
   }
+  function nextLesson() {
+    const sec = (COURSE.sections || []).find(x => x.lessons.some(l => l.id === CUR_LESSON)); if (!sec) return null
+    const i = sec.lessons.findIndex(l => l.id === CUR_LESSON), n = sec.lessons[i + 1]
+    return n && n.ready ? n : null
+  }
+  const endText = L => REVIEW ? L.e_text_day : (CUR_LESSON === 'village-1' ? L.e_text : L.e_text_mid)
+  const endBtn = L => REVIEW ? L.e_next_day : (CUR_LESSON === 'village-1' ? L.e_village : L.e_next)
   function finish() { stopAudio(); clearMine(); startPractice() }
   function again() {
     ended = false; practicing = false; idx = 0; streak = {}; matchDone = false; redoId = null
@@ -707,7 +714,7 @@
     $('btn-sw').classList.toggle('active', lang === 'sw'); $('btn-en').classList.toggle('active', lang === 'en')
     $('backLink').textContent = L.back; $('restart').textContent = L.restart; renderTrail()
     $('b-audio').setAttribute('aria-label', L.listen)
-    $('e-title').textContent = L.e_title; $('e-text').textContent = REVIEW ? L.e_text_day : L.e_text; $('e-again').textContent = L.e_again; $('e-village').textContent = REVIEW ? L.e_next_day : L.e_village; $('e-village').hidden = false
+    $('e-title').textContent = L.e_title; $('e-text').textContent = endText(L); $('e-again').textContent = L.e_again; $('e-village').textContent = endBtn(L); $('e-village').hidden = false
     if (practicing && exState) { if (exState.type === 'match') renderMatch(); else renderChoice(exState.id, exState.type) }
     else if (!ended) showLine()
   }
@@ -915,7 +922,7 @@
   }
   function finishPractice() {
     $('ex').classList.remove('active'); stopAudio(); ended = true; practicing = false
-    $('bar').style.width = '100%'; $('e-text').textContent = REVIEW ? i18n[lang].e_text_day : i18n[lang].e_text
+    $('bar').style.width = '100%'; $('e-text').textContent = endText(i18n[lang])
     $('end').classList.add('active'); wave('anna'); wave('hero'); sfx.done()
     try { localStorage.setItem(progressKey(), 'done') } catch (e) {}
     renderTrail()
@@ -981,7 +988,11 @@
   $('b-mine').onclick = playMine
   $('b-audio').onclick = () => { const t = currentText(LESSON[idx]); play(t.audio, LESSON[idx].who === 'anna') }
   $('e-again').onclick = again
-  $('e-village').onclick = () => { $('e-text').textContent = REVIEW ? i18n[lang].e_soon_day : i18n[lang].e_soon; $('e-village').hidden = true }
+  $('e-village').onclick = () => {
+    const n = nextLesson()
+    if (n) { location.href = 'lesson.html?id=' + encodeURIComponent(langId) + '&lesson=' + encodeURIComponent(n.id); return }
+    $('e-text').textContent = REVIEW ? i18n[lang].e_soon_day : i18n[lang].e_soon; $('e-village').hidden = true
+  }
   $('restart').onclick = () => {
     try { localStorage.removeItem('lh_profile'); localStorage.removeItem(progressKey()); localStorage.removeItem(practiceKey()); localStorage.removeItem(reviewKey()) } catch (e) {}
     location.href = 'index.html?id=' + encodeURIComponent(langId)
