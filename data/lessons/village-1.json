@@ -3,18 +3,73 @@
   "topic": "communication",
   "topic_json": "data/topics/a1/vocabulary/communication.json",
   "dialogue": [
-    { "who": "anna", "id": "gr1", "anim": "wave" },
-    { "who": "you",  "id": "gr1" },
-    { "who": "anna", "id": "in3" },
-    { "who": "you",  "id": "in4" },
-    { "who": "anna", "id": "in4" },
-    { "who": "anna", "id": "in6" },
-    { "who": "anna", "id": "in5" },
-    { "who": "you",  "id": "in6", "withName": true },
-    { "who": "anna", "id": "gr8", "anim": "wave" },
-    { "who": "anna", "id": "wy6" },
-    { "who": "anna", "say": { "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.", "en": "To go on, you need to memorise these words. Now we will practise." } }
+    {
+      "who": "anna",
+      "id": "gr1",
+      "anim": "wave"
+    },
+    {
+      "who": "you",
+      "id": "gr1"
+    },
+    {
+      "who": "anna",
+      "id": "in3"
+    },
+    {
+      "who": "you",
+      "id": "in4"
+    },
+    {
+      "who": "you",
+      "id": "in3"
+    },
+    {
+      "who": "anna",
+      "id": "in4"
+    },
+    {
+      "who": "anna",
+      "id": "in6"
+    },
+    {
+      "who": "anna",
+      "id": "in5"
+    },
+    {
+      "who": "you",
+      "id": "in6",
+      "withName": true
+    },
+    {
+      "who": "anna",
+      "id": "gr8",
+      "anim": "wave"
+    },
+    {
+      "who": "anna",
+      "id": "wy6"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.",
+        "en": "To go on, you need to memorise these words. Now we will practise."
+      }
+    }
   ],
-  "practice": ["gr1", "in3", "in4", "in5", "in6", "gr8", "wy6"],
-  "answer_of": { "gr1": "gr1", "in4": "in3", "in6": "in5" }
+  "practice": [
+    "gr1",
+    "in3",
+    "in4",
+    "in5",
+    "in6",
+    "gr8",
+    "wy6"
+  ],
+  "answer_of": {
+    "gr1": "gr1",
+    "in4": "in3",
+    "in6": "in5"
+  }
 }
