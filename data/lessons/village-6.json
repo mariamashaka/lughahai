@@ -1,0 +1,217 @@
+{
+  "id": "village-6",
+  "topic": "communication",
+  "topic_json": "data/topics/a1/vocabulary/communication.json",
+  "extra_topics": [
+    {
+      "topic": "game-anna",
+      "json": "data/topics/a1/game/anna.json"
+    }
+  ],
+  "scenes": {
+    "bedroom": {
+      "bg": "assets/scene/bedroom.png",
+      "color": "#c9ae8a"
+    },
+    "johnhouse": {
+      "bg": "assets/scene/johnhouse.png",
+      "color": "#9fc9ec"
+    },
+    "johnroom": {
+      "bg": "assets/scene/johnroom.png",
+      "color": "#7a4a32"
+    }
+  },
+  "dialogue": [
+    {
+      "who": "anna",
+      "id": "gr8",
+      "scene": "bedroom",
+      "gender": "f"
+    },
+    {
+      "who": "anna",
+      "id": "gm6_hiki_kitanda",
+      "pose": {
+        "anna": "show"
+      },
+      "gender": "f"
+    },
+    {
+      "who": "anna",
+      "id": "gm6_blanketi_mto",
+      "pose": {
+        "anna": null
+      },
+      "gender": "f"
+    },
+    {
+      "who": "you",
+      "id": "gm6_nina_usingizi",
+      "pose": {
+        "hero": "sit"
+      },
+      "gender": "f"
+    },
+    {
+      "who": "you",
+      "id": "po11",
+      "gender": "f"
+    },
+    {
+      "who": "anna",
+      "id": "po4",
+      "gender": "f"
+    },
+    {
+      "who": "anna",
+      "id": "fw6",
+      "gender": "f"
+    },
+    {
+      "who": "you",
+      "id": "fw6",
+      "gender": "f"
+    },
+    {
+      "who": "anna",
+      "id": "fw7",
+      "pose": {
+        "hero": "hide"
+      },
+      "gender": "f",
+      "props": [
+        {
+          "img": "assets/props/sleep_f.png",
+          "x": 34,
+          "y": 50,
+          "w": 110,
+          "back": true
+        }
+      ]
+    },
+    {
+      "who": "you",
+      "id": "gm6_nawe_pia",
+      "gender": "f"
+    },
+    {
+      "who": "anna",
+      "id": "gm6_huyu_johni",
+      "scene": "johnhouse",
+      "npc": "anna",
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "id": "gm6_karibu_johni",
+      "npc": "john",
+      "gender": "m"
+    },
+    {
+      "who": "you",
+      "id": "po11",
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "id": "po4",
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "id": "gm6_hiki_chumba",
+      "scene": "johnroom",
+      "pose": {
+        "anna": "show"
+      },
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "id": "gm6_blanketi_mto",
+      "pose": {
+        "anna": null
+      },
+      "gender": "m"
+    },
+    {
+      "who": "you",
+      "id": "gm6_nina_usingizi",
+      "pose": {
+        "hero": "sit"
+      },
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "id": "fw6",
+      "gender": "m"
+    },
+    {
+      "who": "you",
+      "id": "fw6",
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "id": "fw7",
+      "pose": {
+        "hero": "hide"
+      },
+      "gender": "m",
+      "props": [
+        {
+          "img": "assets/props/sleep_m.png",
+          "x": -38,
+          "y": 62,
+          "w": 110,
+          "back": true
+        }
+      ]
+    },
+    {
+      "who": "you",
+      "id": "gm6_nawe_pia",
+      "gender": "m"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Tazama: Nina kiu, Nina njaa, Nina usingizi. Kila mara huanza na Nina. Hivi ndivyo unavyosema unavyohisi.",
+        "en": "Look: Nina kiu, Nina njaa, Nina usingizi. Every time it starts with Nina. This is how you say how you feel."
+      },
+      "npc": "anna"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Siku ya 1 imeisha. Kesho ni siku mpya.",
+        "en": "Day 1 is over. Tomorrow is a new day."
+      }
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.",
+        "en": "To go on, you need to memorise these words. Now we will practise."
+      }
+    }
+  ],
+  "practice": [
+    "gm6_nina_usingizi",
+    "fw6",
+    "fw7",
+    "gm6_nawe_pia",
+    "po11",
+    "wa2",
+    "wa3"
+  ],
+  "answer_of": {
+    "fw6": "fw6",
+    "fw7": "fw7",
+    "gm6_nawe_pia": "fw7",
+    "po11": "gm6_blanketi_mto",
+    "gm6_nina_usingizi": "gm6_hiki_kitanda"
+  }
+}
