@@ -161,7 +161,7 @@
   </footer>
 
   <script type="module">
-    import { getUser, getUserRoles } from './js/supabase.js'
+    import { getUser, getUserRoles, supabase } from './js/supabase.js'
 
     const i18n = {
       sw: {
@@ -177,7 +177,7 @@
         contrib_btn:"Jiunge sasa",
         culture_label:"HAZINA YA UTAMADUNI",
         culture_empty:"Hakuna maudhui bado.",
-        topics_grammar:"Sarufi", topics_vocab:"Msamiati",
+        topics_grammar:"Sarufi", topics_vocab:"Msamiati", topics_game:"Mchezo",
         level_locked:"Bado haijaanza",
         badge_approved:"Imekubaliwa", badge_review:"Ukaguzi",
         badge_pending:"Bado", badge_progress:"Inaendelea",
@@ -220,7 +220,7 @@
         contrib_btn:"Join now",
         culture_label:"CULTURAL ARCHIVE",
         culture_empty:"No content yet.",
-        topics_grammar:"Grammar", topics_vocab:"Vocabulary",
+        topics_grammar:"Grammar", topics_vocab:"Vocabulary", topics_game:"Game",
         level_locked:"Not started yet",
         badge_approved:"Approved", badge_review:"In review",
         badge_pending:"Pending", badge_progress:"In progress",
@@ -258,6 +258,7 @@
     let currentLevel = 'A1'
     let currentUser  = null
     let userRoles    = []
+    let gameTopics   = []   // темы игры, доступные этому пользователю
 
     window.setLang = function(lang) {
       currentLang = lang
@@ -294,10 +295,31 @@
           `<div style="color:var(--terracotta);padding:var(--space-xl);">Error: ${e.message}</div>`
         return
       }
+      try { await loadGameTopics() } catch(e) { console.warn('game topics', e) }
       renderHero()
       renderLearnBlock()
       renderLevelTabs()
       render()
+    }
+
+    // Темы игры: персонаж виден тому, у кого его роль (hero_voices); модератор и админ видят всех
+    async function loadGameTopics() {
+      gameTopics = []
+      if (!currentUser) return
+      const idx = await (await fetch('data/index.json')).json()
+      const all = idx.filter(x => x.role)
+      if (!all.length) return
+      const isStaff = userRoles.some(r => (r.role === 'moderator' || r.role === 'admin') &&
+        (r.language_id === langData.id || r.language_id === '*'))
+      if (isStaff) { gameTopics = all; return }
+      const { data: sp } = await supabase.from('speakers').select('id, language_ids, assistant_user_id, user_id')
+        .or(`assistant_user_id.eq.${currentUser.id},user_id.eq.${currentUser.id}`)
+      const ids = (sp || []).filter(s => (s.language_ids || []).includes(langData.id)).map(s => s.id)
+      if (!ids.length) return
+      const { data: hv } = await supabase.from('hero_voices').select('hero_role, speaker_id')
+        .eq('language_id', langData.id).in('speaker_id', ids)
+      const roles = new Set((hv || []).map(v => v.hero_role))
+      gameTopics = all.filter(x => roles.has(x.role))
     }
 
     function renderHero() {
@@ -409,6 +431,11 @@
           ${topicCards(lvl.grammar)}
           <div class="section-label" style="margin-top:var(--space-xl);">${t.topics_vocab}</div>
           ${topicCards(lvl.vocabulary)}
+          ${gameTopics.length ? `<div class="section-label" style="margin-top:var(--space-xl);">🎮 ${t.topics_game}</div>
+          ${gameTopics.map(g => `<a href="contributor/topic.html?id=${g.id}&lang=${langData.id}" class="topic-card">
+            <div class="topic-card__name">${g.name ? g.name[nk] : g.id}</div>
+            <div class="topic-card__right"><span class="badge badge--not-started" style="font-size:0.7rem;">${t.badge_pending}</span><span style="color:var(--text-muted);">›</span></div>
+          </a>`).join('')}` : ''}
         ` : ''}
         ${isContributor ? '' : `
           <div class="locked-zone">
