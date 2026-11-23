@@ -1,0 +1,148 @@
+{
+  "id": "village-4",
+  "topic": "communication",
+  "topic_json": "data/topics/a1/vocabulary/communication.json",
+  "extra_topics": [
+    {
+      "topic": "game-anna",
+      "json": "data/topics/a1/game/anna.json"
+    }
+  ],
+  "scenes": {
+    "outbuilding": {
+      "bg": "assets/scene/outbuilding.png",
+      "color": "#c98f5a"
+    },
+    "bath": {
+      "bg": "assets/scene/bath.png",
+      "color": "#4a3f36"
+    }
+  },
+  "dialogue": [
+    {
+      "who": "you",
+      "id": "gm4_nataka_kuoga"
+    },
+    {
+      "who": "anna",
+      "id": "wy6",
+      "anim": "wave",
+      "scene": "outbuilding"
+    },
+    {
+      "who": "anna",
+      "id": "gr8"
+    },
+    {
+      "who": "you",
+      "id": "gm4_bafu_wapi"
+    },
+    {
+      "who": "anna",
+      "id": "gm4_bafu_hapa",
+      "pose": {
+        "anna": "point"
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm4_moto_au_baridi",
+      "pose": {
+        "anna": null
+      }
+    },
+    {
+      "who": "you",
+      "choice": {
+        "key": "water",
+        "options": [
+          {
+            "value": "moto",
+            "id": "gm4_maji_moto"
+          },
+          {
+            "value": "baridi",
+            "id": "gm4_maji_baridi"
+          }
+        ]
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm3_sawa",
+      "scene": "bath"
+    },
+    {
+      "who": "you",
+      "id": "gm4_nipe_sabuni"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_chukua",
+      "pose": {
+        "anna": "give"
+      },
+      "props": []
+    },
+    {
+      "who": "you",
+      "id": "gm4_nipe_taulo"
+    },
+    {
+      "who": "anna",
+      "id": "gm2_chukua",
+      "props": []
+    },
+    {
+      "who": "you",
+      "id": "po11",
+      "pose": {
+        "anna": null,
+        "hero": "bathe"
+      },
+      "props": []
+    },
+    {
+      "who": "you",
+      "id": "gm4_nimemaliza",
+      "pose": {
+        "hero": null
+      }
+    },
+    {
+      "who": "anna",
+      "id": "gm4_vizuri"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Tazama: Nataka kuoga. Nataka ni «nataka», kuoga ni «kuoga». Vivyo hivyo: Nataka kula, Nataka kunywa.",
+        "en": "Look: Nataka kuoga. Nataka means \"I want\", kuoga means \"to wash\". The same way: Nataka kula (I want to eat), Nataka kunywa (I want to drink)."
+      }
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Ili kuendelea, lazima ukariri maneno haya. Sasa tutafanya mazoezi.",
+        "en": "To go on, you need to memorise these words. Now we will practise."
+      }
+    }
+  ],
+  "practice": [
+    "gm4_nataka_kuoga",
+    "gm4_bafu_wapi",
+    "gm4_nipe_sabuni",
+    "gm4_nimemaliza",
+    "po11",
+    "gm4_nipe_taulo",
+    "wa3",
+    "gm2_nataka_maji"
+  ],
+  "answer_of": {
+    "gm4_bafu_wapi": "gr8",
+    "gm4_nipe_sabuni": "gm3_sawa",
+    "gm4_nimemaliza": "gm2_chukua",
+    "gm4_nipe_taulo": "gm2_chukua",
+    "po11": "gm2_chukua"
+  }
+}
