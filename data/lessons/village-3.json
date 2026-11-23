@@ -20,7 +20,8 @@
     },
     {
       "who": "anna",
-      "id": "gm3_karibu_ndani"
+      "id": "gm3_karibu_ndani",
+      "scene": "room"
     },
     {
       "who": "you",
@@ -28,18 +29,32 @@
     },
     {
       "who": "anna",
-      "id": "gm3_karibu_kiti"
+      "id": "gm3_karibu_kiti",
+      "pose": {
+        "hero": "sit"
+      }
     },
     {
       "who": "anna",
       "id": "gm3_nawa_mikono",
-      "cult": [
-        "mikono"
+      "pose": {
+        "anna": "give"
+      },
+      "props": [
+        {
+          "img": "assets/props/basin_jug.png",
+          "x": 0,
+          "y": 58,
+          "w": 26
+        }
       ]
     },
     {
       "who": "you",
-      "id": "po11"
+      "id": "po11",
+      "pose": {
+        "hero": "wash"
+      }
     },
     {
       "who": "anna",
@@ -47,7 +62,12 @@
     },
     {
       "who": "anna",
-      "id": "gm3_chakula_tayari"
+      "id": "gm3_chakula_tayari",
+      "pose": {
+        "hero": "sit",
+        "anna": null
+      },
+      "props": []
     },
     {
       "who": "anna",
@@ -57,8 +77,7 @@
       "who": "anna",
       "id": "gm3_ugali_au_wali",
       "cult": [
-        "ugali",
-        "wali"
+        "ugali"
       ]
     },
     {
@@ -79,11 +98,37 @@
     },
     {
       "who": "anna",
-      "id": "gm3_sawa"
+      "id": "gm3_sawa",
+      "props": [
+        {
+          "img": "assets/props/plate_ugali.png",
+          "x": -5,
+          "y": 60,
+          "w": 24,
+          "if": {
+            "food": "ugali"
+          }
+        },
+        {
+          "img": "assets/props/plate_rice.png",
+          "x": -5,
+          "y": 60,
+          "w": 24,
+          "if": {
+            "food": "wali"
+          }
+        }
+      ],
+      "pose": {
+        "anna": "give"
+      }
     },
     {
       "who": "anna",
-      "id": "gm3_karibu_chakula"
+      "id": "gm3_karibu_chakula",
+      "pose": {
+        "anna": null
+      }
     },
     {
       "who": "you",
@@ -96,9 +141,7 @@
         "food": "ugali"
       },
       "cult": [
-        "ugali",
-        "nyama",
-        "mboga"
+        "ugali"
       ]
     },
     {
@@ -106,12 +149,7 @@
       "id": "gm3_hii_wali",
       "if": {
         "food": "wali"
-      },
-      "cult": [
-        "wali",
-        "nyama",
-        "mboga"
-      ]
+      }
     },
     {
       "who": "you",
@@ -123,7 +161,10 @@
     },
     {
       "who": "you",
-      "id": "gm3_ni_tamu"
+      "id": "gm3_ni_tamu",
+      "pose": {
+        "hero": "eat"
+      }
     },
     {
       "who": "anna",
@@ -131,7 +172,33 @@
     },
     {
       "who": "you",
-      "id": "po3"
+      "id": "po3",
+      "props": [
+        {
+          "img": "assets/props/plate_ugali.png",
+          "x": -5,
+          "y": 60,
+          "w": 24,
+          "if": {
+            "food": "ugali"
+          }
+        },
+        {
+          "img": "assets/props/plate_rice.png",
+          "x": -5,
+          "y": 60,
+          "w": 24,
+          "if": {
+            "food": "wali"
+          }
+        },
+        {
+          "img": "assets/props/cup.png",
+          "x": 11,
+          "y": 60,
+          "w": 8
+        }
+      ]
     },
     {
       "who": "anna",
@@ -181,7 +248,11 @@
     },
     {
       "who": "you",
-      "id": "po10"
+      "id": "po10",
+      "pose": {
+        "hero": null
+      },
+      "props": []
     },
     {
       "who": "anna",
@@ -229,5 +300,11 @@
     "po3": "gm3_kula_kula",
     "po10": "gm3_unataka_tena",
     "wa2": "gm3_karibu_ndani"
+  },
+  "scenes": {
+    "room": {
+      "bg": "assets/scene/room.png",
+      "color": "#6b4a35"
+    }
   }
 }
