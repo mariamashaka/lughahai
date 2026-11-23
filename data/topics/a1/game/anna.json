@@ -27,6 +27,48 @@
           "en": "Here, take it.",
           "ctx_sw": "",
           "ctx_en": ""
+        },
+        {
+          "id": "gm2_twende_kisima",
+          "sw": "Twende kwangu, kuna kisima.",
+          "en": "Come to my place, there is a well.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm2_kisima_pale",
+          "sw": "Kisima kiko pale.",
+          "en": "The well is over there.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm2_maji_baridi",
+          "sw": "Maji ni baridi.",
+          "en": "The water is cold.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm2_nataka_maji",
+          "sw": "Nataka maji.",
+          "en": "I want water.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm2_ninahitaji_maji",
+          "sw": "Ninahitaji maji.",
+          "en": "I need water.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm2_kitu_kingine",
+          "sw": "Unataka kitu kingine?",
+          "en": "Do you want anything else?",
+          "ctx_sw": "",
+          "ctx_en": ""
         }
       ]
     },
@@ -181,6 +223,173 @@
           "id": "gm3_nimeshiba",
           "sw": "Nimeshiba.",
           "en": "I'm full.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "day1_l4",
+      "label": {
+        "sw": "Siku ya 1, somo la 4: Nataka kuoga",
+        "en": "Day 1, lesson 4: I want to wash"
+      },
+      "phrases": [
+        {
+          "id": "gm4_nataka_kuoga",
+          "sw": "Nataka kuoga.",
+          "en": "I want to take a bath.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_bafu_wapi",
+          "sw": "Bafu iko wapi?",
+          "en": "Where is the bathroom?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_bafu_hapa",
+          "sw": "Bafu iko hapa.",
+          "en": "The bathroom is here.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_moto_au_baridi",
+          "sw": "Maji ya moto au ya baridi?",
+          "en": "Hot or cold water?",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_maji_moto",
+          "sw": "Maji ya moto.",
+          "en": "Hot water.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_maji_baridi",
+          "sw": "Maji ya baridi.",
+          "en": "Cold water.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_nipe_sabuni",
+          "sw": "Nipe sabuni, tafadhali.",
+          "en": "Give me soap, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_nipe_taulo",
+          "sw": "Nipe taulo, tafadhali.",
+          "en": "Give me a towel, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_nimemaliza",
+          "sw": "Nimemaliza.",
+          "en": "I'm finished.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm4_vizuri",
+          "sw": "Vizuri!",
+          "en": "Good!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "day1_l5",
+      "label": {
+        "sw": "Siku ya 1, somo la 5: Choo kiko wapi?",
+        "en": "Day 1, lesson 5: Where is the toilet?"
+      },
+      "phrases": [
+        {
+          "id": "gm5_nataka_chooni",
+          "sw": "Nataka kwenda chooni.",
+          "en": "I need to go to the toilet.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm5_choo_pale",
+          "sw": "Choo kiko pale.",
+          "en": "The toilet is over there.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm5_maji_kunawa",
+          "sw": "Nipe maji ya kunawa, tafadhali.",
+          "en": "Give me water to wash my hands, please.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        }
+      ]
+    },
+    {
+      "id": "day1_l6",
+      "label": {
+        "sw": "Siku ya 1, somo la 6: Nina usingizi",
+        "en": "Day 1, lesson 6: I'm sleepy"
+      },
+      "phrases": [
+        {
+          "id": "gm6_hiki_kitanda",
+          "sw": "Hiki ni kitanda chako.",
+          "en": "This is your bed.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm6_blanketi_mto",
+          "sw": "Hapa kuna blanketi na mto.",
+          "en": "Here are a blanket and a pillow.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm6_nina_usingizi",
+          "sw": "Nina usingizi.",
+          "en": "I'm sleepy.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm6_nawe_pia",
+          "sw": "Nawe pia.",
+          "en": "You too.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm6_huyu_johni",
+          "sw": "Huyu ni Johni, jirani yangu.",
+          "en": "This is John, my neighbour.",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm6_karibu_johni",
+          "sw": "Karibu nyumbani kwangu!",
+          "en": "Welcome to my home!",
+          "ctx_sw": "",
+          "ctx_en": ""
+        },
+        {
+          "id": "gm6_hiki_chumba",
+          "sw": "Hiki ni chumba chako.",
+          "en": "This is your room.",
           "ctx_sw": "",
           "ctx_en": ""
         }
