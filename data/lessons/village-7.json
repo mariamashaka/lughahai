@@ -1,0 +1,48 @@
+{
+  "id": "village-7",
+  "topic": "communication",
+  "topic_json": "data/topics/a1/vocabulary/communication.json",
+  "extra_topics": [
+    {
+      "topic": "game-anna",
+      "json": "data/topics/a1/game/anna.json"
+    }
+  ],
+  "scenes": {
+    "yard": {
+      "bg": "assets/scene/yard.png",
+      "color": "#c98f5a"
+    }
+  },
+  "review": {
+    "of": [
+      "village-1",
+      "village-2",
+      "village-3",
+      "village-4",
+      "village-5",
+      "village-6"
+    ],
+    "count": 10
+  },
+  "dialogue": [
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Siku ya kwanza imekwisha.",
+        "en": "The first day is over."
+      },
+      "scene": "yard",
+      "anim": "wave"
+    },
+    {
+      "who": "anna",
+      "say": {
+        "sw": "Tukumbuke siku yetu pamoja!",
+        "en": "Let's remember our day together!"
+      }
+    }
+  ],
+  "practice": [],
+  "answer_of": {}
+}
