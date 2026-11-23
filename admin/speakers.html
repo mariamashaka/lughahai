@@ -211,6 +211,12 @@
           </div>
         </div>
 
+        <div class="form-section-title">Game roles / Roli katika mchezo</div>
+        <div class="form-group form-full">
+          <div id="f_roles_checks" style="display:flex;flex-wrap:wrap;gap:var(--space-md);"></div>
+          <div id="f_roles_note" style="font-size:0.8rem;opacity:.75;margin-top:6px;">Mtu mmoja tu kwa kila jukumu katika lugha moja. Heroes (shujaa/shujaa wa kike) hawarekodiwi — hawana jukumu hapa.</div>
+        </div>
+
         <div style="display:flex;gap:var(--space-md);margin-top:var(--space-lg);">
           <button class="btn btn--primary" onclick="saveSpeaker()" id="saveBtn">💾 Hifadhi</button>
           <button class="btn btn--ghost" onclick="closeForm()">Ghairi / Cancel</button>
@@ -234,6 +240,21 @@ const supabase = createClient(
 );
 
 let allLangs = [];
+const ROLES = [['anna','Anna'],['john','John'],['grace','Grace'],['daniel','Daniel'],['mzee','Mzee']];
+let allVoices = [];   // все строки hero_voices
+async function loadVoices() {
+  const { data } = await supabase.from('hero_voices').select('language_id, hero_role, speaker_id');
+  allVoices = data || [];
+}
+function renderRoles(speakerId) {
+  const box = document.getElementById('f_roles_checks');
+  const nameOf = {};
+  box.innerHTML = ROLES.map(([r, label]) => {
+    const mine = allVoices.some(v => v.hero_role === r && v.speaker_id === speakerId);
+    const other = allVoices.find(v => v.hero_role === r && v.speaker_id !== speakerId);
+    return `<label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" value="${r}" ${mine ? 'checked' : ''} /> ${label}${other ? ' <small style="opacity:.6">(sasa: ' + (window.__spName && window.__spName[other.speaker_id] || 'mwingine') + ')</small>' : ''}</label>`;
+  }).join('');
+}
 
 async function loadLanguages() {
   const res = await fetch('../data/languages.json');
@@ -272,12 +293,15 @@ window.loadSpeakers = async function() {
   if (error || !speakers || !speakers.length) {
     list.innerHTML = `<div class="loading-state">😔 Hakuna wasemaji bado.</div>`; return;
   }
+  window.__spName = Object.fromEntries(speakers.map(s => [s.id, s.full_name.split(' ')[0]]));
+  await loadVoices();
   const payLabel = { paid:'Imelipwa / Paid', partial:'Sehemu / Partial', unpaid:'Haijalipiwa / Unpaid' };
   const payClass = { paid:'payment--paid', partial:'payment--partial', unpaid:'payment--unpaid' };
   list.innerHTML = speakers.map(s => {
     const initials = s.full_name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
     const langs = (s.language_ids||[]).join(', ') || '—';
     const loc = s.current_location || '—';
+    const roles = allVoices.filter(v => v.speaker_id === s.id).map(v => v.hero_role);
     return `<div class="speaker-card">
       <div class="speaker-card__top">
         <div class="speaker-avatar">${initials}</div>
@@ -286,6 +310,7 @@ window.loadSpeakers = async function() {
           <div class="speaker-card__sub">${s.date_of_birth ? new Date(s.date_of_birth).getFullYear()+' · ' : ''}${loc}${s.phone?' · 📞 '+s.phone:''}</div>
           <div class="speaker-card__tags">
             <span class="assistant-badge">🗣 ${langs}</span>
+            ${roles.length ? `<span class="assistant-badge">🎭 ${roles.join(', ')}</span>` : ''}
             ${s.assistant_user_id ? `<span class="assistant-badge">📋 Assistant</span>` : `<span class="assistant-badge">✍️ Self</span>`}
             <span class="payment-badge ${payClass[s.payment_status]||'payment--unpaid'}">💰 ${payLabel[s.payment_status]||'Unpaid'}</span>
           </div>
@@ -311,6 +336,7 @@ function clearForm() {
   document.getElementById('f_quality').value = '';
   document.getElementById('f_tech').value = 'false';
   document.querySelectorAll('#f_languages_checks input').forEach(cb => cb.checked = false);
+  renderRoles(null);
 }
 
 window.openForm = function() {
@@ -357,6 +383,8 @@ window.editSpeaker = async function(id) {
     const cb = document.querySelector(`#f_languages_checks input[value="${lid}"]`);
     if (cb) cb.checked = true;
   });
+  await loadVoices();
+  renderRoles(s.id);
   document.getElementById('formTitle').textContent = '✏️ Edit / Hariri: ' + s.full_name;
   document.getElementById('formPanel').style.display = 'block';
   document.getElementById('formBody').classList.add('open');
@@ -388,11 +416,29 @@ window.saveSpeaker = async function() {
     stop_reason: document.getElementById('f_stop').value || null,
   };
   const editId = document.getElementById('f_id').value;
-  let error;
+  const wanted = [...document.querySelectorAll('#f_roles_checks input:checked')].map(cb => cb.value);
+  const taken = wanted.filter(r => allVoices.some(v => v.hero_role === r && v.speaker_id !== editId && langs.includes(v.language_id)));
+  if (taken.length && !confirm('Jukumu ' + taken.join(', ') + ' tayari lina mtu mwingine. Badilisha? / Role already assigned to someone else. Replace?')) return;
+  let error, spId = editId;
   if (editId) {
     ({ error } = await supabase.from('speakers').update(payload).eq('id', editId));
   } else {
-    ({ error } = await supabase.from('speakers').insert(payload));
+    let r = await supabase.from('speakers').insert(payload).select('id').single();
+    error = r.error; spId = r.data && r.data.id;
+  }
+  if (!error && spId) {
+    for (const lang of langs) {
+      for (const [role] of ROLES) {
+        if (wanted.includes(role)) {
+          const r = await supabase.from('hero_voices').upsert({ language_id: lang, hero_role: role, speaker_id: spId }, { onConflict: 'language_id,hero_role' });
+          if (r.error) { error = r.error; break }
+        } else {
+          const r = await supabase.from('hero_voices').delete().eq('language_id', lang).eq('hero_role', role).eq('speaker_id', spId);
+          if (r.error) { error = r.error; break }
+        }
+      }
+      if (error) break;
+    }
   }
   const msg = document.getElementById('saveMsg');
   if (error) {
