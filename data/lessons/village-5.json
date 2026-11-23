@@ -11,7 +11,8 @@
   "scenes": {
     "outbuilding": {
       "bg": "assets/scene/outbuilding.png",
-      "color": "#c98f5a"
+      "color": "#c98f5a",
+      "place": "outb"
     }
   },
   "dialogue": [
@@ -21,12 +22,12 @@
     },
     {
       "who": "anna",
-      "id": "gm3_sawa",
-      "scene": "outbuilding"
+      "id": "gm3_sawa"
     },
     {
       "who": "you",
-      "id": "wy2"
+      "id": "wy2",
+      "scene": "outbuilding"
     },
     {
       "who": "anna",
