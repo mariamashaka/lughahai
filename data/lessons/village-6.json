@@ -11,15 +11,18 @@
   "scenes": {
     "bedroom": {
       "bg": "assets/scene/bedroom.png",
-      "color": "#c9ae8a"
+      "color": "#c9ae8a",
+      "place": "anna_door"
     },
     "johnhouse": {
       "bg": "assets/scene/johnhouse.png",
-      "color": "#9fc9ec"
+      "color": "#9fc9ec",
+      "place": "john_door"
     },
     "johnroom": {
       "bg": "assets/scene/johnroom.png",
-      "color": "#7a4a32"
+      "color": "#7a4a32",
+      "place": "john_door"
     }
   },
   "dialogue": [
