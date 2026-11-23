@@ -45,7 +45,7 @@
           "img": "assets/props/basin_jug.png",
           "x": 0,
           "y": 58,
-          "w": 26
+          "w": 42
         }
       ]
     },
@@ -104,7 +104,7 @@
           "img": "assets/props/plate_ugali.png",
           "x": -5,
           "y": 60,
-          "w": 24,
+          "w": 33,
           "if": {
             "food": "ugali"
           }
@@ -113,7 +113,7 @@
           "img": "assets/props/plate_rice.png",
           "x": -5,
           "y": 60,
-          "w": 24,
+          "w": 33,
           "if": {
             "food": "wali"
           }
@@ -178,7 +178,7 @@
           "img": "assets/props/plate_ugali.png",
           "x": -5,
           "y": 60,
-          "w": 24,
+          "w": 33,
           "if": {
             "food": "ugali"
           }
@@ -187,7 +187,7 @@
           "img": "assets/props/plate_rice.png",
           "x": -5,
           "y": 60,
-          "w": 24,
+          "w": 33,
           "if": {
             "food": "wali"
           }
@@ -196,7 +196,7 @@
           "img": "assets/props/cup.png",
           "x": 11,
           "y": 60,
-          "w": 8
+          "w": 13
         }
       ]
     },
