@@ -4,6 +4,7 @@
       "id": "kikurya",
       "name": "Kikurya",
       "country": "Tanzania",
+      "countries": ["tz","ke"],
       "region": "East Africa",
       "subregion": "Mara Region",
       "family": "Bantu",
@@ -48,7 +49,6 @@
       "member_plural": "Wakurya",
       "culture": {},
       "images": {
-        "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_1_r3bdv2",
         "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_2_oiiaui"
       }
     },
@@ -56,6 +56,7 @@
       "id": "kinyamwezi",
       "name": "Kinyamwezi",
       "country": "Tanzania",
+      "countries": ["tz"],
       "region": "East Africa",
       "subregion": "Tabora Region",
       "family": "Bantu",
@@ -99,7 +100,6 @@
       "member_plural": "Wanyamwezi",
       "culture": {},
       "images": {
-        "flags": null,
         "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/nyamwezi_2_uzxdyl"
       }
     },
@@ -107,6 +107,7 @@
   "id": "kigogo",
   "name": "Kigogo",
   "country": "Tanzania",
+  "countries": ["tz"],
   "region": "East Africa",
   "subregion": "Dodoma Region",
   "family": "Bantu",
@@ -148,7 +149,6 @@
   "member_plural": "Wagogo",
   "culture": {},
   "images": {
-    "flags": null,
     "map": null
   }
 },
@@ -156,6 +156,7 @@
       "id": "kimakonde",
       "name": "Kimakonde",
       "country": "Tanzania",
+      "countries": ["tz","mz"],
       "region": "East Africa",
       "subregion": "Mtwara Region",
       "family": "Bantu",
@@ -197,7 +198,6 @@
       "member_plural": "Wamakonde",
       "culture": {},
       "images": {
-        "flags": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_1_pndw6m",
         "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/makonde_2_fejwes"
       }
     },
@@ -205,6 +205,7 @@
       "id": "kingurimi",
       "name": "Kingurimi",
       "country": "Tanzania",
+      "countries": ["tz"],
       "region": "East Africa",
       "subregion": "Mara Region (Serengeti District)",
       "family": "Bantu",
@@ -246,7 +247,6 @@
       "member_plural": "Wangurimi",
       "culture": {},
       "images": {
-        "flags": null,
         "map": null
       }
     }
