@@ -18,6 +18,8 @@
     .lang-hero__breadcrumb{font-size:0.78rem;color:var(--green-pale);opacity:0.7;margin-bottom:var(--space-md);}
     .lang-hero__breadcrumb a{color:var(--green-pale);opacity:0.7;}
     .hero-images{display:flex;gap:var(--space-md);align-items:center;flex-shrink:0;flex-wrap:wrap;}
+    .hero-flags{display:flex;gap:var(--space-md);flex-wrap:wrap;margin:var(--space-md) 0 var(--space-lg);}
+    .hero-flag{width:186px;height:126px;image-rendering:pixelated;image-rendering:crisp-edges;display:block;}
     .hero-img{width:140px;height:140px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:0 4px 16px rgba(0,0,0,0.3);}
     .learn-block{background:linear-gradient(135deg,var(--green-deep) 0%,#1a4a3a 100%);border-radius:var(--radius-lg);padding:var(--space-xl) var(--space-2xl);margin-bottom:var(--space-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--space-xl);flex-wrap:wrap;border:1px solid rgba(255,255,255,0.08);}
     .learn-block__text h2{color:var(--cream);margin-bottom:var(--space-sm);}
@@ -64,7 +66,7 @@
     .level-tab.active{background:var(--green-deep);border-color:var(--green-deep);color:var(--cream);}
     .level-tab.locked{opacity:0.4;cursor:not-allowed;}
     @media(max-width:1100px){.three-col{grid-template-columns:1fr 240px;}.three-col>:last-child{grid-column:1/-1;}}
-    @media(max-width:700px){.three-col{grid-template-columns:1fr;}.learn-block{padding:var(--space-lg);}.hero-img{width:100px;height:100px;}}
+    @media(max-width:700px){.three-col{grid-template-columns:1fr;}.learn-block{padding:var(--space-lg);}.hero-img{width:100px;height:100px;}.hero-flag{width:124px;height:84px;}}
   </style>
 </head>
 <body>
@@ -97,6 +99,7 @@
         <div>
           <h1 class="lang-hero__name" id="hero-title">...</h1>
           <div class="lang-hero__tribe" id="hero-tribe"></div>
+          <div class="hero-flags" id="hero-flags"></div>
           <div class="lang-hero__stats">
             <div><div class="lang-hero__stat-value" id="hero-speakers">—</div><div class="lang-hero__stat-label" data-i18n="label_speakers">Wazungumzaji</div></div>
             <div><div class="lang-hero__stat-value" id="hero-done">—</div><div class="lang-hero__stat-label" data-i18n="label_topics_done">Mada zilizokamilika</div></div>
@@ -342,10 +345,17 @@
         document.getElementById('hero-tribe').textContent = `${l.region||''} · ${l.country||''}`
       }
 
+      // Flags of countries where the language is spoken (pixel art, assets/flags/)
+      const CN = {tz:'Tanzania',ke:'Kenya',mz:'Mozambique',ug:'Uganda',rw:'Rwanda',bi:'Burundi',cd:'DR Congo',zm:'Zambia',mw:'Malawi'}
+      document.getElementById('hero-flags').innerHTML = (l.countries || [])
+        .filter(c => CN[c])
+        .map(c => `<img src="assets/flags/${c}.png" class="hero-flag" alt="${CN[c]}" title="${CN[c]}" />`)
+        .join('')
+
       // Show images from languages.json
       const imgDiv = document.getElementById('hero-images')
       if (l.images) {
-        imgDiv.innerHTML = [l.images.flags, l.images.map]
+        imgDiv.innerHTML = [l.images.map]
           .filter(Boolean)
           .map(url => `<img src="${url}" class="hero-img" alt="" />`)
           .join('')
