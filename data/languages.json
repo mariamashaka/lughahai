@@ -11,7 +11,7 @@
       "region": "East Africa",
       "subregion": "Mara Region",
       "family": "Bantu",
-      "speakers": "~600,000",
+      "speakers": "~740,000",
       "tonal": true,
       "status": "active",
       "started": "2026-04",
@@ -302,6 +302,14 @@
             }
           ]
         }
+      },
+      "speakers_note": {
+        "sw": "Tanzania ~424,000 · Kenya ~314,000",
+        "en": "Tanzania ~424,000 · Kenya ~314,000"
+      },
+      "intro": {
+        "en": "Kikurya is the language of the Kurya (Kuria) tribe of Tanzania and Kenya. Fearless warriors, tireless workers, people who speak directly and keep their word. Discover their traditions and language here!",
+        "sw": "Kikurya ni lugha ya kabila la Wakurya (Kuria) wa Tanzania na Kenya. Wapiganaji jasiri, wachapakazi, watu wanaosema ukweli waziwazi na kutimiza ahadi zao. Gundua mila na lugha yao hapa!"
       }
     },
     {
