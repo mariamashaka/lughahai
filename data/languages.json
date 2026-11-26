@@ -4,7 +4,10 @@
       "id": "kikurya",
       "name": "Kikurya",
       "country": "Tanzania",
-      "countries": ["tz","ke"],
+      "countries": [
+        "tz",
+        "ke"
+      ],
       "region": "East Africa",
       "subregion": "Mara Region",
       "family": "Bantu",
@@ -13,36 +16,93 @@
       "status": "active",
       "started": "2026-04",
       "contributors": [
-        { "name": "Priska Morara", "initials": "PM" },
-        { "name": "Chaha Gesase", "initials": "CG" }
+        {
+          "name": "Priska Morara",
+          "initials": "PM"
+        },
+        {
+          "name": "Chaha Gesase",
+          "initials": "CG"
+        }
       ],
-      "moderator": { "name": "Ayeke Gesase", "initials": "AG" },
+      "moderator": {
+        "name": "Ayeke Gesase",
+        "initials": "AG"
+      },
       "levels": {
         "A1": {
           "active": true,
           "topics_total": 12,
           "grammar": [
-            { "id": "pronouns", "status": "approved" },
-            { "id": "nouns", "status": "pending" },
-            { "id": "verb-tenses", "status": "pending" },
-            { "id": "agreement", "status": "pending" },
-            { "id": "being-having", "status": "pending" },
-            { "id": "questions", "status": "pending" }
+            {
+              "id": "pronouns",
+              "status": "approved"
+            },
+            {
+              "id": "nouns",
+              "status": "pending"
+            },
+            {
+              "id": "verb-tenses",
+              "status": "pending"
+            },
+            {
+              "id": "agreement",
+              "status": "pending"
+            },
+            {
+              "id": "being-having",
+              "status": "pending"
+            },
+            {
+              "id": "questions",
+              "status": "pending"
+            }
           ],
           "vocabulary": [
-            { "id": "communication", "status": "pending" },
-            { "id": "person-family", "status": "pending" },
-            { "id": "health-emotions", "status": "pending" },
-            { "id": "home-food", "status": "pending" },
-            { "id": "nature-world", "status": "pending" },
-            { "id": "words", "status": "pending" }
+            {
+              "id": "communication",
+              "status": "pending"
+            },
+            {
+              "id": "person-family",
+              "status": "pending"
+            },
+            {
+              "id": "health-emotions",
+              "status": "pending"
+            },
+            {
+              "id": "home-food",
+              "status": "pending"
+            },
+            {
+              "id": "nature-world",
+              "status": "pending"
+            },
+            {
+              "id": "words",
+              "status": "pending"
+            }
           ],
           "phonetics": []
         },
-        "A2": { "active": false, "topics_total": 0 },
-        "B1": { "active": false, "topics_total": 0 },
-        "B2": { "active": false, "topics_total": 0 },
-        "C1": { "active": false, "topics_total": 0 }
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
       },
       "tribe": "Kurya",
       "member_singular": "Mkurya",
@@ -50,13 +110,207 @@
       "culture": {},
       "images": {
         "map": "https://res.cloudinary.com/diwfef3hg/image/upload/lughahai/image/kuria_2_oiiaui"
+      },
+      "maps": {
+        "legend": [
+          {
+            "color": "#A8442F",
+            "text": {
+              "sw": "Eneo kuu la Wakurya",
+              "en": "Main Kurya area"
+            }
+          },
+          {
+            "color": "#C98266",
+            "text": {
+              "sw": "Wakurya wanaishi pia hapa",
+              "en": "Kurya also live here"
+            }
+          }
+        ],
+        "africa": {
+          "img": "assets/maps/kikurya_africa.png",
+          "extent": [
+            -21,
+            55,
+            39,
+            -37
+          ],
+          "scale": 1.2,
+          "alt": {
+            "sw": "Ramani ya Afrika: Kenya na Tanzania zimeangaziwa",
+            "en": "Map of Africa: Kenya and Tanzania highlighted"
+          },
+          "labels": [
+            {
+              "text": {
+                "sw": "Afrika",
+                "en": "Africa"
+              },
+              "lon": 17,
+              "lat": 8,
+              "size": "xl",
+              "caps": true
+            }
+          ]
+        },
+        "region": {
+          "img": "assets/maps/kikurya_region.png",
+          "extent": [
+            26.9,
+            43.9,
+            5.0,
+            -12.0
+          ],
+          "zoom": [
+            32.9,
+            35.7,
+            -0.2,
+            -3.0
+          ],
+          "scale": 1.35,
+          "alt": {
+            "sw": "Ramani ya Kenya na Tanzania",
+            "en": "Map of Kenya and Tanzania"
+          },
+          "labels": [
+            {
+              "text": "Kenya",
+              "lon": 38.4,
+              "lat": 1.6,
+              "size": "xl",
+              "caps": true
+            },
+            {
+              "text": "Tanzania",
+              "lon": 35.0,
+              "lat": -7.6,
+              "size": "xl",
+              "caps": true
+            },
+            {
+              "text": {
+                "sw": "Ziwa Victoria",
+                "en": "Lake Victoria"
+              },
+              "lon": 31.2,
+              "lat": -2.4,
+              "size": "t",
+              "water": true
+            }
+          ]
+        },
+        "close": {
+          "img": "assets/maps/kikurya_close.png",
+          "extent": [
+            32.9,
+            35.7,
+            -0.2,
+            -3.0
+          ],
+          "alt": {
+            "sw": "Eneo la Wakurya: Tarime, Serengeti, Mara na Migori",
+            "en": "Kurya homeland: Tarime, Serengeti, Mara and Migori"
+          },
+          "labels": [
+            {
+              "text": {
+                "sw": "Ziwa Victoria",
+                "en": "Lake Victoria"
+              },
+              "lon": 33.9,
+              "lat": -0.45,
+              "size": "b",
+              "water": true
+            },
+            {
+              "text": "Sirari",
+              "lon": 33.55,
+              "lat": -0.95,
+              "size": "b",
+              "to": [
+                34.476,
+                -1.2456
+              ],
+              "dot": true
+            },
+            {
+              "text": "Tarime",
+              "lon": 33.55,
+              "lat": -1.5,
+              "size": "b",
+              "to": [
+                34.383,
+                -1.35
+              ],
+              "dot": true
+            },
+            {
+              "text": "Nyamongo",
+              "lon": 34.85,
+              "lat": -1.95,
+              "size": "b",
+              "to": [
+                34.517,
+                -1.467
+              ],
+              "dot": true
+            },
+            {
+              "text": "Migori",
+              "lon": 35.3,
+              "lat": -0.55,
+              "size": "b",
+              "to": [
+                34.55,
+                -0.95
+              ]
+            },
+            {
+              "text": "Serengeti",
+              "lon": 35.25,
+              "lat": -2.55,
+              "size": "b",
+              "to": [
+                34.9,
+                -2.1
+              ]
+            },
+            {
+              "text": "Mara",
+              "lon": 33.7,
+              "lat": -2.55,
+              "size": "b",
+              "to": [
+                33.95,
+                -2.2
+              ]
+            },
+            {
+              "text": "Kenya",
+              "lon": 35.05,
+              "lat": -0.4,
+              "size": "b",
+              "caps": true
+            },
+            {
+              "text": "Tanzania",
+              "lon": 34.9,
+              "lat": -2.88,
+              "size": "b",
+              "caps": true
+            }
+          ]
+        }
       }
     },
     {
       "id": "kinyamwezi",
       "name": "Kinyamwezi",
       "country": "Tanzania",
-      "countries": ["tz"],
+      "countries": [
+        "tz"
+      ],
       "region": "East Africa",
       "subregion": "Tabora Region",
       "family": "Bantu",
@@ -65,7 +319,10 @@
       "status": "active",
       "started": "2026-04",
       "contributors": [
-        { "name": "Shabani", "initials": "SH" }
+        {
+          "name": "Shabani",
+          "initials": "SH"
+        }
       ],
       "moderator": null,
       "levels": {
@@ -73,27 +330,75 @@
           "active": true,
           "topics_total": 12,
           "grammar": [
-            { "id": "pronouns", "status": "pending" },
-            { "id": "nouns", "status": "pending" },
-            { "id": "verb-tenses", "status": "pending" },
-            { "id": "agreement", "status": "pending" },
-            { "id": "being-having", "status": "pending" },
-            { "id": "questions", "status": "pending" }
+            {
+              "id": "pronouns",
+              "status": "pending"
+            },
+            {
+              "id": "nouns",
+              "status": "pending"
+            },
+            {
+              "id": "verb-tenses",
+              "status": "pending"
+            },
+            {
+              "id": "agreement",
+              "status": "pending"
+            },
+            {
+              "id": "being-having",
+              "status": "pending"
+            },
+            {
+              "id": "questions",
+              "status": "pending"
+            }
           ],
           "vocabulary": [
-            { "id": "communication", "status": "pending" },
-            { "id": "person-family", "status": "pending" },
-            { "id": "health-emotions", "status": "pending" },
-            { "id": "home-food", "status": "pending" },
-            { "id": "nature-world", "status": "pending" },
-            { "id": "words", "status": "pending" }
+            {
+              "id": "communication",
+              "status": "pending"
+            },
+            {
+              "id": "person-family",
+              "status": "pending"
+            },
+            {
+              "id": "health-emotions",
+              "status": "pending"
+            },
+            {
+              "id": "home-food",
+              "status": "pending"
+            },
+            {
+              "id": "nature-world",
+              "status": "pending"
+            },
+            {
+              "id": "words",
+              "status": "pending"
+            }
           ],
           "phonetics": []
         },
-        "A2": { "active": false, "topics_total": 0 },
-        "B1": { "active": false, "topics_total": 0 },
-        "B2": { "active": false, "topics_total": 0 },
-        "C1": { "active": false, "topics_total": 0 }
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
       },
       "tribe": "Nyamwezi",
       "member_singular": "Mnyamwezi",
@@ -104,59 +409,112 @@
       }
     },
     {
-  "id": "kigogo",
-  "name": "Kigogo",
-  "country": "Tanzania",
-  "countries": ["tz"],
-  "region": "East Africa",
-  "subregion": "Dodoma Region",
-  "family": "Bantu",
-  "speakers": "~1,400,000",
-  "tonal": null,
-  "status": "active",
-  "started": "2026-08",
-  "contributors": [],
-  "moderator": null,
-  "levels": {
-    "A1": {
-      "active": true,
-      "topics_total": 12,
-      "grammar": [
-        { "id": "pronouns", "status": "pending" },
-        { "id": "nouns", "status": "pending" },
-        { "id": "verb-tenses", "status": "pending" },
-        { "id": "agreement", "status": "pending" },
-        { "id": "being-having", "status": "pending" },
-        { "id": "questions", "status": "pending" }
+      "id": "kigogo",
+      "name": "Kigogo",
+      "country": "Tanzania",
+      "countries": [
+        "tz"
       ],
-      "vocabulary": [
-        { "id": "communication", "status": "pending" },
-        { "id": "person-family", "status": "pending" },
-        { "id": "health-emotions", "status": "pending" },
-        { "id": "home-food", "status": "pending" },
-        { "id": "nature-world", "status": "pending" },
-        { "id": "words", "status": "pending" }
-      ],
-      "phonetics": []
+      "region": "East Africa",
+      "subregion": "Dodoma Region",
+      "family": "Bantu",
+      "speakers": "~1,400,000",
+      "tonal": null,
+      "status": "active",
+      "started": "2026-08",
+      "contributors": [],
+      "moderator": null,
+      "levels": {
+        "A1": {
+          "active": true,
+          "topics_total": 12,
+          "grammar": [
+            {
+              "id": "pronouns",
+              "status": "pending"
+            },
+            {
+              "id": "nouns",
+              "status": "pending"
+            },
+            {
+              "id": "verb-tenses",
+              "status": "pending"
+            },
+            {
+              "id": "agreement",
+              "status": "pending"
+            },
+            {
+              "id": "being-having",
+              "status": "pending"
+            },
+            {
+              "id": "questions",
+              "status": "pending"
+            }
+          ],
+          "vocabulary": [
+            {
+              "id": "communication",
+              "status": "pending"
+            },
+            {
+              "id": "person-family",
+              "status": "pending"
+            },
+            {
+              "id": "health-emotions",
+              "status": "pending"
+            },
+            {
+              "id": "home-food",
+              "status": "pending"
+            },
+            {
+              "id": "nature-world",
+              "status": "pending"
+            },
+            {
+              "id": "words",
+              "status": "pending"
+            }
+          ],
+          "phonetics": []
+        },
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
+      },
+      "tribe": "Gogo",
+      "member_singular": "Mgogo",
+      "member_plural": "Wagogo",
+      "culture": {},
+      "images": {
+        "map": null
+      }
     },
-    "A2": { "active": false, "topics_total": 0 },
-    "B1": { "active": false, "topics_total": 0 },
-    "B2": { "active": false, "topics_total": 0 },
-    "C1": { "active": false, "topics_total": 0 }
-  },
-  "tribe": "Gogo",
-  "member_singular": "Mgogo",
-  "member_plural": "Wagogo",
-  "culture": {},
-  "images": {
-    "map": null
-  }
-},
     {
       "id": "kimakonde",
       "name": "Kimakonde",
       "country": "Tanzania",
-      "countries": ["tz","mz"],
+      "countries": [
+        "tz",
+        "mz"
+      ],
       "region": "East Africa",
       "subregion": "Mtwara Region",
       "family": "Bantu",
@@ -171,27 +529,75 @@
           "active": true,
           "topics_total": 12,
           "grammar": [
-            { "id": "pronouns", "status": "pending" },
-            { "id": "nouns", "status": "pending" },
-            { "id": "verb-tenses", "status": "pending" },
-            { "id": "agreement", "status": "pending" },
-            { "id": "being-having", "status": "pending" },
-            { "id": "questions", "status": "pending" }
+            {
+              "id": "pronouns",
+              "status": "pending"
+            },
+            {
+              "id": "nouns",
+              "status": "pending"
+            },
+            {
+              "id": "verb-tenses",
+              "status": "pending"
+            },
+            {
+              "id": "agreement",
+              "status": "pending"
+            },
+            {
+              "id": "being-having",
+              "status": "pending"
+            },
+            {
+              "id": "questions",
+              "status": "pending"
+            }
           ],
           "vocabulary": [
-            { "id": "communication", "status": "pending" },
-            { "id": "person-family", "status": "pending" },
-            { "id": "health-emotions", "status": "pending" },
-            { "id": "home-food", "status": "pending" },
-            { "id": "nature-world", "status": "pending" },
-            { "id": "words", "status": "pending" }
+            {
+              "id": "communication",
+              "status": "pending"
+            },
+            {
+              "id": "person-family",
+              "status": "pending"
+            },
+            {
+              "id": "health-emotions",
+              "status": "pending"
+            },
+            {
+              "id": "home-food",
+              "status": "pending"
+            },
+            {
+              "id": "nature-world",
+              "status": "pending"
+            },
+            {
+              "id": "words",
+              "status": "pending"
+            }
           ],
           "phonetics": []
         },
-        "A2": { "active": false, "topics_total": 0 },
-        "B1": { "active": false, "topics_total": 0 },
-        "B2": { "active": false, "topics_total": 0 },
-        "C1": { "active": false, "topics_total": 0 }
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
       },
       "tribe": "Makonde",
       "member_singular": "Mmakonde",
@@ -205,7 +611,9 @@
       "id": "kingurimi",
       "name": "Kingurimi",
       "country": "Tanzania",
-      "countries": ["tz"],
+      "countries": [
+        "tz"
+      ],
       "region": "East Africa",
       "subregion": "Mara Region (Serengeti District)",
       "family": "Bantu",
@@ -220,27 +628,75 @@
           "active": true,
           "topics_total": 12,
           "grammar": [
-            { "id": "pronouns", "status": "pending" },
-            { "id": "nouns", "status": "pending" },
-            { "id": "verb-tenses", "status": "pending" },
-            { "id": "agreement", "status": "pending" },
-            { "id": "being-having", "status": "pending" },
-            { "id": "questions", "status": "pending" }
+            {
+              "id": "pronouns",
+              "status": "pending"
+            },
+            {
+              "id": "nouns",
+              "status": "pending"
+            },
+            {
+              "id": "verb-tenses",
+              "status": "pending"
+            },
+            {
+              "id": "agreement",
+              "status": "pending"
+            },
+            {
+              "id": "being-having",
+              "status": "pending"
+            },
+            {
+              "id": "questions",
+              "status": "pending"
+            }
           ],
           "vocabulary": [
-            { "id": "communication", "status": "pending" },
-            { "id": "person-family", "status": "pending" },
-            { "id": "health-emotions", "status": "pending" },
-            { "id": "home-food", "status": "pending" },
-            { "id": "nature-world", "status": "pending" },
-            { "id": "words", "status": "pending" }
+            {
+              "id": "communication",
+              "status": "pending"
+            },
+            {
+              "id": "person-family",
+              "status": "pending"
+            },
+            {
+              "id": "health-emotions",
+              "status": "pending"
+            },
+            {
+              "id": "home-food",
+              "status": "pending"
+            },
+            {
+              "id": "nature-world",
+              "status": "pending"
+            },
+            {
+              "id": "words",
+              "status": "pending"
+            }
           ],
           "phonetics": []
         },
-        "A2": { "active": false, "topics_total": 0 },
-        "B1": { "active": false, "topics_total": 0 },
-        "B2": { "active": false, "topics_total": 0 },
-        "C1": { "active": false, "topics_total": 0 }
+        "A2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B1": {
+          "active": false,
+          "topics_total": 0
+        },
+        "B2": {
+          "active": false,
+          "topics_total": 0
+        },
+        "C1": {
+          "active": false,
+          "topics_total": 0
+        }
       },
       "tribe": "Ngurimi",
       "member_singular": "Mngurimi",
