@@ -127,9 +127,7 @@
           <div class="lang-hero__tribe" id="hero-tribe"></div>
           <div class="hero-flags" id="hero-flags"></div>
           <div class="lang-hero__stats">
-            <div><div class="lang-hero__stat-value" id="hero-speakers">—</div><div class="lang-hero__stat-label" data-i18n="label_speakers">Wazungumzaji</div></div>
-            <div><div class="lang-hero__stat-value" id="hero-done">—</div><div class="lang-hero__stat-label" data-i18n="label_topics_done">Mada zilizokamilika</div></div>
-            <div><div class="lang-hero__stat-value" id="hero-contributors">—</div><div class="lang-hero__stat-label" data-i18n="label_contributors">Wachangiaji</div></div>
+            <div><div class="lang-hero__stat-value" id="hero-speakers">—</div><div class="lang-hero__stat-label" data-i18n="label_speakers">Wazungumzaji</div><div class="lang-hero__stat-label" id="hero-speakers-note" style="margin-top:4px;"></div></div>
           </div>
         </div>
         <div class="lmap" id="hero-maps" hidden></div>
@@ -352,6 +350,26 @@
       gameTopics = all.filter(x => roles.has(x.role))
     }
 
+    // Короткий текст о народе: берётся из languages.json (поле intro), иначе старый шаблон
+    function renderIntro() {
+      const t = i18n[currentLang]
+      const l = langData
+      const el = document.getElementById('hero-tribe')
+      if (l.intro) {
+        el.textContent = l.intro[currentLang] || l.intro.en || ''
+      } else if (l.tribe) {
+        el.textContent = t.tribe_text
+          .replace('{lang}',     l.name)
+          .replace('{tribe}',    l.tribe)
+          .replace('{singular}', l.member_singular || l.tribe)
+          .replace('{plural}',   l.member_plural   || l.tribe)
+      } else {
+        el.textContent = `${l.region||''} · ${l.country||''}`
+      }
+      const note = document.getElementById('hero-speakers-note')
+      if (note) note.textContent = l.speakers_note ? (l.speakers_note[currentLang] || l.speakers_note.en || '') : ''
+    }
+
     function renderHero() {
       const t = i18n[currentLang]
       const l = langData
@@ -359,18 +377,8 @@
       document.getElementById('hero-name').textContent      = l.name
       document.getElementById('hero-title').textContent     = l.name
       document.getElementById('hero-speakers').textContent  = l.speakers || '—'
-      document.getElementById('hero-contributors').textContent = l.contributors ? l.contributors.length : '—'
 
-      if (l.tribe) {
-        const txt = t.tribe_text
-          .replace('{lang}',     l.name)
-          .replace('{tribe}',    l.tribe)
-          .replace('{singular}', l.member_singular || l.tribe)
-          .replace('{plural}',   l.member_plural   || l.tribe)
-        document.getElementById('hero-tribe').textContent = txt
-      } else {
-        document.getElementById('hero-tribe').textContent = `${l.region||''} · ${l.country||''}`
-      }
+      renderIntro()
 
       // Flags of countries where the language is spoken (pixel art, assets/flags/)
       const CN = {tz:'Tanzania',ke:'Kenya',mz:'Mozambique',ug:'Uganda',rw:'Rwanda',bi:'Burundi',cd:'DR Congo',zm:'Zambia',mw:'Malawi'}
@@ -409,6 +417,7 @@
     }
 
     function render() {
+      renderIntro()
       renderLangMaps(document.getElementById('hero-maps'), langData.maps, currentLang)
       renderLeft()
       renderProgress()
@@ -510,7 +519,6 @@
       document.getElementById('prog-approved').textContent = approved
       document.getElementById('prog-review').textContent   = review
       document.getElementById('prog-pending').textContent  = total - approved - review
-      document.getElementById('hero-done').textContent     = approved
     }
 
     function renderInfo() {
