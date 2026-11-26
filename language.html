@@ -20,6 +20,32 @@
     .hero-images{display:flex;gap:var(--space-md);align-items:center;flex-shrink:0;flex-wrap:wrap;}
     .hero-flags{display:flex;gap:var(--space-md);flex-wrap:wrap;margin:var(--space-md) 0 var(--space-lg);}
     .hero-flag{width:186px;height:126px;image-rendering:pixelated;image-rendering:crisp-edges;display:block;}
+    /* карты страницы языка */
+    .lmap{flex:0 1 640px;min-width:0;--g:14px;}
+    .lmap[hidden]{display:none;}
+    .lmap__board{position:relative;display:grid;gap:var(--g);grid-template-columns:calc(2*(100% - 2*var(--g))/3 + var(--g)) calc((100% - 2*var(--g))/3);grid-template-areas:"c a" "c b";}
+    .lmap__card{position:relative;container-type:inline-size;aspect-ratio:1;border:3px solid #E4D8C0;border-radius:6px;overflow:hidden;background:#B4CBC2;}
+    .lmap__card--africa{grid-area:a;}.lmap__card--region{grid-area:b;}.lmap__card--close{grid-area:c;}
+    .lmap__card img{width:100%;height:100%;display:block;image-rendering:pixelated;image-rendering:crisp-edges;max-width:none;}
+    .lmap__card svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+    .lmap__card svg line{stroke:#1b140d;stroke-width:1.6;vector-effect:non-scaling-stroke;}
+    .lmap__dot{position:absolute;width:max(7px,2.2cqw);height:max(7px,2.2cqw);background:#1b140d;border:2px solid #FFF8EA;transform:translate(-50%,-50%);}
+    .lmap__label{position:absolute;transform:translate(-50%,-50%);font-family:var(--font-body);font-weight:700;line-height:1;color:#1b140d;white-space:nowrap;paint-order:stroke fill;-webkit-text-stroke:max(3px,1.1cqw) #FFF8EA;}
+    .lmap__label.is-left{transform:translate(0,-50%);}
+    .lmap__label.is-caps{text-transform:uppercase;letter-spacing:.1em;}
+    .lmap__label.is-water{color:#1f5f56;font-style:italic;}
+    .lmap__conn{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:2;}
+    .lmap__conn line{stroke:#FFF8EA;stroke-width:2;stroke-dasharray:6 5;filter:drop-shadow(0 0 1.5px #1b140d);}
+    .lmap__legend{display:flex;gap:var(--space-lg);flex-wrap:wrap;margin-top:var(--space-md);font-size:0.82rem;color:var(--green-pale);}
+    .lmap__lg{display:inline-flex;align-items:center;gap:8px;}
+    .lmap__lg i{width:14px;height:14px;display:inline-block;border:1px solid rgba(255,255,255,0.5);}
+    @media(max-width:900px){
+      .lmap{flex:1 1 100%;}
+      .lmap__board{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
+      .lmap__card{flex:0 0 84%;scroll-snap-align:center;}
+      .lmap__card--close{order:-1;}
+      .lmap__conn{display:none;}
+    }
     .hero-img{width:140px;height:140px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:0 4px 16px rgba(0,0,0,0.3);}
     .learn-block{background:linear-gradient(135deg,var(--green-deep) 0%,#1a4a3a 100%);border-radius:var(--radius-lg);padding:var(--space-xl) var(--space-2xl);margin-bottom:var(--space-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--space-xl);flex-wrap:wrap;border:1px solid rgba(255,255,255,0.08);}
     .learn-block__text h2{color:var(--cream);margin-bottom:var(--space-sm);}
@@ -96,7 +122,7 @@
         <a href="index.html" data-i18n="nav_home">Nyumbani</a> › <span id="hero-name">...</span>
       </div>
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-xl);flex-wrap:wrap;">
-        <div>
+        <div style="flex:1 1 340px;min-width:0;">
           <h1 class="lang-hero__name" id="hero-title">...</h1>
           <div class="lang-hero__tribe" id="hero-tribe"></div>
           <div class="hero-flags" id="hero-flags"></div>
@@ -106,7 +132,7 @@
             <div><div class="lang-hero__stat-value" id="hero-contributors">—</div><div class="lang-hero__stat-label" data-i18n="label_contributors">Wachangiaji</div></div>
           </div>
         </div>
-        <div class="hero-images" id="hero-images"></div>
+        <div class="lmap" id="hero-maps" hidden></div>
       </div>
     </div>
   </div>
@@ -165,6 +191,7 @@
 
   <script type="module">
     import { getUser, getUserRoles, supabase } from './js/supabase.js'
+    import { renderLangMaps } from './js/lang-maps.js'
 
     const i18n = {
       sw: {
@@ -352,14 +379,6 @@
         .map(c => `<img src="assets/flags/${c}.png" class="hero-flag" alt="${CN[c]}" title="${CN[c]}" />`)
         .join('')
 
-      // Show images from languages.json
-      const imgDiv = document.getElementById('hero-images')
-      if (l.images) {
-        imgDiv.innerHTML = [l.images.map]
-          .filter(Boolean)
-          .map(url => `<img src="${url}" class="hero-img" alt="" />`)
-          .join('')
-      }
     }
 
     function renderLearnBlock() {
@@ -390,6 +409,7 @@
     }
 
     function render() {
+      renderLangMaps(document.getElementById('hero-maps'), langData.maps, currentLang)
       renderLeft()
       renderProgress()
       renderInfo()
