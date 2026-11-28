@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="sw">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Lugha Hai · Mtihani wa afya na pochi / Health and wallet test</title>
+<style>
+  html, body { margin:0; min-height:100%; background:#64abd9; font-family:system-ui, sans-serif; color:#1d2b22; }
+  .ctl { position:relative; margin:130px 12px 24px; display:flex; flex-wrap:wrap; gap:8px; }
+  .ctl button { font:inherit; padding:8px 12px; border-radius:10px; border:2px solid #1d2b22; background:#F7F3EC; cursor:pointer; }
+  .ctl .sep { flex-basis:100%; font-weight:700; margin-top:6px; }
+  pre { margin:0 12px 24px; padding:10px; background:rgba(247,243,236,.92); border-radius:10px; font-size:12px; white-space:pre-wrap; }
+  #log { margin:0 12px; font-size:13px; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="ctl">
+  <div class="sep">Показ</div>
+  <button id="reveal">показать значки (после объяснения)</button>
+  <button id="hintw">подсказка «нажми» на кошельке</button>
+  <button id="reset">сброс</button>
+  <div class="sep">День и еда</div>
+  <button id="day">пройден день (−½)</button>
+  <button id="bread">хлеб (+½)</button>
+  <button id="ugali">угали с махарагве (+1)</button>
+  <div class="sep">Деньги</div>
+  <button id="spend">заплатить 200</button>
+  <button id="zero">деньги на ноль</button>
+  <div class="sep">Болезнь</div>
+  <button id="hurt">болезнь (−1)</button>
+  <button id="hurt3">тяжёлая болезнь (−1,5)</button>
+  <button id="hosp">госпиталь</button>
+  <div class="sep">Окна и язык</div>
+  <button id="prompt">предложить поесть</button>
+  <button id="blocked">показать остановку</button>
+  <button id="lang">SW / EN</button>
+  <button id="gender">герой / героиня</button>
+</div>
+<div id="log"></div>
+<pre id="dump"></pre>
+
+<script src="hud.js"></script>
+<script>
+  const $ = id => document.getElementById(id)
+  let lang = 'sw', gender = 'f', n = 0
+  const say = t => { $('log').textContent = t }
+  const dump = () => { $('dump').textContent = JSON.stringify(LHHud.state(), null, 2) }
+  LHHud.init({
+    langId: 'test', lang, gender, assetBase: 'assets/ui/',
+    onFindFood: () => say('→ карта: стрелки на дом Грейс и магазин'),
+    onEmergencyWork: apply => { say('сцена экстренной работы…'); setTimeout(() => { const r = apply(); say('экстренная работа: +' + r.pay + ' TZS, здоровье −' + r.cost + ' половинки'); }, 400) },
+    onChange: dump,
+  })
+  dump()
+  $('reveal').onclick = () => { LHHud.reveal(); say('значки показаны') }
+  $('hintw').onclick = () => LHHud.hint('wallet')
+  $('reset').onclick = () => { LHHud.reset(); say('сброс') }
+  $('day').onclick = () => { const r = LHHud.dayDone('day-test-' + (++n)); say('день пройден, состояние: ' + r.level); if (r.level === 'hungry' || r.level === 'again') LHHud.showPrompt(); else if (r.level === 'blocked') LHHud.showBlocked() }
+  $('bread').onclick = () => { const r = LHHud.eat(1); say(r.added ? 'хлеб: +½' : 'здоровье не растёт: ' + r.reason) }
+  $('ugali').onclick = () => { const r = LHHud.eat(2); say(r.added ? 'угали: +' + (r.added / 2) : 'здоровье не растёт: ' + r.reason) }
+  $('spend').onclick = () => say(LHHud.spend(200) ? 'заплатил 200' : 'не хватает денег')
+  $('zero').onclick = () => { LHHud.spend(LHHud.state().money); say('денег нет') }
+  $('hurt').onclick = () => LHHud.hurt(1)
+  $('hurt3').onclick = () => LHHud.hurt(3)
+  $('hosp').onclick = () => LHHud.hospital()
+  $('prompt').onclick = () => { if (!LHHud.showPrompt()) say('сейчас не голоден (нужно ≤ 2 сердечек)') }
+  $('blocked').onclick = () => { if (!LHHud.showBlocked()) say('игра не остановлена') }
+  $('lang').onclick = () => { lang = lang === 'sw' ? 'en' : 'sw'; LHHud.setLang(lang); say('язык: ' + lang) }
+  $('gender').onclick = () => { gender = gender === 'f' ? 'm' : 'f'; LHHud.setGender(gender); say('экстренная работа для: ' + (gender === 'f' ? 'героини' : 'героя')) }
+</script>
+</body>
+  </html>
+  
